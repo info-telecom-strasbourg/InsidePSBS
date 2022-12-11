@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "InsidePSBS",
-    "slug": "InsidePSBS",
-    "version": "1.0.0",
+    "slug": "insidepsbs",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,6 +21,7 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -32,7 +33,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "366e4e5f-8273-4ec1-886e-348268c0604a"
+        "projectId": "61177b6a-7651-4fcf-8e36-b10e30374c5c"
       }
     }
   }
