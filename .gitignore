@@ -1,6 +1,7 @@
 node_modules/
 .expo/
 .idea/
+.vscode/
 *.key
 
 # @generated expo-cli sync-b25d41054229aa64f1468014f243adfae8268af2
