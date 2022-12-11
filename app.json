@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Inside PSBS",
-    "slug": "MyApp",
+    "name": "InsidePSBS",
+    "slug": "InsidePSBS",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,14 +25,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.ITS.MyApp"
+      "package": "com.ITS.InsidePSBS"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "c2607f7c-0388-40ef-a762-d1c184ccbaa3"
+        "projectId": "366e4e5f-8273-4ec1-886e-348268c0604a"
       }
     }
   }
