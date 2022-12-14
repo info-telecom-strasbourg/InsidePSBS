@@ -100,8 +100,7 @@ const AgendaTPS = () => {
           name: global.events[i]["title"],
           time: tempsdeb,
           end: tempsfin,
-          height: Math.max(10, Math.floor(Math.random() * 150)),
-
+          desc: desc,
           day: time
         });
 
@@ -129,6 +128,9 @@ const AgendaTPS = () => {
       </TouchableOpacity>
     );
   }
+
+
+  
   return (
     <View style={styles.container}>
       <Agenda

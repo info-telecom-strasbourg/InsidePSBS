@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import AgendaTPS from './page/agenda';
-// import Annonce from './page/annonce';
+import Annonce from './page/annonce';
 import Fouaille from './page/fouaille';
 
 
@@ -42,9 +42,9 @@ function MyTabs() {
   >
     
     <Tab.Screen name="Agenda" component={AgendaTPS} />
-    {/* <Tab.Screen name="Annonce" component={Annonce} /options={{ tabBarBadge: 1 }}*/}
+    <Tab.Screen name="Annonce" component={Annonce} options={{ tabBarBadge: 1 }} />
 
-    {/* <Tab.Screen name="Fouaille" component={Fouaille} /> */}
+    <Tab.Screen name="Fouaille" component={Fouaille} />
     </Tab.Navigator>
   );
 }

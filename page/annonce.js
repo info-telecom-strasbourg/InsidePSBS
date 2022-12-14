@@ -1,8 +1,12 @@
 import React, {Component, useState, useEffect } from 'react';
 import {TouchableHighlight,Linking,Text, StyleSheet, View,FlatList, TextInput,TouchableOpacity, StatusBar } from 'react-native';
-import {Card, Button , Title ,Paragraph } from 'react-native-paper';
-import HTMLView from 'react-native-htmlview';
-import moment from 'moment';
+import {Card, Button,ActivityIndicator,Avatar , Title ,Paragraph } from 'react-native-paper';
+import { WebView } from 'react-native-webview';import moment from 'moment';
+import { style } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
+
+
+
+
 const HomeScreen = (props) => {
     return (
       <View style={styles}>
@@ -17,7 +21,7 @@ const HomeScreen = (props) => {
 
   
   
-  
+  // exemple de data
   // const defaultJSONData = {
   // 	source: {
   // 		id: 'fox-news',
@@ -38,6 +42,10 @@ const HomeScreen = (props) => {
   // };
   
   class Article extends Component {
+    handleClick = () => {
+      console.log("click");
+      }
+  
     render() {
       const {
         titre,
@@ -48,20 +56,35 @@ const HomeScreen = (props) => {
       } = this.props.article;
   
       const time = moment(created_at || moment.now()).fromNow();
-      
+      console.log("contenu",contenu);
+
+      const LeftContent = props => <Avatar.Text {...props} label={asso_club} />
+      const Time = props => <Text style={{fontSize:10}}>{time}</Text> 
+
+
       return (
-        <Card style={styles.container}>
-        <Card.Title style={{alignContent:'center'}} titleStyle={{color:'rgb(102, 153, 255)'}}
-        title={titre}>
+        <Card style={styles.container} onPress={this.handleClick()}>
+        <Card.Title style={style.titleContainer} titleStyle={styles.title}
+        title={titre} left={LeftContent} right={Time}>
         </Card.Title>
-        {/* <Card.Cover source={{ uri: '../assets/image/news-placeholder.png' }} /> */}
-       <Card.Content>
-       <HTMLView
-        value={contenu}
-        stylesheet={styles}
-      />
-        </Card.Content>
+
+        <Card.Content>
+        <Text>
+        <WebView
+          source={{html:'text ici'}}
+        />
+        helloééé
+        {contenu}
+        </Text>
+        </Card.Content>  
+
+      {/* <Card.Actions>
+        <Button>Action 1</Button>
+        <Button>Action 2</Button>
+      </Card.Actions> */}
       </Card>
+
+      
       );
     }
   }
@@ -90,8 +113,8 @@ const Annonce = () => {
     if (loading){
         return (
             <View>
-            <Text>attend</Text>
-          </View>);
+            <ActivityIndicator animating={true} color={'rgb(102, 153, 255)'} />
+            </View>);
       } else {
         return <HomeScreen articles = { articles }/>
     }
@@ -109,9 +132,17 @@ const Annonce = () => {
     android: {elevation: 6},
   });
   
-const styles= StyleSheet.create({
-    container: {
 
+
+
+
+
+
+
+
+  const styles= StyleSheet.create({
+    container: {
+      flex:1,
       marginBottom: 18,
       backgroundColor: '#eee',
       borderRadius: 24,
@@ -137,6 +168,10 @@ const styles= StyleSheet.create({
       alignItems: 'flex-start',
     },
     title:{
+      fontSize: 15,
+      fontWeight: '600',
+      color:'rgb(102, 153, 255)',
+      
     },
     text: {
       fontSize: 18,
