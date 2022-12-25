@@ -12,10 +12,7 @@ import Annonce from './page/annonce';
 import Fouaille from './page/fouaille';
 
 
-const Stack = createStackNavigator();
-const navigatorOptions = {
-  headerShown: true
-};
+
 
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -38,12 +35,14 @@ function MyTabs() {
       },
       tabBarActiveTintColor:'rgb(102, 153, 255)',
       tabBarInactiveTintColor: 'black',
+
     })}
+
   >
     
     <Tab.Screen name="Agenda" component={AgendaTPS} />
     <Tab.Screen name="Annonce" component={Annonce} options={{ tabBarBadge: 1 }} />
-
+    
     <Tab.Screen name="Fouaille" component={Fouaille} />
     </Tab.Navigator>
   );
