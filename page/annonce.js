@@ -43,7 +43,7 @@ const HomeScreen = (props) => {
   
   class Article extends Component {
     handleClick = () => {
-      console.log("click");
+      console.log('click');
       }
   
     render() {
@@ -56,16 +56,15 @@ const HomeScreen = (props) => {
       } = this.props.article;
   
       const time = moment(created_at || moment.now()).fromNow();
-      console.log("contenu",contenu);
 
       const LeftContent = props => <Avatar.Text {...props} label={asso_club} />
       const Time = props => <Text style={{fontSize:10}}>{time}</Text> 
 
 
       return (
-        <Card style={styles.container} onPress={this.handleClick()}>
+        <Card style={styles.container} onPress={()=>this.handleClick()}>
         <Card.Title style={style.titleContainer} titleStyle={styles.title}
-        title={titre} left={LeftContent} right={Time}>
+        title={titre} left={LeftContent} right={Time} titleNumberOfLines={3}>
         </Card.Title>
 
         <Card.Content>
@@ -73,8 +72,8 @@ const HomeScreen = (props) => {
         <WebView
           source={{html:'text ici'}}
         />
-        helloééé
-        {contenu}
+        
+        
         </Text>
         </Card.Content>  
 
