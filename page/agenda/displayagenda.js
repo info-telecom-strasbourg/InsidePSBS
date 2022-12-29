@@ -1,11 +1,10 @@
 import { Agenda, Calendar, LocaleConfig } from 'react-native-calendars';
 import { Card } from 'react-native-paper';
-import moment from 'moment';
 
 import React from 'react';
 import { Text, View,StyleSheet, Image } from 'react-native';
-import { loadItems } from './processagenda';
-import { getDaysOfWeek,nameConfig } from './functionfordisplayagenda';
+import { loadItems, loadItemsforWeek } from './processagenda';
+import { nameConfig,getDayOfWeek} from './functionfordisplayagenda';
 import { label } from './label.js';
 
 nameConfig(); // set the locale for the calendar
@@ -14,13 +13,11 @@ export function DisplayAgenda(events,eventsNumber){
 
   var  today = new Date();
   today = today.toISOString().substring(0, 10);
-  getDaysOfWeek(today);
   console.log(today);
   items=loadItems(events,eventsNumber);
-  // const [items, setItems] = React.useState({});  
-  //   const newItems = {}; 
-  //   Object.keys(items).forEach(key => {newItems[key] = items[key];});
-  //   setItems(newItems);
+  var itemsforWeek={};
+  itemsforWeek=loadItemsforWeek(today,items);
+
   marked=label(events,eventsNumber);
   const renderItem = (item) => {
 
@@ -54,14 +51,23 @@ export function DisplayAgenda(events,eventsNumber){
     <View style={styles.container}>
       <Agenda
         selected={today}
-        // {'2022-12-17': {selected: false, marked: true, selectedColor: 'blue'}}
         markedDates={marked}
         markingType={'multi-dot'}
         firstDay={1}
         enableSwipeMonths={false}
         items={items}
         //loadItemsForMonth renvoie un objet avec datetring day,month,year et timestamp
-        loadItemsForMonth={(date,items) => { console.log('trigger items loading',date.dateString) }}
+        loadItemsForMonth={(date) => { 
+          //ne refresh pas automatiquement donc pas encore fonctionnel
+
+
+          // console.log('le jour choisi',date.dateString) 
+          // itemsforWeek=loadItemsforWeek(date.dateString,items);
+          // console.log('itemsforWeek',itemsforWeek);
+          // return itemsforWeek;
+
+
+        }}
         refreshControl={null}
         showClosingKnob={true}
         onRefresh={() => console.log('refreshing...')}
@@ -69,6 +75,7 @@ export function DisplayAgenda(events,eventsNumber){
         renderItem={renderItem}
         hideExtraDays={true}
         renderDay={(date, item) => { 
+
           // console.log('render day', date, item);
           if (date!= undefined) {
           return(<View style={{ 
@@ -85,7 +92,7 @@ export function DisplayAgenda(events,eventsNumber){
               
             
             }}>
-              <Text>{getDaysOfWeek(item.day)}
+              <Text>{getDayOfWeek(item.day)}
 
               
              {item.day.substring(8,10)}</Text></View>);

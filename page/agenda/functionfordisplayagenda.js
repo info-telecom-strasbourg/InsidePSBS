@@ -3,13 +3,12 @@ import moment from 'moment';
 
 
 
-export function getDaysOfWeek(date){
-    const dayOfWeek = moment(date).day();
-    console.log(dayOfWeek);
-    dayNames= ['Dim.','Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.',];
-    return(dayNames[dayOfWeek]) ;
-  }
-  
+export function getDayOfWeek(date){
+  const dayOfWeek = moment(date).day();
+  dayNames= ['Dim.','Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.',];
+  return(dayNames[dayOfWeek]) ;
+}
+
 
   export function nameConfig() {
 

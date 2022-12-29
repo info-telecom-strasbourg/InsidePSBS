@@ -43,7 +43,9 @@ export function label(events,eventsNumber){
 
         //permet de vérifier si il n'y a pas de doublon
         if (markedDates[date].dots.includes(eval(events[i].group)))
-        {console.log("il y a un double le ",date,"pour",events[i].group);}
+        {
+          // console.log("il y a un double le ",date,"pour",events[i].group);
+        }
         //si il n'y a pas de doublon on ajoute le point
         else{
         markedDates[date].dots.push(eval(events[i].group));}

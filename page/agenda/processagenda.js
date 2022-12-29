@@ -1,3 +1,4 @@
+import moment from 'moment';
 
 //fonction de parsing de date (plus utile ?)
 function tranferDate(date) {
@@ -13,7 +14,27 @@ function tranferDate(date) {
 }
 
 
+export function getDaysOfWeek(date){
+  const dayOfWeek = moment(date).day();
+  var dates=[];
+  for (let i = 0; i < 7; i++)
+  {
+    dates.push(moment(date).add(i-dayOfWeek+1,'days').format('YYYY-MM-DD'));
+  }  
+  return dates;
 
+}
+
+export function loadItemsforWeek(date,items){
+  var itemsforWeek={};
+  var dates=getDaysOfWeek(date);
+
+  itemsforWeek[date]=items[date];
+  console.log('itemsforWeek',itemsforWeek);
+  return itemsforWeek;
+
+
+}
 export function loadItems(events,eventsNumber){
     var items = {};
     var nbrevent = eventsNumber;

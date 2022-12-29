@@ -67,10 +67,10 @@ function MyTabs() {
     <Tab.Screen name="Agenda" component={AgendaTPS}
     options={{  }}
      />
-    <Tab.Screen name="Annonce" component={Annonce} options={{ tabBarBadge: 1, }} />    
+    {/* <Tab.Screen name="Annonce" component={Annonce} options={{ tabBarBadge: 1, }} />    
     <Tab.Screen name="Fouaille" component={Fouaille}
             options={{  }}
-             />
+             /> */}
     {/* <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarBadge: 1, header: () => headBar() }} /> */}
     </Tab.Navigator>
   );
