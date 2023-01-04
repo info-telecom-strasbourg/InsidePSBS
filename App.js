@@ -1,8 +1,9 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {Text,Image, StatusBar, StyleSheet, View, TouchableOpacity} from 'react-native';
+import {Text,Image, StatusBar, StyleSheet, View, TouchableOpacity, useWindowDimensions} from 'react-native';
 import { NavigationContainer,useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -10,15 +11,17 @@ import AgendaTPS from './page/agenda';
 import Annonce from './page/annonce';
 import Fouaille from './page/fouaille';
 import ProfilePage from './page/profile';
+import Connexion from './page/connexion';
+import { returnKeyLabel } from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
+
 
 //définit la barre en haut de l'écran (en dessous de la status bar)
 function HeadBar() {
+
   // const navigation = useNavigation();
-  var testcount=0;
 
   function handlePress() {
     console.log('profile Pressed!');
-
     // navigation.navigate('ProfilePage');
   }
   return (
@@ -67,27 +70,59 @@ function MyTabs() {
     <Tab.Screen name="Agenda" component={AgendaTPS}
     options={{  }}
      />
-    {/* <Tab.Screen name="Annonce" component={Annonce} options={{ tabBarBadge: 1, }} />    
+    <Tab.Screen name="Annonce" component={Annonce} options={{   Badge: 1, }} />    
     <Tab.Screen name="Fouaille" component={Fouaille}
             options={{  }}
-             /> */}
+             />
+    {/* <Tab.Screen name="connexion" component={connexion} options={{ tabBarBadge: 1 }} /> */}
     {/* <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarBadge: 1, header: () => headBar() }} /> */}
     </Tab.Navigator>
   );
 }
 //pour l'option de badge  voir avec content context
 export default function App() {
-  return (
-    <>
-    
-    <HeadBar/>
-    <StatusBar barStyle="light-content" backgroundColor='white' />
-
+  const [Loading, setLoading] = React.useState(true);
+  const [Logged, setLogged] = React.useState(false);
+  AsyncStorage.getItem('logged').then((value) => {setLogged(value);setLoading(false);})
+  if (Loading==true){
+    console.log("loading true");
+    return (
+      <>
+      <HeadBar/>
+      <StatusBar barStyle="light-content" backgroundColor='white' />
+      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+        <Text>Loading...</Text>
+      </View>
+      </>
+    )
+  }
+  else{
+    if (Logged){
+      console.log("loading false logged true"); 
+    return (
+      <>    
+      <HeadBar/>
+      <StatusBar barStyle="light-content" backgroundColor='white' />
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
+      </>
+    );
+  }
+  else{
+    console.log("loading false logged false");
+    return(
     <NavigationContainer>
-      <MyTabs />
+      <HeadBar/>
+      <StatusBar barStyle="light-content" backgroundColor='white' />
+      <Connexion/>
     </NavigationContainer>
-    </>
-  );
+    );
+  }
+}
+
+
+
 }
 
 const styles = StyleSheet.create({

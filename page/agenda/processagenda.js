@@ -17,9 +17,9 @@ function tranferDate(date) {
 export function getDaysOfWeek(date){
   const dayOfWeek = moment(date).day();
   var dates=[];
-  for (let i = 0; i < 7; i++)
+  for (let i = 0; i < 8-dayOfWeek; i++)
   {
-    dates.push(moment(date).add(i-dayOfWeek+1,'days').format('YYYY-MM-DD'));
+    dates.push(moment(date).add(i,'days').format('YYYY-MM-DD'));
   }  
   return dates;
 
@@ -30,11 +30,14 @@ export function loadItemsforWeek(date,items){
   var dates=getDaysOfWeek(date);
 
   itemsforWeek[date]=items[date];
-  console.log('itemsforWeek',itemsforWeek);
   return itemsforWeek;
 
 
 }
+
+
+// DTSTART;VALUE=DATE:20230109
+// DTEND;VALUE=DATE:20230129
 export function loadItems(events,eventsNumber){
     var items = {};
     var nbrevent = eventsNumber;
