@@ -1,4 +1,4 @@
-import { Agenda, Calendar, LocaleConfig } from 'react-native-calendars';
+import { Agenda, CalendarProvider, LocaleConfig } from 'react-native-calendars';
 import { Card } from 'react-native-paper';
 import moment from 'moment';
 import React from 'react';
@@ -46,6 +46,7 @@ export function DisplayAgenda(events,eventsNumber){
 
   return (
     <View style={styles.container}>
+      <CalendarProvider>
       <Agenda
         selectedDay={today}
         markedDates={marked}
@@ -125,7 +126,7 @@ export function DisplayAgenda(events,eventsNumber){
         style={{ backgroundColor: 'white' , }}
 
       />
-
+      </CalendarProvider>
 
     </View>
   );

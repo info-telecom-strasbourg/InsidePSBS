@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {Text,Image, StatusBar, StyleSheet, View, TouchableOpacity, useWindowDimensions} from 'react-native';
+import {Text,Image, StatusBar, StyleSheet, View, TouchableOpacity, } from 'react-native';
 import { NavigationContainer,useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,7 +12,6 @@ import Annonce from './page/annonce';
 import Fouaille from './page/fouaille';
 import ProfilePage from './page/profile';
 import Connexion from './page/connexion';
-import { returnKeyLabel } from 'deprecated-react-native-prop-types/DeprecatedTextInputPropTypes';
 
 
 //définit la barre en haut de l'écran (en dessous de la status bar)
