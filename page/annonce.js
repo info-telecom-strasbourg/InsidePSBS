@@ -24,10 +24,6 @@ const Annonce = () => {
     useEffect(()=>{
       fetch(URL)
       .then((response) => response.json())
-      .then((responseJson) => {
-
-        return responseJson;
-      })
       .then( responseJson  => {
         setArticles(responseJson);
         setLoading(false);
