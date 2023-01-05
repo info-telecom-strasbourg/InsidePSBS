@@ -46,9 +46,9 @@ export function DisplayAgenda(events,eventsNumber){
 
   return (
     <View style={styles.container}>
-      <CalendarProvider>
+      <CalendarProvider date={today}>
       <Agenda
-        selectedDay={today}
+        selected={today}
         markedDates={marked}
         markingType={'multi-dot'}
         firstDay={1}

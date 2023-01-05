@@ -29,12 +29,12 @@ export class Article extends Component {
 
       //défini le logo visible à gauche de la "card"
       const LeftContent =()=> DisplayLogo(asso_club);
-      const Images=ProcessImagePath(fichiers);
+      // const Images=ProcessImagePath(fichiers);
 
-      if (Images!= undefined){
-        console.log(Images[0]);
-        const url="app.its-tps.fr"+Images[0];
-      };
+      // if (Images!= undefined){
+      //   console.log(Images[0]);
+      //   const url="app.its-tps.fr"+Images[0];
+      // };
 
       if (this.toggle){
         return (
