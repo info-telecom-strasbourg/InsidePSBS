@@ -6,6 +6,7 @@ import { Text, View,StyleSheet, Image } from 'react-native';
 import { loadItems,getDaysOfWeek  } from './processagenda';
 import { nameConfig,getDayOfWeek} from './functionfordisplayagenda';
 import { label } from './label.js';
+import { primaryColor,orangeColor,lightprimaryColor } from '../../style';
 
 nameConfig(); // set the locale for the calendar
 function renderItem(item,daysforWeek){
@@ -120,10 +121,40 @@ export function DisplayAgenda(events,eventsNumber){
           </View>;
         }}
         theme={{
+          backgroundColor: primaryColor,
+          calendarBackground: primaryColor,
+          dayTextColor: 'white',
+          agendaKnobColor: orangeColor,
+          todayBackgroundColor: primaryColor,
+          selectedDayBackgroundColor: orangeColor, // calendar sel date
+          monthTextColor: 'white', // name in calendar
+          agendaTodayColor: 'white', // today in list
+          textInactiveColor : primaryColor, // date in calendar
+          textDisabledColor: primaryColor, // date in calendar
+          contentStyle: {backgroundColor: primaryColor},
+          'stylesheet.agenda.main': {
+            knobContainer: {
+            flex: 1,
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            height: 24,
+            bottom: 0,
+            alignItems: 'center',
+            backgroundColor: lightprimaryColor,
+            borderRadius: 25,
+          },
+          reservations: {
 
-          agendaKnobColor: 'orange'
-        }}
-        style={{ backgroundColor: 'white' , }}
+          flex: 1,
+          marginTop: 114,
+          backgroundColor: primaryColor
+          }
+        },
+
+        }
+
+        }
 
       />
       </CalendarProvider>
@@ -136,7 +167,8 @@ export function DisplayAgenda(events,eventsNumber){
 
 const styles = StyleSheet.create({
   eventCard: {
-    
+    marginLeft: 5,
+    marginRight: 10,
     marginTop: 5,
     justifyContent: 'center',
     marginBottom: 5,
@@ -149,6 +181,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: primaryColor
+
   },
 
   textcentrale: {

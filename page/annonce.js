@@ -1,20 +1,21 @@
 import React, {Component, useState, useEffect } from 'react';
-import {TouchableHighlight,Linking,Text, StyleSheet, View,FlatList, TextInput,TouchableOpacity, StatusBar } from 'react-native';
+import {TouchableHighlight,Linking,Text,SafeAreaView, StyleSheet, View,FlatList, TextInput,TouchableOpacity, StatusBar, ScrollView } from 'react-native';
 import {Card, Button,ActivityIndicator,Avatar , Title ,Paragraph } from 'react-native-paper';
 import {Article} from './annonce/article.js';
-
+import {styles,primaryColor} from '../style.js';
+import LoadingPage from './loadingpage.js';
 
 
 const HomeScreen = (props) => {
     return (
-      <View >
-      <FlatList 
-        data={props.articles}
-        renderItem={({ item }) => <Article article={item} />}
-        keyExtractor={(item) => item.id}/>      
-      </View>
+        <SafeAreaView style={styles.background}>
+          <FlatList 
+            data={props.articles}
+            renderItem={({ item }) => <Article article={item} />}
+            keyExtractor={(item) => item.id}/>  
+        </SafeAreaView>
     );
-  }
+  };
 
 
 const Annonce = () => {
@@ -34,14 +35,11 @@ const Annonce = () => {
       });
   
     } , []);
-  
-    if (loading){
-        return (
-            <View>
-            <ActivityIndicator animating={true} color={'rgb(102, 153, 255)'} />
-            </View>);
-      } else {
-        return <HomeScreen articles = { articles }/>
+    if (loading) {
+      return <LoadingPage/>;
+    }
+    else{
+      return <HomeScreen articles = { articles }/>;
     }
   };
 

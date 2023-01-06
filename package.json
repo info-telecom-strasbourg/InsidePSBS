@@ -22,7 +22,6 @@
     "moment": "^2.29.4",
     "react": "18.1.0",
     "react-native": "0.70.5",
-    "react-native-calendar": "^0.13.1",
     "react-native-calendars": "^1.1290.0",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.8.0",
