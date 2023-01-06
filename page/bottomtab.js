@@ -46,8 +46,8 @@ export default function BottomTab() {
         },
         tabBarActiveTintColor:'white',
         tabBarInactiveTintColor: 'lightslategrey',
-        headerShown: false  
-  
+        headerShown: false  ,
+        contentStyle: { backgroundColor: primaryColor }  
       })}
        
     >

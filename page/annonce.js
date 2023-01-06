@@ -8,12 +8,15 @@ import LoadingPage from './loadingpage.js';
 
 const HomeScreen = (props) => {
     return (
-        <SafeAreaView style={styles.background}>
+      <>
+        <SafeAreaView style={{backgroundColor:primaryColor,paddingTop:20}}>
           <FlatList 
             data={props.articles}
             renderItem={({ item }) => <Article article={item} />}
-            keyExtractor={(item) => item.id}/>  
+            keyExtractor={(item) => item.id}/> 
         </SafeAreaView>
+        <View style={{ backgroundColor:primaryColor,height:50, flex:1}}/>
+      </>
     );
   };
 

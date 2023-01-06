@@ -22,6 +22,7 @@
     "moment": "^2.29.4",
     "react": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-background-color": "^0.0.8",
     "react-native-calendars": "^1.1290.0",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.8.0",

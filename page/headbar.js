@@ -3,7 +3,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {Text,Image, View, TouchableOpacity } from 'react-native';
 import {useNavigation } from '@react-navigation/native';
-import style,{primaryColor,headbarparams} from '../style';
+import style,{primaryColor,lightprimaryColor,headbarparams} from '../style';
 
 
 //définit la barre en haut de l'écran (en dessous de la status bar)
@@ -14,7 +14,7 @@ export default function HeadBar() {
 
     const navigation = useNavigation();
     return (
-      <View style={{alignItems:'stretch',flexDirection:'row',height:headbarparams.HeadBarHeight,backgroundColor:primaryColor,borderBottomColor:'white' }}>
+      <View style={{alignItems:'stretch',flexDirection:'row',height:headbarparams.HeadBarHeight,backgroundColor:primaryColor,borderBottomWidth:1, borderBottomColor:lightprimaryColor }}>
       <Image 
         style={{alignSelf:'flex-end', resizeMode:"contain", width: headbarparams.LIconSize, height: headbarparams.LIconSize, marginStart: headbarparams.LIconMarginLeft}}
         source={require('../assets/iconInsidePSBS.png')}
