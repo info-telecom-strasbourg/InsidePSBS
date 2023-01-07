@@ -4,8 +4,8 @@ Application mobile dédiée à la vie étudiante à TPS et à l'ESBS.
 
 ## Packets requis :
 
- - npm
- - expo / expo-cli
+ - npm / nodejs
+ - expo-cli
  - eas-cli
 
 ## Installation :
