@@ -47,13 +47,14 @@ export default function BottomTab() {
         tabBarActiveTintColor:'white',
         tabBarInactiveTintColor: 'lightslategrey',
         headerShown: false  ,
-        contentStyle: { backgroundColor: primaryColor }  
+        contentStyle: { backgroundColor: primaryColor }  ,
+        unmountOnBlur: true
       })}
        
     >
       
       <Tab.Screen name="Agenda" component={AgendaTPS}
-      options={{animation: 'fade'  }}
+      options={{animation: 'fade',}}
        />
       <Tab.Screen name="Annonce" component={Annonce} options={{animation: 'fade'}} />    
       <Tab.Screen name="Fouaille" component={Fouaille}

@@ -19,9 +19,12 @@ export class Article extends Component {
         contenu,
         created_at,
         asso_club,
-        fichiers
+        fichiers,
+        supprimé
       } = this.props.article;
-
+      if (supprimé){
+       return null;
+      }
 
       //définition du temps depuis lequel la publication a été postée
       const time = moment(created_at || moment.now()).fromNow();

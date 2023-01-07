@@ -3,6 +3,8 @@ import { WebView } from 'react-native-webview';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+var deburr = require('lodash.deburr');
+
 async function getAuth(props,navigation) {
   if (props.loading==false && props.url=='https://app.its-tps.fr/app-login'){
   try {
@@ -17,10 +19,15 @@ async function getAuth(props,navigation) {
 }
 
 async function login(data){
-  username=data["uid"];
-  console.log(username);
+  displayName=data["displayName"];
+  [prenom,nom]=displayName.split(" ");
+  nom=nom.toLowerCase();
+  prenom=prenom.toLowerCase();
+  nom=deburr( nom, );
+  prenom=deburr( prenom, );
+  await AsyncStorage.setItem('nom',nom);
+  await AsyncStorage.setItem('prenom',prenom);
   await AsyncStorage.setItem('logged',"true" );
-  await AsyncStorage.setItem('username', username);
   await AsyncStorage.setItem('displayName',data["displayName"]);
   await AsyncStorage.setItem('mail',data["mail"]);
   await AsyncStorage.setItem('udsDisplayName',data["udsDisplayName"]);

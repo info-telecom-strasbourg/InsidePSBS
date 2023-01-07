@@ -7,6 +7,7 @@ import { loadItems,getDaysOfWeek  } from './processagenda';
 import { nameConfig,getDayOfWeek} from './functionfordisplayagenda';
 import { label } from './label.js';
 import { primaryColor,orangeColor,lightprimaryColor } from '../../style';
+import { DisplayLogo } from '../annonce/displaylogo.js';
 
 nameConfig(); // set the locale for the calendar
 function renderItem(item,daysforWeek){
@@ -16,10 +17,12 @@ function renderItem(item,daysforWeek){
         <Card.Content>
 
           <View style={{flexDirection:'row'}}>
-
+            <View style={{flex:1}}>
+            {DisplayLogo(item.group)}
+            </View>
             <View style={{flex:2}}>
 
-            <Text>{item.group} : {item.name}</Text>
+            <Text style={{textAlign:'justify'}}> {item.name}</Text>
             </View>
 
             <View style={{flex:1}}>
@@ -179,6 +182,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     flex: 0.1,
   },
+  emptydata: {
+      flex: 1,
+      backgroundColor: primaryColor,
+      marginTop: 50
+  
+    },
   container: {
     flex: 1,
     backgroundColor: primaryColor
@@ -187,12 +196,15 @@ const styles = StyleSheet.create({
 
   textcentrale: {
     textAlign: 'center',
+    color: 'white',
+    fontSize: 15,
 
   },
   heure: {
     textAlign: 'right',
     marginRight: 0,
     color: 'gray',
+    fontSize: 12,
   },
   Imagecentrale: {
     width: 200,

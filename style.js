@@ -22,10 +22,40 @@ export const styles= StyleSheet.create({
   container: {
     flex: 1
   },
-  welcome: {
-    fontSize: 20
+  FouailleContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    borderRadius:50,
+    marginTop:30,
+    margin:20,
+    height: 100,
+    flexDirection:'row',
+    justifyContent:'space-between'
+
+  },
+  TextinFouailleContainer: {
+    fontSize:20,
+    flex:1
+  },
+  appButtonContainer: {
+    height: 50,
+    width: 200,
+    alignSelf:'center',
+    elevation: 8,
+    backgroundColor: "#009688",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
   }
-  
+
 
 
 

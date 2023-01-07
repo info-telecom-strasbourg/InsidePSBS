@@ -23,6 +23,8 @@ const Hercule = {key: 'Hercule', color: 'mediumvioletred'};
 const Fatness = {key: 'Fatness', color: 'blue'};
 const Liste1 = {key: 'Liste1', color: 'green'};
 const Liste2 = {key: 'Liste2', color: 'red'};
+const Liste3 = {key: 'Liste3', color: 'blue'};
+const Liste4 = {key: 'Liste4', color: 'yellow'};
 
 
 
