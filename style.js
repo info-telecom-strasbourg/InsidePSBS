@@ -18,18 +18,19 @@ export const styles= StyleSheet.create({
     },
     background: {
         backgroundColor: primaryColor,
+        height:'1%'  
     },
   container: {
     flex: 1
   },
   FouailleContainer: {
-    flex: 1,
+    flex: 0,
     backgroundColor: '#fff',
     alignItems: 'center',
     borderRadius:50,
     marginTop:30,
     margin:20,
-    height: 100,
+    height: 120,
     flexDirection:'row',
     justifyContent:'space-between'
 
@@ -37,6 +38,18 @@ export const styles= StyleSheet.create({
   TextinFouailleContainer: {
     fontSize:20,
     flex:1
+  },
+  TransacContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    borderRadius:50,
+    
+    margin:20,
+    height: 40,
+    flexDirection:'row',
+    justifyContent:'space-between'
+
   },
   appButtonContainer: {
     height: 50,

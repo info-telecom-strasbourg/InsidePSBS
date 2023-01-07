@@ -25,6 +25,16 @@ export class Article extends Component {
       if (supprimé){
        return null;
       }
+      if (fichiers!=null)
+      {
+        pathArticleCover=ProcessImagePath(fichiers)[0];
+        pathArticleCover=pathArticleCover.replace('"','');
+        pathArticleCover=pathArticleCover.replace('"','');
+        const url='https://app.its-tps.fr/'+pathArticleCover;
+        console.log(url);
+        this.ImageCover=url;
+      }else{ this.ImageCover=(null);};
+
 
       //définition du temps depuis lequel la publication a été postée
       const time = moment(created_at || moment.now()).fromNow();
@@ -47,27 +57,26 @@ export class Article extends Component {
           </Card.Title> 
           <Card.Content>
             <HtmlText style={{lineHeight:20, marginBottom:-10,textAlign:'justify'}} html={contenu}></HtmlText>
-          </Card.Content>  
-        </Card>  
-        
-        
+          </Card.Content>
+        </Card>    
         );
       }
       else {
         return (
-          <Card style={styles.container} onPress={()=>this.handleClick()}>
+          <>
+          <Card mode='outline' style={styles.container} onPress={()=>this.handleClick()}>
           <Card.Title style={styles.titleContainer} titleStyle={styles.title} leftStyle={styles.avatar} rightStyle={styles.timestamp}
           title={titre} left={LeftContent} right={Time} titleNumberOfLines={2}>
-          </Card.Title>
+          </Card.Title>  
         </Card>
-  
         
+        </>
         );
-      }
+
 
     }
   }
-
+}
   const boxShadow = Platform.select({
     ios: {
       shadowColor: '#000',
@@ -75,10 +84,10 @@ export class Article extends Component {
         width: 0,
         height: 0,
       },
-      shadowOpacity: 0.4,
-      shadowRadius: 4,
+      shadowOpacity: 0.6,
+      shadowRadius: 10,
     },
-    android: {elevation: 6},
+    android: {elevation: 60},
   });
   
 
@@ -94,29 +103,36 @@ export class Article extends Component {
       flex:1,
       marginBottom: 10,
       backgroundColor: '#eee',
-      borderRadius: 24,
+      borderRadius: 50,
       marginHorizontal: 10,
+      borderWidth: 1,
+      borderColor: '#eee',
       
       ...boxShadow,
     },
     imageContainer: {flex: 1},
     image: {
-      flex: 1,
-      borderRadius: 24,
-      height: 300,
+      
+      borderRadius: 50,
+      borderBottomLeftRadius: 50,
+
+      backgroundColor:'red'
+
     },
     titleContainer: {
-      justifyContent: 'flex-end',
+      justifyContent: 'space-around',
       alignItems: 'flex-start',
     },
     title:{
       top:8,
+      textAlign:'center',
       fontSize: 13,
       fontWeight: '600',
       color:'rgb(102, 153, 255)',
       
     },
     text: {
+      textAlign:'center',
       fontSize: 18,
       fontWeight: '600',
       lineHeight: 24,

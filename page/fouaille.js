@@ -1,8 +1,9 @@
 import React, {useState, useEffect } from 'react';
 import { StyleSheet,Text, View, TextInput,RefreshControl,TouchableOpacity, StatusBar, Button, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import {LoadingPage} from './loadingpage';
+import moment from 'moment';
 import sha256 from 'js-sha256';
 
 import {API_KEY} from '../config';
@@ -75,6 +76,7 @@ const Fouaille = () => {
     
 
     return (
+      <>
     <ScrollView         
     refreshControl={
         <RefreshControl
@@ -82,6 +84,7 @@ const Fouaille = () => {
           onRefresh={()=>{setShouldRefresh(true)}}
            />
                     }
+    style={{maxHeight:170, backgroundColor:primaryColor}}
     >
         <View style={styles.background}>
             <View style={styles.FouailleContainer}>
@@ -89,17 +92,60 @@ const Fouaille = () => {
                   Carte fouaille : {"\n"}
                   {Note+"€"}
                 </Text>
-
                 <Image source={require('../assets/fouaille/bag.png')} style={{resizeMode:'contain',height:70, flex:1,marginRight:20}} />
-
-
-
             </View>
         </View>
+
+
     </ScrollView>
+
+        <FlatList
+        style={{flex:1,backgroundColor:primaryColor}}
+        data={UserOrder}
+        renderItem={({ item }) => Transac(item)} 
+        keyExtractor={(item) => item.date_histo}/> 
+    </>
     );
 }
+function fromNow(time) {
+  console.log("time",time);
+  console.log("moment",moment());
+  
+  const duration = moment.duration(moment().diff(time));
 
+  const seconds = duration.asSeconds();
+  console.log("duration",seconds);
+  console.log(seconds)
+
+  if (seconds < 60) {
+    return `il y a ${Math.round(seconds)} secondes`;
+  } else if (seconds < 3600) {
+    return `il y a ${Math.round(seconds / 60)} minutes`;
+  } else if (seconds < 86400) {
+    return `il y a ${Math.round(seconds / 3600)} heures`;
+  } else if (seconds < 86400*30) {
+    return `il y a ${Math.round(seconds / 86400)} jours`;
+  }
+  else if (seconds < (86400*30*12)) {
+      return `il y a ${Math.round(seconds / (86400*30))} mois`;
+  }
+  else  {
+    return `il y a ${Math.round(seconds / (86400*30*12))} ans`;
+  }
+};
+
+function Transac( transac ) {
+  const time = fromNow(transac.date_histo);
+  var color
+  console.log("transac",transac.delta);
+  transac.delta.includes('-') ? color='red' : color='green';
+  return (
+    <View style={styles.TransacContainer}>
+      <Text style={{color:color,marginLeft:10,alignSelf:'center',fontSize:13}}>{transac.delta}</Text>
+      <Text style={{marginRight:10,alignSelf:'center',fontSize:13}}>{time}</Text>
+    </View>
+  );
+}
 
 
 export default Fouaille;
