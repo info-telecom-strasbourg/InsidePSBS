@@ -29,11 +29,14 @@ export default function App() {
   const [Loading, setLoading] = React.useState(true);
   const [Logged, setLogged] = React.useState(false);
   useEffect(() => {
-  AsyncStorage.getItem('logged').then((value) => {
+    AsyncStorage.getItem('logged').then((value) => {
     setLogged(value);
     setLoading(false);
   })
 }, []);
+async function clearData(){
+  await AsyncStorage.clear();
+}
   
   if (Loading==true){
     return (   <LoadingPage/>  )
