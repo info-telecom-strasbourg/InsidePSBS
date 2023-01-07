@@ -2,14 +2,14 @@
   "expo": {
     "name": "InsidePSBS",
     "slug": "insidepsbs",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#081425"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,10 +21,10 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#081425"
       },
       "package": "com.ITS.InsidePSBS"
     },
