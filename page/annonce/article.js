@@ -5,7 +5,7 @@ import moment from 'moment';
 import HtmlText from 'react-native-html-to-text';
 import { DisplayLogo } from './displaylogo.js';
 import { ProcessImagePath } from './processimagepath.js';
-
+import fromNow from '../globalFunc/fromNow.js';
 export class Article extends Component {
     handleClick = () => {
       this.toggle=!this.toggle;
@@ -31,27 +31,21 @@ export class Article extends Component {
         pathArticleCover=pathArticleCover.replace('"','');
         pathArticleCover=pathArticleCover.replace('"','');
         const url='https://app.its-tps.fr/'+pathArticleCover;
-        console.log(url);
         this.ImageCover=url;
       }else{ this.ImageCover=(null);};
 
 
       //définition du temps depuis lequel la publication a été postée
-      const time = moment(created_at || moment.now()).fromNow();
-      const Time = props => <Text style={{fontSize:10}}>{time}</Text>
+      const time = fromNow(moment(created_at || moment.now()));
+      const Time = props => <Text style={{fontSize:10,marginRight:5}}>{time}</Text>
 
       //défini le logo visible à gauche de la "card"
       const LeftContent =()=> DisplayLogo(asso_club);
-      // const Images=ProcessImagePath(fichiers);
 
-      // if (Images!= undefined){
-      //   console.log(Images[0]);
-      //   const url="app.its-tps.fr"+Images[0];
-      // };
 
       if (this.toggle){
         return (
-          <Card style={styles.container} onPress={()=>this.handleClick()}>
+          <Card style={styles.container} onLongPress={()=>this.handleClick()} delayLongPress={1}>
           <Card.Title style={styles.titleContainer} titleStyle={styles.title} leftStyle={styles.avatar} rightStyle={styles.timestamp}
           title={titre} left={LeftContent} right={Time} titleNumberOfLines={3}>
           </Card.Title> 
@@ -64,7 +58,7 @@ export class Article extends Component {
       else {
         return (
           <>
-          <Card mode='outline' style={styles.container} onPress={()=>this.handleClick()}>
+          <Card mode='outline' style={styles.container} onLongPress={()=>this.handleClick()} delayLongPress={1}>
           <Card.Title style={styles.titleContainer} titleStyle={styles.title} leftStyle={styles.avatar} rightStyle={styles.timestamp}
           title={titre} left={LeftContent} right={Time} titleNumberOfLines={2}>
           </Card.Title>  

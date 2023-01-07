@@ -10,12 +10,12 @@ import {API_KEY} from '../config';
 
 import {styles,primaryColor,lightprimaryColor,orangeColor,headbarparams} from '../style';
 
+import fromNow from './globalFunc/fromNow';
+
 export async function getLastTransac(nom,prenom,hash) {
 
   try {
-    console.log("https://app.its-tps.fr/api?nom="+nom+"&prenom="+prenom+"&key="+hash);
     let response = await fetch('https://app.its-tps.fr/api?nom='+nom+'&prenom='+prenom+'&key='+hash);
-    // console.log("response",response);
     let data = await response.json();
     return data;
   } catch (error) {
@@ -26,7 +26,6 @@ export async function getLastTransac(nom,prenom,hash) {
 
 
 const Fouaille = () => {
-    console.log("Fouaille refresh");
 
     const [Logged, setLogged] = React.useState(false);
 
@@ -35,7 +34,6 @@ const Fouaille = () => {
     const [Prenom, setPrenom] = React.useState('');
     const [Nom, setNom] = React.useState('');
     useEffect(()=>{
-      console.log("rechargement des noms");
     AsyncStorage.getItem('nom').then((value) => setNom(value));  
     AsyncStorage.getItem('prenom').then((value) => setPrenom(value)); 
     },[]);
@@ -52,7 +50,6 @@ const Fouaille = () => {
 
     // définition du solde de l'utilisateur
     useEffect(()=>{
-      console.log("async call lancé",ShouldRefresh,Logged);
 
 
       if (ShouldRefresh==true && Logged==true) {
@@ -107,37 +104,11 @@ const Fouaille = () => {
     </>
     );
 }
-function fromNow(time) {
-  console.log("time",time);
-  console.log("moment",moment());
-  
-  const duration = moment.duration(moment().diff(time));
 
-  const seconds = duration.asSeconds();
-  console.log("duration",seconds);
-  console.log(seconds)
-
-  if (seconds < 60) {
-    return `il y a ${Math.round(seconds)} secondes`;
-  } else if (seconds < 3600) {
-    return `il y a ${Math.round(seconds / 60)} minutes`;
-  } else if (seconds < 86400) {
-    return `il y a ${Math.round(seconds / 3600)} heures`;
-  } else if (seconds < 86400*30) {
-    return `il y a ${Math.round(seconds / 86400)} jours`;
-  }
-  else if (seconds < (86400*30*12)) {
-      return `il y a ${Math.round(seconds / (86400*30))} mois`;
-  }
-  else  {
-    return `il y a ${Math.round(seconds / (86400*30*12))} ans`;
-  }
-};
 
 function Transac( transac ) {
   const time = fromNow(transac.date_histo);
   var color
-  console.log("transac",transac.delta);
   transac.delta.includes('-') ? color='red' : color='green';
   return (
     <View style={styles.TransacContainer}>
