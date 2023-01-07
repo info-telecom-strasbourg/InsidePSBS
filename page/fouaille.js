@@ -6,11 +6,14 @@ import {LoadingPage} from './loadingpage';
 import moment from 'moment';
 import sha256 from 'js-sha256';
 
-import {API_KEY} from '../config';
 
 import {styles,primaryColor,lightprimaryColor,orangeColor,headbarparams} from '../style';
 
 import fromNow from './globalFunc/fromNow';
+
+
+
+API_KEY= "(n7m4w'3k+#k'8BA[#&z0H'A+d.4H";
 
 export async function getLastTransac(nom,prenom,hash) {
 
