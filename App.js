@@ -50,7 +50,7 @@ async function clearData(){
         <Stack.Navigator initialRouteName={routeName}   screenOptions={{ contentStyle: { backgroundColor: primaryColor }
     }}>
           <Stack.Screen name="Tabs" component={BottomTab} options={{ headerShown: false , animation: 'fade' }}/>
-          <Stack.Screen name="Connexion" component={Connexion} options={{headerShown: false , animation: 'fade'  }} />
+          <Stack.Screen name="Connexion" component={Connexion} options={{headerShown: false ,animationEnabled:false }} />
           <Stack.Screen name="ProfilePage" component={ProfilePage}  options={{ animation: 'fade' }}/>
         </Stack.Navigator>
       </NavigationContainer>
