@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import 'react-native-gesture-handler';
 import {Text,Image, StatusBar, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer,useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

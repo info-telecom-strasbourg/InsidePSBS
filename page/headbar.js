@@ -1,6 +1,5 @@
 
 import React from 'react';
-import 'react-native-gesture-handler';
 import {Text,Image, View, TouchableOpacity } from 'react-native';
 import {useNavigation } from '@react-navigation/native';
 import style,{primaryColor,lightprimaryColor,headbarparams} from '../style';

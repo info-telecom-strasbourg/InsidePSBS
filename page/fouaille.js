@@ -1,7 +1,6 @@
 import React, {useState, useEffect } from 'react';
-import { StyleSheet,Text, View, TextInput,RefreshControl,TouchableOpacity, StatusBar, Button, Image } from 'react-native';
+import { FlatList, ScrollView,StyleSheet,Text, View, TextInput,RefreshControl,TouchableOpacity, StatusBar, Button, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import {LoadingPage} from './loadingpage';
 import moment from 'moment';
 import sha256 from 'js-sha256';
