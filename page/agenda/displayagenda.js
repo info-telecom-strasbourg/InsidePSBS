@@ -40,13 +40,15 @@ function renderItem(item,daysforWeek){
 }
 
 ;
+var daysforWeek=[];
 export function DisplayAgenda(events,eventsNumber){
 
   var  today = new Date();
   today = today.toISOString().substring(0, 10);
   console.log(today);
   const items=loadItems(events,eventsNumber);
-  const marked=label(events,eventsNumber);    
+  const marked=label(events,eventsNumber);   
+  this.daysforWeek=[]; 
 
   return (
     <View style={styles.container}>
@@ -74,7 +76,7 @@ export function DisplayAgenda(events,eventsNumber){
         showClosingKnob={true}
         onRefresh={() => console.log('refreshing...',"daysforWeek",this.daysforWeek)}
         refreshing={false}
-        renderItem={ (item) => renderItem(item,daysforWeek) }
+        renderItem={ (item) => renderItem(item,this.daysforWeek) }
         hideExtraDays={true}
         renderDay={(date, item) => { 
               if (date!= undefined) {

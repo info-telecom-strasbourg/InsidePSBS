@@ -18,7 +18,7 @@ const ProfilePage = ({ }) => {
 
     <View style={{ flexDirection: "column", backgroundColor: primaryColor, flex: 1, justifyContent: 'space-between', alignContent: 'center' }}>
       <View style={{ flex: 1 }}>
-        <Text style={{ marginTop: 30, color: 'white', alignSelf: 'center', lineHeight: 30, fontSize: 20 }}>Nom: {Nom} {"\n"} Prénom: {Prenom}</Text>
+        <Text style={{ marginTop: 30, color: 'white', alignSelf: 'center', lineHeight: 30, fontSize: 20 }}>Nom: {Nom} {"\n"}Prénom: {Prenom}</Text>
       </View>
       <View style={{ flex: 3 }}>
         <TouchableOpacity style={styles.appButtonContainer} onPress={() => AsyncStorage.setItem('logged', 'false').then(navigation.navigate('Connexion'))}>
@@ -26,7 +26,7 @@ const ProfilePage = ({ }) => {
         </TouchableOpacity>
       </View>
       <Text style={{ fontSize: 20, textAlign: 'center', flex: 1, color: 'white', alignSelf: 'center', justifyContent: 'flex-end', flexDirection: 'column' }}>Application développée par {'\n'}Gatien Chenu et Félix Lusseau.{'\n'} Graphismes réalisés par {'\n'}Jeanne König-Wacheux</Text>
-      <Text style={{ flex: 1, color: 'white', alignSelf: 'center', justifyContent: 'flex-end', flexDirection: 'column' }}>Version 1.0.0</Text>
+      <Text style={{ flex: 1, color: 'white', alignSelf: 'center', justifyContent: 'flex-end', flexDirection: 'column' }}>Version 1.2.7</Text>
 
       <View style={{ backgroundColor: primaryColor, flex: 1 }}></View>
     </View>

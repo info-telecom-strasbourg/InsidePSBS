@@ -38,6 +38,18 @@ export const styles= StyleSheet.create({
     fontSize:20,
     flex:1
   },
+  TransacContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    borderRadius:50,
+    
+    margin:20,
+    height: 40,
+    flexDirection:'row',
+    justifyContent:'space-between'
+
+  },
   appButtonContainer: {
     height: 50,
     width: 200,

@@ -1,20 +1,23 @@
 import React, {useState, useEffect } from 'react';
-import { StyleSheet,Text, View, TextInput,RefreshControl,TouchableOpacity, StatusBar, Button, Image } from 'react-native';
+import { FlatList, ScrollView,StyleSheet,Text, View, TextInput,RefreshControl,TouchableOpacity, StatusBar, Button, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ScrollView } from 'react-native-gesture-handler';
 import {LoadingPage} from './loadingpage';
+import moment from 'moment';
 import sha256 from 'js-sha256';
 
-import {API_KEY} from '../config';
 
 import {styles,primaryColor,lightprimaryColor,orangeColor,headbarparams} from '../style';
+
+import fromNow from './globalFunc/fromNow.js';
+
+
+
+API_KEY= "(n7m4w'3k+#k'8BA[#&z0H'A+d.4H";
 
 export async function getLastTransac(nom,prenom,hash) {
 
   try {
-    console.log("https://app.its-tps.fr/api?nom="+nom+"&prenom="+prenom+"&key="+hash);
     let response = await fetch('https://app.its-tps.fr/api?nom='+nom+'&prenom='+prenom+'&key='+hash);
-    // console.log("response",response);
     let data = await response.json();
     return data;
   } catch (error) {
@@ -25,7 +28,6 @@ export async function getLastTransac(nom,prenom,hash) {
 
 
 const Fouaille = () => {
-    console.log("Fouaille refresh");
 
     const [Logged, setLogged] = React.useState(false);
 
@@ -34,7 +36,6 @@ const Fouaille = () => {
     const [Prenom, setPrenom] = React.useState('');
     const [Nom, setNom] = React.useState('');
     useEffect(()=>{
-      console.log("rechargement des noms");
     AsyncStorage.getItem('nom').then((value) => setNom(value));  
     AsyncStorage.getItem('prenom').then((value) => setPrenom(value)); 
     },[]);
@@ -51,7 +52,6 @@ const Fouaille = () => {
 
     // définition du solde de l'utilisateur
     useEffect(()=>{
-      console.log("async call lancé",ShouldRefresh,Logged);
 
 
       if (ShouldRefresh==true && Logged==true) {
@@ -75,6 +75,7 @@ const Fouaille = () => {
     
 
     return (
+      <>
     <ScrollView         
     refreshControl={
         <RefreshControl
@@ -82,6 +83,7 @@ const Fouaille = () => {
           onRefresh={()=>{setShouldRefresh(true)}}
            />
                     }
+    style={{maxHeight:170, backgroundColor:primaryColor}}
     >
         <View style={styles.background}>
             <View style={styles.FouailleContainer}>
@@ -89,17 +91,34 @@ const Fouaille = () => {
                   Carte fouaille : {"\n"}
                   {Note+"€"}
                 </Text>
-
                 <Image source={require('../assets/fouaille/bag.png')} style={{resizeMode:'contain',height:70, flex:1,marginRight:20}} />
-
-
-
             </View>
         </View>
+
+
     </ScrollView>
+
+        <FlatList
+        style={{flex:1,backgroundColor:primaryColor}}
+        data={UserOrder}
+        renderItem={({ item }) => Transac(item)} 
+        keyExtractor={(item) => item.date_histo}/> 
+    </>
     );
 }
 
+
+function Transac( transac ) {
+  const time = fromNow(transac.date_histo);
+  var color
+  transac.delta.includes('-') ? color='red' : color='green';
+  return (
+    <View style={styles.TransacContainer}>
+      <Text style={{color:color,marginLeft:10,alignSelf:'center',fontSize:13}}>{transac.delta}</Text>
+      <Text style={{marginRight:10,alignSelf:'center',fontSize:13}}>{time}</Text>
+    </View>
+  );
+}
 
 
 export default Fouaille;
