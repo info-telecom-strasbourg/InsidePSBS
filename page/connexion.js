@@ -20,7 +20,9 @@ async function getAuth(props,navigation) {
 
 async function login(data){
   displayName=data["displayName"];
-  [prenom,nom]=displayName.split(" ");
+  prenom=displayName.substring(0,displayName.indexOf(" "));
+  nom=displayName.substring(displayName.indexOf(" ")+1);
+  console.log(nom);
   nom=nom.toLowerCase();
   prenom=prenom.toLowerCase();
   nom=deburr( nom, );
