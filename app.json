@@ -2,7 +2,7 @@
   "expo": {
     "name": "InsidePSBS",
     "slug": "insidepsbs",
-    "version": "1.2.9",
+    "version": "1.2.10",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,7 +21,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 14,
+      "versionCode": 15,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#081425"
