@@ -4,7 +4,7 @@ on:
       - beta
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
