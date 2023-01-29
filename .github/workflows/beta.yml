@@ -27,3 +27,9 @@ jobs:
 
       - name: 🚀 Build app
         run: eas build --platform android --non-interactive --local
+        
+      - name: App aab result
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: build-*
