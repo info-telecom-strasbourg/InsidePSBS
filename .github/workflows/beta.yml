@@ -28,8 +28,17 @@ jobs:
       - name: 🚀 Build app
         run: eas build --platform android --non-interactive --local
         
-      - name: App aab result
-        uses: actions/upload-artifact@v2
+#      - name: Upload aab result
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: App-aab
+#          path: build-*
+
+      - name: Nextcloud Artifact
+        uses: trympet/nextcloud-artifacts-action@v2
         with:
-          name: code-coverage-report
-          path: build-*
+          name: App-aab                                         # Name of the artifact
+          path: build-*                                         # Globbing supported
+          nextcloud-url: ${{ secrets.NEXTCLOUD_URL }}           # Nextcloud URL
+          nextcloud-username: ${{ secrets.NEXTCLOUD_USERNAME }} # Username from repository secret
+          nextcloud-password: ${{ secrets.NEXTCLOUD_PASSWORD }} # Password from repository secret
