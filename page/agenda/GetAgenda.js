@@ -1,4 +1,4 @@
-
+import { Global_ICS_URL } from '../../env';
 
 //fonction de récupération de l'agenda
 export async function chargerAgenda() {
@@ -10,7 +10,7 @@ export async function chargerAgenda() {
 export async function getAgenda() {
 
   try {
-    let response = await fetch('https://bde.its-tps.fr/fusion_agenda.ics');
+    let response = await fetch(Global_ICS_URL);
     let data = await response.text();
 
     return data;

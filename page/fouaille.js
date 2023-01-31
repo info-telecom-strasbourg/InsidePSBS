@@ -10,10 +10,8 @@ import sha256 from 'js-sha256';
 import {styles,primaryColor,lightprimaryColor,orangeColor,headbarparams} from '../style';
 
 import fromNow from './globalFunc/fromNow';
+import { API_KEY } from '../env';
 
-
-
-API_KEY= "(n7m4w'3k+#k'8BA[#&z0H'A+d.4H";
 
 export async function getLastTransac(nom,prenom,hash) {
 
