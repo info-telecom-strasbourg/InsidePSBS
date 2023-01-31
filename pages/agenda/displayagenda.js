@@ -6,8 +6,8 @@ import { Text, View,StyleSheet, Image } from 'react-native';
 import { loadItems,getDaysOfWeek  } from './processagenda';
 import { nameConfig,getDayOfWeek} from './functionfordisplayagenda';
 import { label } from './label.js';
-import { primaryColor,orangeColor,lightprimaryColor } from '../../style/style.js';
-import { DisplayLogo } from '../annonce/displaylogo.js';
+import { primaryColor,orangeColor,lightprimaryColor } from 'style/style.js';
+import { DisplayLogo } from 'pages/annonce/displaylogo.js';
 
 nameConfig(); // set the locale for the calendar
 

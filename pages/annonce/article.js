@@ -89,14 +89,6 @@ export class Article extends Component {
     android: {elevation: 60},
   });
   
-
-
-
-
-
-
-
-
   const styles= StyleSheet.create({
     container: {
       flex:1,
