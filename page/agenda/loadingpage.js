@@ -8,7 +8,7 @@ export function LoadingAgenda () {
         //loading page
         <>
         <View style={[styles.background,{ flex: 1, alignItems: 'center', justifyContent: 'center'}]}>
-        <Image source={require('../assets/Logo_sans_fond.png')} style={{resizeMode:'contain',height:200}} />
+        <Image source={require('../../assets/Logo_sans_fond.png')} style={{resizeMode:'contain',height:200}} />
 
         {/* <Lottie source={require("../../assets/alt-loading.json")} autoPlay loop /> */}
         </View>

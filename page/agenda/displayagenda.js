@@ -39,7 +39,6 @@ function renderItem(item,daysforWeek){
   else {return null;}
 }
 
-;
 export function DisplayAgenda(events,eventsNumber){
 
   var  today = new Date();
@@ -47,7 +46,8 @@ export function DisplayAgenda(events,eventsNumber){
   console.log(today);
   const items=loadItems(events,eventsNumber);
   const marked=label(events,eventsNumber);    
-
+  var daysforWeek=[];
+  this.daysforWeek=daysforWeek;
   return (
     <View style={styles.container}>
       <CalendarProvider date={today}>
