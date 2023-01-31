@@ -3,7 +3,7 @@ import { View, Text, Image, Button, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-import { styles, primaryColor } from '../style';
+import { styles, primaryColor } from '../style/style.js';
 
 import {version} from '../package.json';
 

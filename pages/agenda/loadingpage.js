@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar,View,ActivityIndicator , Text, Image, Button } from 'react-native';
-import {styles,primaryColor} from '../../style';
+import {styles,primaryColor} from '../../style/style.js';
 
 /**
  * page de chargement de l'agenda   (voué à disparaitre quand agenda sera sauvegardé en local) ( sauf au premier lancement de l'application)

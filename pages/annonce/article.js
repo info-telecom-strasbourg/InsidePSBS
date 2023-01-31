@@ -5,7 +5,7 @@ import moment from 'moment';
 import HtmlText from 'react-native-html-to-text';
 import { DisplayLogo } from './displaylogo.js';
 import { ProcessImagePath } from './processimagepath.js';
-import fromNow from '../globalFunc/fromNow.js';
+import fromNow from '../../utils/fromNow';
 
 /**
  * fonction qui renvoie l'élément graphique d'une publication

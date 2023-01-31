@@ -7,9 +7,9 @@ import moment from 'moment';
 import sha256 from 'js-sha256';
 
 
-import {styles,primaryColor,lightprimaryColor,orangeColor,headbarparams} from '../style';
+import {styles,primaryColor,lightprimaryColor,orangeColor,headbarparams} from '../style/style';
 
-import fromNow from './globalFunc/fromNow';
+import fromNow from '../utils/fromNow';
 import { API_KEY } from '../env';
 
 /**

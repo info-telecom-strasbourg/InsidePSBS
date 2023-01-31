@@ -6,17 +6,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import AgendaTPS from '../page/agenda';
-import Annonce from '../page/annonce';
-import Fouaille from '../page/fouaille';
-import ProfilePage from '../page/profile';
-import Connexion from '../page/connexion';
+import AgendaTPS from '../pages/agenda';
+import Annonce from '../pages/annonce';
+import Fouaille from '../pages/fouaille';
+import ProfilePage from '../pages/profile';
+import Connexion from '../pages/connexion';
 
-import LoadingPage from '../page/loadingpage';
+import LoadingPage from '../pages/loadingpage';
 
-import HeadBar from '../page/headbar';
+import HeadBar from '../pages/headbar';
 
-import style,{primaryColor} from '../style';
+import style,{primaryColor} from '../style/style';
 
 
 const Tab = createBottomTabNavigator();
