@@ -2,6 +2,10 @@ import React from 'react';
 import { StatusBar,View,ActivityIndicator , Text, Image, Button } from 'react-native';
 import {styles,primaryColor} from '../style';
 
+/**
+ * page de chargement de l'agenda 
+ * @returns élément graphique: page de chargement (image du logo en grand)
+*/
 function LoadingPage(){
   return (
     <>

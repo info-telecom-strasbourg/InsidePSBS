@@ -5,6 +5,12 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 var deburr = require('lodash.deburr');
 
+/**
+ * fonction qui va sur le site de connexion et récupère les données de l'utilisateur
+ * 
+ * @param {*} props 
+ * @param {*} navigation 
+ */
 async function getAuth(props,navigation) {
   if (props.loading==false && props.url=='https://app.its-tps.fr/app-login'){
   try {
@@ -18,6 +24,10 @@ async function getAuth(props,navigation) {
 }
 }
 
+/**
+ * fonction qui enregistre les données de l'utilisateur en mémoire
+ * @param {*} data 
+ */
 async function login(data){
   displayName=data["displayName"];
   [prenom,nom]=displayName.split(" ");
@@ -32,6 +42,10 @@ async function login(data){
   await AsyncStorage.setItem('mail',data["mail"]);
   await AsyncStorage.setItem('udsDisplayName',data["udsDisplayName"]);
 }
+/**
+ * affiche la page de connexion unistra
+ *  
+ */
 function ConnexionPage() {
   const navigation = useNavigation();
 

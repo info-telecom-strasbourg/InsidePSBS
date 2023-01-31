@@ -1,4 +1,9 @@
 import moment from 'moment';
+/**
+ * fonction qui permet de retourner une phrase pour exprimer le temps écoulé depuis une date
+ * @param {*} time 
+ * @returns {string} il y a n secondes/minuites/jours/mois/ans
+ */
 export default function fromNow(time) {
 
     const duration = moment.duration(moment().diff(time));

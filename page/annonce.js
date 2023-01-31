@@ -5,7 +5,12 @@ import {Article} from './annonce/article.js';
 import {styles,primaryColor} from '../style.js';
 import LoadingPage from './loadingpage.js';
 
-
+/**
+ * fonction appelé une fois les annonces chargées.
+ * elle les affichent. 
+ * @param {*} props props de navigation 
+ * 
+ */
 const HomeScreen = (props) => {
     return (
       <>
@@ -20,7 +25,12 @@ const HomeScreen = (props) => {
     );
   };
 
-
+/**
+ * fonction qui charge les annonces depuis le serveur
+ * affiche la page de chargement en attendant le chargement
+ * sinon affiche les annonces .
+ *  
+ */
 const Annonce = () => {
     const URL = 'https://app.its-tps.fr/articles-hidden-json';
     const [articles, setArticles] = useState([]);

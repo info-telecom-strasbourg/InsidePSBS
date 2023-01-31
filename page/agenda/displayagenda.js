@@ -10,7 +10,14 @@ import { primaryColor,orangeColor,lightprimaryColor } from '../../style';
 import { DisplayLogo } from '../annonce/displaylogo.js';
 
 nameConfig(); // set the locale for the calendar
+
+/**
+ * affiche le jour de la semaine sous forme de card dans l'agenda
+ * permet de faire la séparation entre les jours
+ * @returns élément visuel:Card
+*/
 function renderItem(item,daysforWeek){
+  //affiche le jour de la semaine seulement si c'est un jour de la semaine
   if(daysforWeek.includes(item.day)){
   return (
       <Card style={styles.eventCard}>
@@ -38,6 +45,12 @@ function renderItem(item,daysforWeek){
   }
   else {return null;}
 }
+/**
+ * fonction qui permet l'affichage de la page de l'agenda
+ * @param {*} events 
+ * @param {*} eventsNumber 
+ * @returns élément graphique:Agenda 
+ */
 
 export function DisplayAgenda(events,eventsNumber){
 

@@ -1,7 +1,12 @@
 #Todo and Idea list
 
 ##Todo 
-
+- enregistrement des informations hors connexion
+- afficher le nombres d'annonces non lus avec un badge dans l'annonce
+- mettre en place un système de notification pour les annonces
+- afficher le type de produit acheté dans les sernières transactions
+- afficher des card avec les prochaines soirée dans fouaille , avec un logo par type de soirée ( TPS,BS & Oeno)+ on clique amener sur la description de la soirée avec image + vidéo ( prix + date + heure + lien d'inscription)
+- 
 - gestion des erreurs de connexions sur app-login 
 - chargement des activités du jours dans l'agenda
 - trier les événéments par heures croissantes 
@@ -20,4 +25,5 @@
 
 ##à concevoir
 
--trouver un moyen de faire un 
+- trouver un moyen de faire utiliser les annonces par tout le monde.
+- gérer les évenements de partenariats entre clubs et assos

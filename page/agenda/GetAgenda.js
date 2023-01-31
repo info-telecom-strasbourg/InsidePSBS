@@ -1,12 +1,10 @@
 import { Global_ICS_URL } from '../../env';
 
-//fonction de récupération de l'agenda
-export async function chargerAgenda() {
-  var data = await getAgenda();
-  return data;
-}
-
-
+/**
+ * fonction asynchrone qui permet d'aller chercher l'ICS de agenda 
+ * sur le serveur puis le retourne une fois qu'il est chargé
+ * @returns {string} string contenant l'ICS
+ */
 export async function getAgenda() {
 
   try {
@@ -17,9 +15,14 @@ export async function getAgenda() {
   } catch (error) {
     console.error(error);
   }
+  return data;
 }
 
-
+/**
+ * fonction qui permet de parser l'ICS de l'agenda
+ * @param {string} string contenant l'ICS
+ * @returns {array} array[0]: liste contenant les événements,array[1] int contenant le nombre d'événements
+*/
 export function parseAgenda(lines){
   var events = {}
   var events_i = 0;

@@ -7,7 +7,10 @@ import { styles, primaryColor } from '../style';
 
 import {version} from '../package.json';
 
-
+/**
+ * fonction qui affiche la page de profil/paramètres 
+ * @returns {View} élément graphique: page de profil/paramètres
+ */
 const ProfilePage = ({ }) => {
   const [Nom, setNom] = React.useState('');
   const [Prenom, setPrenom] = React.useState('');

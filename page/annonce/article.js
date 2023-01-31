@@ -6,6 +6,11 @@ import HtmlText from 'react-native-html-to-text';
 import { DisplayLogo } from './displaylogo.js';
 import { ProcessImagePath } from './processimagepath.js';
 import fromNow from '../globalFunc/fromNow.js';
+
+/**
+ * fonction qui renvoie l'élément graphique d'une publication
+ * 
+ */
 export class Article extends Component {
     handleClick = () => {
       this.toggle=!this.toggle;
@@ -45,7 +50,7 @@ export class Article extends Component {
 
       if (this.toggle){
         return (
-          <Card style={styles.container} onLongPress={()=>this.handleClick()} delayLongPress={1}>
+          <Card style={styles.container} onPress={()=>this.handleClick()}>
           <Card.Title style={styles.titleContainer} titleStyle={styles.title} leftStyle={styles.avatar} rightStyle={styles.timestamp}
           title={titre} left={LeftContent} right={Time} titleNumberOfLines={3}>
           </Card.Title> 
@@ -58,7 +63,7 @@ export class Article extends Component {
       else {
         return (
           <>
-          <Card mode='outline' style={styles.container} onLongPress={()=>this.handleClick()} delayLongPress={1}>
+          <Card mode='outline' style={styles.container} onPress={()=>this.handleClick()} >
           <Card.Title style={styles.titleContainer} titleStyle={styles.title} leftStyle={styles.avatar} rightStyle={styles.timestamp}
           title={titre} left={LeftContent} right={Time} titleNumberOfLines={2}>
           </Card.Title>  

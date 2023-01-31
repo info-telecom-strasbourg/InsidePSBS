@@ -6,8 +6,10 @@ import {useNavigation } from '@react-navigation/native';
 import style,{primaryColor,lightprimaryColor,headbarparams} from '../style';
 
 
-//définit la barre en haut de l'écran (en dessous de la status bar)
-
+/**
+définit la barre en haut de l'écran ( juste en dessous de la status bar)
+cette barre contient le logo de l'application en haut à gauche et un bouton pour accéder au paramètres
+ */
 export default function HeadBar() {
 
 

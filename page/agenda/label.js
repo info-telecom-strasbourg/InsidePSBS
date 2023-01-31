@@ -33,9 +33,6 @@ const Liste4 = {key: 'Liste4', color: 'yellow'};
  */
 export function label(events,eventsNumber){
 
-  
-  
-    
   var markedDates = {};
   for (i = 0; i < eventsNumber; i++) {
     var date = events[i].date;

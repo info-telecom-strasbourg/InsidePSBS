@@ -1,7 +1,11 @@
 import moment from 'moment';
 
-//fonction de parsing de date (plus utile ?)
-function tranferDate(date) {
+/**
+ * Fonction qui permet de transformer une date au format YYYYMMDD en YYYY-MM-DD
+ * @param {string} date 
+ * @returns {string} Datestring au format YYYY-MM-DD
+ */
+function transferDate(date) {
 
 
     const year = date.substring(0, 4);
@@ -13,7 +17,11 @@ function tranferDate(date) {
 
 }
 
-
+/**
+ * fonction qui retourne une liste de tout les jours de la semaine du jour séléctionné
+ * @param {string} Datestring 
+ * @returns {Array} Array contenant les dates de la semaine
+ */
 export function getDaysOfWeek(date){
   const dayOfWeek = moment(date).day();
   var dates=[];
@@ -24,26 +32,42 @@ export function getDaysOfWeek(date){
   return dates;
 
 }
-
+/**
+ * séléctionne les items de la semaine du jour séléctionné dans la liste des items
+ * @param {string} date 
+ * @param {*} items 
+ * @returns {Array} items
+ */
 export function loadItemsforWeek(date,items){
   var itemsforWeek={};
   var dates=getDaysOfWeek(date);
 
-  itemsforWeek[date]=items[date];
+  itemsforWeek[dates]=items[dates];
   return itemsforWeek;
-
-
 }
 
 
-// DTSTART;VALUE=DATE:20230109
-// DTEND;VALUE=DATE:20230129
+/**
+ * fonction qui permet de créer l'objet item contenant tout les événement de l'ICS
+ *      
+ *      
+ * @param {*} events
+ * @param {*} eventsNumber
+ * @returns {Object} 
+ *      name: string,
+        time: datestring,
+        end: datestring,
+        desc: string de description,
+        day: time,
+        height : 80( pas utilisé je crois),
+        group: srting  (asso ou club qui host l'événement),
+ */
 export function loadItems(events,eventsNumber){
     var items = {};
     var nbrevent = eventsNumber;
     for (let i = 0; i < nbrevent; i++) 
         {
-        const time = tranferDate(events[i]["date"].split('T')[0]);
+        const time = transferDate(events[i]["date"].split('T')[0]);
         try {
           var tempsdeb = (events[i]["date"].split('T')[1][0]).toString() + (events[i]["date"].split('T')[1][1]).toString() + ":" + (events[i]["date"].split('T')[1][2]).toString() + (events[i]["date"].split('T')[1][3]).toString();
             }

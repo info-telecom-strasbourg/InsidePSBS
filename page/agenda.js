@@ -1,14 +1,17 @@
 import React from 'react';
-import {chargerAgenda,parseAgenda} from './agenda/GetAgenda.js';
+import {getAgenda,parseAgenda} from './agenda/GetAgenda.js';
 import {LoadingAgenda} from './agenda/loadingpage.js';
 import {DisplayAgenda} from './agenda/displayagenda.js';
 
-
+/**
+ * fonction qui permet de récupérer l'agenda et de l'afficher en attendant qu'il soit chargé il affiche une page de chargement
+ * @returns 
+ */
 function AgendaTPS (){
 
 
   const AgendaPromise = new Promise((resolve, reject) => {
-    const rawAgenda =chargerAgenda();
+    const rawAgenda =getAgenda();
     resolve(rawAgenda);
     
   });

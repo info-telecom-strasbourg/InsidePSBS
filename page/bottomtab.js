@@ -20,7 +20,10 @@ import style,{primaryColor} from '../style';
 
 
 const Tab = createBottomTabNavigator();
-
+/**
+ * affiche la barre de navigation en bas de l'écran
+ *  
+ */
 export default function BottomTab() {
     return (
       <>

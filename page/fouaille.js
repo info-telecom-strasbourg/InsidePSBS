@@ -12,7 +12,13 @@ import {styles,primaryColor,lightprimaryColor,orangeColor,headbarparams} from '.
 import fromNow from './globalFunc/fromNow';
 import { API_KEY } from '../env';
 
-
+/**
+ * va chercher les dernières commandes de l'utilisateur
+ * @param {*} nom 
+ * @param {*} prenom 
+ * @param {*} hash 
+ * @returns 
+ */
 export async function getLastTransac(nom,prenom,hash) {
 
   try {
@@ -25,7 +31,9 @@ export async function getLastTransac(nom,prenom,hash) {
   }
 }
 
-
+/**
+ * affiche la page avec les infos du fouaille
+ */
 const Fouaille = () => {
 
     const [Logged, setLogged] = React.useState(false);
@@ -106,7 +114,11 @@ const Fouaille = () => {
     );
 }
 
-
+/**
+ * définition de la carte correspondant à une transaction au fouaille.
+ * @param {object} transac 
+ * @returns {View} élément graphique
+ */
 function Transac( transac ) {
   const time = fromNow(transac.date_histo);
   var color

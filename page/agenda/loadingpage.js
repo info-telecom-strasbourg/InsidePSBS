@@ -2,6 +2,10 @@ import React from 'react';
 import { StatusBar,View,ActivityIndicator , Text, Image, Button } from 'react-native';
 import {styles,primaryColor} from '../../style';
 
+/**
+ * page de chargement de l'agenda   (voué à disparaitre quand agenda sera sauvegardé en local) ( sauf au premier lancement de l'application)
+ * @returns élément graphique: page de chargement avec cube qui tourne
+ */
 export function LoadingAgenda () {
 
     return (
