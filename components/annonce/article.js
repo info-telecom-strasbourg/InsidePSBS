@@ -3,9 +3,9 @@ import {TouchableHighlight,Image,Linking,Text, StyleSheet, View,FlatList, TextIn
 import {Card} from 'react-native-paper';
 import moment from 'moment';
 import HtmlText from 'react-native-html-to-text';
-import { DisplayLogo } from './displaylogo.js';
-import { ProcessImagePath } from './processimagepath.js';
-import fromNow from '../../utils/fromNow';
+import { DisplayLogo } from 'components/annonce/displaylogo.js';
+import { processImagePath } from 'utils/annonce/processImagePath.js';
+import fromNow from 'utils/fromNow';
 
 /**
  * fonction qui renvoie l'élément graphique d'une publication
@@ -32,7 +32,7 @@ export class Article extends Component {
       }
       if (fichiers!=null)
       {
-        pathArticleCover=ProcessImagePath(fichiers)[0];
+        pathArticleCover=processImagePath(fichiers)[0];
         pathArticleCover=pathArticleCover.replace('"','');
         pathArticleCover=pathArticleCover.replace('"','');
         const url='https://app.its-tps.fr/'+pathArticleCover;

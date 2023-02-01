@@ -1,4 +1,3 @@
-import moment from 'moment';
 
 /**
  * Fonction qui permet de transformer une date au format YYYYMMDD en YYYY-MM-DD
@@ -17,34 +16,6 @@ function transferDate(date) {
 
 }
 
-/**
- * fonction qui retourne une liste de tout les jours de la semaine du jour séléctionné
- * @param {string} Datestring 
- * @returns {Array} Array contenant les dates de la semaine
- */
-export function getDaysOfWeek(date){
-  const dayOfWeek = moment(date).day();
-  var dates=[];
-  for (let i = 0; i < 8-dayOfWeek; i++)
-  {
-    dates.push(moment(date).add(i,'days').format('YYYY-MM-DD'));
-  }  
-  return dates;
-
-}
-/**
- * séléctionne les items de la semaine du jour séléctionné dans la liste des items
- * @param {string} date 
- * @param {*} items 
- * @returns {Array} items
- */
-export function loadItemsforWeek(date,items){
-  var itemsforWeek={};
-  var dates=getDaysOfWeek(date);
-
-  itemsforWeek[dates]=items[dates];
-  return itemsforWeek;
-}
 
 
 /**

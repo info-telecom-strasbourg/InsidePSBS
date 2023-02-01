@@ -31,7 +31,7 @@ const Liste4 = {key: 'Liste4', color: 'yellow'};
    * fonction permettant de mettre créer la liste des points à mettre
    * sur le calendrier ( petits points colorés au dessus de chaque jour)
  */
-export function label(events,eventsNumber){
+export function dateLabel(events,eventsNumber){
 
   var markedDates = {};
   for (i = 0; i < eventsNumber; i++) {

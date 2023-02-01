@@ -4,7 +4,7 @@
  * @returns {string} string contenant le chemin des images utilisable par react native
  * 
 */
-export function ProcessImagePath(strfichiers) {
+export function processImagePath(strfichiers) {
     var fichiers = strfichiers
     fichiers=fichiers.replace("[","");
     fichiers=fichiers.replace("]","");

@@ -3,31 +3,18 @@ import { WebView } from 'react-native-webview';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import {getAuth} from 'api/getAuth';
 var deburr = require('lodash.deburr');
 
-/**
- * fonction qui va sur le site de connexion et récupère les données de l'utilisateur
- * (une fois que l'utilisateur s'est connecté depuis )
- * @param {*} props 
- */
-async function getAuth(props) {
-  if (props.loading==false && props.url=='https://app.its-tps.fr/app-login'){
-  try {
-    let response = await fetch('https://app.its-tps.fr/app-login');
-    let data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-}
 /**
  * fonction executé une fois que l'utilisateur est connecté pour lancer l'enregistrement des données
  * et afficher la page principale
  */
 async function ConnexionAttempt(props,navigation) {
-  
+  console.log('props',props);
+  console.log('attempting connexion');
   let data=await getAuth(props);
+  console.log('data catched',data);
   await login(data);
   navigation.navigate("Tabs");
 }

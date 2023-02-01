@@ -1,7 +1,7 @@
 import React, {Component, useState, useEffect } from 'react';
 import {TouchableHighlight,Linking,Text,SafeAreaView, StyleSheet, View,FlatList, TextInput,TouchableOpacity, StatusBar, ScrollView } from 'react-native';
 import {Card, Button,ActivityIndicator,Avatar , Title ,Paragraph } from 'react-native-paper';
-import {Article} from './annonce/article.js';
+import {Article} from '../components/annonce/article.js';
 import {styles,primaryColor} from '../style/style.js';
 import LoadingPage from './loadingpage.js';
 

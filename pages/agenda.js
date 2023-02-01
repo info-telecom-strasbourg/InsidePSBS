@@ -1,5 +1,6 @@
 import React from 'react';
-import {getAgenda,parseAgenda} from './agenda/GetAgenda.js';
+import { getAgenda } from 'api/getAgenda.js';
+import { parseAgenda } from 'utils/agenda/parseAgenda.js';
 import {LoadingAgenda} from './agenda/loadingpage.js';
 import {DisplayAgenda} from './agenda/displayagenda.js';
 
@@ -8,8 +9,6 @@ import {DisplayAgenda} from './agenda/displayagenda.js';
  * @returns 
  */
 function AgendaTPS (){
-
-
   const AgendaPromise = new Promise((resolve, reject) => {
     const rawAgenda =getAgenda();
     resolve(rawAgenda);
