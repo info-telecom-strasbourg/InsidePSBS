@@ -10,7 +10,7 @@
 - gestion des erreurs de connexions sur app-login 
 - chargement des activités du jours dans l'agenda
 - trier les événéments par heures croissantes 
-
+- en appuyant sur le logo d'un club : avoir les infos dessus (insta facebook description membres ? date de création, [prochains évenements ?])
 
 ## Idea
 
