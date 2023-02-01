@@ -16,24 +16,17 @@ function AgendaTPS (){
   });
   const [isLoading, setIsLoading] = React.useState(true);
 
-  AgendaPromise.then(rawAgenda => {
-    rawAgenda=rawAgenda.split("\n");
-    [events,eventsNumber]=parseAgenda(rawAgenda);
-    setIsLoading(false);  });
-  
+  AgendaPromise.then(
+      rawAgenda => {
+      rawAgenda=rawAgenda.split("\n");
+      [events,eventsNumber]=parseAgenda(rawAgenda);
+      setIsLoading(false);  
+      });
 
   if (isLoading)
-    {
-    return LoadingAgenda();
-
+    {    return LoadingAgenda();    }
+  else{return( DisplayAgenda(events,eventsNumber)) 
     }
-  else{return( DisplayAgenda(events,eventsNumber))
- 
-      
-    }
-
 }
-
-
 
 export default AgendaTPS;
