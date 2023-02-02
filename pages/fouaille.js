@@ -1,19 +1,24 @@
 import React, {useState, useEffect } from 'react';
 import { FlatList, ScrollView,StyleSheet,Text, View, TextInput,RefreshControl,TouchableOpacity, StatusBar, Button, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import {LoadingPage} from './loadingpage';
 import moment from 'moment';
 import sha256 from 'js-sha256';
 
 
-import {styles,primaryColor,lightprimaryColor,orangeColor,headbarparams} from '../style';
+import {styles,primaryColor} from '../style/style';
 
-import fromNow from './globalFunc/fromNow.js';
+import fromNow from '../utils/fromNow';
+import { API_KEY } from '../env';
 
-
-
-API_KEY= "(n7m4w'3k+#k'8BA[#&z0H'A+d.4H";
-
+/**
+ * va chercher les dernières commandes de l'utilisateur
+ * @param {*} nom 
+ * @param {*} prenom 
+ * @param {*} hash 
+ * @returns 
+ */
 export async function getLastTransac(nom,prenom,hash) {
 
   try {
@@ -26,7 +31,9 @@ export async function getLastTransac(nom,prenom,hash) {
   }
 }
 
-
+/**
+ * affiche la page avec les infos du fouaille
+ */
 const Fouaille = () => {
 
     const [Logged, setLogged] = React.useState(false);
@@ -107,6 +114,22 @@ const Fouaille = () => {
     );
 }
 
+/**
+ * définition de la carte correspondant à une transaction au fouaille.
+ * @param {object} transac 
+ * @returns {View} élément graphique
+ */
+function Transac( transac ) {
+  const time = fromNow(transac.date_histo);
+  var color
+  transac.delta.includes('-') ? color='red' : color='green';
+  return (
+    <View style={styles.TransacContainer}>
+      <Text style={{color:color,marginLeft:10,alignSelf:'center',fontSize:13}}>{transac.delta}</Text>
+      <Text style={{marginRight:10,alignSelf:'center',fontSize:13}}>{time}</Text>
+    </View>
+  );
+}
 
 function Transac( transac ) {
   const time = fromNow(transac.date_histo);

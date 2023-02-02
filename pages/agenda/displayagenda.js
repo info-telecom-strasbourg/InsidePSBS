@@ -3,55 +3,34 @@ import { Card } from 'react-native-paper';
 import moment from 'moment';
 import React from 'react';
 import { Text, View,StyleSheet, Image } from 'react-native';
-import { loadItems,getDaysOfWeek  } from './processagenda';
-import { nameConfig,getDayOfWeek} from './functionfordisplayagenda';
-import { label } from './label.js';
-import { primaryColor,orangeColor,lightprimaryColor } from '../../style';
-import { DisplayLogo } from '../annonce/displaylogo.js';
+import { loadItems } from 'utils/agenda/loadItems';
+import { getDaysOfWeek } from 'utils/agenda/getDaysOfWeek';
+import { getDayName } from 'utils/agenda/getDayName';
+import { localeNameConfig } from 'utils/agenda/localeNameConfig';
+import { dateLabel } from 'utils/agenda/dateLabel.js';
+import { primaryColor,orangeColor,lightprimaryColor } from 'style/style.js';
+import { DisplayLogo } from 'components/annonce/displaylogo.js';
+import { agendastyle } from 'style/agenda/agendaStyle.js';
+import { renderDayIndicator } from 'components/agenda/renderDayIndicator.js';
 
-nameConfig(); // set the locale for the calendar
-function renderItem(item,daysforWeek){
-  if(daysforWeek.includes(item.day)){
-  return (
-      <Card style={styles.eventCard}>
-        <Card.Content>
-
-          <View style={{flexDirection:'row'}}>
-            <View style={{flex:1}}>
-            {DisplayLogo(item.group)}
-            </View>
-            <View style={{flex:2}}>
-
-            <Text style={{textAlign:'justify'}}> {item.name}</Text>
-            </View>
-
-            <View style={{flex:1}}>
-            <Text style={styles.heure}>{item.time} - {item.end}</Text>
-
-            </View>
-
-            {/* <Text>{item.desc}</Text> */}
-          </View>
-        </Card.Content>
-      </Card>
-  );
-  }
-  else {return null;}
-}
-
-;
-var daysforWeek=[];
+localeNameConfig(); // set the locale for the calendar
+/**
+ * fonction qui permet l'affichage de la page de l'agenda
+ * @param {*} events 
+ * @param {*} eventsNumber 
+ * @returns élément graphique:Agenda 
+ */
 export function DisplayAgenda(events,eventsNumber){
 
   var  today = new Date();
   today = today.toISOString().substring(0, 10);
   console.log(today);
   const items=loadItems(events,eventsNumber);
-  const marked=label(events,eventsNumber);   
-  this.daysforWeek=[]; 
-
+  const marked=dateLabel(events,eventsNumber);    
+  var daysforWeek=getDaysOfWeek(today,items);
+  this.daysforWeek=daysforWeek;
   return (
-    <View style={styles.container}>
+    <View style={agendastyle.container}>
       <CalendarProvider date={today}>
       <Agenda
         selected={today}
@@ -63,7 +42,7 @@ export function DisplayAgenda(events,eventsNumber){
         //loadItemsForMonth renvoie un objet avec datetring day,month,year et timestamp
         loadItemsForMonth={(date) => { 
           //permet seulement de trouver les jours qui suivent dans la semaine
-          //ne charge rien en soit c'est juste que l'on ne fera pas le rendu dans renderItem
+          //ne charge rien en soit c'est juste que l'on ne fera pas le rendu dans renderDayIndicator
           // attention c'est du bricolage 
 
           console.log('le jour choisi',date.dateString) 
@@ -76,7 +55,7 @@ export function DisplayAgenda(events,eventsNumber){
         showClosingKnob={true}
         onRefresh={() => console.log('refreshing...',"daysforWeek",this.daysforWeek)}
         refreshing={false}
-        renderItem={ (item) => renderItem(item,this.daysforWeek) }
+        renderItem={ (item) => renderDayIndicator(item,daysforWeek) }
         hideExtraDays={true}
         renderDay={(date, item) => { 
               if (date!= undefined) {
@@ -100,7 +79,7 @@ export function DisplayAgenda(events,eventsNumber){
                           
                         
                         }}>
-                      <Text>{getDayOfWeek(item.day)}
+                      <Text>{getDayName(item.day)}
                       {item.day.substring(8,10)}
                       </Text>
                       </View>);
@@ -118,10 +97,10 @@ export function DisplayAgenda(events,eventsNumber){
 
 
         renderEmptyData={() => {
-          return <View style={styles.container}>
+          return <View style={agendastyle.container}>
 
-            <Text style={styles.textcentrale}> Il ne se passe rien ce jour là</Text>
-            <Image style={styles.Imagecentrale} source={{ uri: 'https://i.ibb.co/QnbX89q/triste.png' }} resizeMode='cover'
+            <Text style={agendastyle.textcentrale}> Il ne se passe rien ce jour là</Text>
+            <Image style={agendastyle.Imagecentrale} source={{ uri: 'https://i.ibb.co/QnbX89q/triste.png' }} resizeMode='cover'
             />
           </View>;
         }}
@@ -169,49 +148,3 @@ export function DisplayAgenda(events,eventsNumber){
 
 }
 
-
-const styles = StyleSheet.create({
-  eventCard: {
-    marginLeft: 5,
-    marginRight: 10,
-    marginTop: 5,
-    justifyContent: 'center',
-    marginBottom: 5,
-    borderWidth: 1,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    flex: 0.1,
-  },
-  emptydata: {
-      flex: 1,
-      backgroundColor: primaryColor,
-      marginTop: 50
-  
-    },
-  container: {
-    flex: 1,
-    backgroundColor: primaryColor
-
-  },
-
-  textcentrale: {
-    textAlign: 'center',
-    color: 'white',
-    fontSize: 15,
-
-  },
-  heure: {
-    textAlign: 'right',
-    marginRight: 0,
-    color: 'gray',
-    fontSize: 12,
-  },
-  Imagecentrale: {
-    width: 200,
-    height: 200,
-    alignSelf: 'center',
-  }
-});
-  

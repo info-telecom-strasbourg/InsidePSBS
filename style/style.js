@@ -18,18 +18,19 @@ export const styles= StyleSheet.create({
     },
     background: {
         backgroundColor: primaryColor,
+          
     },
   container: {
     flex: 1
   },
   FouailleContainer: {
-    flex: 1,
+    flex: 0,
     backgroundColor: '#fff',
     alignItems: 'center',
     borderRadius:50,
     marginTop:30,
     margin:20,
-    height: 100,
+    height: 120,
     flexDirection:'row',
     justifyContent:'space-between'
 

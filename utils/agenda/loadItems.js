@@ -1,7 +1,10 @@
-import moment from 'moment';
 
-//fonction de parsing de date (plus utile ?)
-function tranferDate(date) {
+/**
+ * Fonction qui permet de transformer une date au format YYYYMMDD en YYYY-MM-DD
+ * @param {string} date 
+ * @returns {string} Datestring au format YYYY-MM-DD
+ */
+function transferDate(date) {
 
 
     const year = date.substring(0, 4);
@@ -14,36 +17,28 @@ function tranferDate(date) {
 }
 
 
-export function getDaysOfWeek(date){
-  const dayOfWeek = moment(date).day();
-  var dates=[];
-  for (let i = 0; i < 8-dayOfWeek; i++)
-  {
-    dates.push(moment(date).add(i,'days').format('YYYY-MM-DD'));
-  }  
-  return dates;
 
-}
-
-export function loadItemsforWeek(date,items){
-  var itemsforWeek={};
-  var dates=getDaysOfWeek(date);
-
-  itemsforWeek[date]=items[date];
-  return itemsforWeek;
-
-
-}
-
-
-// DTSTART;VALUE=DATE:20230109
-// DTEND;VALUE=DATE:20230129
+/**
+ * fonction qui permet de créer l'objet item contenant tout les événement de l'ICS
+ *      
+ *      
+ * @param {*} events
+ * @param {*} eventsNumber
+ * @returns {Object} 
+ *      name: string,
+        time: datestring,
+        end: datestring,
+        desc: string de description,
+        day: time,
+        height : 80( pas utilisé je crois),
+        group: srting  (asso ou club qui host l'événement),
+ */
 export function loadItems(events,eventsNumber){
     var items = {};
     var nbrevent = eventsNumber;
     for (let i = 0; i < nbrevent; i++) 
         {
-        const time = tranferDate(events[i]["date"].split('T')[0]);
+        const time = transferDate(events[i]["date"].split('T')[0]);
         try {
           var tempsdeb = (events[i]["date"].split('T')[1][0]).toString() + (events[i]["date"].split('T')[1][1]).toString() + ":" + (events[i]["date"].split('T')[1][2]).toString() + (events[i]["date"].split('T')[1][3]).toString();
             }

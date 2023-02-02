@@ -1,16 +1,10 @@
 import { LocaleConfig } from 'react-native-calendars';
-import moment from 'moment';
 
-
-
-export function getDayOfWeek(date){
-  const dayOfWeek = moment(date).day();
-  dayNames= ['Dim.','Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.',];
-  return(dayNames[dayOfWeek]) ;
-}
-
-
-  export function nameConfig() {
+/**
+ * fonction qui permet de configurer les dates en français
+ * (jour de la semaine et mois)
+ */
+  export function localeNameConfig() {
 
     LocaleConfig.locales['fr'] = {
       monthNames: [

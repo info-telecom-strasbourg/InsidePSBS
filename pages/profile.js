@@ -3,9 +3,14 @@ import { View, Text, Image, Button, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-import { styles, primaryColor } from '../style';
-import { color } from 'react-native-elements/dist/helpers';
+import { styles, primaryColor } from '../style/style';
 
+import {version} from '../package.json';
+
+/**
+ * fonction qui affiche la page de profil/paramètres 
+ * @returns {View} élément graphique: page de profil/paramètres
+ */
 const ProfilePage = ({ }) => {
   const [Nom, setNom] = React.useState('');
   const [Prenom, setPrenom] = React.useState('');
@@ -26,7 +31,7 @@ const ProfilePage = ({ }) => {
         </TouchableOpacity>
       </View>
       <Text style={{ fontSize: 20, textAlign: 'center', flex: 1, color: 'white', alignSelf: 'center', justifyContent: 'flex-end', flexDirection: 'column' }}>Application développée par {'\n'}Gatien Chenu et Félix Lusseau.{'\n'} Graphismes réalisés par {'\n'}Jeanne König-Wacheux</Text>
-      <Text style={{ flex: 1, color: 'white', alignSelf: 'center', justifyContent: 'flex-end', flexDirection: 'column' }}>Version 1.2.7</Text>
+      <Text style={{ flex: 1, color: 'white', alignSelf: 'center', justifyContent: 'flex-end', flexDirection: 'column' }}>Version {version}</Text>
 
       <View style={{ backgroundColor: primaryColor, flex: 1 }}></View>
     </View>
