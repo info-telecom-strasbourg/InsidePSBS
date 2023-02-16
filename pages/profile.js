@@ -2,7 +2,7 @@ import React,{useState,useRef,useEffect} from 'react';
 import { View, Text, Image, Button, TouchableOpacity, } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import {schedulePushNotification} from 'api/notifications/NotificationsSetup';
+// import {schedulePushNotification} from 'api/notifications/NotificationsSetup';
 
 
 
@@ -35,7 +35,7 @@ const ProfilePage = ({ }) => {
       <Button
         title="Press to schedule a notification"
         onPress={async () => {
-          await schedulePushNotification();
+          // await schedulePushNotification();
         }}
       />
       <Text style={{ fontSize: 20, textAlign: 'center', flex: 1, color: 'white', alignSelf: 'center', justifyContent: 'flex-end', flexDirection: 'column' }}>Application développée par {'\n'}Gatien Chenu et Félix Lusseau.{'\n'} Graphismes réalisés par {'\n'}Jeanne König-Wacheux</Text>
