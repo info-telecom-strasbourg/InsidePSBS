@@ -90,7 +90,7 @@ async function schedulePushNotification() {
       body: "C'est la première notification de toute l'application !",
       data: { data: 'goes here' },
     },
-    trigger: { seconds: 2 },
+    trigger: { seconds: 1 },
   });
 }
 
