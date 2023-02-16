@@ -9,6 +9,9 @@ jobs:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
 
+      - name: Copy env
+        run: cp ${{ secrets.ENV_LOCATION}} .
+
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
         with:

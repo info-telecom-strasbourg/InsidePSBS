@@ -1,4 +1,4 @@
-import { Global_ICS_URL } from 'env';
+import { Global_ICS_URL } from '../env';
 
 /**
  * fonction asynchrone qui permet d'aller chercher l'ICS de agenda 
