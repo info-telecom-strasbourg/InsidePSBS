@@ -13,7 +13,7 @@ module.exports = function(api) {
             pages: './pages',
             style: './style',
             utils: './utils',
-            env: './env.js',
+            env: './env',
           },
         },
       ],
