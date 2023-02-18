@@ -10,7 +10,7 @@ import sha256 from 'js-sha256';
 import {styles,primaryColor} from '../style/style';
 
 import fromNow from '../utils/fromNow';
-import { API_KEY } from 'env';
+import { API_KEY } from '../env.js';
 
 /**
  * va chercher les dernières commandes de l'utilisateur
