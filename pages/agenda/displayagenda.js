@@ -12,6 +12,7 @@ import { primaryColor,orangeColor,lightprimaryColor } from 'style/style.js';
 import { DisplayLogo } from 'components/annonce/displaylogo.js';
 import { agendastyle } from 'style/agenda/agendaStyle.js';
 import { renderDayIndicator } from 'components/agenda/renderDayIndicator.js';
+import { UpdateAgenda } from '../../utils/agenda/UpdateAgenda';
 
 localeNameConfig(); // set the locale for the calendar
 /**
@@ -20,7 +21,7 @@ localeNameConfig(); // set the locale for the calendar
  * @param {*} eventsNumber 
  * @returns élément graphique:Agenda 
  */
-export function DisplayAgenda(events,eventsNumber){
+export function DisplayAgenda(events,eventsNumber,UpdateValue){
 
   var  today = new Date();
   today = today.toISOString().substring(0, 10);
@@ -53,7 +54,11 @@ export function DisplayAgenda(events,eventsNumber){
         }}
         refreshControl={null}
         showClosingKnob={true}
-        onRefresh={() => console.log('refreshing...',"daysforWeek",this.daysforWeek)}
+        onRefresh={() => {console.log('refreshing...',"daysforWeek",this.daysforWeek)
+                          console.log("on va cherche sur internet");
+                          UpdateValue();
+                          console.log('value updated')
+                    }}
         refreshing={false}
         renderItem={ (item) => renderDayIndicator(item,daysforWeek) }
         hideExtraDays={true}
