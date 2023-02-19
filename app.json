@@ -28,6 +28,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#081425"
       },
+      "googleServicesFile": "./google-services.json",
       "package": "com.ITS.InsidePSBS"
     },
     "web": {

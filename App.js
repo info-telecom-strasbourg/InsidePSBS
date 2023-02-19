@@ -8,8 +8,11 @@ import ProfilePage from './pages/profile';
 import Connexion from './pages/connexion';
 import LoadingPage from './pages/loadingpage';
 import BottomTab from './pages/bottomtab';
-import {primaryColor} from './style/style';
 
+import {primaryColor} from './style/style';
+import { useNotifications } from './utils/UseNotifications';
+
+import * as Notifications from 'expo-notifications';
 
 
 
@@ -27,6 +30,23 @@ export default function App() {
   })
 }, []);
 
+  const {registerForPushNotificationsAsync, handleNotificationResponse} = useNotifications() ;
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+      }),
+    });
+    const responseListener = Notifications.addNotificationResponseReceivedListener( handleNotificationResponse );
+    return () => {
+      if (responseListener) {
+        Notifications.removeNotificationSubscription(responseListener);
+      };
+    };
+  }, []);
   
   if (Loading==true){
     return (   <LoadingPage/>  )

@@ -1,6 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
-import { Platform } from 'react-native';
+import {Linking, Platform } from "react-native";
+
 // hook to handle push notifications
 export const useNotifications = () => {
 async function registerForPushNotificationsAsync() {
@@ -17,7 +18,7 @@ async function registerForPushNotificationsAsync() {
         return;
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
+      console.log("!!! token !!!\n",token);
     } else {
       alert('Must use physical device for Push Notifications');
     }
@@ -33,5 +34,21 @@ async function registerForPushNotificationsAsync() {
   
     return token;
   }
-  return { registerForPushNotificationsAsync };
+
+ const handleNotification = (notification) => {
+    console.log('notification', notification);
+  }
+  const handleNotificationResponse = (
+    response
+    ) => {
+    const data  = response.notification.request.content.data;
+    if (data?.url) {Linking.openURL(data.url);}};
+
+
+
+
+
+
+
+  return { registerForPushNotificationsAsync, handleNotification, handleNotificationResponse };
 }
