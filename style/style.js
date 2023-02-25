@@ -18,7 +18,7 @@ export const styles= StyleSheet.create({
     },
     background: {
         backgroundColor: primaryColor,
-          
+        flex: 1,
     },
   container: {
     flex: 1
