@@ -7,12 +7,14 @@ import {Avatar, } from 'react-native-paper';
  * @param {string} asso_club : nom de l'asso/club à mettre dans le path de app.its-tps.fr/logo pour obtenir le logo en 256*256 px 
  * @returns 
  */
-export function DisplayLogo(asso_club) {
+export function DisplayLogo(props) {
     
     // Image=<Image style={styles.Imagecentrale} source={{ uri: 'https://i.ibb.co/QnbX89q/triste.png' }} resizeMode='cover'         />
-    path='https://app.its-tps.fr/logo/'+asso_club+'.png'
+    path='https://app.its-tps.fr/logo/'+props.asso_club+'.png';
+    console.log(path);
+
     return (
-        <Avatar.Image  style={{backgroundColor:'transparent'}} size={50} source={{uri : 'https://app.its-tps.fr/logo/'+asso_club+'.png' }} />
+        <Avatar.Image  style={{backgroundColor:'transparent'}} size={50} source={{uri : 'https://app.its-tps.fr/logo/'+props.asso_club+'.png' }} />
     );
 }  
 

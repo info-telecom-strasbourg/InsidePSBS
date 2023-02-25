@@ -28,7 +28,7 @@ export function renderDayIndicator(item,daysforWeek){
   
             <View style={{flexDirection:'row'}}>
               <View style={{flex:1}}>
-              {DisplayLogo(item.group)}
+              <DisplayLogo asso_club={item.group} />
               </View>
               <View style={{flex:2}}>
   

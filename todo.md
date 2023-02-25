@@ -12,6 +12,11 @@
 - trier les événéments par heures croissantes 
 - en appuyant sur le logo d'un club : avoir les infos dessus (insta facebook description membres ? date de création, [prochains évenements ?])
 
+
+- page d'accueil figma de romain
+- mettre en place bot crous dumond dans accueil
+- visualisation photo MPS
+
 ## Idea
 
 - page dédiée au personnes non connectées/pas unistra
