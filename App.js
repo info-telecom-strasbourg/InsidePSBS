@@ -32,7 +32,8 @@ export default function App() {
 
   const {registerForPushNotificationsAsync, handleNotificationResponse} = useNotifications() ;
   useEffect(() => {
-    registerForPushNotificationsAsync();
+    var tocken;
+    tocken=registerForPushNotificationsAsync();
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowAlert: true,
