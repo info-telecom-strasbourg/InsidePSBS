@@ -22,11 +22,13 @@
       "bundleIdentifier": "com.ITS.InsidePSBS"
     },
     "android": {
+      
       "versionCode": 16,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#081425"
       },
+      "googleServicesFile": "./google-services.json",
       "package": "com.ITS.InsidePSBS"
     },
     "web": {

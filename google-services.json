@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "117050559312",
+    "project_id": "insidepsbs-a0d4b",
+    "storage_bucket": "insidepsbs-a0d4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117050559312:android:4af4e3954bcd1e09f4fa55",
+        "android_client_info": {
+          "package_name": "com.ITS.InsidePSBS"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117050559312-mle4v042osna3bmp4adhrgnlj3tgphvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjvFMBOe955PPsnoLobrHE1Tfe8Y-5hiw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117050559312-mle4v042osna3bmp4adhrgnlj3tgphvl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
