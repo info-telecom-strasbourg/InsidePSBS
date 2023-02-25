@@ -14,22 +14,24 @@ function AgendaTPS (){
   const [isLoading, setIsLoading] = React.useState(true);
   const [events, setEvents] = React.useState([]);
   const [eventsNumber, setEventsNumber] = React.useState(0);
-
+  try {
+    console.log("on essaie de chercher sur internet au début");
+    UpdateAgenda();
+  }
+  catch (error) {
+    console.log("il n'y a pas de connexion/problème serveur");
+  }
   async function UpdateValue(){
     console.log("UpdatingValue");
     [_events,_eventsNumber]= await UpdateAgenda();
     setIsLoading(true);
     setEvents(_events);
     setEventsNumber(_eventsNumber);
-    setIsLoading(false);
     console.log("eventsNumber",eventsNumber);
   };
 
   useEffect( () => {
     console.log("useEffect");
-
-    
-
 
     async function getData() {
 
@@ -38,7 +40,6 @@ function AgendaTPS (){
 
       if (LocalEventsNumber==null){
         console.log("on va cherche sur internet");
-        
         UpdateValue();
         setIsLoading(false);
       }
