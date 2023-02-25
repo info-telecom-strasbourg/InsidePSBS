@@ -10,7 +10,7 @@ import LoadingPage from './pages/loadingpage';
 import BottomTab from './pages/bottomtab';
 
 import {primaryColor} from './style/style';
-import { useNotifications } from './utils/UseNotifications';
+import { useNotifications } from './utils/notification/UseNotifications';
 
 import * as Notifications from 'expo-notifications';
 

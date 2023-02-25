@@ -2,7 +2,6 @@ import React,{useState,useRef,useEffect} from 'react';
 import { View, Text, Image, Button, TouchableOpacity, } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-// import {schedulePushNotification} from 'api/notifications/NotificationsSetup';
 
 
 
