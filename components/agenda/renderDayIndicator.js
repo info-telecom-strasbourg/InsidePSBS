@@ -7,8 +7,6 @@ import { schedulePushNotification } from 'utils/notification/schedulePushNotific
 
 const ScheduleAgendaNotifigation = (item) => {
   trigger={seconds: 1}
-  console.log(item.name);
-  console.log(typeof item.name);
   schedulePushNotification(item.name,trigger,item.name);
 };
     
