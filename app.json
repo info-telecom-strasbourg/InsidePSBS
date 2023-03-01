@@ -5,12 +5,17 @@
     "version": "1.3.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
     "plugins": [
       [
         "expo-notifications",
         {
-          "mode": "development"
+          "icon": "./assets/iconInsidePSBS.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./assets/sounds/notification-sound.wav",
+            "./lassets/sounds/notification-sound-other.wav"
+          ]
         }
       ]
     ],
