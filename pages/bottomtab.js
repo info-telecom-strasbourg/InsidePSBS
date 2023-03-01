@@ -9,7 +9,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AgendaTPS from 'pages/agenda';
 import Annonce from 'pages/annonce';
 import Fouaille from 'pages/fouaille';
-import TestPage from 'pages/test';
 
 import HeadBar from 'components/headBar';
 
@@ -60,8 +59,6 @@ export default function BottomTab() {
       <Tab.Screen name="Fouaille" component={Fouaille}
               options={{animation: 'fade'}}
                />
-      <Tab.Screen name="Test" component={TestPage}  options={{ animation: 'fade' }}/>
-
       </Tab.Navigator>
       </>
   
