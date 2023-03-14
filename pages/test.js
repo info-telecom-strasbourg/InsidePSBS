@@ -2,7 +2,7 @@ import React,{useState,useRef,useEffect} from 'react';
 import { View, Text, Image, Button, TouchableOpacity, } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-
+import { schedulePushNotification } from '../utils/notification/schedulePushNotification';
 import { DisplayLogo } from '../components/annonce/displaylogo';
 
 import { styles, primaryColor } from '../style/style';
@@ -32,14 +32,10 @@ const TestPage = ({ }) => {
         <Button
             title="Press to schedule a notification"
             onPress={async () => {
-            // await schedulePushNotification();
+            await schedulePushNotification();
             }}
         />
-        <View style={{borderRadius:20 ,borderColor:'red',borderWidth:20,marginHorizontal:15 }}>
-            <DisplayLogo asso_club={club} />
-            <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Nom: {Nom}</Text>
 
-        </View>
         
 
 
