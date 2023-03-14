@@ -32,11 +32,16 @@ export class Article extends Component {
       }
       if (fichiers!=null)
       {
-        pathArticleCover=processImagePath(fichiers)[0];
+        var pathArticleCover=processImagePath(fichiers)[0];
+
         pathArticleCover=pathArticleCover.replace('"','');
+
         pathArticleCover=pathArticleCover.replace('"','');
+
+      
         const url='https://app.its-tps.fr/'+pathArticleCover;
         this.ImageCover=url;
+
       }else{ this.ImageCover=(null);};
 
 
@@ -45,7 +50,8 @@ export class Article extends Component {
       const Time = props => <Text style={{fontSize:10,marginRight:5}}>{time}</Text>
 
       //défini le logo visible à gauche de la "card"
-      const LeftContent =()=> DisplayLogo(asso_club);
+      const LeftContent =()=>   <DisplayLogo asso_club={asso_club} />
+      ;
 
 
       if (this.toggle){

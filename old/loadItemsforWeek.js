@@ -6,7 +6,6 @@
  * @returns {Array} items
  */
 export function loadItemsforWeek(date,items){
-    console.log('hellooooooooooo',date)
     var itemsforWeek={};
     var dates=getDaysOfWeek(date);
   

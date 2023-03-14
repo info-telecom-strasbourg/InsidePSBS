@@ -10,14 +10,19 @@ async function registerForPushNotificationsAsync() {
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
       if (existingStatus !== 'granted') {
+        console.log('existingStatus', existingStatus);
         try {
-          const { status } = await Notifications.requestPermissionsAsync();
+          await Notifications.requestPermissionsAsync()
+          console.log('try');
+          console.log('blabla')
+          console.log('status', status);
           finalStatus = status;
         }
         catch (e) {
           console.log('error', e);
           const { status } = await Notifications.requestPermissionsAsync();
           finalStatus = status;
+          console.log('raté', status);
         }
       }
       if (finalStatus !== 'granted') {

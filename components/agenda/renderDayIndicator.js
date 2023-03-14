@@ -3,12 +3,10 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { DisplayLogo } from 'components/annonce/displaylogo.js';
 import { agendastyle } from 'style/agenda/agendaStyle';
-import { schedulePushNotification } from 'utils/schedulePushNotification.js';
+import { schedulePushNotification } from 'utils/notification/schedulePushNotification.js';
 
 const ScheduleAgendaNotifigation = (item) => {
   trigger={seconds: 1}
-  console.log(item.name);
-  console.log(typeof item.name);
   schedulePushNotification(item.name,trigger,item.name);
 };
     
@@ -28,7 +26,7 @@ export function renderDayIndicator(item,daysforWeek){
   
             <View style={{flexDirection:'row'}}>
               <View style={{flex:1}}>
-              {DisplayLogo(item.group)}
+              <DisplayLogo asso_club={item.group} />
               </View>
               <View style={{flex:2}}>
   

@@ -2,13 +2,13 @@ import React,{useState,useRef,useEffect} from 'react';
 import { View, Text, Image, Button, TouchableOpacity, } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-// import {schedulePushNotification} from 'api/notifications/NotificationsSetup';
 
 
 
 import { styles, primaryColor } from '../style/style';
 
 import {version} from '../package.json';
+import Example from '../components/notificationScheduler';
 
 /**
  * fonction qui affiche la page de profil/paramètres 
@@ -21,8 +21,9 @@ const ProfilePage = ({ }) => {
   const navigation = useNavigation();
   AsyncStorage.getItem('nom').then((value) => setNom(value));
   AsyncStorage.getItem('prenom').then((value) => setPrenom(value));
-  return (
-
+  
+  return (<>
+    <Example/>
     <View style={{ flexDirection: "column", backgroundColor: primaryColor, flex: 1, justifyContent: 'space-between', alignContent: 'center' }}>
       <View style={{ flex: 1 }}>
         <Text style={{ marginTop: 30, color: 'white', alignSelf: 'center', lineHeight: 30, fontSize: 20 }}>Nom: {Nom} {"\n"}Prénom: {Prenom}</Text>
@@ -43,6 +44,7 @@ const ProfilePage = ({ }) => {
 
       <View style={{ backgroundColor: primaryColor, flex: 1 }}></View>
     </View>
+    </>
 
   );
 };

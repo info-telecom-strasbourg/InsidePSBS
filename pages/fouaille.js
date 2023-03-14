@@ -24,10 +24,12 @@ export async function getLastTransac(nom,prenom,hash) {
   try {
     let response = await fetch('https://app.its-tps.fr/api?nom='+nom+'&prenom='+prenom+'&key='+hash);
     let data = await response.json();
+    AsyncStorage.setItem('lastTransac', JSON.stringify(data));
     return data;
   } catch (error) {
     console.log("error",error);
     console.error(error);
+    return AsyncStorage.getItem('lastTransac').then((value) => JSON.parse(value));
   }
 }
 
@@ -36,41 +38,47 @@ export async function getLastTransac(nom,prenom,hash) {
  */
 const Fouaille = () => {
 
-    const [Logged, setLogged] = React.useState(false);
 
     const [ShouldRefresh, setShouldRefresh] = React.useState(true);
 
     const [Prenom, setPrenom] = React.useState('');
     const [Nom, setNom] = React.useState('');
+
     useEffect(()=>{
     AsyncStorage.getItem('nom').then((value) => setNom(value));  
     AsyncStorage.getItem('prenom').then((value) => setPrenom(value)); 
     },[]);
+
+
     // définition des dernières commandes de l'utilisateur
     const [UserOrder, setUserOrder] = useState(null);
 
     const[Note,SetNote]=useState(0);
-
-    useEffect(()=>{
-      if (Nom!='' && Prenom!=''){
-        setLogged(true);
-      } 
-    },[Nom,Prenom]);
+  
 
     // définition du solde de l'utilisateur
     useEffect(()=>{
 
 
-      if (ShouldRefresh==true && Logged==true) {
+      if (ShouldRefresh==true && Prenom!=null && Nom!=null && Prenom!=undefined && Nom!=undefined && Prenom!="" && Nom!="") {
       
         // définition du nom et prénom de l'utilisateur
+        console.log("se lance au début 1 ?");
       
         const hash = sha256(  API_KEY + Nom + Prenom);
-        getLastTransac(Nom,Prenom,hash).then((data) => {console.log('data',data); setUserOrder(data);setShouldRefresh(false);});
+        getLastTransac(Nom,Prenom,hash).then((data) => 
+        { 
+        console.log("data",data);
+        setUserOrder(data);
+        setShouldRefresh(false);
+        });
       }    
-    } , [ShouldRefresh,Logged]);    
+    } , [ShouldRefresh,Nom,Prenom]);    
 
     useEffect(()=>{
+    
+    console.log("se lance au début 2 ?");
+    console.log("UserOrder",UserOrder);
     if (UserOrder!=null){
       if (UserOrder[0]!=undefined){
       SetNote(UserOrder[0].new_note);}
@@ -78,7 +86,7 @@ const Fouaille = () => {
         SetNote("Erreur: envoie un message à gatien");
       }
     }
-    },[UserOrder]);
+    },[UserOrder,]);
     
 
     return (

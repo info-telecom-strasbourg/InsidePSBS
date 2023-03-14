@@ -40,7 +40,7 @@ export function dateLabel(events,eventsNumber){
     date = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
 
     //on vérifie tout d'abord que la couleur du groupe est définie
-    if (eval(events[i].group)!=undefined){
+    try {
      
     if (markedDates[date] == undefined) {
         markedDates[date] = { disabled: false, dots: [eval(events[i].group)], selected: false };
@@ -56,7 +56,7 @@ export function dateLabel(events,eventsNumber){
         markedDates[date].dots.push(eval(events[i].group));}
                 }
             }
-    else{
+    catch (error){
 
         // met un point rouge seulement si le groupe n'a pas était défini (fautes de mise à jour)
         console.log("le groupe de ",events[i],"n'est pas défini");

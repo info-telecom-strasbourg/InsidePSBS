@@ -9,8 +9,11 @@ jobs:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
 
-      - name: Copy env
+      - name: 📨 Copy env
         run: cp ${{ secrets.ENV_LOCATION}} .
+        
+      - name: 🪄 Erase env.js from .gitignore
+        run: sed -i '/env.js/d' .gitignore
 
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
@@ -37,7 +40,7 @@ jobs:
 #          name: App-aab
 #          path: build-*
 
-      - name: Nextcloud Artifact
+      - name: 📌 Nextcloud Artifact
         uses: trympet/nextcloud-artifacts-action@v2
         with:
           name: App-aab                                         # Name of the artifact
