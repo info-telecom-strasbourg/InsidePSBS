@@ -11,7 +11,6 @@ import {styles,primaryColor} from '../style/style';
 
 import fromNow from '../utils/fromNow';
 import {API_KEY} from "@env"
-import Config from "react-native-config";
 /**
  * va chercher les dernières commandes de l'utilisateur
  * @param {*} nom 
