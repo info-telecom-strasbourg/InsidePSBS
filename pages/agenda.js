@@ -1,6 +1,5 @@
 import React from 'react';
-import { getAgenda } from 'api/getAgenda.js';
-import { parseAgenda } from 'utils/agenda/parseAgenda.js';
+
 import {LoadingAgenda} from './agenda/loadingpage.js';
 import {DisplayAgenda} from './agenda/displayagenda.js';
 import { UpdateAgenda } from 'utils/agenda/UpdateAgenda.js';
