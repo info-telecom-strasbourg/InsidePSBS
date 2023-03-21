@@ -7,9 +7,10 @@ import {Global_ICS_URL} from 'react-native-dotenv'
 export async function getAgenda() {
 
   try {
-    console.log("getAgenda",Global_ICS_URL);
+    console.log("envoie de la requête pour mise à jour de l'agenda");
     let response = await fetch(Global_ICS_URL);
     let data = await response.text();
+    console.log("réponse reçue pour mise à jour de l'agenda");
 
     return data;
   } catch (error) {
