@@ -25,6 +25,7 @@
     "react": "18.1.0",
     "react-native": "0.70.5",
     "react-native-calendars": "^1.1293.0",
+    "react-native-config": "^1.5.0",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-html-to-text": "^0.0.5",
     "react-native-htmlview": "^0.16.0",

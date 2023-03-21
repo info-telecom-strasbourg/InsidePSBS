@@ -10,8 +10,7 @@ import sha256 from 'js-sha256';
 import {styles,primaryColor} from '../style/style';
 
 import fromNow from '../utils/fromNow';
-import { API_KEY } from '../env.js';
-
+import Config from "react-native-config";
 /**
  * va chercher les dernières commandes de l'utilisateur
  * @param {*} nom 
@@ -65,7 +64,7 @@ const Fouaille = () => {
         // définition du nom et prénom de l'utilisateur
         console.log("se lance au début 1 ?");
       
-        const hash = sha256(  API_KEY + Nom + Prenom);
+        const hash = sha256(  Config.API_KEY + Nom + Prenom);
         getLastTransac(Nom,Prenom,hash).then((data) => 
         { 
         console.log("data",data);

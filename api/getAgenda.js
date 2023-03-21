@@ -1,5 +1,4 @@
-import { Global_ICS_URL } from 'env';
-
+import Config from "react-native-config";
 /**
  * fonction asynchrone qui permet d'aller chercher l'ICS de agenda 
  * sur le serveur puis le retourne une fois qu'il est chargé
@@ -8,7 +7,7 @@ import { Global_ICS_URL } from 'env';
 export async function getAgenda() {
 
   try {
-    let response = await fetch(Global_ICS_URL);
+    let response = await fetch(Config.Global_ICS_URL);
     let data = await response.text();
 
     return data;
