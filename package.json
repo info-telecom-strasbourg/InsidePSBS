@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "metro-react-native-babel-preset": "^0.76.0",
     "react-native-dotenv": "^3.4.8"
   },
   "private": true

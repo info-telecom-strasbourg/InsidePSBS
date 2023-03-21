@@ -1,4 +1,5 @@
-import {BackendURL} from "@env"/**
+import {BackendURL} from 'react-native-dotenv'
+/**
  * fonction qui va sur le site de connexion et récupère les données de l'utilisateur
  * (une fois que l'utilisateur s'est connecté depuis la webview)
  * @param {*} props 
