@@ -32,7 +32,7 @@ const HomeScreen = (props) => {
  *  
  */
 const Annonce = () => {
-    const URL = 'https://app.its-tps.fr/articles-hidden-json';
+    const URL = BackendUrl+'articles-hidden-json';
     const [articles, setArticles] = useState([]);
     const [loading, setLoading ] = useState(true);
     useEffect(()=>{

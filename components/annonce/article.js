@@ -6,7 +6,7 @@ import HtmlText from 'react-native-html-to-text';
 import { DisplayLogo } from 'components/annonce/displaylogo.js';
 import { processImagePath } from 'utils/annonce/processImagePath.js';
 import fromNow from 'utils/fromNow';
-
+import {BackendUrl} from 'react-native-dotenv';
 /**
  * fonction qui renvoie l'élément graphique d'une publication
  * 
@@ -39,7 +39,7 @@ export class Article extends Component {
         pathArticleCover=pathArticleCover.replace('"','');
 
       
-        const url='https://app.its-tps.fr/'+pathArticleCover;
+        const url=BackendUrl+pathArticleCover;
         this.ImageCover=url;
 
       }else{ this.ImageCover=(null);};

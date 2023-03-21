@@ -21,7 +21,7 @@ import {API_KEY} from 'react-native-dotenv'
 export async function getLastTransac(nom,prenom,hash) {
 
   try {
-    let response = await fetch('https://app.its-tps.fr/api?nom='+nom+'&prenom='+prenom+'&key='+hash);
+    let response = await fetch(BackendUrl+'api?nom='+nom+'&prenom='+prenom+'&key='+hash);
     let data = await response.json();
     AsyncStorage.setItem('lastTransac', JSON.stringify(data));
     return data;
