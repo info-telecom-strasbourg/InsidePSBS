@@ -31,7 +31,7 @@
     "react-native-modal-datetime-picker": "^14.0.1",
     "react-native-paper": "^4.12.2",
     "react-native-screens": "^3.18.2",
-    "react-native-webview": "^11.26.0"
+    "react-native-webview": "11.23.1"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
