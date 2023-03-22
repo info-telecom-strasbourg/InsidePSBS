@@ -10,12 +10,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/iconInsidePSBS.png",
-          "color": "#ffffff",
-          "sounds": [
-            "./assets/sounds/notification-sound.wav",
-            "./lassets/sounds/notification-sound-other.wav"
-          ]
+          "icon": "./assets/iconInsidePSBS.png"
         }
       ]
     ],
