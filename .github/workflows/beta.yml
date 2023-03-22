@@ -12,8 +12,8 @@ jobs:
       - name: 📨 Copy env
         run: cp ${{ secrets.ENV_LOCATION}} .
         
-      - name: 🪄 Erase env.js from .gitignore
-        run: sed -i '/env.js/d' .gitignore
+      - name: 🪄 Erase .env from .gitignore
+        run: sed -i '/.env/d' .gitignore
 
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
