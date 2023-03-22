@@ -10,10 +10,10 @@ import {Avatar, } from 'react-native-paper';
 export function DisplayLogo(props) {
     
     // Image=<Image style={styles.Imagecentrale} source={{ uri: 'https://i.ibb.co/QnbX89q/triste.png' }} resizeMode='cover'         />
-    path='https://app.its-tps.fr/logo/'+props.asso_club+'.png';
+    path=BackendUrl+'logo/'+props.asso_club+'.png';
 
     return (
-        <Avatar.Image  style={{backgroundColor:'transparent'}} size={50} source={{uri : 'https://app.its-tps.fr/logo/'+props.asso_club+'.png' }} />
+        <Avatar.Image  style={{backgroundColor:'transparent'}} size={50} source={{uri : BackendUrl+'logo/'+props.asso_club+'.png' }} />
     );
 }  
 

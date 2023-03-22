@@ -10,8 +10,7 @@ import sha256 from 'js-sha256';
 import {styles,primaryColor} from '../style/style';
 
 import fromNow from '../utils/fromNow';
-import { API_KEY } from '../env.js';
-
+import {API_KEY} from 'react-native-dotenv'
 /**
  * va chercher les dernières commandes de l'utilisateur
  * @param {*} nom 
@@ -22,7 +21,7 @@ import { API_KEY } from '../env.js';
 export async function getLastTransac(nom,prenom,hash) {
 
   try {
-    let response = await fetch('https://app.its-tps.fr/api?nom='+nom+'&prenom='+prenom+'&key='+hash);
+    let response = await fetch(BackendUrl+'api?nom='+nom+'&prenom='+prenom+'&key='+hash);
     let data = await response.json();
     AsyncStorage.setItem('lastTransac', JSON.stringify(data));
     return data;
