@@ -30,8 +30,7 @@
       "bundleIdentifier": "com.ITS.InsidePSBS"
     },
     "android": {
-      
-      "versionCode": 19,
+      "versionCode": 20,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#081425"
