@@ -6,6 +6,7 @@ import { BackendURL } from "../env.js";
  * @param {*} navigation 
  */
 export async function getAuth(props, navigation) {
+  
   if (props.loading == false && props.url == (BackendURL + 'app-login')) {
     try {
       let response = await fetch((BackendURL + 'app-login'));

@@ -14,6 +14,7 @@ function AgendaTPS (){
   const [isLoading, setIsLoading] = React.useState(true);
   const [events, setEvents] = React.useState([]);
   const [eventsNumber, setEventsNumber] = React.useState(0);
+  useEffect(() => {
   try {
     console.log("on essaie de chercher sur internet au début");
     UpdateAgenda();
@@ -21,6 +22,7 @@ function AgendaTPS (){
   catch (error) {
     console.log("il n'y a pas de connexion/problème serveur");
   }
+  }, []);
   async function UpdateValue(){
     console.log("UpdatingValue");
     [_events,_eventsNumber]= await UpdateAgenda();
