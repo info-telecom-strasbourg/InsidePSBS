@@ -2,7 +2,7 @@
   "expo": {
     "name": "InsidePSBS",
     "slug": "insidepsbs",
-    "version": "1.3.6",
+    "version": "1.3.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -30,7 +30,7 @@
       "bundleIdentifier": "com.ITS.InsidePSBS"
     },
     "android": {
-      "versionCode": 21,
+      "versionCode": 22,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#081425"
