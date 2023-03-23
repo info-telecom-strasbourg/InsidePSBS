@@ -2,6 +2,7 @@ node_modules/
 .expo/
 .idea/
 .vscode/
+android/
 *.key
 env.js
 *.env
