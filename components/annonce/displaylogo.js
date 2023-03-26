@@ -10,7 +10,6 @@ import {BackendURL} from 'react-native-dotenv';
  */
 export function DisplayLogo(props) {
     
-    // Image=<Image style={styles.Imagecentrale} source={{ uri: 'https://i.ibb.co/QnbX89q/triste.png' }} resizeMode='cover'         />
     var path=BackendURL+'logo/'+props.asso_club+'.png';
     console.log(path);
 
