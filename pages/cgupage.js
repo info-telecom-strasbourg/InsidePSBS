@@ -33,7 +33,7 @@ export async function getCGU() {
  */
 const CGUPage = ({ }) => {
   const navigation = useNavigation();
-  const CGU_Content=await getCGU();
+  const CGU_Content= 'test';
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
