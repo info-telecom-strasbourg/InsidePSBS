@@ -8,6 +8,8 @@ import ProfilePage from './pages/profile';
 import Connexion from './pages/connexion';
 import LoadingPage from './pages/loadingpage';
 import BottomTab from './pages/bottomtab';
+import CGUPage from './pages/cgupage';
+
 
 import {primaryColor} from './style/style';
 import { useNotifications } from './utils/notification/UseNotifications';
@@ -55,7 +57,7 @@ export default function App() {
 
   else{
     const Stack=createStackNavigator();
-    Logged ? routeName="Tabs" : routeName="Connexion";
+    Logged ? routeName="CGUPage" : routeName="CGUPage";
     return (
       <>
       <StatusBar barStyle="light-content" backgroundColor={primaryColor} />
@@ -64,6 +66,8 @@ export default function App() {
           <Stack.Screen name="Tabs" component={BottomTab} options={{ headerShown: false , animation: 'fade' }}/>
           <Stack.Screen name="Connexion" component={Connexion} options={{headerShown: false , animation: 'fade'  }} />
           <Stack.Screen name="ProfilePage" component={ProfilePage}  options={{ animation: 'fade' }}/>
+          <Stack.Screen name="CGUPage" component={CGUPage}  options={{ animation: 'fade' }}/>
+
         </Stack.Navigator>
       </NavigationContainer>
       </>
