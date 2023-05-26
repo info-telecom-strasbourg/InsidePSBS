@@ -10,7 +10,6 @@ import LoadingPage from './pages/loadingpage';
 import BottomTab from './pages/bottomtab';
 import CGUPage from './pages/cgupage';
 
-
 import {primaryColor} from './style/style';
 import { useNotifications } from './utils/notification/UseNotifications';
 
@@ -28,8 +27,7 @@ export default function App() {
   useEffect(() => {
     AsyncStorage.getItem('logged').then((value) => {
     setLogged(value);
-    setLoading(false);
-  })
+    setLoading(false);  })
 }, []);
 
   const {registerForPushNotificationsAsync, handleNotificationResponse} = useNotifications() ;
@@ -57,7 +55,7 @@ export default function App() {
 
   else{
     const Stack=createStackNavigator();
-    Logged ? routeName="CGUPage" : routeName="CGUPage";
+    Logged ? routeName="Connexion" : routeName="Tabs";
     return (
       <>
       <StatusBar barStyle="light-content" backgroundColor={primaryColor} />
