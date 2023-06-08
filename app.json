@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "acme",
+    "scheme": "inside-psbs",
     "userInterfaceStyle": "automatic",
     "web": {
       "bundler": "metro"

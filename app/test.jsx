@@ -7,6 +7,7 @@ import {
   Widget,
   ColoredButton,
   SecondaryButton,
+  TouchableSettingsIcon,
 } from "../components";
 import { FouailleIcon } from "../assets/icons";
 
@@ -30,16 +31,7 @@ const Test = () => {
           text="Test"
           icon={<FouailleIcon color={COLORS.dark_red} height={59} width={59} />}
         />
-        <Widget
-          color={COLORS.dark_red}
-          height={layout.width / 3}
-          width={layout.width / 3}
-        ></Widget>
-        <Widget
-          color={COLORS.dark_red}
-          height={layout.width / 3}
-          width={layout.width / 3}
-        ></Widget>
+        <TouchableSettingsIcon />
       </View>
     </View>
   );

@@ -1,6 +1,4 @@
 import { Tabs } from "expo-router";
-import { useTheme } from "../../contexts/themeContext";
-import useFetch from "../../hooks/useFetch";
 
 const TabsLayout = () => {
   return (
