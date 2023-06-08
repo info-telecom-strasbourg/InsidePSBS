@@ -3,15 +3,20 @@ import styles from "./touchable_icon.style";
 import { useTheme } from "../../contexts/themeContext";
 import { ROUTES } from "../../constants";
 import { ChevronLeftIcon } from "../../assets/icons";
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
+import { TouchableOpacity } from "react-native";
 
 const TouchableBackIcon = () => {
   const { theme } = useTheme();
+  const navigation = useNavigation();
 
   return (
-    <Link style={styles.iconContainer} href={ROUTES.home}>
+    <TouchableOpacity
+      style={styles.iconContainer}
+      onPress={() => navigation.goBack()}
+    >
       <ChevronLeftIcon width={13} height={24} color={theme.text} />
-    </Link>
+    </TouchableOpacity>
   );
 };
 
