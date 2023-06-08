@@ -1,5 +1,5 @@
 import Svg, { SvgProps, Path } from "react-native-svg";
-const ArrowDownIcon = (props: SvgProps) => (
+const ArrowDown = (props: SvgProps) => (
   <Svg width={13} height={6} viewBox="0 0 13 6" fill="none" {...props}>
     <Path
       d="M6.06885 6L0.00666957 -1.88258e-07L12.131 8.71687e-07L6.06885 6Z"
@@ -7,4 +7,4 @@ const ArrowDownIcon = (props: SvgProps) => (
     />
   </Svg>
 );
-export default ArrowDownIcon;
+export default ArrowDown;

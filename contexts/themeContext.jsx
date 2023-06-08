@@ -30,22 +30,22 @@ export const ThemeProvider = ({ children }) => {
     Appearance.set(systemScheme);
   };
 
-  const theme = { ...COLORS };
-  // if (colorScheme === "light") {
-  //   theme.background = COLORS.background_light;
-  //   theme.box = COLORS.box_light;
-  //   theme.box_secondary = COLORS.box_secondary_light;
-  //   theme.text = COLORS.text_light;
-  //   theme.text_secondary = COLORS.text_secondary_light;
-  // }
-  //
-  // if (colorScheme === "dark") {
-  //   theme.background = COLORS.background_dark;
-  //   theme.box = COLORS.box_dark;
-  //   theme.box_secondary = COLORS.box_secondary_dark;
-  //   theme.text = COLORS.text_dark;
-  //   theme.text_secondary = COLORS.text_secondary_dark;
-  // }
+  const theme = {};
+  if (colorScheme === "light") {
+    theme.background = COLORS.background_light;
+    theme.box = COLORS.box_light;
+    theme.box_secondary = COLORS.box_secondary_light;
+    theme.text = COLORS.text_light;
+    theme.text_secondary = COLORS.text_secondary_light;
+  }
+
+  if (colorScheme === "dark") {
+    theme.background = COLORS.background_dark;
+    theme.box = COLORS.box_dark;
+    theme.box_secondary = COLORS.box_secondary_dark;
+    theme.text = COLORS.text_dark;
+    theme.text_secondary = COLORS.text_secondary_dark;
+  }
 
   return (
     <ThemeContext.Provider

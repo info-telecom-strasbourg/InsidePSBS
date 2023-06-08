@@ -1,11 +1,18 @@
 import React from "react";
-import { Text, View } from "react-native";
-import AnnouncementIcon from "../../../assets/icons/Announcement";
+import ColoredButton from "../../../components/buttons/ColoredButton";
+import { COLORS } from "../../../constants";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
+import SecondaryButton from "../../../components/buttons/SecondaryButton";
 
 const Home = () => {
   return (
     <>
-      <AnnouncementIcon />
+      <ColoredButton
+        text="Suivant"
+        color="white"
+        backgroundColor={COLORS.dark_red}
+      />
+      <SecondaryButton text="Bouton" />
     </>
   );
 };

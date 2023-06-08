@@ -1,5 +1,3 @@
 import FontsLoader from "./FontsLoader";
 
-export default {
-  FontsLoader,
-};
+export { FontsLoader };
