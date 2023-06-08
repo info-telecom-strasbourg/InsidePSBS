@@ -1,18 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
-import ColoredButton from "../components/buttons/ColoredButton";
-import SecondaryButton from "../components/buttons/SecondaryButton";
 import { COLORS } from "../constants";
+import { getLayout } from "../utils";
+import {
+  DefaultWidget,
+  Widget,
+  ColoredButton,
+  SecondaryButton,
+} from "../components";
+import { FouailleIcon } from "../assets/icons";
 
 const Test = () => {
+  const [layout, setLayout] = useState({});
+
   return (
-    <View>
+    <View onLayout={(e) => getLayout(e, setLayout)}>
       <ColoredButton
         text="Suivant"
-        color="white"
-        backgroundColor={COLORS.dark_red}
+        color={COLORS.dark_purple}
+        backgroundColor={COLORS.light_purple}
       />
       <SecondaryButton text="Bouton" />
+      <View style={{ flexDirection: "row" }}>
+        <DefaultWidget
+          backgroundColor={COLORS.light_red}
+          height={layout.width / 3}
+          width={layout.width / 3}
+          foregroundColor={COLORS.dark_red}
+          text="Test"
+          icon={<FouailleIcon color={COLORS.dark_red} height={59} width={59} />}
+        />
+        <Widget
+          color={COLORS.dark_red}
+          height={layout.width / 3}
+          width={layout.width / 3}
+        ></Widget>
+        <Widget
+          color={COLORS.dark_red}
+          height={layout.width / 3}
+          width={layout.width / 3}
+        ></Widget>
+      </View>
     </View>
   );
 };

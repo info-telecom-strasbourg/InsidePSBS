@@ -1,3 +1,7 @@
-import FontsLoader from "./FontsLoader";
+import ColoredButton from "./buttons/ColoredButton";
+import PrimaryButton from "./buttons/PrimaryButton";
+import SecondaryButton from "./buttons/SecondaryButton";
+import DefaultWidget from "./widgets/DefaultWidget";
+import Widget from "./widgets/Widget";
 
-export { FontsLoader };
+export { ColoredButton, PrimaryButton, SecondaryButton, DefaultWidget, Widget };
