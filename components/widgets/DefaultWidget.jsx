@@ -17,7 +17,7 @@ const DefaultWidget = ({
     <Widget
       width={width}
       height={height}
-      color={backgroundColor}
+      backgroundColor={backgroundColor}
       onPress={onPress}
       style={styles.defaultWidget}
     >

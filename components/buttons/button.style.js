@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
-import { FONTS } from "../../constants";
+import { COLORS, FONTS } from "../../constants";
 
 const styles = StyleSheet.create({
-  btnContainer: ({ backgroundColor }) => ({
+  btnContainer: ({ backgroundColor = COLORS.primary }) => ({
     backgroundColor,
     width: "100%",
     padding: 10,
     borderRadius: 20,
   }),
-  btnText: ({ color }) => ({
+  btnText: ({ color = COLORS.white }) => ({
     color,
     textAlign: "center",
     fontFamily: FONTS.OpenSans.bold,

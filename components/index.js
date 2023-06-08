@@ -5,6 +5,7 @@ import DefaultWidget from "./widgets/DefaultWidget";
 import Widget from "./widgets/Widget";
 import TouchableSettingsIcon from "./touchableicon/TouchableSettingsIcon";
 import TouchableBackIcon from "./touchableicon/TouchableBackIcon";
+import Badge from "./badge/Badge";
 
 export {
   ColoredButton,
@@ -14,4 +15,5 @@ export {
   Widget,
   TouchableSettingsIcon,
   TouchableBackIcon,
+  Badge,
 };

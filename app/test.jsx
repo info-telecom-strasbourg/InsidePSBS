@@ -8,6 +8,7 @@ import {
   ColoredButton,
   SecondaryButton,
   TouchableSettingsIcon,
+  Badge,
 } from "../components";
 import { FouailleIcon } from "../assets/icons";
 
@@ -32,6 +33,12 @@ const Test = () => {
           icon={<FouailleIcon color={COLORS.dark_red} height={59} width={59} />}
         />
         <TouchableSettingsIcon />
+        <Badge
+          text="1"
+          color={COLORS.white}
+          backgroundColor={COLORS.primary}
+          width={27}
+        />
       </View>
     </View>
   );
