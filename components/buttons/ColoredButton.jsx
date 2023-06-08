@@ -5,10 +5,10 @@ import styles from "./button.style";
 const ColoredButton = ({ text, backgroundColor, color, onClick }) => {
   return (
     <TouchableOpacity
-      style={styles.btnContainer(backgroundColor)}
+      style={styles.btnContainer({ backgroundColor })}
       onClick={onClick}
     >
-      <Text style={styles.btnText(color)}>{text}</Text>
+      <Text style={styles.btnText({ color })}>{text}</Text>
     </TouchableOpacity>
   );
 };

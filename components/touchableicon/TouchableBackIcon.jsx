@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./touchable_icon.style";
+import styles from "./touchableicon.style";
 import { useTheme } from "../../contexts/themeContext";
 import { ROUTES } from "../../constants";
 import { ChevronLeftIcon } from "../../assets/icons";

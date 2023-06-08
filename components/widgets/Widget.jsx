@@ -6,7 +6,11 @@ const Widget = ({ children, color, width, height, onPress, style }) => {
   return (
     <TouchableOpacity
       style={{
-        ...styles.widgetContainer(color, width || 0, height || 0),
+        ...styles.widgetContainer({
+          color,
+          width: width || 0,
+          height: height || 0,
+        }),
         ...style,
       }}
       onPress={onPress}

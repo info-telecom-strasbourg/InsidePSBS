@@ -22,7 +22,7 @@ const DefaultWidget = ({
       style={styles.defaultWidget}
     >
       {icon}
-      <Text style={{ ...styles.widgetTitle(foregroundColor), ...style }}>
+      <Text style={{ ...styles.widgetTitle({ foregroundColor }), ...style }}>
         {text}
       </Text>
     </Widget>
