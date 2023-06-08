@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { COLORS } from "../constants";
 import { getLayout } from "../utils";
 import {
@@ -11,6 +11,7 @@ import {
   Badge,
 } from "../components";
 import { FouailleIcon } from "../assets/icons";
+import { textStyles } from "../styles";
 
 const Test = () => {
   const [layout, setLayout] = useState({});
@@ -40,6 +41,7 @@ const Test = () => {
           width={27}
         />
       </View>
+      <Text style={textStyles.title1(COLORS)}>Titre 1</Text>
     </View>
   );
 };
