@@ -19,6 +19,7 @@ import NetworkIcon from "./Network";
 import SearchIcon from "./Search";
 import SettingsIcon from "./Settings";
 import ShirtIcon from "./Shirt";
+import InsidePsbs from "./InsidePsbs";
 
 export {
   AnnouncementIcon,
@@ -42,4 +43,5 @@ export {
   SearchIcon,
   SettingsIcon,
   ShirtIcon,
+  InsidePsbs,
 };
