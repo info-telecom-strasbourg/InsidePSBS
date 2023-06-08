@@ -4,13 +4,16 @@ import { useTheme } from "../../contexts/themeContext";
 import { ROUTES } from "../../constants";
 import { SettingsIcon } from "../../assets/icons";
 import { Link } from "expo-router";
+import { View } from "react-native";
 
 const TouchableSettingsIcon = () => {
   const { theme } = useTheme();
 
   return (
-    <Link style={styles.iconContainer} href={ROUTES.home}>
-      <SettingsIcon width={31} height={31} color={theme.text} />
+    <Link href={ROUTES.settings}>
+      <View style={styles.iconContainer}>
+        <SettingsIcon width={31} height={31} color={theme.text} />
+      </View>
     </Link>
   );
 };

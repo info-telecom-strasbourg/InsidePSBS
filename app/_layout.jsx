@@ -30,6 +30,7 @@ const StackLayout = () => {
     <ThemeProvider onLayout={onLayoutRootView}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="test" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
     // </FontsLoader>

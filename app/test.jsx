@@ -10,14 +10,18 @@ import {
   TouchableSettingsIcon,
   Badge,
 } from "../components";
-import { FouailleIcon } from "../assets/icons";
+import { FouailleIcon, InsidePsbs } from "../assets/icons";
 import { textStyles } from "../styles";
+import Topbar from "../components/topbar/Topbar";
+import DefaultTopbar from "../components/topbar/DefaultTopbar";
+import BackButtonTopbar from "../components/topbar/BackButtonTopbar";
 
 const Test = () => {
   const [layout, setLayout] = useState({});
 
   return (
     <View onLayout={(e) => getLayout(e, setLayout)}>
+      <DefaultTopbar title="InsidePsbs" />
       <ColoredButton
         text="Suivant"
         color={COLORS.dark_purple}
