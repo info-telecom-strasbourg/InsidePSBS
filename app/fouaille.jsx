@@ -1,14 +1,14 @@
 import React from "react";
-import { ScreenContainer } from "../components";
+import { ScrollScreenContainer } from "../components";
 import { useNavigation } from "expo-router";
 import FouailleScreen from "../screens/Fouaille/FouailleScreen";
 
 const Fouaille = () => {
   const navigation = useNavigation();
   return (
-    <ScreenContainer>
+    <ScrollScreenContainer>
       <FouailleScreen />
-    </ScreenContainer>
+    </ScrollScreenContainer>
   );
 };
 

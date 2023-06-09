@@ -1,5 +1,5 @@
 import React from "react";
-import { DefaultWidget, Widget } from "../../../components";
+import { Widget } from "../../../components";
 import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
@@ -8,9 +8,9 @@ import {
   ArrowUpIcon,
   FouailleIcon,
 } from "../../../assets/icons";
-import styles from "./fouaillewidget.style";
+import fouailleWidgetStyle from "./fouaillewidget.style";
 import useFetch from "../../../hooks/useFetch";
-import { useTheme } from "../../../contexts/themeContext";
+import Loader from "../../../components/loader/Loader";
 
 const FouailleWidget = ({ width, height }) => {
   const router = useRouter();
@@ -19,15 +19,13 @@ const FouailleWidget = ({ width, height }) => {
     `https://fouaille.bde-tps.fr/api/fouaille/show/${userid}?page_size=2`
   );
 
-  const { theme } = useTheme();
+  const styles = fouailleWidgetStyle();
 
   if (isLoading)
     return (
-      <DefaultWidget
-        width={width}
-        height={height}
-        backgroundColor={theme.box}
-      />
+      <Widget width={width} height={height} backgroundColor={theme.box}>
+        <Loader />
+      </Widget>
     );
 
   if (error) console.log(error);
