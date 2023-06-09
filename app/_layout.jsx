@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import { ThemeProvider } from "../contexts/themeContext";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
@@ -6,7 +6,7 @@ import React, { useCallback } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
-const StackLayout = () => {
+const AppLayout = () => {
   const [fontsLoaded] = useFonts({
     OpenSansBold: require("../assets/fonts/open-sans/OpenSans-Bold.ttf"),
     OpenSansExtraBold: require("../assets/fonts/open-sans/OpenSans-ExtraBold.ttf"),
@@ -26,15 +26,10 @@ const StackLayout = () => {
   if (!fontsLoaded) return null;
 
   return (
-    // <FontsLoader>
     <ThemeProvider onLayout={onLayoutRootView}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="test" options={{ headerShown: false }} />
-      </Stack>
+      <Slot />
     </ThemeProvider>
-    // </FontsLoader>
   );
 };
 
-export default StackLayout;
+export default AppLayout;

@@ -1,14 +1,32 @@
 import { Tabs } from "expo-router";
+import {
+  AnnouncementIcon,
+  CalendarIcon,
+  HomeIcon,
+  MessagesIcon,
+} from "../../assets/icons";
 
-const TabsLayout = () => {
+const TabLayout = () => {
   return (
-    <Tabs>
-      <Tabs.Screen name="home" options={{ headerShown: false }} />
-      <Tabs.Screen name="calendar" options={{ headerShown: false }} />
-      <Tabs.Screen name="announcements" options={{ headerShown: false }} />
-      <Tabs.Screen name="messages" options={{ headerShown: false }} />
+    <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs.Screen
+        name="home"
+        options={{ title: "Accueil", tabBarIcon: HomeIcon }}
+      />
+      <Tabs.Screen
+        name="calendar"
+        options={{ title: "Calendrier", tabBarIcon: CalendarIcon }}
+      />
+      <Tabs.Screen
+        name="announcements"
+        options={{ title: "Annonces", tabBarIcon: AnnouncementIcon }}
+      />
+      <Tabs.Screen
+        name="messages"
+        options={{ title: "Messages", tabBarIcon: MessagesIcon }}
+      />
     </Tabs>
   );
 };
 
-export default TabsLayout;
+export default TabLayout;
