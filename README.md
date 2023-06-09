@@ -28,3 +28,5 @@ Pour chaque dossier (sauf ``/app``), on crée un fichier ``index.js`` qui permet
 - Installer les dépendances : ``npm install``
 - Lancer le projet : ``npm start``
 - Scanner le QR code avec l'application Expo Go (il faut être connecté sur le même réseau)
+
+[lien-vers-le-todo](/tout-doux.md)
