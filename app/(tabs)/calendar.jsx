@@ -1,8 +1,13 @@
 import React from "react";
 import { Text } from "react-native";
+import { ScreenContainer } from "../../components";
 
 const Calendar = () => {
-  return <Text>Calendar</Text>;
+  return (
+    <ScreenContainer>
+      <Text>Calendar</Text>
+    </ScreenContainer>
+  );
 };
 
 export default Calendar;

@@ -37,6 +37,7 @@ export const ThemeProvider = ({ children }) => {
     theme.box_secondary = COLORS.box_secondary_light;
     theme.text = COLORS.text_light;
     theme.text_secondary = COLORS.text_secondary_light;
+    theme.tabBar = COLORS.tabBar_light;
   }
 
   if (colorScheme === "dark") {
@@ -45,6 +46,7 @@ export const ThemeProvider = ({ children }) => {
     theme.box_secondary = COLORS.box_secondary_dark;
     theme.text = COLORS.text_dark;
     theme.text_secondary = COLORS.text_secondary_dark;
+    theme.tabBar = COLORS.tabBar_dark;
   }
 
   return (

@@ -5,10 +5,24 @@ import {
   HomeIcon,
   MessagesIcon,
 } from "../../assets/icons";
+import { useTheme } from "../../contexts/themeContext";
+import { COLORS } from "../../constants";
 
 const TabLayout = () => {
+  const { theme } = useTheme();
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarInactiveTintColor: theme.text,
+        tabBarStyle: {
+          backgroundColor: theme.tabBar,
+          elevation: 0,
+        },
+      }}
+    >
       <Tabs.Screen
         name="home"
         options={{ title: "Accueil", tabBarIcon: HomeIcon }}

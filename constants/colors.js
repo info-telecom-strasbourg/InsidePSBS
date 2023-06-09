@@ -20,12 +20,14 @@ const COLORS = {
   box_secondary_light: "#D6D6D6",
   text_light: "#050506",
   text_secondary_light: "#AEAEAE",
+  tabBar_light: "#FFFFFF",
 
   background_dark: "#000000",
   box_dark: "#1C1C1F",
   box_secondary_dark: "#333337",
   text_dark: "#FFFFFF",
   text_secondary_dark: "#AEAEAE",
+  tabBar_dark: "#000000",
 };
 
 export default COLORS;
