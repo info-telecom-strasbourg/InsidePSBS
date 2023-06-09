@@ -16,7 +16,7 @@ Pour faire des tests, on peut utiliser le fichier ``/app/test.jsx`` et rediriger
 
 Le style propre à un composant est enregistré dans``<nom-du-composant>.style.js`` (cf le dossier ``/components``)
 
-De même, pour créer un composant propre à un écran, on le place dans le dossier ``<nom-de-l'écran>/components``
+De même, pour créer un composant propre à un écran, on le place dans le dossier ``<nom-de-l'écran>``
 
 Pour chaque dossier (sauf ``/app``), on crée un fichier ``index.js`` qui permet d'exporter tous les fichiers du dossier (cf le dossier ``/components``)
 

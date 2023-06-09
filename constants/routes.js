@@ -5,6 +5,7 @@ const ROUTES = {
   announcements: "/announcements",
   calendar: "/calendar",
   settings: "/settings",
+  fouaille: "/fouaille",
 };
 
 export default ROUTES;

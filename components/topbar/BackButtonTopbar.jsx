@@ -2,8 +2,8 @@ import Topbar from "./Topbar";
 import { TouchableBackIcon } from "../index";
 import React from "react";
 
-const BackButtonTopbar = ({ title }) => {
-  return <Topbar title={title} leftIcon={<TouchableBackIcon />} />;
+const BackButtonTopbar = ({ children }) => {
+  return <Topbar leftIcon={<TouchableBackIcon />}>{children}</Topbar>;
 };
 
 export default BackButtonTopbar;

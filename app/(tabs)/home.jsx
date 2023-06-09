@@ -1,11 +1,11 @@
 import React from "react";
-import { Text } from "react-native";
 import { ScreenContainer } from "../../components";
+import { HomeScreen } from "../../screens";
 
 const Home = () => {
   return (
     <ScreenContainer>
-      <Text>Home</Text>
+      <HomeScreen />
     </ScreenContainer>
   );
 };

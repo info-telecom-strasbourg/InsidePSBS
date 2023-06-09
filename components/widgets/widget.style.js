@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
     width,
     height,
     borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
     padding: 10,
   }),
   widgetTitle: ({ color = COLORS.white }) => ({

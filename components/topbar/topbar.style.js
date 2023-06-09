@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 30,
     paddingVertical: 10,
     paddingHorizontal: 15,
     minHeight: 76,

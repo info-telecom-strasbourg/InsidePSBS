@@ -5,8 +5,12 @@ import { useTheme } from "../../contexts/themeContext";
 import styles from "./topbar.style";
 import { TouchableSettingsIcon } from "../index";
 
-const Topbar = ({ title, leftIcon, rightIcon = <TouchableSettingsIcon /> }) => {
-  const theme = useTheme();
+const Topbar = ({
+  children,
+  leftIcon,
+  rightIcon = <TouchableSettingsIcon />,
+}) => {
+  const { theme } = useTheme();
   return (
     <View style={styles.topbarContainer}>
       <View style={styles.topbarTitleWrapper}>
@@ -18,7 +22,7 @@ const Topbar = ({ title, leftIcon, rightIcon = <TouchableSettingsIcon /> }) => {
               ...textStyles.title1(theme),
             }}
           >
-            {title}
+            {children}
           </Text>
         </View>
       </View>

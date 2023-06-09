@@ -21,7 +21,7 @@ const Test = () => {
 
   return (
     <View onLayout={(e) => getLayout(e, setLayout)}>
-      <DefaultTopbar title="InsidePsbs" />
+      <DefaultTopbar>InsidePsbs</DefaultTopbar>
       <ColoredButton
         text="Suivant"
         color={COLORS.dark_purple}

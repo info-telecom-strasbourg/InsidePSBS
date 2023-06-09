@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   screenContainer: ({ background }) => ({
     flex: 1,
     backgroundColor: background,
+    paddingVertical: 30,
   }),
 });
 

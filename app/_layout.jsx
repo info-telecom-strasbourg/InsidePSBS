@@ -1,4 +1,4 @@
-import { Slot } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import { ThemeProvider } from "../contexts/themeContext";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
@@ -27,7 +27,10 @@ const AppLayout = () => {
 
   return (
     <ThemeProvider onLayout={onLayoutRootView}>
-      <Slot />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="fouaille" options={{ presentation: "modal" }} />
+      </Stack>
     </ThemeProvider>
   );
 };
