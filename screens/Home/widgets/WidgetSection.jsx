@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import { getLayout } from "../../../utils";
 import { DefaultWidget } from "../../../components";
-import { useTheme } from "../../../contexts/themeContext";
 import FouailleWidget from "./FouailleWidget";
 import MpsWidget from "./MpsWidget";
 
@@ -10,8 +9,6 @@ const WidgetSection = () => {
   const [{ width }, setLayout] = useState({ width: 0 });
   const gap = 12;
   const widgetSize = (size = 1) => (width / 3 - gap) * size + gap * (size - 1);
-
-  const { theme } = useTheme();
 
   const widgetTable = [
     [

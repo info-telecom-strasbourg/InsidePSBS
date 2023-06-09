@@ -14,7 +14,7 @@ import { useTheme } from "../../../contexts/themeContext";
 
 const FouailleWidget = ({ width, height }) => {
   const router = useRouter();
-  const userid = 3;
+  const userid = 1;
   const { res, error, isLoading } = useFetch(
     `https://fouaille.bde-tps.fr/api/fouaille/show/${userid}?page_size=2`
   );
@@ -36,7 +36,7 @@ const FouailleWidget = ({ width, height }) => {
     <Widget
       backgroundColor={COLORS.light_purple}
       size={2}
-      onPress={() => router.replace(ROUTES.fouaille)}
+      onPress={() => router.push(ROUTES.fouaille)}
       width={width}
       height={height}
       style={{ flexDirection: "row" }}
@@ -52,7 +52,7 @@ const FouailleWidget = ({ width, height }) => {
         <View style={styles.transactionsWrapper}>
           {res?.data.commands?.map((command, index) => (
             <View key={index} style={styles.transaction}>
-              {0 < 0 ? (
+              {command?.total_price < 0 ? (
                 <ArrowDownIcon color={COLORS.dark_red} width={14} height={8} />
               ) : (
                 <ArrowUpIcon color={COLORS.dark_green} width={14} height={8} />

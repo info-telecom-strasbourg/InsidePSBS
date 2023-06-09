@@ -2,7 +2,8 @@ import { Slot, Stack } from "expo-router";
 import { ThemeProvider } from "../contexts/themeContext";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,6 +17,19 @@ const AppLayout = () => {
     OpenSansRegular: require("../assets/fonts/open-sans/OpenSans-Regular.ttf"),
     OpenSansSemiBold: require("../assets/fonts/open-sans/OpenSans-SemiBold.ttf"),
   });
+
+  useEffect(() => {
+    const lockScreenOrientation = async () => {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT
+      );
+    };
+
+    lockScreenOrientation();
+    return () => {
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
