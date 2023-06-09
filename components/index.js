@@ -6,8 +6,8 @@ import Widget from "./widgets/Widget";
 import TouchableSettingsIcon from "./touchableicon/TouchableSettingsIcon";
 import TouchableBackIcon from "./touchableicon/TouchableBackIcon";
 import Badge from "./badge/Badge";
-import ScreenContainer from "./screen/ScreenContainer";
-import ScrollScreenContainer from "./screen/ScrollScreenContainer";
+import ScreenContainer from "./screencontainer/ScreenContainer";
+import ScrollScreenContainer from "./screencontainer/ScrollScreenContainer";
 
 export {
   ColoredButton,
