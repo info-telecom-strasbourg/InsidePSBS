@@ -11,7 +11,6 @@ const fouailleWidgetStyle = () => {
       borderRadius: 20,
       alignItems: "center",
       justifyContent: "center",
-      flex: 0,
     },
     textWrapper: {
       flex: 1,

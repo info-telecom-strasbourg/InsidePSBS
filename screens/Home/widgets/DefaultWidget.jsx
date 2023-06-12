@@ -2,7 +2,7 @@ import React from "react";
 import Widget from "./Widget";
 import { Text } from "react-native";
 import styles from "./widget.style";
-import { useTheme } from "../../contexts/themeContext";
+import { useTheme } from "../../../contexts/themeContext";
 
 const DefaultWidget = ({
   backgroundColor,

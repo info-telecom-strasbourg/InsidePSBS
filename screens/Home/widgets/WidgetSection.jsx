@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { getLayout } from "../../../utils";
-import { DefaultWidget } from "../../../components";
+import DefaultWidget from "./DefaultWidget";
 import FouailleWidget from "./FouailleWidget";
 import MpsWidget from "./MpsWidget";
 
