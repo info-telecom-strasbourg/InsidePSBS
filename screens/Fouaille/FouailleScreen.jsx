@@ -1,10 +1,10 @@
 import React from "react";
 import { View } from "react-native";
-import BackButtonTopbar from "../../components/topbar/BackButtonTopbar";
+
 import { TEXT } from "../../constants";
 import fouailleStyles from "./fouaille.style";
 import useFetch from "../../hooks/useFetch";
-import Loader from "../../components/loader/Loader";
+import { Loader, BackButtonTopbar } from "../../components";
 import Card from "./Card";
 import Transactions from "./Transactions";
 
@@ -13,8 +13,8 @@ const FouailleScreen = () => {
     "https://fouaille.bde-tps.fr/api/fouaille/show/3?page_size=20&page=1"
   );
   const styles = fouailleStyles();
-  if (loading) return <Loader />;
 
+  if (loading) return <Loader />;
   return (
     <View style={styles.container}>
       <BackButtonTopbar>{TEXT.fouaille.title}</BackButtonTopbar>

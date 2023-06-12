@@ -1,13 +1,16 @@
 import React from "react";
-import styles from "./touchableicon.style";
+import { View } from "react-native";
+import { Link } from "expo-router";
+
+import touchableIconStyles from "./touchableicon.style";
 import { useTheme } from "../../contexts/themeContext";
 import { ROUTES } from "../../constants";
 import { SettingsIcon } from "../../assets/icons";
-import { Link } from "expo-router";
-import { View } from "react-native";
 
 const TouchableSettingsIcon = () => {
   const { theme } = useTheme();
+
+  const styles = touchableIconStyles();
 
   return (
     <Link href={ROUTES.settings}>

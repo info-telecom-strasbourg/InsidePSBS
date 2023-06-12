@@ -1,7 +1,8 @@
 import React from "react";
-import Widget from "./Widget";
 import { Text } from "react-native";
-import styles from "./widget.style";
+
+import Widget from "./Widget";
+import widgetStyle from "./widget.style";
 import { useTheme } from "../../../contexts/themeContext";
 
 const DefaultWidget = ({
@@ -15,6 +16,7 @@ const DefaultWidget = ({
   style,
 }) => {
   const { theme } = useTheme();
+  const styles = widgetStyle({ color: foregroundColor, backgroundColor });
   return (
     <Widget
       width={width}
@@ -24,9 +26,7 @@ const DefaultWidget = ({
       style={styles.defaultWidget}
     >
       {icon}
-      <Text style={{ ...styles.widgetTitle({ foregroundColor }), ...style }}>
-        {text}
-      </Text>
+      <Text style={{ ...styles.widgetTitle, ...style }}>{text}</Text>
     </Widget>
   );
 };

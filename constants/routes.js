@@ -6,6 +6,7 @@ const ROUTES = {
   calendar: "/calendar",
   settings: "/settings",
   fouaille: "/fouaille",
+  error: "/error",
 };
 
 export default ROUTES;

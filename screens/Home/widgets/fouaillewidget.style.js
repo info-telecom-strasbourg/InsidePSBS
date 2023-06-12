@@ -1,10 +1,8 @@
 import { StyleSheet } from "react-native";
 import { COLORS, FONTS } from "../../../constants";
-import { useTheme } from "../../../contexts/themeContext";
 
-const fouailleWidgetStyle = () => {
-  const { theme } = useTheme();
-  return StyleSheet.create({
+const fouailleWidgetStyle = () =>
+  StyleSheet.create({
     iconWrapper: {
       padding: 10,
       backgroundColor: COLORS.dark_purple,
@@ -38,6 +36,5 @@ const fouailleWidgetStyle = () => {
       fontSize: 12,
     },
   });
-};
 
 export default fouailleWidgetStyle;

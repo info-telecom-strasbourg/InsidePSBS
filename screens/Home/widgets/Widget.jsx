@@ -1,6 +1,7 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import styles from "./widget.style";
+
+import widgetStyles from "./widget.style";
 
 const Widget = ({
   children,
@@ -10,14 +11,15 @@ const Widget = ({
   onPress,
   style,
 }) => {
+  const styles = widgetStyles({
+    backgroundColor,
+    width: width || 0,
+    height: height || 0,
+  });
   return (
     <TouchableOpacity
       style={{
-        ...styles.widgetContainer({
-          backgroundColor,
-          width: width || 0,
-          height: height || 0,
-        }),
+        ...styles.widgetContainer,
         ...style,
       }}
       onPress={onPress}

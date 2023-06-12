@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text } from "react-native";
 import { textStyles } from "../../styles";
 import { useTheme } from "../../contexts/themeContext";
-import styles from "./topbar.style";
-import { TouchableSettingsIcon } from "../index";
+import topbarStyles from "./topbar.style";
+import TouchableSettingsIcon from "../touchableicon/TouchableSettingsIcon";
 
 const Topbar = ({
   children,
@@ -11,6 +11,8 @@ const Topbar = ({
   rightIcon = <TouchableSettingsIcon />,
 }) => {
   const { theme } = useTheme();
+  const styles = topbarStyles(theme);
+
   return (
     <View style={styles.topbarContainer}>
       <View style={styles.topbarTitleWrapper}>
