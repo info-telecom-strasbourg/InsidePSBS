@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { textStyles } from "../../styles";
-import { useTheme } from "../../contexts/themeContext";
 import topbarStyles from "./topbar.style";
 import TouchableSettingsIcon from "../touchableicon/TouchableSettingsIcon";
 
@@ -10,8 +9,8 @@ const Topbar = ({
   leftIcon,
   rightIcon = <TouchableSettingsIcon />,
 }) => {
-  const { theme } = useTheme();
-  const styles = topbarStyles(theme);
+  const styles = topbarStyles();
+  const text_styles = textStyles();
 
   return (
     <View style={styles.topbarContainer}>
@@ -21,7 +20,7 @@ const Topbar = ({
         <View style={styles.topbarWrapper}>
           <Text
             style={{
-              ...textStyles.title1(theme),
+              ...text_styles.title1,
             }}
           >
             {children}

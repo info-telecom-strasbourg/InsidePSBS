@@ -6,7 +6,7 @@ import fouailleStyles from "./fouaille.style";
 import useFetch from "../../hooks/useFetch";
 import { Loader, BackButtonTopbar } from "../../components";
 import Card from "./Card";
-import Transactions from "./Transactions";
+import TransactionSection from "./transactions/TransactionSection";
 
 const FouailleScreen = () => {
   const { res, loading, error } = useFetch(
@@ -24,7 +24,7 @@ const FouailleScreen = () => {
           lastname={res?.data.last_name}
           money={res?.data.balance}
         />
-        <Transactions commands={res?.data.commands} />
+        <TransactionSection commands={res?.data.commands} />
       </View>
     </View>
   );

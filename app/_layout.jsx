@@ -8,13 +8,19 @@ import { FontLoader, WebContainer } from "../components";
 const AppLayout = () => {
   lockScreenOrientation();
 
+  const modalOptions = {
+    presentation: "modal",
+    animation: "slide_from_bottom",
+  };
+
   return (
     <FontLoader>
       <ThemeProvider>
         <WebContainer>
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="fouaille" options={{ presentation: "modal" }} />
+            <Stack.Screen name="fouaille" options={modalOptions} />
+            <Stack.Screen name="settings" options={modalOptions} />
           </Stack>
         </WebContainer>
       </ThemeProvider>
