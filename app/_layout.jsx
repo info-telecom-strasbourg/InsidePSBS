@@ -18,18 +18,18 @@ const AppLayout = () => {
     OpenSansSemiBold: require("../assets/fonts/open-sans/OpenSans-SemiBold.ttf"),
   });
 
-  useEffect(() => {
-    const lockScreenOrientation = async () => {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.PORTRAIT
-      );
-    };
-
-    lockScreenOrientation();
-    return () => {
-      ScreenOrientation.unlockAsync();
-    };
-  }, []);
+  // useEffect(() => {
+  //   const lockScreenOrientation = async () => {
+  //     await ScreenOrientation.lockAsync(
+  //       ScreenOrientation.OrientationLock.PORTRAIT
+  //     );
+  //   };
+  //
+  //   lockScreenOrientation();
+  //   return () => {
+  //     ScreenOrientation.unlockAsync();
+  //   };
+  // }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
