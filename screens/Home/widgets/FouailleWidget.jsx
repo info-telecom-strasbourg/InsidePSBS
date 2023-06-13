@@ -1,9 +1,8 @@
 import React from "react";
-import { Text, View } from "react-native";
-import { useRouter } from "expo-router";
-
 import Widget from "./Widget";
 import { COLORS, ROUTES, TEXT } from "../../../constants";
+import { useRouter } from "expo-router";
+import { Text, View } from "react-native";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -11,7 +10,7 @@ import {
 } from "../../../assets/icons";
 import fouailleWidgetStyle from "./fouaillewidget.style";
 import useFetch from "../../../hooks/useFetch";
-import { Loader } from "../../../components";
+import Loader from "../../../components/loader/Loader";
 
 const FouailleWidget = ({ width, height }) => {
   const router = useRouter();
@@ -28,6 +27,8 @@ const FouailleWidget = ({ width, height }) => {
         <Loader />
       </Widget>
     );
+
+  if (error) console.log(error);
 
   return (
     <Widget

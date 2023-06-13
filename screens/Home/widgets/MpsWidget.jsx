@@ -1,8 +1,7 @@
 import React from "react";
-import { Image } from "react-native";
-import { useRouter } from "expo-router";
-
 import { COLORS } from "../../../constants";
+import { useRouter } from "expo-router";
+import { Image } from "react-native";
 import Widget from "./Widget";
 
 const MpsWidget = ({ width, height }) => {

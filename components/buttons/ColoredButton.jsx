@@ -1,13 +1,15 @@
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
-import buttonStyles from "./button.style";
+import styles from "./button.style";
 import { COLORS } from "../../constants";
 
 const ColoredButton = ({ text, backgroundColor, color, onClick }) => {
-  const styles = buttonStyles({ backgroundColor, color });
   return (
-    <TouchableOpacity style={styles.btnContainer} onClick={onClick}>
-      <Text style={styles.btnText}>{text}</Text>
+    <TouchableOpacity
+      style={styles.btnContainer({ backgroundColor })}
+      onClick={onClick}
+    >
+      <Text style={styles.btnText({ color })}>{text}</Text>
     </TouchableOpacity>
   );
 };

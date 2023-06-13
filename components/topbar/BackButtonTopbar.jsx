@@ -1,5 +1,5 @@
 import Topbar from "./Topbar";
-import TouchableBackIcon from "../touchableicon/TouchableBackIcon";
+import { TouchableBackIcon } from "../index";
 import React from "react";
 
 const BackButtonTopbar = ({ children, rightIcon }) => {

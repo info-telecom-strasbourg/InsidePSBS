@@ -1,13 +1,13 @@
 import { useTheme } from "../../contexts/themeContext";
 import { ScrollView } from "react-native";
 import React from "react";
-import screenStyles from "./screencontainer.style";
+import styles from "./screencontainer.style";
 
 const ScrollScreenContainer = ({ children }) => {
   const { theme } = useTheme();
-  const styles = screenStyles(theme);
-
-  return <ScrollView style={styles.screenContainer}>{children}</ScrollView>;
+  return (
+    <ScrollView style={styles.screenContainer(theme)}>{children}</ScrollView>
+  );
 };
 
 export default ScrollScreenContainer;

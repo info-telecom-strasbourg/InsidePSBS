@@ -1,9 +1,10 @@
 import React from "react";
-
 import { ScrollScreenContainer } from "../components";
-import { FouailleScreen } from "../screens";
+import { useNavigation } from "expo-router";
+import FouailleScreen from "../screens/Fouaille/FouailleScreen";
 
 const Fouaille = () => {
+  const navigation = useNavigation();
   return (
     <ScrollScreenContainer>
       <FouailleScreen />

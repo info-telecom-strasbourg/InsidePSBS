@@ -1,5 +1,4 @@
 import { Tabs } from "expo-router";
-
 import {
   AnnouncementIcon,
   CalendarIcon,

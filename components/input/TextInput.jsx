@@ -1,9 +1,8 @@
 import React from "react";
 import { Text, TextInput as Entry, View } from "react-native";
-import inputStyles from "./input.style";
+import styles from "./input.style";
 
-const TextInput = ({ label, onChangeText, value, color, background }) => {
-  const styles = inputStyles({ color, background });
+const TextInput = ({ label, onChangeText, value }) => {
   return (
     <View style={styles.textInputContainer}>
       <Text style={styles.textInputLabel}>{label}</Text>

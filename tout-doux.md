@@ -1,12 +1,18 @@
 # Tout doux list
 
-## En cours
+## Terminé
+
+- Détail sur les consomations avec la carte fouaille
 - Page carte fouaille
-- Page d'accueil
-- Agenda
 - Afficher le type de produit acheté dans les dernières transactions
 
+## En cours
+
+- Page d'accueil
+- Agenda
+
 ## A faire
+
 - Vue hors connexion
 - Mettre en place un système de notification pour les annonces
 - Afficher le nombres d'annonces non lus avec un badge dans l'annonce
@@ -22,8 +28,11 @@
 - Intégration de l'emploi du temps
 - Exporter l'agenda
 - Lecteur vidéo
+- Page des paramètres
+- Editer le profil
 
 ## A réfléchir
+
 - Pages accessibles au personnes no connectées par unistra
 - Visualisation des photos de MPS
 - Filtres pour les annonces et l'agenda
@@ -31,13 +40,12 @@
 - CGU et intégration des CGU
 
 ## A concevoir sur la maquette
-- Page des paramètres
-- Editer le profil
+
 - Formulaire pour l'ajout des annonces / événements
 - Bibliothèque salle geek
 - Sondages dans les annonces
 - Inscription aux repas pour les soirées fouailles
 
 ## A faire quand le backend sera prêt
+
 - Authentification
-- Détail sur les consomations avec la carte fouaille
