@@ -1,0 +1,50 @@
+on:
+  push:
+    branches:
+      - build-ios
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 📨 Copy env
+        run: cp ${{ secrets.ENV_LOCATION}} .
+        
+      - name: 🪄 Erase .env from .gitignore
+        run: sed -i '/.env/d' .gitignore
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: npm
+
+      - name: 🏗 Setup Expo and EAS
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🚀 Build app
+        run: eas build --platform ios --non-interactive # --local
+        
+#      - name: Upload aab result
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: App-aab
+#          path: build-*
+
+      - name: 📌 Nextcloud Artifact
+        uses: trympet/nextcloud-artifacts-action@v2
+        with:
+          name: App-ipa                                         # Name of the artifact
+          path: build-*                                         # Globbing supported
+          nextcloud-url: ${{ secrets.NEXTCLOUD_URL }}           # Nextcloud URL
+          nextcloud-username: ${{ secrets.NEXTCLOUD_USERNAME }} # Username from repository secret
+          nextcloud-password: ${{ secrets.NEXTCLOUD_PASSWORD }} # Password from repository secret
