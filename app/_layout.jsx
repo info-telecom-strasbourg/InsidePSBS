@@ -18,7 +18,7 @@ const AppLayout = () => {
     OpenSansRegular: require("../assets/fonts/open-sans/OpenSans-Regular.ttf"),
     OpenSansSemiBold: require("../assets/fonts/open-sans/OpenSans-SemiBold.ttf"),
   });
-
+  // Lock screen orientation to portrait
   useEffect(() => {
     if (Platform.OS === "web") return;
 
@@ -32,6 +32,30 @@ const AppLayout = () => {
     return () => {
       ScreenOrientation.unlockAsync();
     };
+  }, []);
+  // Notification management
+  
+  useEffect(() => {
+    if (Platform.OS === "web") return;
+
+    const {registerForPushNotificationsAsync, handleNotificationResponse} = useNotifications() ;
+
+    var tocken;
+    tocken=registerForPushNotificationsAsync();
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+      }),
+    });
+    const responseListener = Notifications.addNotificationResponseReceivedListener( handleNotificationResponse );
+    return () => {
+      if (responseListener) {
+        Notifications.removeNotificationSubscription(responseListener);
+      };
+    };
+
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
@@ -48,7 +72,6 @@ const AppLayout = () => {
   };
 
   return (
-<<<<<<< HEAD
     <FontLoader>
       <ThemeProvider>
         <WebContainer>
@@ -60,16 +83,6 @@ const AppLayout = () => {
         </WebContainer>
       </ThemeProvider>
     </FontLoader>
-=======
-    <ThemeProvider onLayout={onLayoutRootView}>
-      <WebContainer>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="fouaille" options={{ presentation: "modal" }} />
-        </Stack>
-      </WebContainer>
-    </ThemeProvider>
->>>>>>> parent of b866aa0 (refactoring)
   );
 };
 
