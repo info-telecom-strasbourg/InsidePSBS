@@ -1,6 +1,9 @@
 node_modules/
 .expo/
+android/
 dist/
+.env
+google-services.json
 npm-debug.*
 *.jks
 *.p8
