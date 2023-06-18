@@ -9,6 +9,8 @@ const fouailleStyles = () => {
       flex: 1,
     },
     wrapper: {
+      flex: 1,
+
       paddingHorizontal: 11,
     },
 
@@ -45,33 +47,6 @@ const fouailleStyles = () => {
         color: theme.text,
         fontWeight: "700",
         fontSize: 16,
-      },
-    },
-    transactions: {
-      container: {
-        borderRadius: 20,
-        overflow: "hidden",
-      },
-      title: {
-        color: theme.text,
-        fontWeight: "600",
-        fontSize: 20,
-        marginBottom: 15,
-        marginHorizontal: 10,
-        marginTop: 50,
-      },
-      transaction: {
-        backgroundColor: theme.box,
-        paddingVertical: 10,
-        paddingHorizontal: 13,
-        marginBottom: 2,
-        flexDirection: "row",
-        alignItems: "center",
-      },
-      label: {
-        color: theme.text,
-        marginLeft: 10,
-        fontSize: 15,
       },
     },
   });

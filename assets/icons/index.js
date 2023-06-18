@@ -20,6 +20,7 @@ import SearchIcon from "./Search";
 import SettingsIcon from "./Settings";
 import ShirtIcon from "./Shirt";
 import InsidePsbs from "./InsidePsbs";
+import MoonIcon from "./Moon";
 
 export {
   AnnouncementIcon,
@@ -44,4 +45,5 @@ export {
   SettingsIcon,
   ShirtIcon,
   InsidePsbs,
+  MoonIcon,
 };

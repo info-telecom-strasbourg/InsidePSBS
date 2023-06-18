@@ -7,6 +7,13 @@ const styles = StyleSheet.create({
     backgroundColor: background,
     paddingVertical: 30,
   }),
+  webContainer: ({ background }) => ({
+    flex: 1,
+    justifyContent: "center",
+    width: "100%",
+    flexDirection: "row",
+    backgroundColor: background,
+  }),
 });
 
 export default styles;

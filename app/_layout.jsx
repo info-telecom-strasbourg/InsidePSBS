@@ -1,9 +1,10 @@
-import { Slot, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { ThemeProvider } from "../contexts/themeContext";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import React, { useCallback, useEffect } from "react";
 import * as ScreenOrientation from "expo-screen-orientation";
+import WebContainer from "../components/screencontainer/WebContainer";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -19,6 +20,8 @@ const AppLayout = () => {
   });
 
   useEffect(() => {
+    if (Platform.OS === "web") return;
+
     const lockScreenOrientation = async () => {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT
@@ -39,13 +42,34 @@ const AppLayout = () => {
 
   if (!fontsLoaded) return null;
 
+  const modalOptions = {
+    presentation: "modal",
+    animation: "slide_from_bottom",
+  };
+
   return (
+<<<<<<< HEAD
+    <FontLoader>
+      <ThemeProvider>
+        <WebContainer>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="fouaille" options={modalOptions} />
+            <Stack.Screen name="settings" options={modalOptions} />
+          </Stack>
+        </WebContainer>
+      </ThemeProvider>
+    </FontLoader>
+=======
     <ThemeProvider onLayout={onLayoutRootView}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="fouaille" options={{ presentation: "modal" }} />
-      </Stack>
+      <WebContainer>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="fouaille" options={{ presentation: "modal" }} />
+        </Stack>
+      </WebContainer>
     </ThemeProvider>
+>>>>>>> parent of b866aa0 (refactoring)
   );
 };
 

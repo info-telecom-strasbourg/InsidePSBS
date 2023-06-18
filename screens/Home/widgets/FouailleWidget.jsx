@@ -1,5 +1,5 @@
 import React from "react";
-import { Widget } from "../../../components";
+import Widget from "./Widget";
 import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";

@@ -12,6 +12,7 @@ const Widget = ({
 }) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       style={{
         ...styles.widgetContainer({
           backgroundColor,
