@@ -6,6 +6,7 @@ import TouchableBackIcon from "./touchableicon/TouchableBackIcon";
 import Badge from "./badge/Badge";
 import ScreenContainer from "./screencontainer/ScreenContainer";
 import ScrollScreenContainer from "./screencontainer/ScrollScreenContainer";
+import FontsLoader from "./FontsLoader";
 
 export {
   ColoredButton,
@@ -16,4 +17,5 @@ export {
   Badge,
   ScreenContainer,
   ScrollScreenContainer,
+  FontsLoader,
 };

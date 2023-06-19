@@ -1,12 +1,12 @@
 import React from "react";
 
 import { ScrollScreenContainer } from "../components";
-import { SettingsScreen } from "../screens";
+import { Text } from "react-native";
 
 const Settings = () => {
   return (
     <ScrollScreenContainer>
-      <SettingsScreen />
+      <Text>Settings</Text>
     </ScrollScreenContainer>
   );
 };
