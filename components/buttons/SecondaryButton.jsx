@@ -1,6 +1,7 @@
 import React from "react";
+
 import ColoredButton from "./ColoredButton";
-import { useTheme } from "../../contexts/themeContext";
+import { useTheme } from "../../contexts";
 
 const SecondaryButton = ({ text, onPress }) => {
   const { theme } = useTheme();
@@ -9,8 +10,8 @@ const SecondaryButton = ({ text, onPress }) => {
     <ColoredButton
       text={text}
       onPress={onPress}
-      color={theme.text}
-      backgroundColor={theme.box}
+      foreground={theme.text}
+      background={theme.box}
     />
   );
 };

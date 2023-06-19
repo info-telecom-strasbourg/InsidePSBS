@@ -1,16 +1,17 @@
 import React from "react";
-import Widget from "./Widget";
-import { COLORS, ROUTES, TEXT } from "../../../constants";
-import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
+import { useRouter } from "expo-router";
+
+import fouailleWidgetStyle from "./fouaillewidget.style";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
   FouailleIcon,
 } from "../../../assets/icons";
-import fouailleWidgetStyle from "./fouaillewidget.style";
-import useFetch from "../../../hooks/useFetch";
-import Loader from "../../../components/loader/Loader";
+import { COLORS, ROUTES, TEXT } from "../../../constants";
+import { useFetch } from "../../../hooks";
+import { Loader } from "../../../components";
+import Widget from "./Widget";
 
 const FouailleWidget = ({ width, height }) => {
   const router = useRouter();

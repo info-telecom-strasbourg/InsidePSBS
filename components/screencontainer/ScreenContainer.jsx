@@ -1,7 +1,8 @@
-import { useTheme } from "../../contexts/themeContext";
-import { View, Platform } from "react-native";
 import React from "react";
+import { View } from "react-native";
+
 import styles from "./screencontainer.style";
+import { useTheme } from "../../contexts";
 
 const ScreenContainer = ({ children }) => {
   const { theme } = useTheme();

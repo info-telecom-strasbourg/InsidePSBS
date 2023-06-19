@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View } from "react-native";
+
 import { getLayout } from "../../../utils";
 import DefaultWidget from "./DefaultWidget";
 import FouailleWidget from "./FouailleWidget";

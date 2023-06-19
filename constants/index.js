@@ -2,5 +2,6 @@ import COLORS from "./colors";
 import TEXT from "./text";
 import FONTS from "./fonts";
 import ROUTES from "./routes";
+import API from "./api";
 
-export { COLORS, TEXT, FONTS, ROUTES };
+export { COLORS, TEXT, FONTS, ROUTES, API };

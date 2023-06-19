@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
+
 import textStyle from "../../styles/text.style";
 import { COLORS } from "../../constants";
 

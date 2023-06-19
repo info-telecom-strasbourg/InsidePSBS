@@ -1,10 +1,9 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-import { TEXT } from "../../../constants";
-
-import Transaction from "./Transaction";
 import transactionStyle from "./transaction.style";
+import { TEXT } from "../../../constants";
+import Transaction from "./Transaction";
 
 const TransactionSection = ({ commands }) => {
   const styles = transactionStyle();

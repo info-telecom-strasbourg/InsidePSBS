@@ -1,10 +1,10 @@
 import React from "react";
 import { View } from "react-native";
-import BackButtonTopbar from "../../components/topbar/BackButtonTopbar";
-import { TEXT } from "../../constants";
+
 import fouailleStyles from "./fouaille.style";
-import useFetch from "../../hooks/useFetch";
-import Loader from "../../components/loader/Loader";
+import { BackButtonTopbar, Loader } from "../../components";
+import { TEXT } from "../../constants";
+import { useFetch } from "../../hooks";
 import Card from "./Card";
 import TransactionSection from "./transactions/TransactionSection";
 

@@ -1,9 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { TEXT } from "../../constants";
-import { NetworkIcon } from "../../assets/icons";
-import { useTheme } from "../../contexts/themeContext";
+
 import fouailleStyles from "./fouaille.style";
+import { NetworkIcon } from "../../assets/icons";
+import { TEXT } from "../../constants";
+import { useTheme } from "../../contexts";
 
 const Card = ({ money, firstname, lastname }) => {
   const styles = fouailleStyles();

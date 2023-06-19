@@ -1,7 +1,7 @@
 import React from "react";
+import { Text } from "react-native";
 
 import { ScrollScreenContainer } from "../components";
-import { Text } from "react-native";
 
 const Settings = () => {
   return (

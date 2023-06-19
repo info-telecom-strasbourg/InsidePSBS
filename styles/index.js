@@ -1,4 +1,3 @@
-import boxStyles from "./box.style";
-import textStyles from "./text.style";
+import text_styles from "./text.style";
 
-export { boxStyles, textStyles };
+export { text_styles };

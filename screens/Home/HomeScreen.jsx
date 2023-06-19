@@ -1,8 +1,8 @@
 import React from "react";
-import DefaultTopbar from "../../components/topbar/DefaultTopbar";
+
+import { DefaultTopbar } from "../../components";
 import WidgetSection from "./widgets/WidgetSection";
 import { TEXT } from "../../constants";
-import { View } from "react-native";
 
 const HomeScreen = () => {
   return (

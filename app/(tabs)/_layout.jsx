@@ -1,11 +1,12 @@
 import { Tabs } from "expo-router";
+
 import {
   AnnouncementIcon,
   CalendarIcon,
   HomeIcon,
   MessagesIcon,
 } from "../../assets/icons";
-import { useTheme } from "../../contexts/themeContext";
+import { useTheme } from "../../contexts";
 import { COLORS } from "../../constants";
 
 const TabLayout = () => {

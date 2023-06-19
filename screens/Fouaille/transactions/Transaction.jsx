@@ -1,21 +1,15 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Touchable,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
+import transactionStyle from "./transaction.style";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
   ChevronDownIcon,
 } from "../../../assets/icons";
 import { COLORS } from "../../../constants";
-import transactionStyle from "./transaction.style";
 import { capitalize, getStringDate, getTimeDifference } from "../../../utils";
-import { useTheme } from "../../../contexts/themeContext";
+import { useTheme } from "../../../contexts";
 
 const Transaction = ({ data }) => {
   const styles = transactionStyle();
