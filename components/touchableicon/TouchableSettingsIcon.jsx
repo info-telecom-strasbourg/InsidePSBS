@@ -1,17 +1,11 @@
 import React from "react";
-<<<<<<< HEAD
 import { TouchableOpacity } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
-import touchableIconStyles from "./touchableicon.style";
-=======
-import styles from "./touchableicon.style";
->>>>>>> parent of b866aa0 (refactoring)
 import { useTheme } from "../../contexts/themeContext";
 import { ROUTES } from "../../constants";
 import { SettingsIcon } from "../../assets/icons";
-import { Link } from "expo-router";
-import { View } from "react-native";
+import styles from "./touchableicon.style";
 
 const TouchableSettingsIcon = () => {
   const { theme } = useTheme();
