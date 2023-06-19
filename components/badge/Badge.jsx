@@ -2,17 +2,10 @@ import React from "react";
 import { Text, View } from "react-native";
 import styles from "./badge.style";
 
-const Badge = ({ text, style, size }) => {
+const Badge = ({ text, backgroundColor, color, size }) => {
   return (
-    <View
-      style={{
-        ...styles(size).badgeContainer,
-        backgroundColor: style.backgroundColor,
-      }}
-    >
-      <Text style={{ ...styles(size).badgeText, color: style.color }}>
-        {text}
-      </Text>
+    <View style={styles.badgeContainer({ size, backgroundColor })}>
+      <Text style={styles.badgeText({ size, color })}>{text}</Text>
     </View>
   );
 };

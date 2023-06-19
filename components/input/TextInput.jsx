@@ -4,11 +4,11 @@ import styles from "./input.style";
 
 const TextInput = ({ label, onChangeText, value }) => {
   return (
-    <View style={styles.textInputContainer}>
-      <Text style={styles.textInputLabel}>{label}</Text>
+    <View style={{ flex: 1 }}>
+      <Text style={styles.textInputLabel({})}>{label}</Text>
       <View style={{ height: 5 }} />
       <Entry
-        style={styles.textInputEntry}
+        style={styles.textInputEntry({})}
         onChangeText={onChangeText}
         value={value}
       />

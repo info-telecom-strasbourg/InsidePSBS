@@ -1,20 +1,18 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONTS } from "../../constants";
+import { FONTS } from "../../constants";
+import { useTheme } from "../../contexts/themeContext";
 
 const styles = StyleSheet.create({
-  textInputContainer: {
-    flex: 1,
-  },
-  textInputLabel: ({ color = COLORS.text_light }) => ({
+  textInputLabel: ({ color = useTheme().theme.text }) => ({
     color,
     fontSize: 18,
     fontFamily: FONTS.OpenSans.semiBold,
   }),
   textInputEntry: ({
-    background = COLORS.box_light,
-    color = COLORS.text_light,
+    color = useTheme().theme.text,
+    backgroundColor = useTheme().theme.box,
   }) => ({
-    backgroundColor: background,
+    backgroundColor,
     color,
     height: 54,
     borderRadius: 15,
