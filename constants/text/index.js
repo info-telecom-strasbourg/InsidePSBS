@@ -4,6 +4,9 @@ import calendar from "./calendar";
 import fouaille from "./fouaille";
 import settings from "./settings";
 import authentification from "./authentification";
+import announcements from "./announcements";
+import messages from "./messages";
+import organizations from "./organizations";
 
 export default {
   common,
@@ -12,4 +15,7 @@ export default {
   settings,
   fouaille,
   authentification,
+  announcements,
+  messages,
+  organizations,
 };

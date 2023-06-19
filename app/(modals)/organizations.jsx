@@ -1,14 +1,14 @@
 import React from "react";
 
 import { ScrollScreenContainer } from "../../components";
-import { CalendarScreen } from "../../screens";
+import { OrganizationsScreen } from "../../screens";
 
-const Calendar = () => {
+const Organizations = () => {
   return (
     <ScrollScreenContainer>
-      <CalendarScreen />
+      <OrganizationsScreen />
     </ScrollScreenContainer>
   );
 };
 
-export default Calendar;
+export default Organizations;

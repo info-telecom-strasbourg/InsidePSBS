@@ -1,13 +1,13 @@
 import React from "react";
 
-import { ScreenContainer } from "../../components";
+import { ScrollScreenContainer } from "../../components";
 import { HomeScreen } from "../../screens";
 
 const Home = () => {
   return (
-    <ScreenContainer>
+    <ScrollScreenContainer>
       <HomeScreen />
-    </ScreenContainer>
+    </ScrollScreenContainer>
   );
 };
 

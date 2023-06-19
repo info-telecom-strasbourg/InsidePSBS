@@ -15,6 +15,9 @@ const settings = {
     credentials: "Crédits",
     export_agenda: "Exporter l'agenda",
   },
+  profile: {
+    title: "Profil",
+  },
 };
 
 export default settings;

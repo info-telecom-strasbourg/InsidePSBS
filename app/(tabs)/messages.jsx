@@ -1,13 +1,13 @@
 import React from "react";
-import { Text } from "react-native";
 
-import { ScreenContainer } from "../../components";
+import { ScrollScreenContainer } from "../../components";
+import { MessagesScreen } from "../../screens";
 
 const Messages = () => {
   return (
-    <ScreenContainer>
-      <Text>Messages</Text>
-    </ScreenContainer>
+    <ScrollScreenContainer>
+      <MessagesScreen />
+    </ScrollScreenContainer>
   );
 };
 
