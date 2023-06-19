@@ -5,7 +5,9 @@ import { TEXT } from "../../constants";
 const ProfileScreen = () => {
   return (
     <>
-      <BackButtonTopbar>{TEXT.settings.profile.title}</BackButtonTopbar>
+      <BackButtonTopbar rightIcon={<></>}>
+        {TEXT.settings.profile.title}
+      </BackButtonTopbar>
     </>
   );
 };

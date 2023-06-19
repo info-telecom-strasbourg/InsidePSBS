@@ -1,9 +1,11 @@
 import React from "react";
 import { Stack } from "expo-router";
+import { Platform, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 
 import { ThemeProvider } from "../contexts";
-import { FontsLoader } from "../components";
+import { FontsLoader, WebContainer } from "../components";
+import { lockScreenOrientation } from "../utils";
 
 SplashScreen.preventAutoHideAsync().catch((e) => console.error(e));
 
@@ -13,14 +15,20 @@ const AppLayout = () => {
     animation: "fade_from_bottom",
   };
 
+  lockScreenOrientation();
+
+  const Container = Platform.OS === "web" ? WebContainer : View;
+
   return (
     <FontsLoader>
       <ThemeProvider>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" options={{ animation: "default" }} />
-          <Stack.Screen name="(modals)" options={modalOptions} />
-          <Stack.Screen name="(auth)" options={modalOptions} />
-        </Stack>
+        <Container>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" options={{ animation: "default" }} />
+            <Stack.Screen name="(modals)" options={modalOptions} />
+            <Stack.Screen name="(auth)" options={modalOptions} />
+          </Stack>
+        </Container>
       </ThemeProvider>
     </FontsLoader>
   );
