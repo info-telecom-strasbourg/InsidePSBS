@@ -5,14 +5,24 @@ import {
   ScrollScreenContainer,
   TextInput,
 } from "../../components";
-import { TEXT } from "../../constants";
-import { View } from "react-native";
+import { COLORS, TEXT } from "../../constants";
+import { Text, View } from "react-native";
+import { useAuth } from "../../contexts";
+import { text_styles } from "../../styles";
 
 const LoginScreen = () => {
-  const [result, setResult] = useState({ email: "", password: "" });
+  const { login, errorMessage, token } = useAuth();
+  const [result, setResult] = useState({
+    email: "bergaminienzo62@gmail.com",
+    password: "azertyuiop",
+  });
+
+  console.log(token);
   return (
     <ScrollScreenContainer>
-      <DefaultTopbar>{TEXT.authentification.login.title}</DefaultTopbar>
+      <DefaultTopbar rightIcon={<></>}>
+        {TEXT.authentification.login.title}
+      </DefaultTopbar>
       <View style={{ padding: 15 }}>
         <TextInput
           value={result.email}
@@ -27,11 +37,17 @@ const LoginScreen = () => {
           }
           label={TEXT.authentification.password}
         />
-        <View style={{ height: 40 }} />
+        <View style={{ height: 20 }} />
+        <Text>{TEXT.authentification.login.not_registered}</Text>
+        <View style={{ height: 20 }} />
         <PrimaryButton
           text={TEXT.authentification.login.submit}
-          onPress={() => console.log(result)}
+          onPress={() => login(result)}
         />
+        <View style={{ height: 20 }} />
+        <Text style={text_styles.body3({ text: COLORS.dark_red })}>
+          {errorMessage}
+        </Text>
       </View>
     </ScrollScreenContainer>
   );

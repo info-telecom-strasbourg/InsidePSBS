@@ -3,7 +3,7 @@ import { Stack } from "expo-router";
 import { Platform, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 
-import { ThemeProvider } from "../contexts";
+import { AuthProvider, ThemeProvider } from "../contexts";
 import { FontsLoader, WebContainer } from "../components";
 import { lockScreenOrientation } from "../utils";
 
@@ -21,15 +21,17 @@ const AppLayout = () => {
 
   return (
     <FontsLoader>
-      <ThemeProvider>
-        <Container style={{ flex: 1 }}>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(tabs)" options={{ animation: "default" }} />
-            <Stack.Screen name="(modals)" options={modalOptions} />
-            <Stack.Screen name="(auth)" options={modalOptions} />
-          </Stack>
-        </Container>
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <Container style={{ flex: 1 }}>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(tabs)" options={{ animation: "default" }} />
+              <Stack.Screen name="(modals)" options={modalOptions} />
+              <Stack.Screen name="(auth)" options={modalOptions} />
+            </Stack>
+          </Container>
+        </ThemeProvider>
+      </AuthProvider>
     </FontsLoader>
   );
 };
