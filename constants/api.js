@@ -4,6 +4,7 @@ const API = {
   login: "/login", // POST pour se connecter
   register: "/register", // POST pour s'inscrire
   user: "/user", // GET pour récupérer les infos de l'user et PUT pour modifier les infos
+  organizations: "/organization",
 };
 
 export default API;

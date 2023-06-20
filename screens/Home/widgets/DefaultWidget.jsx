@@ -20,7 +20,7 @@ const DefaultWidget = ({
     <Widget
       width={width}
       height={height}
-      backgroundColor={theme.box}
+      backgroundColor={backgroundColor || theme.box}
       onPress={onPress}
       style={styles.defaultWidget}
     >

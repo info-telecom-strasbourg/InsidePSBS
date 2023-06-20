@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, ScrollView } from "react-native";
 
 import styles from "./screencontainer.style";
 import { useTheme } from "../../contexts";
 
-const ScrollScreenContainer = ({ children }) => {
+const ScrollScreenContainer = ({ children, refreshControl }) => {
   const { theme } = useTheme();
+  const [refreshing, setRefreshing] = useState(false);
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={styles.screenContainer(theme)}>{children}</ScrollView>
+      <ScrollView
+        style={styles.screenContainer(theme)}
+        refreshControl={refreshControl}
+      >
+        {children}
+      </ScrollView>
     </SafeAreaView>
   );
 };

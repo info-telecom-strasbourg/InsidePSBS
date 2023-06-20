@@ -5,16 +5,25 @@ import { getLayout } from "../../../utils";
 import DefaultWidget from "./DefaultWidget";
 import FouailleWidget from "./FouailleWidget";
 import MpsWidget from "./MpsWidget";
+import { useRouter } from "expo-router";
+import { ROUTES } from "../../../constants";
 
 const WidgetSection = () => {
   const [{ width }, setLayout] = useState({ width: 0 });
   const gap = 12;
   const widgetSize = (size = 1) => (width / 3 - gap) * size + gap * (size - 1);
+  const router = useRouter();
 
   const widgetTable = [
     [
       <FouailleWidget width={widgetSize(2)} height={widgetSize()} />,
-      <DefaultWidget width={widgetSize()} height={widgetSize()} />,
+      <DefaultWidget
+        width={widgetSize()}
+        height={widgetSize()}
+        onPress={() => {
+          router.push(ROUTES.organizations);
+        }}
+      />,
     ],
     [
       <MpsWidget width={widgetSize()} height={widgetSize()} />,

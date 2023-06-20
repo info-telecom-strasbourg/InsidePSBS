@@ -22,7 +22,7 @@ const AppLayout = () => {
   return (
     <FontsLoader>
       <ThemeProvider>
-        <Container>
+        <Container style={{ flex: 1 }}>
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" options={{ animation: "default" }} />
             <Stack.Screen name="(modals)" options={modalOptions} />

@@ -12,6 +12,7 @@ import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { useFetch } from "../../../hooks";
 import { Loader } from "../../../components";
 import Widget from "./Widget";
+import { useTheme } from "../../../contexts";
 
 const FouailleWidget = ({ width, height }) => {
   const router = useRouter();
@@ -19,6 +20,7 @@ const FouailleWidget = ({ width, height }) => {
   const { res, error, isLoading } = useFetch(
     `https://fouaille.bde-tps.fr/api/fouaille/show/${userid}?page_size=2`
   );
+  const { theme } = useTheme();
 
   const styles = fouailleWidgetStyle();
 
