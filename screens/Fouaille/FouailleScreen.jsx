@@ -2,7 +2,11 @@ import React from "react";
 import { View } from "react-native";
 
 import fouailleStyles from "./fouaille.style";
-import { BackButtonTopbar, Loader } from "../../components";
+import {
+  BackButtonTopbar,
+  Loader,
+  ScrollScreenContainer,
+} from "../../components";
 import { TEXT } from "../../constants";
 import { useFetch } from "../../hooks";
 import Card from "./Card";
@@ -16,7 +20,7 @@ const FouailleScreen = () => {
   if (loading) return <Loader />;
 
   return (
-    <View style={styles.container}>
+    <ScrollScreenContainer>
       <BackButtonTopbar>{TEXT.fouaille.title}</BackButtonTopbar>
       <View style={styles.wrapper}>
         <Card
@@ -26,7 +30,7 @@ const FouailleScreen = () => {
         />
         <TransactionSection commands={res?.data.commands} />
       </View>
-    </View>
+    </ScrollScreenContainer>
   );
 };
 

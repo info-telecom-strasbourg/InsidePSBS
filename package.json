@@ -18,6 +18,8 @@
     "expo-screen-orientation": "^5.1.1",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.2",
+    "lottie-ios": "^3.2.3",
+    "lottie-react-native": "5.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.8",

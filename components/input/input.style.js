@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: FONTS.OpenSans.semiBold,
   }),
-  textInputEntry: ({ text, background } = useTheme().theme) => ({
-    backgroundColor: background,
+  textInputEntry: ({ text, box } = useTheme().theme) => ({
+    backgroundColor: box,
     color: text,
     height: 54,
     borderRadius: 15,

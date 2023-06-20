@@ -1,13 +1,16 @@
 import React from "react";
-import { Text, View } from "react-native";
-
-import textStyle from "../../styles/text.style";
-import { COLORS } from "../../constants";
+import Lottie from "lottie-react-native";
+import { View } from "react-native";
 
 const Loader = () => {
   return (
-    <View>
-      <Text style={textStyle.title3(COLORS.primary)}>Loading ...</Text>
+    <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+      <Lottie
+        source={require("../../assets/loaders/loader.json")}
+        style={{ width: 200, height: 200 }}
+        autoPlay
+        loop
+      />
     </View>
   );
 };

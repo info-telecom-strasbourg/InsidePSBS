@@ -1,14 +1,14 @@
 import React from "react";
-import { BackButtonTopbar } from "../../components";
+import { BackButtonTopbar, ScrollScreenContainer } from "../../components";
 import { TEXT } from "../../constants";
 
 const SettingsScreen = () => {
   return (
-    <>
+    <ScrollScreenContainer>
       <BackButtonTopbar rightIcon={<></>}>
         {TEXT.settings.title}
       </BackButtonTopbar>
-    </>
+    </ScrollScreenContainer>
   );
 };
 

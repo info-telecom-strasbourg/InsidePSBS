@@ -3,11 +3,11 @@ import { Text, TouchableOpacity } from "react-native";
 
 import styles from "./button.style";
 
-const ColoredButton = ({ text, background, foreground, onClick }) => {
+const ColoredButton = ({ text, background, foreground, onPress }) => {
   return (
     <TouchableOpacity
       style={styles.btnContainer({ background })}
-      onClick={onClick}
+      onPress={onPress}
     >
       <Text style={styles.btnText({ text: foreground })}>{text}</Text>
     </TouchableOpacity>

@@ -1,11 +1,11 @@
 import React from "react";
-import { Topbar } from "../../components";
+import { ScrollScreenContainer, Topbar } from "../../components";
 
 const CalendarScreen = () => {
   return (
-    <>
+    <ScrollScreenContainer>
       <Topbar>Calendrier</Topbar>
-    </>
+    </ScrollScreenContainer>
   );
 };
 

@@ -1,14 +1,8 @@
 import React from "react";
-
-import { ScrollScreenContainer } from "../../components";
 import { MessagesScreen } from "../../screens";
 
 const Messages = () => {
-  return (
-    <ScrollScreenContainer>
-      <MessagesScreen />
-    </ScrollScreenContainer>
-  );
+  return <MessagesScreen />;
 };
 
 export default Messages;

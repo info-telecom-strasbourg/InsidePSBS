@@ -13,6 +13,7 @@ import WebContainer from "./screencontainer/WebContainer";
 import BackButtonTopbar from "./topbar/BackButtonTopbar";
 import DefaultTopbar from "./topbar/DefaultTopbar";
 import Topbar from "./topbar/Topbar";
+import Refresh from "./loader/Refresh";
 
 export {
   Badge,
@@ -30,4 +31,5 @@ export {
   TouchableBackIcon,
   TouchableSettingsIcon,
   FontsLoader,
+  Refresh,
 };

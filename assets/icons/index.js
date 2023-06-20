@@ -21,6 +21,8 @@ import SettingsIcon from "./Settings";
 import ShirtIcon from "./Shirt";
 import InsidePsbs from "./InsidePsbs";
 import MoonIcon from "./Moon";
+import ErrorIcon from "./Error";
+import ArrowRotateIcon from "./ArrowRotate";
 
 export {
   AnnouncementIcon,
@@ -46,4 +48,6 @@ export {
   ShirtIcon,
   InsidePsbs,
   MoonIcon,
+  ErrorIcon,
+  ArrowRotateIcon,
 };

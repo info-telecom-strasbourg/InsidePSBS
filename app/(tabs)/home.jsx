@@ -1,14 +1,8 @@
 import React from "react";
-
-import { ScrollScreenContainer } from "../../components";
 import { HomeScreen } from "../../screens";
 
 const Home = () => {
-  return (
-    <ScrollScreenContainer>
-      <HomeScreen />
-    </ScrollScreenContainer>
-  );
+  return <HomeScreen />;
 };
 
 export default Home;

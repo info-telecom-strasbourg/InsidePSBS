@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 
 import fouailleWidgetStyle from "./fouaillewidget.style";
@@ -10,34 +10,42 @@ import {
 } from "../../../assets/icons";
 import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { useFetch } from "../../../hooks";
-import { Loader } from "../../../components";
 import Widget from "./Widget";
 import { useTheme } from "../../../contexts";
+import ErrorWidget from "./ErrorWidget";
 
 const FouailleWidget = ({ width, height }) => {
   const router = useRouter();
   const userid = 1;
   const { res, error, isLoading } = useFetch(
-    `https://fouaille.bde-tps.fr/api/fouaille/show/${userid}?page_size=2`
+    `https://fouaille.bde-tps.fr/api/fouaille/${userid}?page_size=2`
   );
   const { theme } = useTheme();
 
   const styles = fouailleWidgetStyle();
 
+  const onPress = () => router.push(ROUTES.fouaille);
+
   if (isLoading)
     return (
-      <Widget width={width} height={height} backgroundColor={theme.box}>
-        <Loader />
+      <Widget
+        width={width}
+        height={height}
+        backgroundColor={theme.box}
+        onPress={onPress}
+      >
+        <ActivityIndicator />
       </Widget>
     );
 
-  if (error) console.log(error);
+  if (error)
+    return <ErrorWidget width={width} height={height} onPress={onPress} />;
 
   return (
     <Widget
       backgroundColor={COLORS.light_purple}
       size={2}
-      onPress={() => router.push(ROUTES.fouaille)}
+      onPress={onPress}
       width={width}
       height={height}
       style={{ flexDirection: "row" }}

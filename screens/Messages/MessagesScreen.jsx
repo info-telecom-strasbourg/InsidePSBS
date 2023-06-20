@@ -1,12 +1,12 @@
 import React from "react";
-import { Topbar } from "../../components";
+import { ScrollScreenContainer, Topbar } from "../../components";
 import { TEXT } from "../../constants";
 
 const MessagesScreen = () => {
   return (
-    <>
+    <ScrollScreenContainer>
       <Topbar>{TEXT.messages.title}</Topbar>
-    </>
+    </ScrollScreenContainer>
   );
 };
 
