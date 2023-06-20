@@ -43,7 +43,9 @@ const Transaction = ({ data }) => {
           <View style={{ height: 15 }} />
           <View style={styles.row}>
             <Text style={styles.details}>
-              {data.amount} x {capitalize(data.product.name)}
+              {data.total_price > 0
+                ? "Rechargement"
+                : `${data.amount} x ${capitalize(data.product.name)}`}
             </Text>
 
             <Text style={styles.details}>{getStringDate(data.date)}</Text>

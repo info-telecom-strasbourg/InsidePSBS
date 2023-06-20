@@ -7,10 +7,10 @@ const useFetch = (url, headers) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch(url);
+    fetch(url, headers);
   }, [url]);
 
-  const fetch = (url) => {
+  const fetch = (url, headers) => {
     setIsLoading(true);
     setRes(null);
     setError(false);

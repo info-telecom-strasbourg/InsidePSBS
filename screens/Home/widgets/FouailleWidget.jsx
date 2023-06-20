@@ -17,10 +17,9 @@ import { useLocalStorage } from "../../../contexts/localStorageContext";
 
 const FouailleWidget = ({ width, height }) => {
   const router = useRouter();
-  const userid = 1;
   const { data } = useLocalStorage();
   const { res, error, isLoading } = useFetch(
-    `https://app-pprd.its-tps.fr/api/fouaille`,
+    `https://app-pprd.its-tps.fr/api/fouaille?per_page=2`,
     {
       Accept: "application/json",
       Authorization: `Bearer ${data.token}`,
@@ -65,7 +64,7 @@ const FouailleWidget = ({ width, height }) => {
           <Text style={styles.money}>{res?.data.balance}€</Text>
         </View>
         <View style={styles.transactionsWrapper}>
-          {res?.data.commands?.map((command, index) => (
+          {res?.data.orders?.map((command, index) => (
             <View key={index} style={styles.transaction}>
               {command?.total_price < 0 ? (
                 <ArrowDownIcon color={COLORS.dark_red} width={14} height={8} />

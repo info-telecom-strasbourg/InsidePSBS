@@ -1,5 +1,5 @@
-import React from "react";
-import { View } from "react-native";
+import React, { useState } from "react";
+import { RefreshControl, View } from "react-native";
 
 import fouailleStyles from "./fouaille.style";
 import {
@@ -11,16 +11,33 @@ import { TEXT } from "../../constants";
 import { useFetch } from "../../hooks";
 import Card from "./Card";
 import TransactionSection from "./transactions/TransactionSection";
+import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const FouailleScreen = () => {
-  const { res, loading, error } = useFetch(
-    "https://fouaille.bde-tps.fr/api/fouaille/show/3?page_size=20&page=1"
-  );
+  const { data } = useLocalStorage();
+  const url = "https://app-pprd.its-tps.fr/api/fouaille?per_page=20";
+  const headers = {
+    Accept: "application/json",
+    Authorization: `Bearer ${data.token}`,
+  };
+  const [refreshing, setRefreshing] = useState(false);
+  const { res, error, isLoading, fetch } = useFetch(url, headers);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    fetch(url, headers);
+    setRefreshing(false);
+  };
+
   const styles = fouailleStyles();
-  if (loading) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
-    <ScrollScreenContainer>
+    <ScrollScreenContainer
+      refreshControl={
+        <RefreshControl onRefresh={handleRefresh} refreshing={refreshing} />
+      }
+    >
       <BackButtonTopbar>{TEXT.fouaille.title}</BackButtonTopbar>
       <View style={styles.wrapper}>
         <Card
@@ -28,7 +45,7 @@ const FouailleScreen = () => {
           lastname={res?.data.last_name}
           money={res?.data.balance}
         />
-        <TransactionSection commands={res?.data.commands} />
+        <TransactionSection commands={res?.data.orders} />
       </View>
     </ScrollScreenContainer>
   );
