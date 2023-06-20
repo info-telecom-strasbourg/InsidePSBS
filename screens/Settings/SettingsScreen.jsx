@@ -8,7 +8,7 @@ import { TEXT } from "../../constants";
 import { useAuth } from "../../contexts";
 
 const SettingsScreen = () => {
-  const { logout, token } = useAuth();
+  const { logout } = useAuth();
   return (
     <ScrollScreenContainer>
       <BackButtonTopbar rightIcon={<></>}>
@@ -18,7 +18,6 @@ const SettingsScreen = () => {
         text="logout"
         onPress={() => {
           logout();
-          console.log(token);
         }}
       />
     </ScrollScreenContainer>

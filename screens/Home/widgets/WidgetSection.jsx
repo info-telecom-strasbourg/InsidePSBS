@@ -3,7 +3,6 @@ import { View } from "react-native";
 
 import { getLayout } from "../../../utils";
 import DefaultWidget from "./DefaultWidget";
-import FouailleWidget from "./FouailleWidget";
 import MpsWidget from "./MpsWidget";
 import { useRouter } from "expo-router";
 import { ROUTES } from "../../../constants";
@@ -16,7 +15,8 @@ const WidgetSection = () => {
 
   const widgetTable = [
     [
-      <FouailleWidget width={widgetSize(2)} height={widgetSize()} />,
+      // <FouailleWidget width={widgetSize(2)} height={widgetSize()} />,
+      <DefaultWidget width={widgetSize(2)} height={widgetSize()} />,
       <DefaultWidget
         width={widgetSize()}
         height={widgetSize()}

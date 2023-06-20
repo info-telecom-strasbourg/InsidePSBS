@@ -6,6 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { AuthProvider, ThemeProvider } from "../contexts";
 import { FontsLoader, WebContainer } from "../components";
 import { lockScreenOrientation } from "../utils";
+import { LocalStorageProvider } from "../contexts/localStorageContext";
 
 SplashScreen.preventAutoHideAsync().catch((e) => console.error(e));
 
@@ -21,17 +22,22 @@ const AppLayout = () => {
 
   return (
     <FontsLoader>
-      <AuthProvider>
-        <ThemeProvider>
-          <Container style={{ flex: 1 }}>
-            <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="(tabs)" options={{ animation: "default" }} />
-              <Stack.Screen name="(modals)" options={modalOptions} />
-              <Stack.Screen name="(auth)" options={modalOptions} />
-            </Stack>
-          </Container>
-        </ThemeProvider>
-      </AuthProvider>
+      <LocalStorageProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <Container style={{ flex: 1 }}>
+              <Stack screenOptions={{ headerShown: false }}>
+                <Stack.Screen
+                  name="(tabs)"
+                  options={{ animation: "default" }}
+                />
+                <Stack.Screen name="(modals)" options={modalOptions} />
+                <Stack.Screen name="(auth)" options={modalOptions} />
+              </Stack>
+            </Container>
+          </ThemeProvider>
+        </AuthProvider>
+      </LocalStorageProvider>
     </FontsLoader>
   );
 };

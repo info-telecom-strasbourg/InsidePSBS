@@ -9,15 +9,18 @@ import { COLORS, TEXT } from "../../constants";
 import { Text, View } from "react-native";
 import { useAuth } from "../../contexts";
 import { text_styles } from "../../styles";
+import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const LoginScreen = () => {
-  const { login, errorMessage, token } = useAuth();
+  const { login, errorMessage } = useAuth();
   const [result, setResult] = useState({
     email: "bergaminienzo62@gmail.com",
     password: "azertyuiop",
   });
 
-  console.log(token);
+  const { data } = useLocalStorage();
+  console.log(data);
+
   return (
     <ScrollScreenContainer>
       <DefaultTopbar rightIcon={<></>}>

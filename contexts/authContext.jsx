@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter, useSegments } from "expo-router";
 import { ERRORS, ROUTES } from "../constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { useLocalStorage } from "./localStorageContext";
 
 const AuthContext = createContext(null);
 
@@ -22,57 +23,45 @@ const useProtectedRoute = (token) => {
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
-  const [token, setToken] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const { data, pushData, removeData } = useLocalStorage();
 
-  useEffect(() => {
-    const loadData = () => {
-      AsyncStorage.getItem("token")
-        .then((value) => value && setToken(value))
-        .catch((e) => console.error(e));
-    };
-
-    loadData();
-  }, []);
-
-  useProtectedRoute(token);
+  useProtectedRoute(data.token);
 
   const login = async ({ email, password }) => {
     try {
-      // const res = await axios.post(
-      //   "https://app-pprd.its-tps.fr/api/login",
-      //   { email, password },
-      //   { headers: { Accept: "application/json" } }
-      // );
-      const res = {
-        data: {
-          token: "test",
-        },
-      };
-      await AsyncStorage.setItem("token", res.data.token);
-      setToken(res.data.token);
+      const res = await axios.post(
+        "https://app-pprd.its-tps.fr/api/login",
+        { email, password },
+        { headers: { Accept: "application/json" } }
+      );
+      pushData({ token: res.data.token });
       router.replace(ROUTES.index);
     } catch (e) {
-      console.error(`${e.response.status} : ${e.response.data.message}`);
-      setErrorMessage(ERRORS[e.response.status]);
+      if (e.response.status) setErrorMessage(ERRORS[e.response.status]);
+      else console.error(e);
     }
   };
 
   const logout = async () => {
     try {
-      // await axios.post(
-      //   "https://app-pprd.its-tps.fr/api/logout",
-      //   { token },
-      //   { headers: { Accept: "application/json" } }
-      // );
-      await AsyncStorage.removeItem("token");
-      setToken(null);
+      await axios.post(
+        "https://app-pprd.its-tps.fr/api/logout",
+        {},
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
+      removeData("token");
     } catch (e) {
-      setErrorMessage(ERRORS[e.response.status]);
+      console.error(e);
     }
   };
   return (
-    <AuthContext.Provider value={{ login, logout, token, errorMessage }}>
+    <AuthContext.Provider value={{ login, logout, errorMessage }}>
       {children}
     </AuthContext.Provider>
   );
