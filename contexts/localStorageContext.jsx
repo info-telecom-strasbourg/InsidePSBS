@@ -9,10 +9,13 @@ export const useLocalStorage = () => {
 
 export const LocalStorageProvider = ({ children }) => {
   const [data, setData] = useState({});
+  const [loadingData, setLoadingData] = useState(false);
 
   const loadData = async () => {
+    setLoadingData(true);
     const jsonValue = await AsyncStorage.getItem("data");
     if (jsonValue != null) setData(JSON.parse(jsonValue));
+    setLoadingData(false);
   };
 
   const storeData = async (value) => {
@@ -37,6 +40,8 @@ export const LocalStorageProvider = ({ children }) => {
   useEffect(() => {
     storeData(data).catch((e) => console.error(e));
   }, [data]);
+
+  if (loadingData) return null;
 
   return (
     <LocalStorageContext.Provider value={{ data, pushData, removeData }}>

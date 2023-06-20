@@ -9,7 +9,6 @@ import { COLORS, TEXT } from "../../constants";
 import { Text, View } from "react-native";
 import { useAuth } from "../../contexts";
 import { text_styles } from "../../styles";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const LoginScreen = () => {
   const { login, errorMessage } = useAuth();
@@ -17,9 +16,6 @@ const LoginScreen = () => {
     email: "bergaminienzo62@gmail.com",
     password: "azertyuiop",
   });
-
-  const { data } = useLocalStorage();
-  console.log(data);
 
   return (
     <ScrollScreenContainer>
