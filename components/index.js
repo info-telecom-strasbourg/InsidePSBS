@@ -6,7 +6,6 @@ import TouchableBackIcon from "./touchableicon/TouchableBackIcon";
 import Badge from "./badge/Badge";
 import ScreenContainer from "./screencontainer/ScreenContainer";
 import ScrollScreenContainer from "./screencontainer/ScrollScreenContainer";
-import FontsLoader from "./FontsLoader";
 import TextInput from "./input/TextInput";
 import Loader from "./loader/Loader";
 import WebContainer from "./screencontainer/WebContainer";
@@ -14,6 +13,7 @@ import BackButtonTopbar from "./topbar/BackButtonTopbar";
 import DefaultTopbar from "./topbar/DefaultTopbar";
 import Topbar from "./topbar/Topbar";
 import Refresh from "./loader/Refresh";
+import StatusBar from "./StatusBar";
 
 export {
   Badge,
@@ -30,6 +30,6 @@ export {
   Topbar,
   TouchableBackIcon,
   TouchableSettingsIcon,
-  FontsLoader,
   Refresh,
+  StatusBar,
 };

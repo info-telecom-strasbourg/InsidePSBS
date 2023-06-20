@@ -1,11 +1,21 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { loadFonts } from "../utils";
+import * as SplashScreen from "expo-splash-screen";
 
 const LocalStorageContext = createContext(null);
 
 export const useLocalStorage = () => {
   return useContext(LocalStorageContext);
 };
+
+SplashScreen.preventAutoHideAsync().catch((e) => console.error(e));
 
 export const LocalStorageProvider = ({ children }) => {
   const [data, setData] = useState({});
@@ -41,10 +51,19 @@ export const LocalStorageProvider = ({ children }) => {
     storeData(data).catch((e) => console.error(e));
   }, [data]);
 
-  if (loadingData) return null;
+  const fontsLoaded = loadFonts();
+
+  const onLayoutRootView = useCallback(async () => {
+    if (!loadingData && fontsLoaded) await SplashScreen.hideAsync();
+  }, [loadingData, fontsLoaded]);
+
+  if (loadingData || !fontsLoaded) return null;
 
   return (
-    <LocalStorageContext.Provider value={{ data, pushData, removeData }}>
+    <LocalStorageContext.Provider
+      value={{ data, pushData, removeData }}
+      onLayout={onLayoutRootView}
+    >
       {children}
     </LocalStorageContext.Provider>
   );

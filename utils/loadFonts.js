@@ -1,9 +1,6 @@
-import { useCallback } from "react";
-import { View } from "react-native";
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 
-const FontsLoader = ({ children }) => {
+const loadFonts = () => {
   const [fontsLoaded] = useFonts({
     OpenSansBold: require("../assets/fonts/open-sans/OpenSans-Bold.ttf"),
     OpenSansExtraBold: require("../assets/fonts/open-sans/OpenSans-ExtraBold.ttf"),
@@ -14,21 +11,7 @@ const FontsLoader = ({ children }) => {
     OpenSansSemiBold: require("../assets/fonts/open-sans/OpenSans-SemiBold.ttf"),
   });
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
-  return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      {children}
-    </View>
-  );
+  return fontsLoaded;
 };
 
-export default FontsLoader;
+export default loadFonts;

@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Stack } from "expo-router";
 import { Platform, View } from "react-native";
-import * as SplashScreen from "expo-splash-screen";
 
 import { AuthProvider, ThemeProvider } from "../contexts";
-import { FontsLoader, WebContainer } from "../components";
+import { StatusBar, WebContainer } from "../components";
 import { lockScreenOrientation } from "../utils";
 import { LocalStorageProvider } from "../contexts/localStorageContext";
 
-SplashScreen.preventAutoHideAsync().catch((e) => console.error(e));
-
 const AppLayout = () => {
+  const [loadingData, setLoadingData] = useState(false);
+
   const modalOptions = {
     presentation: "modal",
     animation: "fade_from_bottom",
@@ -21,24 +20,20 @@ const AppLayout = () => {
   const Container = Platform.OS === "web" ? WebContainer : View;
 
   return (
-    <FontsLoader>
-      <LocalStorageProvider>
-        <AuthProvider>
-          <ThemeProvider>
-            <Container style={{ flex: 1 }}>
-              <Stack screenOptions={{ headerShown: false }}>
-                <Stack.Screen
-                  name="(tabs)"
-                  options={{ animation: "default" }}
-                />
-                <Stack.Screen name="(modals)" options={modalOptions} />
-                <Stack.Screen name="(auth)" options={modalOptions} />
-              </Stack>
-            </Container>
-          </ThemeProvider>
-        </AuthProvider>
-      </LocalStorageProvider>
-    </FontsLoader>
+    <LocalStorageProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <StatusBar />
+          <Container style={{ flex: 1 }}>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(tabs)" options={{ animation: "default" }} />
+              <Stack.Screen name="(modals)" options={modalOptions} />
+              <Stack.Screen name="(auth)" options={modalOptions} />
+            </Stack>
+          </Container>
+        </ThemeProvider>
+      </AuthProvider>
+    </LocalStorageProvider>
   );
 };
 

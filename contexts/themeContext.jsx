@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useColorScheme, Appearance } from "react-native";
+import { Appearance, useColorScheme } from "react-native";
 import { COLORS } from "../constants";
 
 const ThemeContext = createContext({});
@@ -51,7 +51,7 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ theme, toggleColorScheme, useSystemColorScheme }}
+      value={{ theme, colorScheme, toggleColorScheme, useSystemColorScheme }}
     >
       {children}
     </ThemeContext.Provider>

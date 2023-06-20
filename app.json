@@ -3,9 +3,30 @@
     "scheme": "inside-psbs",
     "userInterfaceStyle": "automatic",
     "web": {
-      "bundler": "metro"
+      "bundler": "metro",
+      "favicon": "./assets/images/favicon.png"
     },
-    "name": "inside-psbs",
-    "slug": "inside-psbs"
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ITS.InsidePSBS"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#081425"
+      },
+      "package": "com.ITS.InsidePSBS",
+      "versionCode": 1
+    },
+    "name": "InsidePSBS",
+    "slug": "insidepsbs",
+    "version": "2.0a0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#081425"
+    }
   }
 }

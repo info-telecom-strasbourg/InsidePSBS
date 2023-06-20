@@ -13,12 +13,18 @@ import { useFetch } from "../../../hooks";
 import Widget from "./Widget";
 import { useTheme } from "../../../contexts";
 import ErrorWidget from "./ErrorWidget";
+import { useLocalStorage } from "../../../contexts/localStorageContext";
 
 const FouailleWidget = ({ width, height }) => {
   const router = useRouter();
   const userid = 1;
+  const { data } = useLocalStorage();
   const { res, error, isLoading } = useFetch(
-    `https://fouaille.bde-tps.fr/api/fouaille/${userid}?page_size=2`
+    `https://app-pprd.its-tps.fr/api/fouaille`,
+    {
+      Accept: "application/json",
+      Authorization: `Bearer ${data.token}`,
+    }
   );
   const { theme } = useTheme();
 

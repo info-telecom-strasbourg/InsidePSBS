@@ -6,6 +6,7 @@ import DefaultWidget from "./DefaultWidget";
 import MpsWidget from "./MpsWidget";
 import { useRouter } from "expo-router";
 import { ROUTES } from "../../../constants";
+import FouailleWidget from "./FouailleWidget";
 
 const WidgetSection = () => {
   const [{ width }, setLayout] = useState({ width: 0 });
@@ -15,8 +16,8 @@ const WidgetSection = () => {
 
   const widgetTable = [
     [
-      // <FouailleWidget width={widgetSize(2)} height={widgetSize()} />,
-      <DefaultWidget width={widgetSize(2)} height={widgetSize()} />,
+      <FouailleWidget width={widgetSize(2)} height={widgetSize()} />,
+      // <DefaultWidget width={widgetSize(2)} height={widgetSize()} />,
       <DefaultWidget
         width={widgetSize()}
         height={widgetSize()}
