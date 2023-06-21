@@ -6,6 +6,7 @@ import {
   ArrowDownIcon,
   ArrowUpIcon,
   ChevronDownIcon,
+  ChevronUpIcon,
 } from "../../../assets/icons";
 import { COLORS } from "../../../constants";
 import { capitalize, getStringDate, getTimeDifference } from "../../../utils";
@@ -35,7 +36,11 @@ const Transaction = ({ data }) => {
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={styles.date}>{getTimeDifference(data.date)}</Text>
           <View style={{ width: 15 }} />
-          <ChevronDownIcon color={theme.text} height={13} width={13} />
+          {expanded ? (
+            <ChevronUpIcon color={theme.text} height={13} width={13} />
+          ) : (
+            <ChevronDownIcon color={theme.text} height={13} width={13} />
+          )}
         </View>
       </View>
       {expanded && (

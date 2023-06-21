@@ -32,6 +32,7 @@ import EmailIcon from "./Email";
 import DiscordIcon from "./Discord";
 import WebIcon from "./Web";
 import ImageIcon from "./Image";
+import ChevronUpIcon from "./ChevronUp";
 
 export {
   AnnouncementIcon,
@@ -42,6 +43,7 @@ export {
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  ChevronUpIcon,
   ClockIcon,
   CrossIcon,
   EventIcon,
