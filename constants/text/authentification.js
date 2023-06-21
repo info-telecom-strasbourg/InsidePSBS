@@ -15,7 +15,7 @@ const authentification = {
   register: {
     title: "S'inscrire",
     register_with_google: "Continuer avec Google",
-    register_with_facebook: "Continuer avec Facebook",
+    register_with_facebook: "Continuer avec Facebook.tsx",
     register_with_apple: "Continuer avec Apple",
     register_with_unistra: "Continuer avec Unistra",
     link_with_unistra: "Lier son compte Unistra",
@@ -27,7 +27,7 @@ const authentification = {
   login: {
     title: "Se connecter",
     login_with_google: "Se connecter avec Google",
-    login_with_facebook: "Se connecter avec Facebook",
+    login_with_facebook: "Se connecter avec Facebook.tsx",
     login_with_apple: "Se connecter avec Apple",
     login_with_unistra: "Se connecter avec Unistra",
     submit: "Se connecter",

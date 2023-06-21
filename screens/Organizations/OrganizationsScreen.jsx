@@ -22,8 +22,7 @@ const OrganizationsScreen = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <View>
-          <View style={{ alignItems: "center" }}></View>
+        <View style={{ paddingHorizontal: 11 }}>
           {res?.data.associations.map((association, index) => (
             <OrganizationButton key={index} data={association} />
           ))}

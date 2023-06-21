@@ -25,6 +25,12 @@ import ErrorIcon from "./Error";
 import ArrowRotateIcon from "./ArrowRotate";
 import PeopleIcon from "./People";
 import RestaurantIcon from "./Restaurant";
+import InstagramIcon from "./Instagram";
+import FacebookIcon from "./Facebook";
+import TwitterIcon from "./Twitter";
+import EmailIcon from "./Email";
+import DiscordIcon from "./Discord";
+import WebIcon from "./Web";
 
 export {
   AnnouncementIcon,
@@ -54,4 +60,10 @@ export {
   ArrowRotateIcon,
   PeopleIcon,
   RestaurantIcon,
+  InstagramIcon,
+  FacebookIcon,
+  TwitterIcon,
+  EmailIcon,
+  DiscordIcon,
+  WebIcon,
 };

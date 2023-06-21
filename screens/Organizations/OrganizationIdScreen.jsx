@@ -4,16 +4,34 @@ import {
   Loader,
   ScrollScreenContainer,
 } from "../../components";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useFetch } from "../../hooks";
 import { TEXT } from "../../constants";
 import { hideTextOverflow } from "../../utils";
+import { Image, Text, View } from "react-native";
+import styles from "./organizationid.style";
+import { useTheme } from "../../contexts";
+import { text_styles } from "../../styles";
+import {
+  DiscordIcon,
+  EmailIcon,
+  FacebookIcon,
+  InstagramIcon,
+  TwitterIcon,
+  WebIcon,
+} from "../../assets/icons";
+import IconLink from "./IconLink";
 
 const OrganizationIdScreen = () => {
   const params = useLocalSearchParams();
   const { res, isLoading, error } = useFetch(
     `https://fouaille.bde-tps.fr/api/organization/${params.id}`
   );
+  const { theme } = useTheme();
+
+  const router = useRouter();
+
+  console.log(res?.data.description);
 
   const title =
     res?.data.acronym?.toUpperCase() ||
@@ -23,7 +41,58 @@ const OrganizationIdScreen = () => {
   return (
     <ScrollScreenContainer>
       <BackButtonTopbar>{hideTextOverflow(title, 12)}</BackButtonTopbar>
-      {isLoading ? <Loader /> : <></>}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <View style={styles.container()}>
+          <View style={styles.imageContainer(theme)}>
+            <Image
+              style={styles.image()}
+              source={{ uri: res?.data.logo_url }}
+            />
+          </View>
+          <View style={{ height: 20 }} />
+          <Text style={text_styles.title3(theme)}>{res?.data.name}</Text>
+          <Text style={text_styles.body1({ text: theme.text_secondary })}>
+            {res?.data.acronym?.toUpperCase()}
+          </Text>
+          <View style={{ height: 20 }} />
+          <View style={styles.linkContainer(theme)}>
+            <IconLink
+              link={res?.data.website_link}
+              icon={<WebIcon color={theme.text} width={40} height={40} />}
+              onPress={() => router.replace(res?.data.website_link)}
+            />
+            <IconLink
+              link={res?.data.email}
+              icon={<EmailIcon color={theme.text} width={40} height={40} />}
+              onPress={() => {}}
+            />
+            <IconLink
+              link={res?.data.facebook_link}
+              icon={<FacebookIcon color={theme.text} width={40} height={40} />}
+              onPress={() => router.replace(res?.data.facebook_link)}
+            />
+            <IconLink
+              link={res?.data.instagram_link}
+              icon={<InstagramIcon color={theme.text} width={40} height={40} />}
+              onPress={() => router.replace(res?.data.instagram_link)}
+            />
+            <IconLink
+              link={res?.data.twitter_link}
+              icon={<TwitterIcon color={theme.text} width={40} height={40} />}
+              onPress={() => router.replace(res?.data.twitter_link)}
+            />
+            <IconLink
+              link={res?.data.discord_link}
+              icon={<DiscordIcon color={theme.text} width={40} height={40} />}
+              onPress={() => router.replace(res?.data.discord_link)}
+            />
+          </View>
+          <View style={{ height: 20 }} />
+          <Text style={text_styles.body1(theme)}>{res?.data.description}</Text>
+        </View>
+      )}
     </ScrollScreenContainer>
   );
 };
