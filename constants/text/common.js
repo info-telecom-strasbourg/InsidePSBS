@@ -7,6 +7,14 @@ const common = {
     announcements: "Annonces",
     messages: "Messages",
   },
+
+  redirect: {
+    title: "Vous allez quitter l'application",
+    description:
+      "En cliquant sur continuer, vous allez être redirigé vers votre navigateur. Voulez-vous continuer ?",
+    cancel: "Annuler",
+    continue: "Continuer",
+  },
 };
 
 export default common;

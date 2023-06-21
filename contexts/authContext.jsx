@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
+      removeData("token");
       await axios.post(
         "https://app-pprd.its-tps.fr/api/logout",
         {},
@@ -55,7 +56,6 @@ export const AuthProvider = ({ children }) => {
           },
         }
       );
-      removeData("token");
     } catch (e) {
       console.error(e);
     }

@@ -9,14 +9,15 @@ import {
   FouailleIcon,
 } from "../../../assets/icons";
 import { COLORS, ROUTES, TEXT } from "../../../constants";
-import { useFetch } from "../../../hooks";
 import Widget from "./Widget";
 import { useTheme } from "../../../contexts";
 import ErrorWidget from "./ErrorWidget";
 import { useLocalStorage } from "../../../contexts/localStorageContext";
+import { useFetch } from "../../../hooks";
 
 const FouailleWidget = ({ width, height }) => {
   const router = useRouter();
+
   const { data } = useLocalStorage();
   const { res, error, isLoading } = useFetch(
     `https://app-pprd.its-tps.fr/api/fouaille?per_page=2`,
@@ -25,6 +26,7 @@ const FouailleWidget = ({ width, height }) => {
       Authorization: `Bearer ${data.token}`,
     }
   );
+
   const { theme } = useTheme();
 
   const styles = fouailleWidgetStyle();

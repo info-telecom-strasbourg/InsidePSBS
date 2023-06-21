@@ -1,7 +1,7 @@
 import React from "react";
 import Lottie from "lottie-react-native";
-import { View } from "react-native";
 import { useTheme } from "../../contexts";
+import { Dimensions, View } from "react-native";
 
 const Loader = () => {
   const { theme } = useTheme();
@@ -10,8 +10,7 @@ const Loader = () => {
       style={{
         alignItems: "center",
         justifyContent: "center",
-        flex: 1,
-        backgroundColor: theme.background,
+        height: Dimensions.get("window").height - 100,
       }}
     >
       <Lottie

@@ -9,9 +9,9 @@ import {
 } from "../../components";
 import { TEXT } from "../../constants";
 import { useFetch } from "../../hooks";
+import { useLocalStorage } from "../../contexts/localStorageContext";
 import Card from "./Card";
 import TransactionSection from "./transactions/TransactionSection";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const FouailleScreen = () => {
   const { data } = useLocalStorage();
@@ -30,8 +30,6 @@ const FouailleScreen = () => {
   };
 
   const styles = fouailleStyles();
-  if (isLoading) return <Loader />;
-
   return (
     <ScrollScreenContainer
       refreshControl={
@@ -39,14 +37,18 @@ const FouailleScreen = () => {
       }
     >
       <BackButtonTopbar>{TEXT.fouaille.title}</BackButtonTopbar>
-      <View style={styles.wrapper}>
-        <Card
-          firstname={res?.data.first_name}
-          lastname={res?.data.last_name}
-          money={res?.data.balance}
-        />
-        <TransactionSection commands={res?.data.orders} />
-      </View>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <View style={styles.wrapper}>
+          <Card
+            firstname={res?.data.first_name}
+            lastname={res?.data.last_name}
+            money={res?.data.balance}
+          />
+          <TransactionSection commands={res?.data.orders} />
+        </View>
+      )}
     </ScrollScreenContainer>
   );
 };
