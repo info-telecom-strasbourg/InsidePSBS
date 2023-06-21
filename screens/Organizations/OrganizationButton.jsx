@@ -18,7 +18,9 @@ const OrganizationButton = ({ data }) => {
       onPress={() => router.push(`${ROUTES.organizations}/${data.id}`)}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Image source={{ uri: data.logo_url }} style={styles.image()} />
+        <View style={styles.imageContainer()}>
+          <Image source={{ uri: data.logo_url }} style={styles.image()} />
+        </View>
         <View style={{ width: 20 }} />
         <Text style={text_styles.title4(theme)}>
           {hideTextOverflow(dataTitle, 18)}

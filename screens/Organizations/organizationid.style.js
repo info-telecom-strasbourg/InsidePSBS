@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 90,
   }),
-  imageContainer: ({ box = COLORS.box_light }) => ({
+  imageContainer: () => ({
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: box,
-    padding: 10,
+    backgroundColor: COLORS.white,
+    padding: 6,
     borderRadius: 90,
   }),
   linkContainer: ({ box = COLORS.box_light }) => ({

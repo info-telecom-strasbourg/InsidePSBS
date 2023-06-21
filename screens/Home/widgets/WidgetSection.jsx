@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 
 import { getLayout } from "../../../utils";
-import MpsWidget from "./MpsWidget";
 import { useRouter } from "expo-router";
-import { COLORS, ROUTES } from "../../../constants";
+import { COLORS, ROUTES, TEXT } from "../../../constants";
 import FouailleWidget from "./FouailleWidget";
-import { PeopleIcon, RestaurantIcon, ShirtIcon } from "../../../assets/icons";
+import {
+  ImageIcon,
+  PeopleIcon,
+  RestaurantIcon,
+  ShirtIcon,
+} from "../../../assets/icons";
 import Widget from "./Widget";
 
 const WidgetSection = () => {
@@ -14,6 +18,19 @@ const WidgetSection = () => {
   const gap = 12;
   const widgetSize = (size = 1) => (width / 3 - gap) * size + gap * (size - 1);
   const router = useRouter();
+
+  const mpsPress = () => {
+    Alert.alert(TEXT.common.redirect.title, TEXT.common.redirect.description, [
+      {
+        text: TEXT.common.redirect.cancel,
+      },
+      {
+        text: TEXT.common.redirect.continue,
+        onPress: () =>
+          router.replace("https://nextcloud.its-tps.fr/s/J8C9b3YFPDMAjGH"),
+      },
+    ]);
+  };
 
   const widgetTable = [
     [
@@ -30,7 +47,14 @@ const WidgetSection = () => {
       </Widget>,
     ],
     [
-      <MpsWidget width={widgetSize()} height={widgetSize()} />,
+      <Widget
+        width={widgetSize()}
+        height={widgetSize()}
+        backgroundColor={COLORS.dark_red}
+        onPress={mpsPress}
+      >
+        <ImageIcon color={COLORS.light_red} width={80} height={80} />
+      </Widget>,
       <Widget
         width={widgetSize()}
         height={widgetSize()}

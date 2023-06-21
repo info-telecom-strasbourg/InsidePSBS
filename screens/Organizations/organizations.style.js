@@ -17,6 +17,13 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 50,
   }),
+  imageContainer: () => ({
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.white,
+    padding: 2,
+    borderRadius: 50,
+  }),
 });
 
 export default styles;

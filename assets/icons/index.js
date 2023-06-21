@@ -31,6 +31,7 @@ import TwitterIcon from "./Twitter";
 import EmailIcon from "./Email";
 import DiscordIcon from "./Discord";
 import WebIcon from "./Web";
+import ImageIcon from "./Image";
 
 export {
   AnnouncementIcon,
@@ -66,4 +67,5 @@ export {
   EmailIcon,
   DiscordIcon,
   WebIcon,
+  ImageIcon,
 };
