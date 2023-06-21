@@ -8,6 +8,7 @@ import MessagesScreen from "./Messages/MessagesScreen";
 import ProfileScreen from "./Settings/ProfileScreen";
 import OrganizationsScreen from "./Organizations/OrganizationsScreen";
 import SettingsScreen from "./Settings/SettingsScreen";
+import OrganizationIdScreen from "./Organizations/OrganizationIdScreen";
 
 export {
   AnnouncementScreen,
@@ -20,4 +21,5 @@ export {
   OrganizationsScreen,
   ProfileScreen,
   SettingsScreen,
+  OrganizationIdScreen,
 };

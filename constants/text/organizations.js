@@ -1,5 +1,5 @@
 const organizations = {
-  title: "Associations",
+  title: "Clubs et Assos",
 };
 
 export default organizations;

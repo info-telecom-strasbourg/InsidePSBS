@@ -15,9 +15,9 @@ const useProtectedRoute = (token) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!token && segments[0] !== "(auth)") {
-      router.replace(ROUTES.login);
-    } else if (token && segments[0] === "(auth)") router.replace(ROUTES.index);
+    // if (!token && segments[0] !== "(auth)") {
+    //   router.replace(ROUTES.login);
+    // } else if (token && segments[0] === "(auth)") router.replace(ROUTES.index);
   }, [segments, token]);
 };
 

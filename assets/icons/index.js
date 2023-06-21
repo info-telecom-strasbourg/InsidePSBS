@@ -23,6 +23,8 @@ import InsidePsbs from "./InsidePsbs";
 import MoonIcon from "./Moon";
 import ErrorIcon from "./Error";
 import ArrowRotateIcon from "./ArrowRotate";
+import PeopleIcon from "./People";
+import RestaurantIcon from "./Restaurant";
 
 export {
   AnnouncementIcon,
@@ -50,4 +52,6 @@ export {
   MoonIcon,
   ErrorIcon,
   ArrowRotateIcon,
+  PeopleIcon,
+  RestaurantIcon,
 };

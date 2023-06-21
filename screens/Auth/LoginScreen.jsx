@@ -5,10 +5,11 @@ import {
   ScrollScreenContainer,
   TextInput,
 } from "../../components";
-import { COLORS, TEXT } from "../../constants";
-import { Text, View } from "react-native";
-import { useAuth } from "../../contexts";
+import { COLORS, ROUTES, TEXT } from "../../constants";
+import { Text, TouchableOpacity, View } from "react-native";
+import { useAuth, useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
+import { useRouter } from "expo-router";
 
 const LoginScreen = () => {
   const { login, errorMessage } = useAuth();
@@ -16,6 +17,8 @@ const LoginScreen = () => {
     email: "bergaminienzo62@gmail.com",
     password: "azertyuiop",
   });
+  const { theme } = useTheme();
+  const router = useRouter();
 
   return (
     <ScrollScreenContainer>
@@ -37,7 +40,17 @@ const LoginScreen = () => {
           label={TEXT.authentification.password}
         />
         <View style={{ height: 20 }} />
-        <Text>{TEXT.authentification.login.not_registered}</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={text_styles.body3({ text: theme.text })}>
+            {TEXT.authentification.login.not_registered}
+          </Text>
+          <View style={{ width: 5 }} />
+          <TouchableOpacity onPress={() => router.push(ROUTES.register)}>
+            <Text style={text_styles.body3({ text: COLORS.primary })}>
+              {TEXT.authentification.register.title}
+            </Text>
+          </TouchableOpacity>
+        </View>
         <View style={{ height: 20 }} />
         <PrimaryButton
           text={TEXT.authentification.login.submit}
