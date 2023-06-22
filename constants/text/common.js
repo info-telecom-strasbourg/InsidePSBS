@@ -15,6 +15,11 @@ const common = {
     cancel: "Annuler",
     continue: "Continuer",
   },
+
+  error: {
+    loading:
+      "Erreur au chargement de la page. Veuillez réessayer ultérieurement.",
+  },
 };
 
 export default common;

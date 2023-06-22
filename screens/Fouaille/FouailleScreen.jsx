@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RefreshControl, View } from "react-native";
+import { RefreshControl, Text, View } from "react-native";
 
 import fouailleStyles from "./fouaille.style";
 import {
@@ -12,6 +12,8 @@ import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import Card from "./Card";
 import TransactionSection from "./transactions/TransactionSection";
+import { text_styles } from "../../styles";
+import { useTheme } from "../../contexts";
 
 const FouailleScreen = () => {
   const { data } = useLocalStorage();
@@ -22,6 +24,7 @@ const FouailleScreen = () => {
   };
   const [refreshing, setRefreshing] = useState(false);
   const { res, error, isLoading, fetch } = useFetch(url, headers);
+  const { theme } = useTheme();
 
   const handleRefresh = () => {
     setRefreshing(true);
@@ -39,6 +42,17 @@ const FouailleScreen = () => {
       <BackButtonTopbar>{TEXT.fouaille.title}</BackButtonTopbar>
       {isLoading ? (
         <Loader />
+      ) : error ? (
+        <Text
+          style={{
+            ...text_styles.body2(theme),
+            textAlign: "center",
+            marginVertical: 20,
+            marginHorizontal: 11,
+          }}
+        >
+          {TEXT.common.error.loading}
+        </Text>
       ) : (
         <View style={styles.wrapper}>
           <Card
