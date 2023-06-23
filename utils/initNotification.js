@@ -16,11 +16,11 @@ const initNotification = () => {
         }),
       });
       const responseListener = Notifications.addNotificationResponseReceivedListener( handleNotificationResponse );
-    //   return () => {
-    //     if (responseListener) {
-    //       Notifications.removeNotificationSubscription(responseListener);
-    //     };
-    //   };
+      return () => {
+        if (responseListener) {
+          Notifications.removeNotificationSubscription(responseListener);
+        };
+      };
     }, []);
     };
 export default initNotification;

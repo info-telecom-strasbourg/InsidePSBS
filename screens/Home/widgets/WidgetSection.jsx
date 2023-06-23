@@ -66,6 +66,9 @@ const WidgetSection = () => {
         width={widgetSize()}
         height={widgetSize()}
         backgroundColor={COLORS.dark_orange}
+        onPress={() => {
+          router.push(ROUTES.crousbot);
+        }}
       >
         <RestaurantIcon color={COLORS.light_orange} width={60} height={80} />
       </Widget>,

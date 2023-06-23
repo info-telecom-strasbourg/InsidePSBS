@@ -9,6 +9,7 @@ const ROUTES = {
   login: "/login",
   register: "/register",
   organizations: "/organizations",
+  crousbot: "/crousbot",
   index: "/",
 };
 

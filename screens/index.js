@@ -9,7 +9,7 @@ import ProfileScreen from "./Settings/ProfileScreen";
 import OrganizationsScreen from "./Organizations/OrganizationsScreen";
 import SettingsScreen from "./Settings/SettingsScreen";
 import OrganizationIdScreen from "./Organizations/OrganizationIdScreen";
-
+import CrousBotScreen from "./CrousBot/CrousBotScreen";
 export {
   AnnouncementScreen,
   LoginScreen,
@@ -22,4 +22,5 @@ export {
   ProfileScreen,
   SettingsScreen,
   OrganizationIdScreen,
+  CrousBotScreen,
 };
