@@ -5,6 +5,7 @@ import getStringDate from "./date/getStringDate";
 import capitalize from "./capitalize";
 import loadFonts from "./loadFonts";
 import hideTextOverflow from "./hideTextOverflow";
+import initNotification from "./initNotification";
 
 export {
   getLayout,
@@ -14,4 +15,5 @@ export {
   capitalize,
   loadFonts,
   hideTextOverflow,
+  initNotification,
 };

@@ -30,6 +30,10 @@
 - Lecteur vidéo
 - Page des paramètres
 - Editer le profil
+- affichage du logo de l'organisation de la soirée dans historique fouaille
+- affichage du surnom de l'asso / club quand pas assez de place pour le nom ( exemple: bureau des élèves -> BDE)
+- affichage d'une image de la conso ?
+  
 
 ## A réfléchir
 
@@ -38,6 +42,7 @@
 - Filtres pour les annonces et l'agenda
 - Système de tags pour identifier une personne
 - CGU et intégration des CGU
+- choix affichage des clubs et assos en mosaique?
 
 ## A concevoir sur la maquette
 

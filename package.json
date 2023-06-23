@@ -15,6 +15,7 @@
     "expo-device": "~5.2.1",
     "expo-font": "^11.1.1",
     "expo-linking": "~4.0.1",
+    "expo-notifications": "~0.18.1",
     "expo-router": "^1.2.0",
     "expo-screen-orientation": "^5.1.1",
     "expo-splash-screen": "~0.18.1",
