@@ -25,8 +25,8 @@ export async function getMenuIllkirch() {
     var URL = "https://www.crous-strasbourg.fr/restaurant/resto-u-illkirch/";
     var response = await axios.get(URL);
     var buffer = response.data;
-    console.log(buffer);
     var date = new Date();
+    date.setDate(date.getDate() - 2);
     var day = date.getDate().toString();
     if (day[0] === "0") {
         day = day[1];
@@ -38,8 +38,7 @@ export async function getMenuIllkirch() {
 
     var month = EN_to_FR(date.toLocaleString("default", { month: "long" }));
 
-    // Find the html element that concerns the menu of the day
-    var menu = buffer.indexOf(date);
+    let menu = buffer.indexOf(date);
     buffer = buffer.substring(menu);
 
     // Get the menu of the lunch
@@ -47,10 +46,10 @@ export async function getMenuIllkirch() {
     buffer = buffer.substring(menu + 45);
 
     // Get the end of the menu
-    var end = buffer.indexOf("Origin");
+    let end = buffer.indexOf("SALLE DES PERSONNELS");
     buffer = buffer.substring(0, end);
 
-    // Remove the html tags
+    // Remove the HTML tags
     buffer = buffer.replace(/<\/li>/g, "\n");
     buffer = buffer.replace(/<li>/g, "");
     buffer = buffer.replace(/<\/ul>/g, "\n");
@@ -58,23 +57,23 @@ export async function getMenuIllkirch() {
 
     // Get only the menu concerning the students only
     buffer = buffer.split("SALLE");
-    var str = "";
-    for (var i = 0; i < buffer.length; i++) {
-        if (buffer[i].includes("ETUDIANTS")) {
+    let str = "";
+    for (let i = 0; i < buffer.length; i++) {
+    if (buffer[i].includes("ETUDIANTS")) {
         str += "SALLE" + buffer[i];
-        }
+    }
     }
 
     // Remove the ":" in a room content
     if (str.includes("chaude : ")) {
-        str = str.replace("chaude : ", "chaude -> ");
+    str = str.replace("chaude : ", "chaude -> ");
     }
 
     // Check if the menu is empty
     if (str === "") {
-        str = "Pas de menu disponible pour le jour spécifié.";
+    str = "Pas de menu disponible pour aujourd'hui !";
     }
-
+    console.log(str);
     return str;
 }
 
