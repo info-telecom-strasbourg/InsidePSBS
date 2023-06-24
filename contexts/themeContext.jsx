@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Appearance, useColorScheme } from "react-native";
 import { COLORS } from "../constants";
+import * as SystemUI from "expo-system-ui";
 
 const ThemeContext = createContext({});
 export const useTheme = () => {
@@ -11,12 +12,16 @@ export const ThemeProvider = ({ children }) => {
   const systemScheme = useColorScheme();
   const [colorScheme, setColorScheme] = useState(systemScheme);
 
-  useEffect(() => {
-    const appearanceListener = Appearance.addChangeListener(
-      ({ colorScheme }) => {
-        setColorScheme(colorScheme);
-      }
+  const setTheme = async ({ colorScheme }) => {
+    setColorScheme(colorScheme);
+    await SystemUI.setBackgroundColorAsync(
+      colorScheme === "dark" ? COLORS.background_dark : COLORS.background_light
     );
+  };
+
+  useEffect(() => {
+    const appearanceListener = Appearance.addChangeListener(setTheme);
+    setTheme({ colorScheme });
     return () => {
       appearanceListener.remove();
     };

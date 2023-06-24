@@ -1,3 +1,4 @@
 import user from "./user";
+import publications from "./publications";
 
-export { user };
+export {user, publications};

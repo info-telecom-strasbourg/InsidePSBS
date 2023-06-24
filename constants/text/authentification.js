@@ -9,8 +9,6 @@ const authentification = {
   year: "Année",
   sector: "Filière",
   forgot_password: "Mot de passe oublié ?",
-  accept_cgu: "Accepter les conditions d'utilisation",
-  cgu: "Conditions d'utilisation",
 
   register: {
     title: "S'inscrire",
@@ -23,6 +21,10 @@ const authentification = {
     next: "Suivant",
     skip: "Passer cette étape",
     already_registered: "Déjà un compte ?",
+    personal_informaions: "Informations personnelles",
+    unistra_account: "Compte Unistra",
+    accept_cgu: "Accepter les conditions d'utilisation",
+    cgu: "Conditions d'utilisation",
   },
   login: {
     title: "Se connecter",

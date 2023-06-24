@@ -2,6 +2,7 @@
   "expo": {
     "scheme": "inside-psbs",
     "userInterfaceStyle": "automatic",
+    "backgroundColor": "#000000",
     "web": {
       "bundler": "metro",
       "favicon": "./assets/images/favicon.png"
@@ -27,6 +28,14 @@
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#081425"
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ]
+    ]
   }
 }

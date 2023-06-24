@@ -14,6 +14,7 @@ import DefaultTopbar from "./topbar/DefaultTopbar";
 import Topbar from "./topbar/Topbar";
 import Refresh from "./loader/Refresh";
 import StatusBar from "./StatusBar";
+import ProgressBar from "./ProgressBar";
 
 export {
   Badge,
@@ -32,4 +33,5 @@ export {
   TouchableSettingsIcon,
   Refresh,
   StatusBar,
+  ProgressBar,
 };

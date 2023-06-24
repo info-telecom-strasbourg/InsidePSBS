@@ -1,8 +1,23 @@
 import React from "react";
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
+import { COLORS } from "../../constants";
+import { View } from "react-native";
+import { useTheme } from "../../contexts";
 
 const AuthLayout = () => {
-  return <Slot />;
+  const { theme } = useTheme();
+  return (
+    <View style={{ flex: 1, backgroundColor: theme.background }}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          animation: "fade_from_bottom",
+          backgroundColor: COLORS.primary,
+        }}
+        cardStyle={{ backgroundColor: COLORS.primary }}
+      />
+    </View>
+  );
 };
 
 export default AuthLayout;

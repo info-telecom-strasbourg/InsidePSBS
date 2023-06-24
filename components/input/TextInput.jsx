@@ -7,9 +7,9 @@ import { useTheme } from "../../contexts";
 const TextInput = ({ label, onChangeText, value }) => {
   const { theme } = useTheme();
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <Text style={styles.textInputLabel(theme)}>{label}</Text>
-      <View style={{ height: 5 }} />
+      <View style={{ height: 10 }} />
       <Entry
         style={styles.textInputEntry(theme)}
         onChangeText={onChangeText}

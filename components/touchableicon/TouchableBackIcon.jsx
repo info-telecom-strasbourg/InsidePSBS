@@ -6,14 +6,14 @@ import styles from "./touchableicon.style";
 import { ChevronLeftIcon } from "../../assets/icons";
 import { useTheme } from "../../contexts";
 
-const TouchableBackIcon = () => {
+const TouchableBackIcon = ({ onPress }) => {
   const { theme } = useTheme();
   const router = useRouter();
 
   return (
     <TouchableOpacity
       style={styles.iconContainer()}
-      onPress={() => router.back()}
+      onPress={onPress || (() => router.back())}
     >
       <ChevronLeftIcon width={13} height={24} color={theme.text} />
     </TouchableOpacity>
