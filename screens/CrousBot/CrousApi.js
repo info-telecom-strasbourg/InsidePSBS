@@ -1,24 +1,8 @@
 import axios from 'axios';
 
-function EN_to_FR(month) {
-    // Convert the english month to french month
-    var months = {
-      January: "janvier",
-      February: "février",
-      March: "mars",
-      April: "avril",
-      May: "mai",
-      June: "juin",
-      July: "juillet",
-      August: "août",
-      September: "septembre",
-      October: "octobre",
-      November: "novembre",
-      December: "décembre",
-    };
-  
-    return months[month];
-  }
+// HTML Parser done by LosKeeper
+
+
 
 export function getDate(day_diff){
     // Get the date of the day
