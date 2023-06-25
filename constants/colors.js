@@ -22,7 +22,7 @@ const COLORS = {
   text_secondary_light: "#AEAEAE",
   tabBar_light: "#FFFFFF",
 
-  background_dark: "#000000",
+  background_dark: "#081425",
   box_dark: "#1C1C1F",
   box_secondary_dark: "#333337",
   text_dark: "#FFFFFF",
