@@ -26,7 +26,7 @@ const COLORS = {
   box_dark: "#1C1C1F",
   box_secondary_dark: "#333337",
   text_dark: "#FFFFFF",
-  text_secondary_dark: "#AEAEAE",
+  text_secondary_dark: "#f8f8ff",
   tabBar_dark: "#000000",
 };
 

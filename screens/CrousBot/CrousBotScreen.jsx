@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { TEXT } from "../../constants";
-import { useTheme } from "../../contexts";
 import {
   BackButtonTopbar,
   Loader,
@@ -8,11 +6,16 @@ import {
 } from "../../components";
 import { ChevronLeftIcon, ChevronRightIcon } from "../../assets/icons";
 import { Text, TouchableOpacity, View } from "react-native";
-import { text_styles } from "../../styles";
-import styles from "./touchableicon.style";
 import { getMenuIllkirch, menuFormatter } from "./CrousApi";
 
+import { TEXT,COLORS } from "../../constants";
+import { useTheme } from "../../contexts";
+import CrousBotstyles from "./Crousbot.style";
+import { text_styles } from "../../styles";
+
+
 const CrousBotScreen = () => {
+  const styles = CrousBotstyles();
   const { theme } = useTheme();
   const [data, setData] = useState(null);
   const [date, setDate] = useState(new Date());
@@ -43,57 +46,65 @@ const CrousBotScreen = () => {
     month = String(month).length === 1 ? "0" + month : month;
     return `${day}/${month}`;
   };
-
+  const SeparationBar = () => {
+    return <View style={styles.separator} />;
+  };
   return (
     <ScrollScreenContainer>
       <BackButtonTopbar>{TEXT.crousbot.page_name}</BackButtonTopbar>
-      <View style={{ alignSelf: "center", flexDirection: "row" }}>
+      <View style={styles.dayContainer}>
         <TouchableOpacity
-          style={styles.iconContainer()}
+          style={styles.iconContainer}
           onPress={() => setDate(prevDay(date))}
         >
           <ChevronLeftIcon width={13} height={24} color={theme.text} />
         </TouchableOpacity>
-        <Text style={text_styles.title3(theme)}>{formatDate(date)}</Text>
+        <Text style={styles.dateContainer}>{date.toLocaleString("default", {weekday:'long', day:'numeric', month: "long" })}</Text>
         <TouchableOpacity
-          style={styles.iconContainer()}
+          style={styles.iconContainer}
           onPress={() => setDate(nextDay(date))}
         >
           <ChevronRightIcon width={13} height={24} color={theme.text} />
         </TouchableOpacity>
       </View>
       <View style={{ paddingHorizontal: 11 }}>
-        <Text style={text_styles.title3(theme)}>{formatDate(date)}</Text>
         <View style={{ paddingVertical: 30 }}>
           {isLoading ? (
             <Loader />
           ) : data ? (
             <>
-              <Text style={text_styles.title3(theme)}>
+              <Text style={styles.titleContainer}>
                 {TEXT.crousbot.starter}
               </Text>
-              <Text style={text_styles.body3(theme)}>{data.starter}</Text>
-              <Text style={text_styles.title3(theme)}>
+              <SeparationBar />
+              <Text style={styles.bodyContainer}>{data.starter}</Text>
+              <Text style={styles.titleContainer}>
                 {TEXT.crousbot.main}
               </Text>
-              <Text style={text_styles.body3(theme)}>{data.main}</Text>
-              <Text style={text_styles.title3(theme)}>
+              <SeparationBar />
+              <Text style={styles.bodyContainer}>{data.main}</Text>
+              <Text style={styles.titleContainer}>
                 {TEXT.crousbot.pasta}
               </Text>
-              <Text style={text_styles.body3(theme)}>{data.pasta}</Text>
-              <Text style={text_styles.title3(theme)}>{TEXT.crousbot.veg}</Text>
-              <Text style={text_styles.body3(theme)}>{data.veg}</Text>
-              <Text style={text_styles.title3(theme)}>
+              <SeparationBar />
+              <Text style={styles.bodyContainer}>{data.pasta}</Text>
+              
+              <Text style={styles.titleContainer}>{TEXT.crousbot.veg}</Text>
+              <SeparationBar />
+              <Text style={styles.bodyContainer}>{data.veg}</Text>
+              <Text style={styles.titleContainer}>
                 {TEXT.crousbot.grill}
               </Text>
-              <Text style={text_styles.body3(theme)}>{data.grill}</Text>
-              <Text style={text_styles.title3(theme)}>
+              <SeparationBar />
+              <Text style={styles.bodyContainer}>{data.grill}</Text>
+              <Text style={styles.titleContainer}>
                 {TEXT.crousbot.dessert}
               </Text>
-              <Text style={text_styles.body3(theme)}>{data.dessert}</Text>
+              <SeparationBar />
+              <Text style={styles.bodyContainer}>{data.dessert}</Text>
             </>
           ) : (
-            <Text style={text_styles.title3(theme)}>
+            <Text style={styles.titleContainer}>
               {TEXT.crousbot.menu_error}
             </Text>
           )}
