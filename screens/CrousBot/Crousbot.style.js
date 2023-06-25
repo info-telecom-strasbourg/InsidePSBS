@@ -19,6 +19,8 @@ const CrousBotstyles = () => {
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
+    flex:1,
   },
   titleContainer: {
     marginLeft:25,
@@ -48,6 +50,7 @@ const CrousBotstyles = () => {
     borderRadius:20,
     borderColor:COLORS.light_blue,
     borderWidth:1,  
+    width: "80%",
   },
 
 },);
