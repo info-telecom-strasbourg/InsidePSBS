@@ -1,7 +1,7 @@
-import React from "react";
-import { Text, useWindowDimensions, View } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, Text, useWindowDimensions, View } from "react-native";
 import { PrimaryButton } from "../../../components";
-import { TEXT } from "../../../constants";
+import { COLORS, TEXT } from "../../../constants";
 import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
 import CheckBox from "expo-checkbox";
@@ -9,15 +9,22 @@ import CheckBox from "expo-checkbox";
 const Cgu = ({ nextStep }) => {
   const { width } = useWindowDimensions();
   const { theme } = useTheme();
+  const [checked, setChecked] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = () => {
+    setError("");
+    if (!checked) return setError(TEXT.authentification.errors.cgu);
+    nextStep();
+  };
   return (
     <View
       style={{
         width,
-        padding: 15,
-        justifyContent: "space-between",
+        marginVertical: 15,
       }}
     >
-      <View>
+      <ScrollView style={{ flex: 1, paddingHorizontal: 15 }}>
         <Text style={text_styles.title2(theme)}>
           {TEXT.authentification.register.cgu}
         </Text>
@@ -37,18 +44,28 @@ const Cgu = ({ nextStep }) => {
         </Text>
         <View style={{ height: 20 }} />
         <View style={{ flexDirection: "row" }}>
-          <CheckBox />
+          <CheckBox
+            color={checked ? COLORS.primary : theme.text}
+            onValueChange={setChecked}
+            value={checked}
+          />
           <View style={{ width: 10 }} />
           <Text style={text_styles.body3(theme)}>
             {TEXT.authentification.register.accept_cgu}
           </Text>
         </View>
+        <View style={{ height: 10 }} />
+        <Text style={text_styles.body3({ text: COLORS.dark_red })}>
+          {error}
+        </Text>
         <View style={{ height: 20 }} />
-      </View>
-      <PrimaryButton
-        text={TEXT.authentification.register.next}
-        onPress={nextStep}
-      />
+        <View>
+          <PrimaryButton
+            text={TEXT.authentification.register.submit}
+            onPress={handleSubmit}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };

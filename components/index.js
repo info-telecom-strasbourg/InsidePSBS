@@ -15,6 +15,7 @@ import Topbar from "./topbar/Topbar";
 import Refresh from "./loader/Refresh";
 import StatusBar from "./StatusBar";
 import ProgressBar from "./ProgressBar";
+import Picker from "./input/Picker";
 
 export {
   Badge,
@@ -34,4 +35,5 @@ export {
   Refresh,
   StatusBar,
   ProgressBar,
+  Picker,
 };

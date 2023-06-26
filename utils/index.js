@@ -6,6 +6,13 @@ import capitalize from "./capitalize";
 import loadFonts from "./loadFonts";
 import hideTextOverflow from "./hideTextOverflow";
 import initNotification from "./initNotification";
+import {
+  checkEmail,
+  checkPassword,
+  checkPasswordConfirmation,
+  checkPhone,
+  checkUsername,
+} from "./checkInputs";
 
 export {
   getLayout,
@@ -16,4 +23,9 @@ export {
   loadFonts,
   hideTextOverflow,
   initNotification,
+  checkEmail,
+  checkPassword,
+  checkPasswordConfirmation,
+  checkUsername,
+  checkPhone,
 };

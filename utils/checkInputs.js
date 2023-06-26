@@ -1,0 +1,31 @@
+export const checkEmail = (email) => {
+  const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$/;
+  return regexEmail.test(email);
+};
+
+export const checkPassword = (password) => {
+  const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+  return regexPassword.test(password);
+};
+
+export const checkPasswordConfirmation = (password, confirmPassword) => {
+  return password === confirmPassword;
+};
+
+export const checkFirstName = (firstName) => {
+  return firstName.length > 0;
+};
+
+export const checkLastName = (lastName) => {
+  return lastName.length > 0;
+};
+
+export const checkUsername = (username) => {
+  const regexUsername = /^[a-zA-Z0-9._-]{3,}$/;
+  return regexUsername.test(username);
+};
+
+export const checkPhone = (phone) => {
+  const regexPhone = /^[0-9]{10}$/;
+  return regexPhone.test(phone);
+};
