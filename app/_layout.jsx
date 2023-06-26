@@ -7,6 +7,8 @@ import { StatusBar, WebContainer } from "../components";
 import { lockScreenOrientation } from "../utils";
 import { LocalStorageProvider } from "../contexts/localStorageContext";
 
+import { initNotification} from "../utils";
+
 const AppLayout = () => {
   const modalOptions = {
     presentation: "modal",
@@ -14,6 +16,8 @@ const AppLayout = () => {
   };
 
   lockScreenOrientation();
+  initNotification();
+
 
   const Container = Platform.OS === "web" ? WebContainer : View;
 

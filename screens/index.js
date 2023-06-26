@@ -10,18 +10,20 @@ import OrganizationsScreen from "./Organizations/OrganizationsScreen";
 import SettingsScreen from "./Settings/SettingsScreen";
 import OrganizationIdScreen from "./Organizations/OrganizationIdScreen";
 import PublicationScreen from "./Announcements/PublicationScreen";
+import CrousBotScreen from "./CrousBot/CrousBotScreen";
 
 export {
-    AnnouncementScreen,
-    LoginScreen,
-    RegisterScreen,
-    CalendarScreen,
-    FouailleScreen,
-    HomeScreen,
-    MessagesScreen,
-    OrganizationsScreen,
-    ProfileScreen,
-    SettingsScreen,
-    OrganizationIdScreen,
-    PublicationScreen,
+  AnnouncementScreen,
+  LoginScreen,
+  RegisterScreen,
+  CalendarScreen,
+  FouailleScreen,
+  HomeScreen,
+  MessagesScreen,
+  OrganizationsScreen,
+  ProfileScreen,
+  SettingsScreen,
+  OrganizationIdScreen,
+  PublicationScreen,
+  CrousBotScreen,
 };

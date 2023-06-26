@@ -7,6 +7,7 @@ import authentification from "./authentification";
 import announcements from "./announcements";
 import messages from "./messages";
 import organizations from "./organizations";
+import crousbot from "./crousbot";
 
 export default {
   common,
@@ -18,4 +19,5 @@ export default {
   announcements,
   messages,
   organizations,
+  crousbot,
 };
