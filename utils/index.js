@@ -7,7 +7,10 @@ import loadFonts from "./loadFonts";
 import hideTextOverflow from "./hideTextOverflow";
 import initNotification from "./initNotification";
 import {
+  checkAlreadyExist,
   checkEmail,
+  checkFirstName,
+  checkLastName,
   checkPassword,
   checkPasswordConfirmation,
   checkPhone,
@@ -28,4 +31,7 @@ export {
   checkPasswordConfirmation,
   checkUsername,
   checkPhone,
+  checkAlreadyExist,
+  checkFirstName,
+  checkLastName,
 };

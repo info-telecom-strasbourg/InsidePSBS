@@ -17,9 +17,9 @@ const RegisterScreen = () => {
   const steps = 5;
   const [step, setStep] = useState(1);
   const [entries, setEntries] = useState({
-    email: "",
-    password: "",
-    password_confirmation: "",
+    email: "romain.bourdain93@gmail.com",
+    password: "azertyuioP0",
+    password_confirmation: "azertyuioP0",
     first_name: "",
     last_name: "",
     user_name: "",

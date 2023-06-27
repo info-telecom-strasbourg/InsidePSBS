@@ -12,6 +12,7 @@ import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
 import { useRouter } from "expo-router";
 import {
+  checkAlreadyExist,
   checkEmail,
   checkPassword,
   checkPasswordConfirmation,
@@ -35,7 +36,7 @@ const GeneralInformations = ({ nextStep, entries, setEntry }) => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setErrors({
       email: "",
       password: "",
@@ -56,6 +57,8 @@ const GeneralInformations = ({ nextStep, entries, setEntry }) => {
         "password_confirmation",
         TEXT.authentification.errors.password_confirmation
       );
+    if (!(await checkAlreadyExist("email", entries.email)))
+      return setError("email", TEXT.authentification.errors.email_already_used);
     nextStep();
   };
 
@@ -122,7 +125,7 @@ const GeneralInformations = ({ nextStep, entries, setEntry }) => {
 
         <PrimaryButton
           text={TEXT.authentification.register.next}
-          onPress={nextStep}
+          onPress={handleSubmit}
         />
       </ScrollView>
     </View>

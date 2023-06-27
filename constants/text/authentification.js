@@ -55,14 +55,16 @@ const authentification = {
 
   errors: {
     empty: "Ce champ ne peut pas être vide",
-    email: "L'email est invalide",
+    email: "C'est pas un email ça !",
     password:
-      "Le mot de passe doit contenir au moins 8 caractères et au moins une majuscule, une minuscule et un chiffre",
-    password_confirmation: "Les mots de passe ne correspondent pas",
+      "Le mot de passe doit contenir au moins 8 caractères et au moins une majuscule, une minuscule et un chiffre (c'est un peu technique)",
+    password_confirmation: "C'est pas ce que tu m'as dit avant...",
     user_name:
       "Le nom d'utilisateur doit contenir au moins 3 caractères (a-z A-Z 0-9 .-_)",
-    phone: "Le numéro de téléphone est invalide",
+    phone: "Ce numéro n'est pas attribué par l'ARCEP",
     cgu: "Vous devez accepter les conditions d'utilisation",
+    email_already_used: "Oups... Cet email est déjà utilisé",
+    user_name_already_used: "Quelqu'un a déjà ce joli nom",
   },
 };
 

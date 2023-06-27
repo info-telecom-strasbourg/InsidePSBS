@@ -5,6 +5,7 @@ import { TEXT } from "../../../constants";
 import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
 import {
+  checkAlreadyExist,
   checkFirstName,
   checkLastName,
   checkPhone,
@@ -28,7 +29,7 @@ const PersonalInformations = ({ nextStep, entries, setEntry }) => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setErrors({
       first_name: "",
       last_name: "",
@@ -43,6 +44,11 @@ const PersonalInformations = ({ nextStep, entries, setEntry }) => {
       return setError("user_name", TEXT.authentification.errors.user_name);
     if (!checkPhone(entries.phone))
       return setError("phone", TEXT.authentification.errors.phone);
+    if (!(await checkAlreadyExist("user_name", entries.user_name)))
+      return setError(
+        "user_name",
+        TEXT.authentification.errors.user_name_already_used
+      );
 
     nextStep();
   };

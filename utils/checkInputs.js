@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const checkEmail = (email) => {
   const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$/;
   return regexEmail.test(email);
@@ -28,4 +30,16 @@ export const checkUsername = (username) => {
 export const checkPhone = (phone) => {
   const regexPhone = /^[0-9]{10}$/;
   return regexPhone.test(phone);
+};
+
+export const checkAlreadyExist = async (entry, value) => {
+  try {
+    const res = await axios.get(
+      `https://app-pprd.its-tps.fr/api/register/availability?${entry}=${value}`
+    );
+    return true;
+  } catch (error) {
+    if (error.response.status === 409) return false;
+    console.log(error.response.data);
+  }
 };
