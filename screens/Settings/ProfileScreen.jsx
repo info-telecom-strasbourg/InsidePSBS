@@ -8,8 +8,7 @@ import {
 } from "../../components";
 import { COLORS, TEXT } from "../../constants";
 import { useLocalStorage } from "../../contexts/localStorageContext";
-import { useTheme } from "../../contexts";
-import { useRouter } from "expo-router";
+import { useAuth, useTheme } from "../../contexts";
 import { useFetch } from "../../hooks";
 import { Image, Text, View } from "react-native";
 import styles from "./settings.style";
@@ -19,7 +18,8 @@ import SettingButton from "./SettingButton";
 const ProfileScreen = () => {
   const { data } = useLocalStorage();
   const { theme } = useTheme();
-  const router = useRouter();
+  const { logout } = useAuth();
+
   const { res, isLoading, error } = useFetch(
     "https://app-pprd.its-tps.fr/api/user/me",
     {
@@ -85,7 +85,12 @@ const ProfileScreen = () => {
             <SettingButton text="Mot de passe" />
             <SettingButton text="Compte Unistra" />
           </View>
-          <PrimaryButton text="Déconnexion" textStyle={{ fontSize: 17 }} />
+
+          <PrimaryButton
+            text="Déconnexion"
+            textStyle={{ fontSize: 17 }}
+            onPress={() => logout()}
+          />
           <View style={{ height: 10 }} />
           <ColoredButton
             foreground={COLORS.dark_red}

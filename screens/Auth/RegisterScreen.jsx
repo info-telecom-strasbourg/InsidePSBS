@@ -20,16 +20,15 @@ const RegisterScreen = () => {
     email: "romain.bourdain93@gmail.com",
     password: "azertyuioP0",
     password_confirmation: "azertyuioP0",
-    first_name: "",
-    last_name: "",
-    user_name: "",
-    phone: "",
-    promotion_year: "",
-    sector: "",
+    first_name: "Romain",
+    last_name: "Bourdain",
+    user_name: "romain.bourdain",
+    phone: "0637297485",
+    promotion_year: "2025",
+    sector: 2,
   });
 
   const sendData = async () => {
-    console.log(entries);
     try {
       const res = await axios.post(
         "https://app-pprd.its-tps.fr/api/register",
@@ -40,7 +39,6 @@ const RegisterScreen = () => {
           },
         }
       );
-      console.log(res.data);
     } catch (error) {
       console.log(error.response.data);
     }

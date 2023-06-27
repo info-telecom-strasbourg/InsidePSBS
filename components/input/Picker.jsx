@@ -21,8 +21,8 @@ const Picker = ({ items, value, onValueChange, label }) => {
           {items?.map((item, index) => (
             <NativePicker.Item
               key={index}
-              label={item.label}
-              value={item.value}
+              label={item.short_name}
+              value={item.id}
             />
           ))}
         </NativePicker>

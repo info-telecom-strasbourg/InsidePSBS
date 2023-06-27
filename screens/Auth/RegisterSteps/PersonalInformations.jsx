@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, Text, useWindowDimensions, View } from "react-native";
-import { Picker, PrimaryButton, TextInput } from "../../../components";
+import { Loader, Picker, PrimaryButton, TextInput } from "../../../components";
 import { TEXT } from "../../../constants";
 import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
@@ -11,6 +11,7 @@ import {
   checkPhone,
   checkUsername,
 } from "../../../utils/checkInputs";
+import { useFetch } from "../../../hooks";
 
 const PersonalInformations = ({ nextStep, entries, setEntry }) => {
   const { width, height } = useWindowDimensions();
@@ -53,14 +54,20 @@ const PersonalInformations = ({ nextStep, entries, setEntry }) => {
     nextStep();
   };
 
-  const sectors = [
-    { label: TEXT.authentification.sectors.empty, value: null },
-    { label: TEXT.authentification.sectors.gene, value: "Géné" },
-    { label: TEXT.authentification.sectors.ir, value: "IR" },
-    { label: TEXT.authentification.sectors.ti, value: "TI" },
-    { label: TEXT.authentification.sectors.fip, value: "FIP" },
-    { label: TEXT.authentification.sectors.bs, value: "BS" },
-  ];
+  // const sectors = [
+  //   { label: TEXT.authentification.sectors.empty, value: null },
+  //   { label: TEXT.authentification.sectors.gene, value: "Géné" },
+  //   { label: TEXT.authentification.sectors.ir, value: "IR" },
+  //   { label: TEXT.authentification.sectors.ti, value: "TI" },
+  //   { label: TEXT.authentification.sectors.fip, value: "FIP" },
+  //   { label: TEXT.authentification.sectors.bs, value: "BS" },
+  // ];
+  const { res, isLoading, error } = useFetch(
+    "https://app-pprd.its-tps.fr/api/sector",
+    {
+      Accept: "application/json",
+    }
+  );
 
   const inputs = [
     <TextInput
@@ -108,7 +115,7 @@ const PersonalInformations = ({ nextStep, entries, setEntry }) => {
         setEntry("sector", val);
       }}
       label={TEXT.authentification.sector}
-      items={sectors}
+      items={res?.data}
     />,
   ];
 
@@ -119,36 +126,40 @@ const PersonalInformations = ({ nextStep, entries, setEntry }) => {
         marginVertical: 15,
       }}
     >
-      <ScrollView style={{ flex: 1, paddingHorizontal: 15 }}>
-        <Text style={text_styles.title2(theme)}>
-          {TEXT.authentification.register.personal_informaions}
-        </Text>
-        <View style={{ height: 20 }} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ScrollView style={{ flex: 1, paddingHorizontal: 15 }}>
+          <Text style={text_styles.title2(theme)}>
+            {TEXT.authentification.register.personal_informaions}
+          </Text>
+          <View style={{ height: 20 }} />
 
-        {/* Inputs */}
-        {inputs.map((input, index) => (
-          <View key={index} style={{ marginBottom: 15 }}>
-            {input}
-          </View>
-        ))}
-
-        {/* Pickers */}
-        <View style={{ flexDirection: "row" }}>
-          {pickers.map((picker, index) => (
-            <View key={index} style={{ flex: 1, flexDirection: "row" }}>
-              {index !== 0 && <View style={{ width: 15 }} />}
-              <View style={{ flex: 1 }}>{picker}</View>
+          {/* Inputs */}
+          {inputs.map((input, index) => (
+            <View key={index} style={{ marginBottom: 15 }}>
+              {input}
             </View>
           ))}
-        </View>
 
-        <View style={{ height: 20 }} />
+          {/* Pickers */}
+          <View style={{ flexDirection: "row" }}>
+            {pickers.map((picker, index) => (
+              <View key={index} style={{ flex: 1, flexDirection: "row" }}>
+                {index !== 0 && <View style={{ width: 15 }} />}
+                <View style={{ flex: 1 }}>{picker}</View>
+              </View>
+            ))}
+          </View>
 
-        <PrimaryButton
-          text={TEXT.authentification.register.next}
-          onPress={handleSubmit}
-        />
-      </ScrollView>
+          <View style={{ height: 20 }} />
+
+          <PrimaryButton
+            text={TEXT.authentification.register.next}
+            onPress={handleSubmit}
+          />
+        </ScrollView>
+      )}
     </View>
   );
 };
