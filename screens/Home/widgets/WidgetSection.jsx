@@ -73,6 +73,16 @@ const WidgetSection = () => {
         <RestaurantIcon color={COLORS.light_orange} width={60} height={80} />
       </Widget>,
     ],
+    [
+      <Widget
+        width={widgetSize()}
+        height={widgetSize()}
+        backgroundColor={COLORS.dark_red}
+        onPress={()=>{router.push(ROUTES.cts)}}
+      >
+        <ImageIcon color={COLORS.light_red} width={80} height={80} />
+      </Widget>,
+    ],
   ];
 
   return (

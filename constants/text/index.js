@@ -8,6 +8,7 @@ import announcements from "./announcements";
 import messages from "./messages";
 import organizations from "./organizations";
 import crousbot from "./crousbot";
+import cts from "./cts";
 
 export default {
   common,
@@ -20,4 +21,5 @@ export default {
   messages,
   organizations,
   crousbot,
+  cts,
 };
