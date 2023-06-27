@@ -10,7 +10,6 @@ const fouailleStyles = () => {
     },
     wrapper: {
       flex: 1,
-
       paddingHorizontal: 11,
     },
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { SettingsScreen } from "../../../screens";
 
-const Settings = () => {
+const Index = () => {
   return <SettingsScreen />;
 };
 
-export default Settings;
+export default Index;

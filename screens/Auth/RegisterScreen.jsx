@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, BackHandler, useWindowDimensions } from "react-native";
+import { Animated, useWindowDimensions } from "react-native";
 import {
   DefaultTopbar,
   ProgressBar,
@@ -8,10 +8,10 @@ import {
   TouchableBackIcon,
 } from "../../components";
 import { TEXT } from "../../constants";
-import GeneralInformations from "./RegisterSteps/GeneralInformations";
-import PersonalInformations from "./RegisterSteps/PersonalInformations";
 import Cgu from "./RegisterSteps/CGU";
 import axios from "axios";
+import PersonalInformations from "./RegisterSteps/PersonalInformations";
+import GeneralInformations from "./RegisterSteps/GeneralInformations";
 
 const RegisterScreen = () => {
   const steps = 5;
@@ -81,16 +81,6 @@ const RegisterScreen = () => {
   useEffect(() => {
     reactive.setValue(-width * (step - 1));
   }, [step, width]);
-
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => {
-        previousStep();
-        return true;
-      }
-    );
-  });
 
   return (
     <>

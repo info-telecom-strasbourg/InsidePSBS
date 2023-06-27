@@ -4,7 +4,6 @@ import { COLORS, FONTS } from "../../constants";
 const styles = StyleSheet.create({
   btnContainer: ({ background = COLORS.primary }) => ({
     backgroundColor: background,
-    width: "100%",
     padding: 10,
     borderRadius: 20,
   }),
