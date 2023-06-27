@@ -4,8 +4,8 @@ import { Switch } from "react-native";
 import { COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
 
-const SettingSwitch = ({ text }) => {
-  const [active, setActive] = useState(false);
+const SettingSwitch = ({ text, onPress, value }) => {
+  const [active, setActive] = useState(value);
   const { theme } = useTheme();
   return (
     <SettingButton

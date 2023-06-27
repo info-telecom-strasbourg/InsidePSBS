@@ -14,6 +14,7 @@ import { Image, Text, View } from "react-native";
 import styles from "./settings.style";
 import { text_styles } from "../../styles";
 import SettingButton from "./SettingButton";
+import axios from "axios";
 
 const ProfileScreen = () => {
   const { data } = useLocalStorage();
@@ -97,6 +98,22 @@ const ProfileScreen = () => {
             background={COLORS.light_red}
             text="Supprimer le compte"
             textStyle={{ fontSize: 17 }}
+            onPress={async () => {
+              try {
+                logout();
+                const res = await axios.delete(
+                  "https://app-pprd.its-tps.fr/api/user",
+                  {
+                    headers: {
+                      Accept: "application/json",
+                      Authorization: `Bearer ${data.token}`,
+                    },
+                  }
+                );
+              } catch (error) {
+                console.log(error);
+              }
+            }}
           />
         </View>
       )}
