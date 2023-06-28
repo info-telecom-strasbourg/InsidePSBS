@@ -10,7 +10,7 @@ const profile = {
   former_password: "Ancien mot de passe",
   password: "Mot de passe",
   unistra: "Compte Unistra",
-  password_confirm: "Confirmer le mot de passe",
+  password_confirmation: "Confirmer le mot de passe",
   disconnect: "Déconnexion",
   delete_account: "Supprimer le compte",
   edit_profile: "Modifier le profil",

@@ -59,6 +59,8 @@ const authentification = {
     password:
       "Le mot de passe doit contenir au moins 8 caractères et au moins une majuscule, une minuscule et un chiffre (c'est un peu technique)",
     password_confirmation: "C'est pas ce que tu m'as dit avant...",
+    former_password:
+      "Ce n'est pas le bon mot de passe, n'essaie pas de me hacker chenapan(e)",
     user_name:
       "Le nom d'utilisateur doit contenir au moins 3 caractères (a-z A-Z 0-9 .-_)",
     phone: "Ce numéro n'est pas attribué par l'ARCEP",
