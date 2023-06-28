@@ -51,10 +51,10 @@ const WidgetSection = () => {
       <Widget
         width={widgetSize()}
         height={widgetSize()}
-        backgroundColor={COLORS.dark_red}
+        backgroundColor={COLORS.dark_orange}
         onPress={mpsPress}
       >
-        <ImageIcon color={COLORS.light_red} width={80} height={80} />
+        <ImageIcon color={COLORS.light_orange} width={80} height={80} />
       </Widget>,
       <Widget
         width={widgetSize()}
