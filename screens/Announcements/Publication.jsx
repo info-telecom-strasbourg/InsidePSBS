@@ -2,12 +2,12 @@ import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./publication.style";
 import { useTheme } from "../../contexts";
-import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
+import { COLORS, ROUTES } from "../../constants";
+import { useRouter } from "expo-router";
 import { text_styles } from "../../styles";
 import { getStringDate, hideTextOverflow } from "../../utils";
-import { COLORS, ROUTES } from "../../constants";
 import ChevronDown from "../../assets/icons/ChevronDown";
-import { useRouter } from "expo-router";
+import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
 
 const Publication = ({ data }) => {
   const { theme } = useTheme();
@@ -28,7 +28,7 @@ const Publication = ({ data }) => {
         <Image source={{ uri: data.author.logo_url }} style={styles.image()} />
         <View style={{ width: 10 }} />
         <View>
-          <Text style={text_styles.title3(theme)}>{data.author.full_name}</Text>
+          <Text style={text_styles.title3(theme)}>{data.author.name}</Text>
           <Text style={text_styles.body3({ text: theme.text_secondary })}>
             {getStringDate(data.date)}
           </Text>
@@ -39,7 +39,7 @@ const Publication = ({ data }) => {
       <Text style={text_styles.body3(theme)}>
         {hideTextOverflow(data.body, 500)}
       </Text>
-      {data.body.length && (
+      {data.body?.length && (
         <TouchableOpacity
           style={{
             flexDirection: "row",

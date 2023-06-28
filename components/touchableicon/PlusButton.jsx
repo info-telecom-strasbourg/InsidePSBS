@@ -11,6 +11,8 @@ const PlusButton = () => {
     <TouchableOpacity>
       <LinearGradient
         colors={COLORS.primaryGradient}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
         style={{
           width: 50,
           height: 50,

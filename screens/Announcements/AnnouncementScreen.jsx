@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { ScrollScreenContainer, Topbar } from "../../components";
-import { TEXT } from "../../constants";
-import { View } from "react-native";
+import { Loader, ScrollScreenContainer, Topbar } from "../../components";
+import { API, TEXT } from "../../constants";
+import { RefreshControl, View } from "react-native";
 import Publication from "./Publication";
-import { publications } from "../../data";
 import PlusButton from "../../components/touchableicon/PlusButton";
+import { useFetch } from "../../hooks";
+import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const AnnouncementScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -15,15 +16,30 @@ const AnnouncementScreen = () => {
     setRefreshing(false);
   };
 
+  const { data } = useLocalStorage();
+
+  const { res, isLoading, error } = useFetch(`${API.url}/api/post`, {
+    ...API.headers,
+    Authorization: `Bearer ${data.token}`,
+  });
+
   return (
     <>
-      <ScrollScreenContainer>
+      <ScrollScreenContainer
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+      >
         <Topbar>{TEXT.announcements.title}</Topbar>
-        <View style={{ padding: 15 }}>
-          <Publication data={publications[0]} />
-          <Publication data={publications[0]} />
-          <Publication data={publications[0]} />
-        </View>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <View style={{ padding: 15 }}>
+            {res?.data.map((data, index) => (
+              <Publication key={index} data={data} />
+            ))}
+          </View>
+        )}
       </ScrollScreenContainer>
       <PlusButton />
     </>
