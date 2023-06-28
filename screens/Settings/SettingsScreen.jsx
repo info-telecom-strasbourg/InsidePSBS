@@ -5,7 +5,7 @@ import {
   PrimaryButton,
   ScrollScreenContainer,
 } from "../../components";
-import { ROUTES, TEXT } from "../../constants";
+import { API, ROUTES, TEXT } from "../../constants";
 import { useTheme } from "../../contexts";
 import { Image, Text, View } from "react-native";
 import { useFetch } from "../../hooks";
@@ -20,13 +20,10 @@ const SettingsScreen = () => {
   const { data } = useLocalStorage();
   const { theme } = useTheme();
   const router = useRouter();
-  const { res, isLoading, error } = useFetch(
-    "https://app-pprd.its-tps.fr/api/user/me",
-    {
-      Accept: "application/json",
-      Authorization: `Bearer ${data.token}`,
-    }
-  );
+  const { res, isLoading, error } = useFetch(`${API.url}/api/user/me`, {
+    ...API.headers,
+    Authorization: `Bearer ${data.token}`,
+  });
 
   return (
     <ScrollScreenContainer>

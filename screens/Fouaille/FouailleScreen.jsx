@@ -7,7 +7,7 @@ import {
   Loader,
   ScrollScreenContainer,
 } from "../../components";
-import { TEXT } from "../../constants";
+import { API, TEXT } from "../../constants";
 import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import Card from "./Card";
@@ -17,9 +17,9 @@ import { useTheme } from "../../contexts";
 
 const FouailleScreen = () => {
   const { data } = useLocalStorage();
-  const url = "https://app-pprd.its-tps.fr/api/fouaille?per_page=20";
+  const url = `${API.url}/api/fouaille?per_page=20`;
   const headers = {
-    Accept: "application/json",
+    ...API.headers,
     Authorization: `Bearer ${data.token}`,
   };
   const [refreshing, setRefreshing] = useState(false);

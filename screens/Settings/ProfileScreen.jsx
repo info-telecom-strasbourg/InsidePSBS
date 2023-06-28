@@ -6,7 +6,7 @@ import {
   PrimaryButton,
   ScrollScreenContainer,
 } from "../../components";
-import { COLORS, TEXT } from "../../constants";
+import { API, COLORS, TEXT } from "../../constants";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useAuth, useTheme } from "../../contexts";
 import { useFetch } from "../../hooks";
@@ -21,13 +21,10 @@ const ProfileScreen = () => {
   const { theme } = useTheme();
   const { logout } = useAuth();
 
-  const { res, isLoading, error } = useFetch(
-    "https://app-pprd.its-tps.fr/api/user/me",
-    {
-      Accept: "application/json",
-      Authorization: `Bearer ${data.token}`,
-    }
-  );
+  const { res, isLoading, error } = useFetch(`${API.url}/api/user/me`, {
+    ...API.headers,
+    Authorization: `Bearer ${data.token}`,
+  });
 
   return (
     <ScrollScreenContainer>
@@ -101,15 +98,12 @@ const ProfileScreen = () => {
             onPress={async () => {
               try {
                 logout();
-                const res = await axios.delete(
-                  "https://app-pprd.its-tps.fr/api/user",
-                  {
-                    headers: {
-                      Accept: "application/json",
-                      Authorization: `Bearer ${data.token}`,
-                    },
-                  }
-                );
+                const res = await axios.delete(`${API.url}/api/user`, {
+                  headers: {
+                    ...API.headers,
+                    Authorization: `Bearer ${data.token}`,
+                  },
+                });
               } catch (error) {
                 console.log(error);
               }

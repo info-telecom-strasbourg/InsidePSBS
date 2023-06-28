@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter, useSegments } from "expo-router";
-import { ERRORS, ROUTES } from "../constants";
+import { API, ERRORS, ROUTES } from "../constants";
 import axios from "axios";
 import { useLocalStorage } from "./localStorageContext";
 
@@ -31,9 +31,9 @@ export const AuthProvider = ({ children }) => {
   const login = async ({ email, password }) => {
     try {
       const res = await axios.post(
-        "https://app-pprd.its-tps.fr/api/login",
+        `${API.url}/api/login`,
         { email, password },
-        { headers: { Accept: "application/json" } }
+        { headers: { ...API.headers } }
       );
       pushData({ token: res.data.token });
       router.replace(ROUTES.index);
@@ -47,11 +47,11 @@ export const AuthProvider = ({ children }) => {
     try {
       removeData("token");
       await axios.post(
-        "https://app-pprd.its-tps.fr/api/logout",
+        `${API.url}/api/logout`,
         {},
         {
           headers: {
-            Accept: "application/json",
+            ...API.headers,
             Authorization: `Bearer ${data.token}`,
           },
         }

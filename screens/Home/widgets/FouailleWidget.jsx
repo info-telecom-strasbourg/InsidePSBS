@@ -8,7 +8,7 @@ import {
   ArrowUpIcon,
   FouailleIcon,
 } from "../../../assets/icons";
-import { COLORS, ROUTES, TEXT } from "../../../constants";
+import { API, COLORS, ROUTES, TEXT } from "../../../constants";
 import Widget from "./Widget";
 import { useTheme } from "../../../contexts";
 import ErrorWidget from "./ErrorWidget";
@@ -20,9 +20,9 @@ const FouailleWidget = ({ width, height }) => {
 
   const { data } = useLocalStorage();
   const { res, error, isLoading } = useFetch(
-    `https://app-pprd.its-tps.fr/api/fouaille?per_page=2`,
+    `${API.url}/api/fouaille?per_page=2`,
     {
-      Accept: "application/json",
+      ...API.headers,
       Authorization: `Bearer ${data.token}`,
     }
   );

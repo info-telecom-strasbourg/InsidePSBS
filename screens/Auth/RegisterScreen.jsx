@@ -7,7 +7,7 @@ import {
   Topbar,
   TouchableBackIcon,
 } from "../../components";
-import { TEXT } from "../../constants";
+import { API, TEXT } from "../../constants";
 import Cgu from "./RegisterSteps/CGU";
 import axios from "axios";
 import PersonalInformations from "./RegisterSteps/PersonalInformations";
@@ -30,15 +30,11 @@ const RegisterScreen = () => {
 
   const sendData = async () => {
     try {
-      const res = await axios.post(
-        "https://app-pprd.its-tps.fr/api/register",
-        entries,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
+      const res = await axios.post(`${API.url}/register`, entries, {
+        headers: {
+          ...API.headers,
+        },
+      });
     } catch (error) {
       console.log(error.response.data);
     }

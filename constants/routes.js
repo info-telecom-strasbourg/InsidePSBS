@@ -12,7 +12,7 @@ const ROUTES = {
   crousbot: "/crousbot",
   index: "/",
   publication: "/publication",
-  profile: "/profile",
+  profile: "/settings/profile",
 };
 
 export default ROUTES;

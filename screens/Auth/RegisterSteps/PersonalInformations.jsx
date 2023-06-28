@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, Text, useWindowDimensions, View } from "react-native";
 import { Loader, Picker, PrimaryButton, TextInput } from "../../../components";
-import { TEXT } from "../../../constants";
+import { API, TEXT } from "../../../constants";
 import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
 import {
@@ -62,12 +62,9 @@ const PersonalInformations = ({ nextStep, entries, setEntry }) => {
   //   { label: TEXT.authentification.sectors.fip, value: "FIP" },
   //   { label: TEXT.authentification.sectors.bs, value: "BS" },
   // ];
-  const { res, isLoading, error } = useFetch(
-    "https://app-pprd.its-tps.fr/api/sector",
-    {
-      Accept: "application/json",
-    }
-  );
+  const { res, isLoading, error } = useFetch(`${API.url}/api/sector`, {
+    ...API.headers,
+  });
 
   const inputs = [
     <TextInput

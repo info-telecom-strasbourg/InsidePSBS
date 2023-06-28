@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API } from "../constants";
 
 export const checkEmail = (email) => {
   const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$/;
@@ -35,7 +36,10 @@ export const checkPhone = (phone) => {
 export const checkAlreadyExist = async (entry, value) => {
   try {
     const res = await axios.get(
-      `https://app-pprd.its-tps.fr/api/register/availability?${entry}=${value}`
+      `${API.url}/api/register/availability?${entry}=${value}`,
+      {
+        headers: API.headers,
+      }
     );
     return true;
   } catch (error) {
