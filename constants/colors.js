@@ -12,7 +12,7 @@ const COLORS = {
   dark_red: "#cc4444",
   light_green: "#CEE8C9",
   dark_green: "#438038",
-  light_orange: "#F0D5CA",
+  light_orange: "#e5b6a6",
   dark_orange: "#da6948",
   light_yellow: "#F2E8B1",
   dark_yellow: "#9eac4c",

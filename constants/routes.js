@@ -13,6 +13,7 @@ const ROUTES = {
   index: "/",
   publication: "/publication",
   profile: "/settings/profile",
+  cts: "/cts",
 };
 
 export default ROUTES;

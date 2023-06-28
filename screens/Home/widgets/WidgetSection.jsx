@@ -6,9 +6,10 @@ import { useRouter } from "expo-router";
 import { COLORS, ROUTES, TEXT } from "../../../constants";
 import FouailleWidget from "./FouailleWidget";
 import {
+  CrousIcon,
+  CTSIcon,
   ImageIcon,
   PeopleIcon,
-  RestaurantIcon,
   ShirtIcon,
 } from "../../../assets/icons";
 import Widget from "./Widget";
@@ -65,12 +66,24 @@ const WidgetSection = () => {
       <Widget
         width={widgetSize()}
         height={widgetSize()}
-        backgroundColor={COLORS.dark_orange}
+        backgroundColor={COLORS.light_red}
         onPress={() => {
           router.push(ROUTES.crousbot);
         }}
       >
-        <RestaurantIcon color={COLORS.light_orange} width={60} height={80} />
+        <CrousIcon color={COLORS.dark_red} width={90} height={80} />
+      </Widget>,
+    ],
+    [
+      <Widget
+        width={widgetSize()}
+        height={widgetSize()}
+        backgroundColor={COLORS.light_red}
+        onPress={() => {
+          router.push(ROUTES.cts);
+        }}
+      >
+        <CTSIcon color={COLORS.dark_red} width={80} height={80} />
       </Widget>,
     ],
   ];

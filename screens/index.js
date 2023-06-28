@@ -11,7 +11,7 @@ import SettingsScreen from "./Settings/SettingsScreen";
 import OrganizationIdScreen from "./Organizations/OrganizationIdScreen";
 import PublicationScreen from "./Announcements/PublicationScreen";
 import CrousBotScreen from "./CrousBot/CrousBotScreen";
-
+import CtsScreen from "./Cts/CtsScreen";
 export {
   AnnouncementScreen,
   LoginScreen,
@@ -26,4 +26,5 @@ export {
   OrganizationIdScreen,
   PublicationScreen,
   CrousBotScreen,
+  CtsScreen,
 };

@@ -33,6 +33,8 @@ import DiscordIcon from "./Discord";
 import WebIcon from "./Web";
 import ImageIcon from "./Image";
 import ChevronUpIcon from "./ChevronUp";
+import CrousIcon from "./Crous";
+import CTSIcon from "./CTS";
 
 export {
   AnnouncementIcon,
@@ -70,4 +72,6 @@ export {
   DiscordIcon,
   WebIcon,
   ImageIcon,
+  CrousIcon,
+  CTSIcon,
 };
