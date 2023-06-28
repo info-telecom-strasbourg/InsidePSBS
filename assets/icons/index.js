@@ -35,6 +35,7 @@ import ImageIcon from "./Image";
 import ChevronUpIcon from "./ChevronUp";
 import CrousIcon from "./Crous";
 import CTSIcon from "./CTS";
+import PlusIcon from "./Plus";
 
 export {
   AnnouncementIcon,
@@ -74,4 +75,5 @@ export {
   ImageIcon,
   CrousIcon,
   CTSIcon,
+  PlusIcon,
 };
