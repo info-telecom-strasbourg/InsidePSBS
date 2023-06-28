@@ -33,6 +33,10 @@ export const checkPhone = (phone) => {
   return regexPhone.test(phone);
 };
 
+export const checkPromotionYear = (promotionYear) => {
+  return parseInt(promotionYear) <= 2155;
+};
+
 export const checkAlreadyExist = async (entry, value) => {
   try {
     const res = await axios.get(
@@ -45,5 +49,6 @@ export const checkAlreadyExist = async (entry, value) => {
   } catch (error) {
     if (error.response.status === 409) return false;
     console.log(error.response.data);
+    return true;
   }
 };

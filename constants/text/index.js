@@ -9,6 +9,7 @@ import messages from "./messages";
 import organizations from "./organizations";
 import crousbot from "./crousbot";
 import cts from "./cts";
+import profile from "./profile";
 
 export default {
   common,
@@ -22,4 +23,5 @@ export default {
   organizations,
   crousbot,
   cts,
+  profile,
 };

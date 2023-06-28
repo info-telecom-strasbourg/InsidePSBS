@@ -62,6 +62,8 @@ const authentification = {
     user_name:
       "Le nom d'utilisateur doit contenir au moins 3 caractères (a-z A-Z 0-9 .-_)",
     phone: "Ce numéro n'est pas attribué par l'ARCEP",
+    promotion_year:
+      "Même si tu redoubles plus de fois que Louis, tu seras diplômé avant",
     cgu: "Vous devez accepter les conditions d'utilisation",
     email_already_used: "Oups... Cet email est déjà utilisé",
     user_name_already_used: "Quelqu'un a déjà ce joli nom",

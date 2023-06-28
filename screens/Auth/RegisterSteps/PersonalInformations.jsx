@@ -9,6 +9,7 @@ import {
   checkFirstName,
   checkLastName,
   checkPhone,
+  checkPromotionYear,
   checkUsername,
 } from "../../../utils/checkInputs";
 import { useFetch } from "../../../hooks";
@@ -45,6 +46,11 @@ const PersonalInformations = ({ nextStep, entries, setEntry }) => {
       return setError("user_name", TEXT.authentification.errors.user_name);
     if (!checkPhone(entries.phone))
       return setError("phone", TEXT.authentification.errors.phone);
+    if (!checkPromotionYear(entries.promotion_year))
+      return setError(
+        "promotion_year",
+        TEXT.authentification.errors.promotion_year
+      );
     if (!(await checkAlreadyExist("user_name", entries.user_name)))
       return setError(
         "user_name",
@@ -54,14 +60,6 @@ const PersonalInformations = ({ nextStep, entries, setEntry }) => {
     nextStep();
   };
 
-  // const sectors = [
-  //   { label: TEXT.authentification.sectors.empty, value: null },
-  //   { label: TEXT.authentification.sectors.gene, value: "Géné" },
-  //   { label: TEXT.authentification.sectors.ir, value: "IR" },
-  //   { label: TEXT.authentification.sectors.ti, value: "TI" },
-  //   { label: TEXT.authentification.sectors.fip, value: "FIP" },
-  //   { label: TEXT.authentification.sectors.bs, value: "BS" },
-  // ];
   const { res, isLoading, error } = useFetch(`${API.url}/api/sector`, {
     ...API.headers,
   });

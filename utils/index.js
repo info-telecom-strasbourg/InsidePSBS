@@ -14,6 +14,7 @@ import {
   checkPassword,
   checkPasswordConfirmation,
   checkPhone,
+  checkPromotionYear,
   checkUsername,
 } from "./checkInputs";
 
@@ -34,4 +35,5 @@ export {
   checkAlreadyExist,
   checkFirstName,
   checkLastName,
+  checkPromotionYear,
 };

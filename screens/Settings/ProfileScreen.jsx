@@ -6,7 +6,7 @@ import {
   PrimaryButton,
   ScrollScreenContainer,
 } from "../../components";
-import { API, COLORS, TEXT } from "../../constants";
+import { API, COLORS, ROUTES, TEXT } from "../../constants";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useAuth, useTheme } from "../../contexts";
 import { useFetch } from "../../hooks";
@@ -15,11 +15,13 @@ import styles from "./settings.style";
 import { text_styles } from "../../styles";
 import SettingButton from "./SettingButton";
 import axios from "axios";
+import { useRouter } from "expo-router";
 
 const ProfileScreen = () => {
   const { data } = useLocalStorage();
   const { theme } = useTheme();
   const { logout } = useAuth();
+  const router = useRouter();
 
   const { res, isLoading, error } = useFetch(`${API.url}/api/user/me`, {
     ...API.headers,
@@ -29,7 +31,7 @@ const ProfileScreen = () => {
   return (
     <ScrollScreenContainer>
       <BackButtonTopbar rightIcon={<></>}>
-        {TEXT.settings.profile.title}
+        {TEXT.profile.title}
       </BackButtonTopbar>
       {isLoading ? (
         <Loader />
@@ -49,51 +51,63 @@ const ProfileScreen = () => {
           </View>
           <View style={styles.section}>
             <SettingButton
-              text="Nom d'utilisateur"
+              text={TEXT.profile.user_name}
               rightIcon={
                 <Text style={text_styles.body3({ text: theme.text_secondary })}>
                   @{res?.data.user_name}
                 </Text>
               }
+              onPress={() => router.push(`${ROUTES.profile}/user_name`)}
             />
             <SettingButton
-              text="Numéro de téléphone"
+              text={TEXT.profile.phone}
               rightIcon={
                 <Text style={text_styles.body3({ text: theme.text_secondary })}>
                   {res?.data.phone}
                 </Text>
               }
+              onPress={() => router.push(`${ROUTES.profile}/phone`)}
             />
             <SettingButton
-              text="Filière"
+              text={TEXT.profile.sector}
               rightIcon={
                 <Text style={text_styles.body3({ text: theme.text_secondary })}>
                   {res?.data.sector}
                 </Text>
               }
+              onPress={() => router.push(`${ROUTES.profile}/sector`)}
             />
             <SettingButton
-              text="Promotion"
+              text={TEXT.profile.promotion_year}
               rightIcon={
                 <Text style={text_styles.body3({ text: theme.text_secondary })}>
                   {res?.data.promotion_year}
                 </Text>
               }
+              onPress={() => router.push(`${ROUTES.profile}/promotion_year`)}
             />
-            <SettingButton text="Mot de passe" />
-            <SettingButton text="Compte Unistra" />
+            <SettingButton
+              text={TEXT.profile.password}
+              onPress={() => router.push(`${ROUTES.profile}/password`)}
+            />
+            <SettingButton
+              text={TEXT.profile.unistra}
+              onPress={() => router.push(`${ROUTES.profile}/unistra`)}
+            />
           </View>
 
           <PrimaryButton
-            text="Déconnexion"
+            text={TEXT.profile.disconnect}
             textStyle={{ fontSize: 17 }}
-            onPress={() => logout()}
+            onPress={() => {
+              logout();
+            }}
           />
           <View style={{ height: 10 }} />
           <ColoredButton
             foreground={COLORS.dark_red}
             background={COLORS.light_red}
-            text="Supprimer le compte"
+            text={TEXT.profile.delete_account}
             textStyle={{ fontSize: 17 }}
             onPress={async () => {
               try {

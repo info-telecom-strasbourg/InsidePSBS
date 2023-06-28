@@ -1,34 +1,34 @@
 import React from "react";
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./organizations.style";
-import {useTheme} from "../../contexts";
-import {text_styles} from "../../styles";
-import {ChevronRightIcon} from "../../assets/icons";
-import {hideTextOverflow} from "../../utils";
-import {ROUTES} from "../../constants";
-import {useRouter} from "expo-router";
+import { useTheme } from "../../contexts";
+import { text_styles } from "../../styles";
+import { ChevronRightIcon } from "../../assets/icons";
+import { hideTextOverflow } from "../../utils";
+import { ROUTES } from "../../constants";
+import { useRouter } from "expo-router";
 
-const OrganizationButton = ({data}) => {
-    const {theme} = useTheme();
-    const router = useRouter();
-    const dataTitle = data.short_name || data.name;
-    return (
-        <TouchableOpacity
-            style={styles.container(theme)}
-            onPress={() => router.push(`${ROUTES.organizations}/${data.id}`)}
-        >
-            <View style={{flexDirection: "row", alignItems: "center"}}>
-                <View style={styles.imageContainer()}>
-                    <Image source={{uri: data.logo_url}} style={styles.image()}/>
-                </View>
-                <View style={{width: 20}}/>
-                <Text style={text_styles.title4(theme)}>
-                    {hideTextOverflow(dataTitle, 18)}
-                </Text>
-            </View>
-            <ChevronRightIcon color={theme.text}/>
-        </TouchableOpacity>
-    );
+const OrganizationButton = ({ data }) => {
+  const { theme } = useTheme();
+  const router = useRouter();
+  const dataTitle = data.short_name || data.name;
+  return (
+    <TouchableOpacity
+      style={styles.container(theme)}
+      onPress={() => router.push(`${ROUTES.organizations}/${data.id}`)}
+    >
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={styles.imageContainer()}>
+          <Image source={{ uri: data.logo_url }} style={styles.image()} />
+        </View>
+        <View style={{ width: 20 }} />
+        <Text style={text_styles.title4(theme)}>
+          {hideTextOverflow(dataTitle, 18)}
+        </Text>
+      </View>
+      <ChevronRightIcon color={theme.text} />
+    </TouchableOpacity>
+  );
 };
 
 export default OrganizationButton;
