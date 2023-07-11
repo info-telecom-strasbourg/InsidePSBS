@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import { ScrollView, Text, useWindowDimensions, View } from "react-native";
 import { PrimaryButton } from "../../../components";
-import { COLORS, TEXT } from "../../../constants";
+import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
 import CheckBox from "expo-checkbox";
+import { useRouter } from "expo-router";
 
 const Cgu = ({ nextStep }) => {
   const { width } = useWindowDimensions();
   const { theme } = useTheme();
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit = () => {
     setError("");
     if (!checked) return setError(TEXT.authentification.errors.cgu);
-    nextStep();
+    nextStep()
+      .then((res) => console.log(res))
+      .then(router.replace(ROUTES.login))
+      .catch((e) => setError(e));
   };
   return (
     <View

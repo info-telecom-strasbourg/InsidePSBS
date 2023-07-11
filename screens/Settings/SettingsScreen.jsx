@@ -70,9 +70,7 @@ const SettingsScreen = () => {
           <Text style={text_styles.title4(theme)}>
             {TEXT.settings.preferences.title}
           </Text>
-          <View style={styles.section}>
-            <SettingSwitch text="Mode sombre" />
-          </View>
+          <View style={styles.section}></View>
 
           <View style={{ height: 15 }} />
 

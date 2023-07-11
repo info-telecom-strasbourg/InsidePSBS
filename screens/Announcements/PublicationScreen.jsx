@@ -34,10 +34,11 @@ const PublicationScreen = () => {
     Authorization: `Bearer ${data.token}`,
   });
 
-  const { theme } = useTheme();
+  const { theme, colorScheme } = useTheme();
 
   return (
     <ScrollScreenContainer
+      background={theme.box}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
       }
@@ -46,7 +47,11 @@ const PublicationScreen = () => {
         {hideTextOverflow(res?.data.title, 10)}
       </BackButtonTopbar>
 
-      <View style={{ padding: 16 }}>
+      <View
+        style={{
+          padding: 16,
+        }}
+      >
         <TouchableOpacity
           style={{
             flexDirection: "row",

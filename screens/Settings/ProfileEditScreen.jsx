@@ -7,7 +7,7 @@ import {
   ScreenContainer,
   TextInput,
 } from "../../components";
-import { API, ROUTES, TEXT } from "../../constants";
+import { API, TEXT } from "../../constants";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { text_styles } from "../../styles";
 import { useTheme } from "../../contexts";
@@ -111,7 +111,7 @@ const ProfileEditScreen = () => {
           },
         }
       );
-      router.replace(ROUTES.profile);
+      router.back();
     } catch (e) {
       console.log(e.response.data);
     }

@@ -27,14 +27,6 @@ export const ThemeProvider = ({ children }) => {
     };
   }, []);
 
-  const toggleColorScheme = () => {
-    Appearance.set(colorScheme === "dark" ? "light" : "dark");
-  };
-
-  const useSystemColorScheme = () => {
-    Appearance.set(systemScheme);
-  };
-
   const theme = {};
   if (colorScheme === "light") {
     theme.background = COLORS.background_light;
@@ -55,9 +47,7 @@ export const ThemeProvider = ({ children }) => {
   }
 
   return (
-    <ThemeContext.Provider
-      value={{ theme, colorScheme, toggleColorScheme, useSystemColorScheme }}
-    >
+    <ThemeContext.Provider value={{ theme, colorScheme }}>
       {children}
     </ThemeContext.Provider>
   );

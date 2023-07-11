@@ -24,7 +24,7 @@ const PlusButton = () => {
           borderRadius: 20,
         }}
       >
-        <PlusIcon color={theme.text} height={21} width={21} />
+        <PlusIcon color={COLORS.white} height={21} width={21} />
       </LinearGradient>
     </TouchableOpacity>
   );
