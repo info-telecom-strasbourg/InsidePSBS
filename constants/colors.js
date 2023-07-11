@@ -1,6 +1,6 @@
 const COLORS = {
   primary: "#F6745E",
-  dark_primary: "#50322d",
+  light_primary: "#e09a8c",
   primaryGradient: ["#F6745E", "#F6745E", "#F45135"],
   black: "#000000",
   white: "#ffffff",

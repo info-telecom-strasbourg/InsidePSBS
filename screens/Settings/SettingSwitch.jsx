@@ -16,7 +16,7 @@ const SettingSwitch = ({ text, onPress, value }) => {
         <Switch
           trackColor={{
             false: theme.text_secondary,
-            true: COLORS.dark_primary,
+            true: COLORS.light_primary,
           }}
           thumbColor={active ? COLORS.primary : theme.text}
           onValueChange={() => setActive((a) => !a)}
