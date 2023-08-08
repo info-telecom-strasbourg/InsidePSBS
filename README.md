@@ -13,7 +13,7 @@
 - ``/style :`` le style global de l'application
 
 Pour faire des tests, on peut utiliser le fichier ``/app/test.jsx`` et rediriger la route initiale
-dans ``/app/register.jsx`` vers ``ROUTES.test``
+dans ``/app/[step].jsx`` vers ``ROUTES.test``
 
 Le style propre à un composant est enregistré dans``<nom-du-composant>.style.js`` (cf le dossier ``/components``)
 

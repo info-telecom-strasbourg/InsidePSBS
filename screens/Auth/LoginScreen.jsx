@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  DefaultTopbar,
+  BackButtonTopbar,
   PrimaryButton,
   ScrollScreenContainer,
   TextInput,
@@ -22,9 +22,9 @@ const LoginScreen = () => {
 
   return (
     <ScrollScreenContainer>
-      <DefaultTopbar rightIcon={<></>}>
+      <BackButtonTopbar rightIcon={<></>}>
         {TEXT.authentification.login.title}
-      </DefaultTopbar>
+      </BackButtonTopbar>
       <View style={{ padding: 15 }}>
         <TextInput
           value={result.email}
@@ -45,7 +45,7 @@ const LoginScreen = () => {
             {TEXT.authentification.login.not_registered}
           </Text>
           <View style={{ width: 5 }} />
-          <TouchableOpacity onPress={() => router.push(ROUTES.register)}>
+          <TouchableOpacity onPress={() => router.push(`${ROUTES.register}/1`)}>
             <Text style={text_styles.body3({ text: COLORS.primary })}>
               {TEXT.authentification.register.title}
             </Text>

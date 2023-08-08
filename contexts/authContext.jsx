@@ -15,9 +15,9 @@ const useProtectedRoute = (token) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!token && segments[0] !== "(auth)") {
-      router.replace(ROUTES.register);
-    } else if (token && segments[0] === "(auth)") router.replace(ROUTES.index);
+    if (!token && segments[0] !== "auth") {
+      router.replace(ROUTES.auth);
+    } else if (token && segments[0] === "auth") router.replace(ROUTES.index);
   }, [segments, token]);
 };
 
@@ -33,10 +33,10 @@ export const AuthProvider = ({ children }) => {
       const res = await axios.post(
         `${API.url}/api/login`,
         { email, password },
-        { headers: { ...API.headers } }
+        { headers: { ...API.headers } },
       );
       pushData({ token: res.data.token });
-      router.replace(ROUTES.index);
+      router.replace(ROUTES.home);
     } catch (e) {
       if (e.response.status) setErrorMessage(ERRORS[e.response.status]);
       else console.error(e);
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
             ...API.headers,
             Authorization: `Bearer ${data.token}`,
           },
-        }
+        },
       );
     } catch (e) {
       console.error(e);

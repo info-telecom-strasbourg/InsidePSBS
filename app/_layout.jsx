@@ -8,11 +8,6 @@ import { initNotification, lockScreenOrientation } from "../utils";
 import { LocalStorageProvider } from "../contexts/localStorageContext";
 
 const AppLayout = () => {
-  const modalOptions = {
-    presentation: "modal",
-    animation: "fade_from_bottom",
-  };
-
   lockScreenOrientation();
   initNotification();
 
@@ -30,7 +25,7 @@ const AppLayout = () => {
                 animation: "fade_from_bottom",
               }}
             >
-              <Stack.Screen name="(tabs)" options={{ animation: "default" }} />
+              <Stack.Screen name="(tabs)" options={{ animation: "fade" }} />
             </Stack>
           </Container>
         </ThemeProvider>

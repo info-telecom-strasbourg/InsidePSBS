@@ -1,6 +1,11 @@
-import { Redirect } from "expo-router";
 import { ROUTES } from "../constants";
+import { Redirect } from "expo-router";
+import { ScreenContainer } from "../components";
 
 export default function Page() {
-  return <Redirect href={ROUTES.home} />;
+  return (
+    <ScreenContainer>
+      <Redirect href={ROUTES.home} />
+    </ScreenContainer>
+  );
 }
