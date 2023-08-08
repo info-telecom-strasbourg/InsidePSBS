@@ -9,7 +9,7 @@ import {
 } from "../../../components";
 import { useTheme } from "../../../contexts";
 
-const STEPS = 3;
+const STEPS = 4;
 
 const RegisterLayout = () => {
   const { step } = useSearchParams();

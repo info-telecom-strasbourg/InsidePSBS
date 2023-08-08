@@ -49,12 +49,12 @@ const PersonalInformations = ({ nextStep, entries, setEntry }) => {
     if (!checkPromotionYear(entries.promotion_year))
       return setError(
         "promotion_year",
-        TEXT.authentification.errors.promotion_year
+        TEXT.authentification.errors.promotion_year,
       );
     if (!(await checkAlreadyExist("user_name", entries.user_name)))
       return setError(
         "user_name",
-        TEXT.authentification.errors.user_name_already_used
+        TEXT.authentification.errors.user_name_already_used,
       );
 
     nextStep();

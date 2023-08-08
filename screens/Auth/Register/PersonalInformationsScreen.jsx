@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Picker,
   PrimaryButton,
@@ -12,14 +12,34 @@ import { useTheme } from "../../../contexts";
 import { API, ROUTES, TEXT } from "../../../constants";
 import { useFetch } from "../../../hooks";
 import { useRouter, useSearchParams } from "expo-router";
+import {
+  checkAlreadyExist,
+  checkFirstName,
+  checkLastName,
+  checkPhone,
+  checkPromotionYear,
+  checkUsername,
+} from "../../../utils";
 
 const GAP = 15;
 
 const PersonalInformationsScreen = ({ entries, updateEntry }) => {
+  const [errors, setErrors] = useState({
+    first_name: "",
+    last_name: "",
+    user_name: "",
+    phone: "",
+  });
+  const setError = (key, value) => {
+    setErrors((e) => ({
+      ...e,
+      [key]: value,
+    }));
+  };
+
   const { theme } = useTheme();
   const { step } = useSearchParams();
   const router = useRouter();
-
   const {
     res: sectors,
     isLoading,
@@ -27,6 +47,36 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
   } = useFetch(`${API.url}/api/sector`, {
     ...API.headers,
   });
+
+  const handleSubmit = async () => {
+    setErrors({
+      first_name: "",
+      last_name: "",
+      user_name: "",
+      phone: "",
+    });
+
+    if (!checkFirstName(entries.first_name))
+      return setError("first_name", TEXT.authentification.errors.empty);
+    if (!checkLastName(entries.last_name))
+      return setError("last_name", TEXT.authentification.errors.empty);
+    if (!checkUsername(entries.user_name))
+      return setError("user_name", TEXT.authentification.errors.user_name);
+    if (!checkPhone(entries.phone))
+      return setError("phone", TEXT.authentification.errors.phone);
+    if (!checkPromotionYear(entries.promotion_year))
+      return setError(
+        "promotion_year",
+        TEXT.authentification.errors.promotion_year,
+      );
+    if (!(await checkAlreadyExist("user_name", entries.user_name)))
+      return setError(
+        "user_name",
+        TEXT.authentification.errors.user_name_already_used,
+      );
+
+    router.push(`${ROUTES.register}/${Number(step) + 1}`);
+  };
 
   return (
     <ScrollScreenContainer>
@@ -40,6 +90,7 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
           placeholder="Louis"
           value={entries.first_name}
           onChangeText={(text) => updateEntry("first_name", text)}
+          error={errors.first_name}
         />
         <Separator size={GAP} vertical />
         <TextInput
@@ -47,6 +98,7 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
           placeholder="Royet"
           value={entries.last_name}
           onChangeText={(text) => updateEntry("last_name", text)}
+          error={errors.last_name}
         />
         <Separator size={GAP} vertical />
         <TextInput
@@ -54,6 +106,7 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
           placeholder="louis.royet"
           value={entries.user_name}
           onChangeText={(text) => updateEntry("user_name", text)}
+          error={errors.user_name}
         />
         <Separator size={GAP} vertical />
         <TextInput
@@ -62,6 +115,7 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
           value={entries.phone}
           onChangeText={(text) => updateEntry("phone", text)}
           inputMode="numeric"
+          error={errors.phone}
         />
         <Separator size={GAP} vertical />
         <View
@@ -93,7 +147,7 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
         <Separator size={25} vertical />
         <PrimaryButton
           text={TEXT.authentification.register.next}
-          onPress={() => router.push(`${ROUTES.register}/${Number(step) + 1}`)}
+          onPress={handleSubmit}
         />
       </View>
     </ScrollScreenContainer>

@@ -85,20 +85,29 @@ const CrousBotScreen = () => {
           <View>
             {isLoading ? (
               <Loader />
-            ) : data ? (
-              <>
-                <Separator vertical size={30} />
-                <Section title={TEXT.crousbot.starter} content={data.starter} />
-                <Section title={TEXT.crousbot.main} content={data.main} />
-                <Section title={TEXT.crousbot.pasta} content={data.pasta} />
-                <Section title={TEXT.crousbot.veg} content={data.veg} />
-                <Section title={TEXT.crousbot.grill} content={data.grill} />
-                <Section title={TEXT.crousbot.dessert} content={data.dessert} />
-              </>
             ) : (
-              <Text style={text_styles.title3(theme)}>
-                {TEXT.crousbot.menu_error}
-              </Text>
+              <View style={{ paddingVertical: 30 }}>
+                {data ? (
+                  <>
+                    <Section
+                      title={TEXT.crousbot.starter}
+                      content={data.starter}
+                    />
+                    <Section title={TEXT.crousbot.main} content={data.main} />
+                    <Section title={TEXT.crousbot.pasta} content={data.pasta} />
+                    <Section title={TEXT.crousbot.veg} content={data.veg} />
+                    <Section title={TEXT.crousbot.grill} content={data.grill} />
+                    <Section
+                      title={TEXT.crousbot.dessert}
+                      content={data.dessert}
+                    />
+                  </>
+                ) : (
+                  <Text style={text_styles.title3(theme)}>
+                    {TEXT.crousbot.menu_error}
+                  </Text>
+                )}
+              </View>
             )}
           </View>
         </View>
@@ -110,7 +119,7 @@ const CrousBotScreen = () => {
 const Section = ({ title, content }) => {
   const { theme } = useTheme();
   return (
-    <View style={{ paddingVertical: 15 }}>
+    <View style={{ paddingVertical: 10 }}>
       <Text style={text_styles.title3(theme)}>{title}</Text>
       <Separator vertical size={10} />
       <View

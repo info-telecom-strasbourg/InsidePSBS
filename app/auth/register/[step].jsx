@@ -1,16 +1,11 @@
-import React, { createContext, useState } from "react";
+import React, { useState } from "react";
 import { useRouter, useSearchParams } from "expo-router";
 import GeneralInformationsScreen from "../../../screens/Auth/Register/GeneralInformationsScreen";
 import PersonalInformationsScreen from "../../../screens/Auth/Register/PersonalInformationsScreen";
 import CGUScreen from "../../../screens/Auth/Register/CGUScreen";
 import { ROUTES } from "../../../constants";
 import { View } from "react-native";
-
-const GAP = 15;
-
-const EntryContext = createContext(null);
-
-const STEPS = 3;
+import ConfirmationScreen from "../../../screens/Auth/Register/ConfirmationScreen";
 
 const Step = () => {
   const [entries, setEntries] = useState({
@@ -41,6 +36,9 @@ const Step = () => {
       break;
     case 3:
       Screen = CGUScreen;
+      break;
+    case 4:
+      Screen = ConfirmationScreen;
       break;
     default:
       router.replace(ROUTES.auth);
