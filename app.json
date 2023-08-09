@@ -9,7 +9,11 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.ITS.InsidePSBS"
+      "bundleIdentifier": "com.ITS.InsidePSBS",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos.",
+        "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -17,7 +21,14 @@
         "backgroundColor": "#081425"
       },
       "package": "com.ITS.InsidePSBS",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_MEDIA_LOCATION"
+      ]
     },
     "name": "InsidePSBS",
     "slug": "insidepsbs",
@@ -44,6 +55,12 @@
           "isAccessMediaLocationEnabled": true
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "61177b6a-7651-4fcf-8e36-b10e30374c5c"
+      }
+    },
+    "owner": "info-telecom-strasbourg"
   }
 }
