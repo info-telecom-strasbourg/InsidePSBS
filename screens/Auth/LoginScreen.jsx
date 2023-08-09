@@ -14,8 +14,8 @@ import { useRouter } from "expo-router";
 const LoginScreen = () => {
   const { login, errorMessage } = useAuth();
   const [result, setResult] = useState({
-    email: "bergaminienzo62@gmail.com",
-    password: "azertyuiop",
+    email: "",
+    password: "",
   });
   const { theme } = useTheme();
   const router = useRouter();
