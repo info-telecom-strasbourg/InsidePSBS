@@ -11,6 +11,7 @@ import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
 
 const Publication = ({ data }) => {
   var body_length = data.body.length;
+  // TODO: implement reactions and comment
   // reaction not implemented in backend
   // var reactions_length = data.reactions.length;
   const { theme } = useTheme();

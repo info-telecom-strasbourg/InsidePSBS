@@ -48,6 +48,7 @@ const WidgetSection = () => {
       </Widget>,
     ],
     [
+      //MPS
       <Widget
         width={widgetSize()}
         height={widgetSize()}
@@ -56,13 +57,15 @@ const WidgetSection = () => {
       >
         <ImageIcon color={COLORS.light_orange} width={80} height={80} />
       </Widget>,
-      <Widget
-        width={widgetSize()}
-        height={widgetSize()}
-        backgroundColor={COLORS.dark_blue}
-      >
-        <ShirtIcon color={COLORS.light_blue} width={90} height={80} />
-      </Widget>,
+      // //Laverie
+      // <Widget
+      //   width={widgetSize()}
+      //   height={widgetSize()}
+      //   backgroundColor={COLORS.dark_blue}
+      // >
+      //   <ShirtIcon color={COLORS.light_blue} width={90} height={80} />
+      // </Widget>,
+      //Crous
       <Widget
         width={widgetSize()}
         height={widgetSize()}
@@ -74,18 +77,19 @@ const WidgetSection = () => {
         <CrousIcon color={COLORS.dark_red} width={90} height={80} />
       </Widget>,
     ],
-    [
-      <Widget
-        width={widgetSize()}
-        height={widgetSize()}
-        backgroundColor={COLORS.light_red}
-        onPress={() => {
-          router.push(ROUTES.cts);
-        }}
-      >
-        <CTSIcon color={COLORS.dark_red} width={80} height={80} />
-      </Widget>,
-    ],
+    // [
+    //   //CTS
+    //   <Widget
+    //     width={widgetSize()}
+    //     height={widgetSize()}
+    //     backgroundColor={COLORS.light_red}
+    //     onPress={() => {
+    //       router.push(ROUTES.cts);
+    //     }}
+    //   >
+    //     <CTSIcon color={COLORS.dark_red} width={80} height={80} />
+    //   </Widget>,
+    // ],
   ];
 
   return (

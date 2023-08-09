@@ -41,7 +41,8 @@ const AnnouncementScreen = () => {
           </View>
         )}
       </ScrollScreenContainer>
-      <PlusButton />
+      {/* TODO: Add the page to create a new announcement 
+       <PlusButton /> */}
     </>
   );
 };

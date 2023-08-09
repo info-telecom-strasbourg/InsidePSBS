@@ -33,7 +33,6 @@
 - affichage du logo de l'organisation de la soirée dans historique fouaille
 - affichage du surnom de l'asso / club quand pas assez de place pour le nom ( exemple: bureau des élèves -> BDE)
 - affichage d'une image de la conso ?
-  
 
 ## A réfléchir
 
@@ -54,3 +53,18 @@
 ## A faire quand le backend sera prêt
 
 - Authentification
+
+## Code commenter pour refléter ce qui est implémenté
+
+### back-end ready
+
+les commentaires sont de la forme `// TODO: ...` les différents todo sont listés ci-dessous
+TODO: Add the calendar screen
+TODO: Add the to create a new announcement
+TODO: implement a profile view
+TODO: Add the page to create a new announcement
+
+### back-end needed
+
+TODO: implement reactions and comment
+TODO: implement notifications and preferences

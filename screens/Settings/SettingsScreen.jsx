@@ -53,6 +53,7 @@ const SettingsScreen = () => {
               onPress={() => router.push(ROUTES.profile)}
             />
           </View>
+          {/* TODO: implement notifications and preferences
           <Text style={text_styles.title4(theme)}>
             {TEXT.settings.notifications.title}
           </Text>
@@ -63,9 +64,9 @@ const SettingsScreen = () => {
             <SettingSwitch text="Nouvelles photos MPS" />
             <SettingSwitch text="Carte fouaille vide" />
             <SettingSwitch text="Plafond de dépense atteint" />
-          </View>
+          </View>  */}
 
-          <View style={{ height: 15 }} />
+          {/* <View style={{ height: 15 }} />
 
           <Text style={text_styles.title4(theme)}>
             {TEXT.settings.preferences.title}
@@ -81,7 +82,7 @@ const SettingsScreen = () => {
             <SettingButton text="Nous contacter" />
             <SettingButton text="Conditions d'utilisation" />
             <SettingButton text="Crédits" />
-          </View>
+          </View> */}
         </View>
       )}
     </ScrollScreenContainer>
