@@ -10,14 +10,18 @@ import ChevronDown from "../../assets/icons/ChevronDown";
 import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
 
 const Publication = ({ data }) => {
+  var body_length = data.body.length;
+  // reaction not implemented in backend
+  // var reactions_length = data.reactions.length;
   const { theme } = useTheme();
   const router = useRouter();
   return (
     <TouchableOpacity
       activeOpacity={1}
       style={styles.container(theme)}
-      onPress={() => router.push(`${ROUTES.publication}/${data.id}`)}
+      // onPress={() => router.push(`${ROUTES.publication}/${data.id}`)}
     >
+      {/* TODO: implement a profile view */}
       <TouchableOpacity
         style={{
           flexDirection: "row",
@@ -39,14 +43,16 @@ const Publication = ({ data }) => {
       <Text style={text_styles.body3(theme)}>
         {hideTextOverflow(data.body, 500)}
       </Text>
-      {data.body?.length && (
+      {body_length >= 500 && (
         <TouchableOpacity
           style={{
             flexDirection: "row",
             alignItems: "flex-end",
             marginTop: 3,
           }}
-          onPress={() => router.push(`${ROUTES.publication}/${data.id}`)}
+          onPress={() => {
+            router.push(`${ROUTES.publication}/${data.id}`);
+          }}
         >
           <Text style={text_styles.body3({ text: COLORS.primary })}>
             Voir plus
@@ -62,14 +68,12 @@ const Publication = ({ data }) => {
           marginTop: 20,
         }}
       >
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
         >
           <HeartBorderIcon color={theme.text} />
           <View style={{ width: 7 }} />
-          <Text style={text_styles.body2(theme)}>
-            {data.reactions.length} likes
-          </Text>
+          <Text style={text_styles.body2(theme)}>{reactions_length} likes</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
@@ -77,16 +81,16 @@ const Publication = ({ data }) => {
           <MessagesIcon color={theme.text} />
           <View style={{ width: 7 }} />
           <Text style={text_styles.body2(theme)}>Commenter</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
-      <View style={{ height: 30 }} />
+      {/* <View style={{ height: 30 }} />
       <TouchableOpacity
         onPress={() => router.push(`${ROUTES.publication}/${data.id}`)}
       >
         <Text style={text_styles.body2({ text: COLORS.primary })}>
           Aucun commentaire
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </TouchableOpacity>
   );
 };
