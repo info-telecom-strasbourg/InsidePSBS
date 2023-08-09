@@ -9,7 +9,8 @@ import { LocalStorageProvider } from "../contexts/localStorageContext";
 
 const AppLayout = () => {
   lockScreenOrientation();
-  initNotification();
+  // TODO: implement notifications and preferences
+  // initNotification();
 
   const Container = Platform.OS === "web" ? WebContainer : View;
 
