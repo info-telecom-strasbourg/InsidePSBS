@@ -52,6 +52,6 @@
     "metro-resolver": "^0.73.7"
   },
   "name": "inside-psbs",
-  "version": "2.0a0",
+  "version": "2.0a1",
   "private": true
 }
