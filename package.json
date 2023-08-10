@@ -51,7 +51,8 @@
     "metro": "^0.73.7",
     "metro-resolver": "^0.73.7"
   },
+  "main": "expo-router/entry",
   "name": "inside-psbs",
-  "version": "2.0a1",
+  "version": "2.0a2",
   "private": true
 }
