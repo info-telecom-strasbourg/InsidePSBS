@@ -8,6 +8,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { loadFonts } from "../utils";
 import * as SplashScreen from "expo-splash-screen";
+import { Slot } from "expo-router";
 
 const LocalStorageContext = createContext(null);
 
@@ -57,7 +58,7 @@ export const LocalStorageProvider = ({ children }) => {
     if (!loadingData && fontsLoaded) await SplashScreen.hideAsync();
   }, [loadingData, fontsLoaded]);
 
-  if (loadingData || !fontsLoaded) return null;
+  if (loadingData || !fontsLoaded) return <Slot />;
 
   return (
     <LocalStorageContext.Provider
