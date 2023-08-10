@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter, useSearchParams } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import GeneralInformationsScreen from "../../../screens/Auth/Register/GeneralInformationsScreen";
 import PersonalInformationsScreen from "../../../screens/Auth/Register/PersonalInformationsScreen";
 import CGUScreen from "../../../screens/Auth/Register/CGUScreen";
@@ -23,7 +23,7 @@ const Step = () => {
   const updateEntry = (key, value) => setEntries({ ...entries, [key]: value });
 
   const router = useRouter();
-  const { step } = useSearchParams();
+  const { step } = useLocalSearchParams();
 
   let Screen = View;
 

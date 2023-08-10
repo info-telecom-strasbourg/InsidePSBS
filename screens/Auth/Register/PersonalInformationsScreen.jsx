@@ -11,7 +11,7 @@ import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
 import { API, ROUTES, TEXT } from "../../../constants";
 import { useFetch } from "../../../hooks";
-import { useRouter, useSearchParams } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import {
   checkAlreadyExist,
   checkFirstName,
@@ -38,7 +38,7 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
   };
 
   const { theme } = useTheme();
-  const { step } = useSearchParams();
+  const { step } = useLocalSearchParams();
   const router = useRouter();
   const {
     res: sectors,
@@ -67,12 +67,12 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
     if (!checkPromotionYear(entries.promotion_year))
       return setError(
         "promotion_year",
-        TEXT.authentification.errors.promotion_year,
+        TEXT.authentification.errors.promotion_year
       );
     if (!(await checkAlreadyExist("user_name", entries.user_name)))
       return setError(
         "user_name",
-        TEXT.authentification.errors.user_name_already_used,
+        TEXT.authentification.errors.user_name_already_used
       );
 
     router.push(`${ROUTES.register}/${Number(step) + 1}`);

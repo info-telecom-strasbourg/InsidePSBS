@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Stack, useRouter, useSearchParams } from "expo-router";
+import { Stack, useRouter, useLocalSearchParams } from "expo-router";
 import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { Animated, useWindowDimensions } from "react-native";
 import {
@@ -12,7 +12,7 @@ import { useTheme } from "../../../contexts";
 const STEPS = 4;
 
 const RegisterLayout = () => {
-  const { step } = useSearchParams();
+  const { step } = useLocalSearchParams();
   const router = useRouter();
   const { theme } = useTheme();
 
