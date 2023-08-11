@@ -53,6 +53,6 @@
   },
   "main": "expo-router/entry",
   "name": "inside-psbs",
-  "version": "2.0a2",
+  "version": "2.0a3",
   "private": true
 }

@@ -9,14 +9,14 @@ import ConfirmationScreen from "../../../screens/Auth/Register/ConfirmationScree
 
 const Step = () => {
   const [entries, setEntries] = useState({
-    email: "romain.bourdain93@gmail.com",
-    password: "azertyuioP0",
-    password_confirmation: "azertyuioP0",
-    first_name: "Romain",
-    last_name: "Bourdain",
-    user_name: "romain.bourdain",
-    phone: "0637297485",
-    promotion_year: "2025",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    first_name: "",
+    last_name: "",
+    user_name: "",
+    phone: "",
+    promotion_year: "",
     sector: 2,
   });
 
