@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useRouter, useSegments } from "expo-router";
+import { useRootNavigation, useRouter, useSegments } from "expo-router";
 import { API, ERRORS, ROUTES } from "../constants";
 import axios from "axios";
 import { useLocalStorage } from "./localStorageContext";
@@ -11,10 +11,22 @@ export const useAuth = () => {
 };
 
 const useProtectedRoute = (token) => {
+  const [isNavigationReady, setIsNavigationReady] = useState(false);
   const segments = useSegments();
   const router = useRouter();
+  const rootNavigation = useRootNavigation();
 
   useEffect(() => {
+    const unsubscribe = rootNavigation?.addListener("state", () => {
+      setIsNavigationReady(true);
+    });
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [rootNavigation]);
+
+  useEffect(() => {
+    if (!isNavigationReady) return;
     if (!token && segments[0] !== "auth") {
       router.replace(ROUTES.auth);
     } else if (token && segments[0] === "auth") router.replace(ROUTES.index);
