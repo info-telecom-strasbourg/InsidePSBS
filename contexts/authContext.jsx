@@ -21,7 +21,9 @@ const useProtectedRoute = (token) => {
       setIsNavigationReady(true);
     });
     return () => {
-      if (unsubscribe) unsubscribe();
+      if (unsubscribe) {
+        unsubscribe();
+      }
     };
   }, [rootNavigation]);
 
@@ -30,7 +32,7 @@ const useProtectedRoute = (token) => {
     if (!token && segments[0] !== "auth") {
       router.replace(ROUTES.auth);
     } else if (token && segments[0] === "auth") router.replace(ROUTES.index);
-  }, [segments, token]);
+  }, [isNavigationReady, segments, token]);
 };
 
 export const AuthProvider = ({ children }) => {
@@ -45,7 +47,7 @@ export const AuthProvider = ({ children }) => {
       const res = await axios.post(
         `${API.url}/api/login`,
         { email, password },
-        { headers: { ...API.headers } },
+        { headers: { ...API.headers } }
       );
       pushData({ token: res.data.token });
       router.replace(ROUTES.home);
@@ -66,7 +68,7 @@ export const AuthProvider = ({ children }) => {
             ...API.headers,
             Authorization: `Bearer ${data.token}`,
           },
-        },
+        }
       );
     } catch (e) {
       console.error(e);
