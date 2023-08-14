@@ -11,6 +11,7 @@
     "@react-native-picker/picker": "2.4.10",
     "@types/react": "~18.2.14",
     "axios": "^1.4.0",
+    "bcryptjs": "^2.4.3",
     "expo": "^49.0.0",
     "expo-camera": "~13.4.2",
     "expo-checkbox": "~2.4.0",
@@ -41,7 +42,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@babel/plugin-proposal-export-namespace-from": "^7.18.9"
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
+    "@types/bcryptjs": "^2.4.2"
   },
   "resolutions": {
     "metro": "^0.73.7",
