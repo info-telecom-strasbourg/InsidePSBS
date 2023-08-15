@@ -1,6 +1,7 @@
 node_modules/
 .expo/
 android/
+ios/
 dist/
 .env
 google-services.json
