@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ScreenContainer, Topbar } from "../../components";
-import { Stack, useSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 
 const ExempleLayout = () => {
   const [step, setStep] = useState(0);
-  const searchParams = useSearchParams();
+  const searchParams = useLocalSearchParams();
   return (
     <ScreenContainer>
       <Topbar>Exemple {searchParams?.id}</Topbar>

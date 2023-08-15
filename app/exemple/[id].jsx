@@ -1,11 +1,11 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { PrimaryButton } from "../../components";
-import { Redirect, useRouter, useSearchParams } from "expo-router";
+import { Redirect, useRouter, useLocalSearchParams } from "expo-router";
 
 const Exemple = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = useLocalSearchParams();
 
   if (!searchParams.id) return <Redirect href="exemple/1" />;
 

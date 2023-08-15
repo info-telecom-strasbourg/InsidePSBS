@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import styles from "./publication.style";
 import { API } from "../../constants";
 import { text_styles } from "../../styles";
@@ -19,7 +19,7 @@ import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const PublicationScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const { id } = useSearchParams();
+  const { id } = useLocalSearchParams();
 
   const handleRefresh = async () => {
     setRefreshing(true);

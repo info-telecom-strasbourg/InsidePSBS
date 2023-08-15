@@ -21,7 +21,7 @@
         "backgroundColor": "#081425"
       },
       "package": "com.ITS.InsidePSBS",
-      "versionCode": 24,
+      "versionCode": 27 ,
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
@@ -32,7 +32,7 @@
     },
     "name": "InsidePSBS",
     "slug": "insidepsbs",
-    "version": "2.0a0",
+    "version": "2.0a3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {

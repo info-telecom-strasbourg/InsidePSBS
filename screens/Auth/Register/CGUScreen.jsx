@@ -5,13 +5,13 @@ import { PrimaryButton, ScreenContainer, Separator } from "../../../components";
 import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
 import { COLORS, ROUTES, TEXT } from "../../../constants";
-import { useRouter, useSearchParams } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import CheckBox from "expo-checkbox";
 
 const CguScreen = () => {
   const { theme } = useTheme();
   const router = useRouter();
-  const { step } = useSearchParams();
+  const { step } = useLocalSearchParams();
   const [checked, setChecked] = useState(false);
   return (
     <ScreenContainer>

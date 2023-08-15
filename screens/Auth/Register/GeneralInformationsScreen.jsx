@@ -9,7 +9,7 @@ import { ROUTES, TEXT } from "../../../constants";
 import { Text, View } from "react-native";
 import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
-import { useRouter, useSearchParams } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import {
   checkAlreadyExist,
   checkEmail,
@@ -34,7 +34,7 @@ const GeneralInformationsScreen = ({ entries, updateEntry }) => {
 
   const { theme } = useTheme();
   const router = useRouter();
-  const { step } = useSearchParams();
+  const { step } = useLocalSearchParams();
 
   const handleSubmit = async () => {
     setErrors({
@@ -50,12 +50,12 @@ const GeneralInformationsScreen = ({ entries, updateEntry }) => {
     if (
       !checkPasswordConfirmation(
         entries.password,
-        entries.password_confirmation,
+        entries.password_confirmation
       )
     )
       return setError(
         "password_confirmation",
-        TEXT.authentification.errors.password_confirmation,
+        TEXT.authentification.errors.password_confirmation
       );
     if (!(await checkAlreadyExist("email", entries.email)))
       return setError("email", TEXT.authentification.errors.email_already_used);
