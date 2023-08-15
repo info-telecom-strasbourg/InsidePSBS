@@ -1,8 +1,8 @@
 {
   "scripts": {
     "start": "npx expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
+    "android": "npx expo start --android",
+    "ios": "npx expo start --ios",
     "web": "npx expo start --web",
     "clear": "npx expo start --clear"
   },
