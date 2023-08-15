@@ -34,8 +34,8 @@ jobs:
       - name: 🚀 Build app
         run: eas build --platform ios --non-interactive # --local
 
-      - name: Submit to App Store
-        run: eas submit --platform ios
+#      - name: Submit to App Store
+#        run: eas submit --platform ios
         
 #      - name: Upload aab result
 #        uses: actions/upload-artifact@v3
