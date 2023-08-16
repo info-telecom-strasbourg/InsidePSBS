@@ -58,7 +58,7 @@ export const LocalStorageProvider = ({ children }) => {
     if (!loadingData && fontsLoaded) await SplashScreen.hideAsync();
   }, [loadingData, fontsLoaded]);
 
-  if (loadingData || !fontsLoaded) return <Slot />;
+  if (loadingData || !fontsLoaded) return null;
 
   return (
     <LocalStorageContext.Provider
