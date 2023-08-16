@@ -56,6 +56,10 @@
   },
   "main": "expo-router/entry",
   "name": "inside-psbs",
+<<<<<<< HEAD
   "version": "2.0a3",
+=======
+  "version": "2.01",
+>>>>>>> test_release
   "private": true
 }
