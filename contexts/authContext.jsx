@@ -17,15 +17,12 @@ const useProtectedRoute = (token) => {
   const segments = useSegments();
   const router = useRouter();
   const rootNavigation = useRootNavigation();
-
   useEffect(() => {
     const unsubscribe = rootNavigation?.addListener("state", () => {
       setIsNavigationReady(true);
     });
     return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
+      if (unsubscribe) unsubscribe();
     };
   }, [rootNavigation]);
 
@@ -38,6 +35,7 @@ const useProtectedRoute = (token) => {
 };
 
 export const AuthProvider = ({ children }) => {
+  console.log("rendering AuthProvider");
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState(null);
   const { data, pushData, removeData } = useLocalStorage();

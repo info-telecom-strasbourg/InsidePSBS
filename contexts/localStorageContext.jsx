@@ -8,6 +8,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { loadFonts } from "../utils";
 import * as SplashScreen from "expo-splash-screen";
+import { Slot } from "expo-router";
 
 const LocalStorageContext = createContext(null);
 
