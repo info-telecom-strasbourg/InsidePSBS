@@ -4,10 +4,12 @@ import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { Animated, useWindowDimensions } from "react-native";
 import {
   BackButtonTopbar,
+  DefaultTopbar,
   ProgressBar,
   ScreenContainer,
 } from "../../../components";
 import { useTheme } from "../../../contexts";
+import { RegisterProvider } from "../../../contexts/registerContext";
 
 const STEPS = 4;
 
@@ -39,19 +41,25 @@ const RegisterLayout = () => {
   };
 
   return (
-    <ScreenContainer>
-      <BackButtonTopbar rightIcon={<></>} onPress={previousStep}>
-        {TEXT.authentification.register.title}
-      </BackButtonTopbar>
-      <ProgressBar steps={STEPS} step={step} />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          animation: "none",
-          backgroundColor: COLORS.primary,
-        }}
-      />
-    </ScreenContainer>
+    <RegisterProvider>
+      <ScreenContainer>
+        {Number(step) === 4 ? (
+          <DefaultTopbar />
+        ) : (
+          <BackButtonTopbar rightIcon={<></>} onPress={previousStep}>
+            {TEXT.authentification.register.title}
+          </BackButtonTopbar>
+        )}
+        <ProgressBar steps={STEPS} step={step} />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: "none",
+            backgroundColor: COLORS.primary,
+          }}
+        />
+      </ScreenContainer>
+    </RegisterProvider>
   );
 };
 

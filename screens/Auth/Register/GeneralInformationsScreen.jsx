@@ -1,4 +1,6 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
+import { Text, View } from "react-native";
 import {
   PrimaryButton,
   ScrollScreenContainer,
@@ -6,10 +8,9 @@ import {
   TextInput,
 } from "../../../components";
 import { ROUTES, TEXT } from "../../../constants";
-import { Text, View } from "react-native";
-import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { useRegister } from "../../../contexts/registerContext";
+import { text_styles } from "../../../styles";
 import {
   checkAlreadyExist,
   checkEmail,
@@ -19,7 +20,7 @@ import {
 
 const GAP = 15;
 
-const GeneralInformationsScreen = ({ entries, updateEntry }) => {
+const GeneralInformationsScreen = () => {
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -32,6 +33,7 @@ const GeneralInformationsScreen = ({ entries, updateEntry }) => {
     }));
   };
 
+  const { entries, updateEntry } = useRegister();
   const { theme } = useTheme();
   const router = useRouter();
   const { step } = useLocalSearchParams();
