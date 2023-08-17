@@ -16,9 +16,9 @@ const AppLayout = () => {
   const Container = Platform.OS === "web" ? WebContainer : View;
 
   return (
-    <LocalStorageProvider>
-      <AuthProvider>
-        <ThemeProvider>
+    <ThemeProvider>
+      <LocalStorageProvider>
+        <AuthProvider>
           <StatusBar />
           <Container style={{ flex: 1 }}>
             <Stack
@@ -30,9 +30,9 @@ const AppLayout = () => {
               <Stack.Screen name="(tabs)" options={{ animation: "fade" }} />
             </Stack>
           </Container>
-        </ThemeProvider>
-      </AuthProvider>
-    </LocalStorageProvider>
+        </AuthProvider>
+      </LocalStorageProvider>
+    </ThemeProvider>
   );
 };
 
