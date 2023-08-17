@@ -110,6 +110,7 @@ const PersonalInformationsScreen = () => {
           value={entries.user_name}
           onChangeText={(text) => updateEntry("user_name", text)}
           error={errors.user_name}
+          autoCapitalize="none"
         />
         <Separator size={GAP} vertical />
         <TextInput

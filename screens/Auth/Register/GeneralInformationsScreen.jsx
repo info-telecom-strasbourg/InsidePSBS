@@ -17,6 +17,7 @@ import {
   checkPassword,
   checkPasswordConfirmation,
 } from "../../../utils";
+import PasswordInput from "../../../components/input/PasswordInput";
 
 const GAP = 15;
 
@@ -79,24 +80,24 @@ const GeneralInformationsScreen = () => {
           autoComplete="email"
           placeholder={TEXT.authentification.placeholders.email}
           error={errors.email}
+          autoCapitalize="none"
         />
         <Separator vertical size={GAP} />
-        <TextInput
+        <PasswordInput
           label={TEXT.authentification.password}
           onChangeText={(val) => updateEntry("password", val)}
           value={entries.password}
           secureTextEntry
-          autoComplete="password"
+          autoComplete="new-password"
           placeholder={TEXT.authentification.placeholders.password}
           error={errors.password}
         />
         <Separator vertical size={GAP} />
-        <TextInput
+        <PasswordInput
           label={TEXT.authentification.password_confirmation}
           onChangeText={(val) => updateEntry("password_confirmation", val)}
           value={entries.password_confirmation}
-          secureTextEntry
-          autoComplete="password"
+          autoComplete="new-password"
           placeholder={TEXT.authentification.placeholders.password}
           error={errors.password_confirmation}
         />

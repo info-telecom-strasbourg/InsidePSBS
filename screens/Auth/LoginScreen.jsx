@@ -10,6 +10,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { useAuth, useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
 import { useRouter } from "expo-router";
+import PasswordInput from "../../components/input/PasswordInput";
 
 const LoginScreen = () => {
   const { login, errorMessage } = useAuth();
@@ -30,9 +31,12 @@ const LoginScreen = () => {
           value={result.email}
           onChangeText={(val) => setResult((prev) => ({ ...prev, email: val }))}
           label={TEXT.authentification.email}
+          autoComplete={"email"}
+          autoCapitalize="none"
         />
         <View style={{ height: 15 }} />
-        <TextInput
+        <PasswordInput
+          autoComplete={"current-password"}
           value={result.password}
           onChangeText={(val) =>
             setResult((prev) => ({ ...prev, password: val }))
