@@ -1,4 +1,6 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
+import { Text, View } from "react-native";
 import {
   Picker,
   PrimaryButton,
@@ -6,12 +8,11 @@ import {
   Separator,
   TextInput,
 } from "../../../components";
-import { Text, View } from "react-native";
-import { text_styles } from "../../../styles";
-import { useTheme } from "../../../contexts";
 import { API, ROUTES, TEXT } from "../../../constants";
+import { useTheme } from "../../../contexts";
+import { useRegister } from "../../../contexts/registerContext";
 import { useFetch } from "../../../hooks";
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { text_styles } from "../../../styles";
 import {
   checkAlreadyExist,
   checkFirstName,
@@ -23,7 +24,7 @@ import {
 
 const GAP = 15;
 
-const PersonalInformationsScreen = ({ entries, updateEntry }) => {
+const PersonalInformationsScreen = () => {
   const [errors, setErrors] = useState({
     first_name: "",
     last_name: "",
@@ -37,6 +38,8 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
     }));
   };
 
+  const { entries, updateEntry } = useRegister();
+  console.log(entries);
   const { theme } = useTheme();
   const { step } = useLocalSearchParams();
   const router = useRouter();
@@ -107,6 +110,7 @@ const PersonalInformationsScreen = ({ entries, updateEntry }) => {
           value={entries.user_name}
           onChangeText={(text) => updateEntry("user_name", text)}
           error={errors.user_name}
+          autoCapitalize="none"
         />
         <Separator size={GAP} vertical />
         <TextInput

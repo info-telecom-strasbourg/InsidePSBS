@@ -13,6 +13,16 @@ const CguScreen = () => {
   const router = useRouter();
   const { step } = useLocalSearchParams();
   const [checked, setChecked] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = () => {
+    setError("");
+    if (!checked) {
+      setError(TEXT.authentification.errors.cgu);
+      return;
+    }
+    router.push(`${ROUTES.register}/${Number(step) + 1}`);
+  };
   return (
     <ScreenContainer>
       <View
@@ -138,10 +148,15 @@ const CguScreen = () => {
             {TEXT.authentification.register.accept_cgu}
           </Text>
         </View>
-        <Separator size={35} vertical />
+        <Separator size={10} vertical />
+        <Text style={text_styles.body3({ text: COLORS.dark_red })}>
+          {error}
+        </Text>
+
+        <Separator size={25} vertical />
         <PrimaryButton
           text={TEXT.authentification.register.next}
-          onPress={() => router.push(`${ROUTES.register}/${Number(step) + 1}`)}
+          onPress={handleSubmit}
         />
       </View>
     </ScreenContainer>

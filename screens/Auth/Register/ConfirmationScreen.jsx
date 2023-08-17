@@ -1,14 +1,22 @@
-import React from "react";
-import { PrimaryButton, ScreenContainer, Separator } from "../../../components";
-import { Text, View } from "react-native";
-import { text_styles } from "../../../styles";
-import { useTheme } from "../../../contexts";
+import axios from "axios";
 import { useRouter } from "expo-router";
-import { COLORS, ROUTES } from "../../../constants";
+import React, { useEffect } from "react";
+import { Text, View } from "react-native";
+import { PrimaryButton, ScreenContainer, Separator } from "../../../components";
+import { API, COLORS, ROUTES } from "../../../constants";
+import { useTheme } from "../../../contexts";
+import { useRegister } from "../../../contexts/registerContext";
+import { text_styles } from "../../../styles";
 
 const ConfirmationScreen = () => {
   const { theme } = useTheme();
   const router = useRouter();
+  const { signUp, entries } = useRegister();
+
+  useEffect(() => {
+    signUp(entries);
+  }, []);
+
   return (
     <ScreenContainer>
       <View
@@ -31,7 +39,7 @@ const ConfirmationScreen = () => {
           </Text>
           <Separator size={30} vertical />
           <PrimaryButton
-            text="J'ai activé mon compte"
+            text="J'ai validé mon email"
             onPress={() => router.replace(ROUTES.auth)}
           />
         </View>

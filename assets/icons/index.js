@@ -36,6 +36,8 @@ import ChevronUpIcon from "./ChevronUp";
 import CrousIcon from "./Crous";
 import CTSIcon from "./CTS";
 import PlusIcon from "./Plus";
+import EyeIcon from "./Eye";
+import EyeClosedIcon from "./EyeClosed";
 
 export {
   AnnouncementIcon,
@@ -76,4 +78,6 @@ export {
   CrousIcon,
   CTSIcon,
   PlusIcon,
+  EyeClosedIcon,
+  EyeIcon,
 };

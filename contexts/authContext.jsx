@@ -4,6 +4,8 @@ import { API, ERRORS, ROUTES } from "../constants";
 import axios from "axios";
 import { useLocalStorage } from "./localStorageContext";
 
+import bcrypt from "bcryptjs";
+
 const AuthContext = createContext(null);
 
 export const useAuth = () => {
@@ -44,10 +46,11 @@ export const AuthProvider = ({ children }) => {
   useProtectedRoute(data.token);
 
   const login = async ({ email, password }) => {
+    const hashedPassword = bcrypt.hashSync(password, email); // Hash password with email as salt //TODO:implement real salting
     try {
       const res = await axios.post(
         `${API.url}/api/login`,
-        { email, password },
+        { email, hashedPassword },
         { headers: { ...API.headers } }
       );
       pushData({ token: res.data.token });

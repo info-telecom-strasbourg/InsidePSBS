@@ -15,6 +15,8 @@ const TextInput = ({
   autoComplete,
   secureTextEntry,
   inputMode,
+  autoCapitalize,
+  autoCorrect,
 }) => {
   const { theme } = useTheme();
   return (
@@ -30,6 +32,8 @@ const TextInput = ({
         value={value}
         placeholder={placeholder}
         placeholderTextColor={theme.text_secondary}
+        autoCapitalize={autoCapitalize}
+        autoCorrect={autoCorrect}
       />
       {error && (
         <>

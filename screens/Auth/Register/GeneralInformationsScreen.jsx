@@ -1,4 +1,6 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
+import { Text, View } from "react-native";
 import {
   PrimaryButton,
   ScrollScreenContainer,
@@ -6,20 +8,20 @@ import {
   TextInput,
 } from "../../../components";
 import { ROUTES, TEXT } from "../../../constants";
-import { Text, View } from "react-native";
-import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { useRegister } from "../../../contexts/registerContext";
+import { text_styles } from "../../../styles";
 import {
   checkAlreadyExist,
   checkEmail,
   checkPassword,
   checkPasswordConfirmation,
 } from "../../../utils";
+import PasswordInput from "../../../components/input/PasswordInput";
 
 const GAP = 15;
 
-const GeneralInformationsScreen = ({ entries, updateEntry }) => {
+const GeneralInformationsScreen = () => {
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -32,6 +34,7 @@ const GeneralInformationsScreen = ({ entries, updateEntry }) => {
     }));
   };
 
+  const { entries, updateEntry } = useRegister();
   const { theme } = useTheme();
   const router = useRouter();
   const { step } = useLocalSearchParams();
@@ -77,24 +80,24 @@ const GeneralInformationsScreen = ({ entries, updateEntry }) => {
           autoComplete="email"
           placeholder={TEXT.authentification.placeholders.email}
           error={errors.email}
+          autoCapitalize="none"
         />
         <Separator vertical size={GAP} />
-        <TextInput
+        <PasswordInput
           label={TEXT.authentification.password}
           onChangeText={(val) => updateEntry("password", val)}
           value={entries.password}
           secureTextEntry
-          autoComplete="password"
+          autoComplete="new-password"
           placeholder={TEXT.authentification.placeholders.password}
           error={errors.password}
         />
         <Separator vertical size={GAP} />
-        <TextInput
+        <PasswordInput
           label={TEXT.authentification.password_confirmation}
           onChangeText={(val) => updateEntry("password_confirmation", val)}
           value={entries.password_confirmation}
-          secureTextEntry
-          autoComplete="password"
+          autoComplete="new-password"
           placeholder={TEXT.authentification.placeholders.password}
           error={errors.password_confirmation}
         />

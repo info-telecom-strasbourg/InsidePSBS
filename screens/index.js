@@ -2,7 +2,6 @@ import HomeScreen from "./Home/HomeScreen";
 import FouailleScreen from "./Fouaille/FouailleScreen";
 import AnnouncementScreen from "./Announcements/AnnouncementScreen";
 import LoginScreen from "./Auth/LoginScreen";
-import RegisterScreen from "./Auth/RegisterScreen";
 import CalendarScreen from "./Calendar/CalendarScreen";
 import MessagesScreen from "./Messages/MessagesScreen";
 import ProfileScreen from "./Settings/ProfileScreen";
@@ -15,7 +14,6 @@ import CtsScreen from "./Cts/CtsScreen";
 export {
   AnnouncementScreen,
   LoginScreen,
-  RegisterScreen,
   CalendarScreen,
   FouailleScreen,
   HomeScreen,
