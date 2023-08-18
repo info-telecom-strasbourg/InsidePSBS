@@ -31,8 +31,14 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
+      - name: Set private eas.json
+        run: echo '${{ secrets.EAS_JSON }}' > eas.json
+
       - name: 🚀 Build app
         run: eas build --platform ios --non-interactive # --local
+
+      - name: Submit to App Store
+        run: eas submit --platform ios --latest
         
 #      - name: Upload aab result
 #        uses: actions/upload-artifact@v3

@@ -38,6 +38,7 @@ const useProtectedRoute = (token) => {
 };
 
 export const AuthProvider = ({ children }) => {
+  console.log("rendering AuthProvider");
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState(null);
   const { data, pushData, removeData } = useLocalStorage();
@@ -63,16 +64,12 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       removeData("token");
-      await axios.post(
-        `${API.url}/api/logout`,
-        {},
-        {
-          headers: {
-            ...API.headers,
-            Authorization: `Bearer ${data.token}`,
-          },
-        }
-      );
+      await axios.post(`${API.url}/api/logout`, {
+        headers: {
+          ...API.headers,
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
     } catch (e) {
       console.error(e);
     }
