@@ -15,15 +15,12 @@ const useProtectedRoute = (token) => {
   const segments = useSegments();
   const router = useRouter();
   const rootNavigation = useRootNavigation();
-
   useEffect(() => {
     const unsubscribe = rootNavigation?.addListener("state", () => {
       setIsNavigationReady(true);
     });
     return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
+      if (unsubscribe) unsubscribe();
     };
   }, [rootNavigation]);
 
