@@ -39,7 +39,6 @@ const PersonalInformationsScreen = () => {
   };
 
   const { entries, updateEntry } = useRegister();
-  console.log(entries);
   const { theme } = useTheme();
   const { step } = useLocalSearchParams();
   const router = useRouter();

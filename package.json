@@ -11,11 +11,11 @@
     "@react-native-picker/picker": "2.4.10",
     "@types/react": "~18.2.14",
     "axios": "^1.4.0",
-    "bcryptjs": "^2.4.3",
     "expo": "^49.0.0",
     "expo-camera": "~13.4.2",
     "expo-checkbox": "~2.4.0",
     "expo-constants": "~14.4.2",
+    "expo-crypto": "~12.4.1",
     "expo-device": "~5.4.0",
     "expo-font": "~11.4.0",
     "expo-linear-gradient": "~12.3.0",
@@ -43,8 +43,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
-    "@types/bcryptjs": "^2.4.2"
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9"
   },
   "resolutions": {
     "metro": "^0.73.7",

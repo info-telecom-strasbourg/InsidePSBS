@@ -3,9 +3,7 @@ import { useRootNavigation, useRouter, useSegments } from "expo-router";
 import { API, ERRORS, ROUTES } from "../constants";
 import axios from "axios";
 import { useLocalStorage } from "./localStorageContext";
-
-import bcrypt from "bcryptjs";
-
+import * as Crypto from "expo-crypto";
 const AuthContext = createContext(null);
 
 export const useAuth = () => {
@@ -45,7 +43,11 @@ export const AuthProvider = ({ children }) => {
   useProtectedRoute(data.token);
 
   const login = async ({ email, password }) => {
-    const hashedPassword = bcrypt.hashSync(password, email); // Hash password with email as salt //TODO:implement real salting
+    const hashedPassword = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      password + email
+    );
+
     try {
       const res = await axios.post(
         `${API.url}/api/login`,
@@ -55,7 +57,9 @@ export const AuthProvider = ({ children }) => {
       pushData({ token: res.data.token });
       router.replace(ROUTES.home);
     } catch (e) {
+      console.log(e.response);
       if (e.response.status) setErrorMessage(ERRORS[e.response.status]);
+      // TODO ROMAIN error message does'nt work
       else console.error(e);
     }
   };

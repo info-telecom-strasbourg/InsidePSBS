@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import { API } from "../constants";
+import * as Crypto from "expo-crypto";
 
 const RegisterContext = createContext({});
 
@@ -26,15 +27,24 @@ export const RegisterProvider = ({ children }) => {
   };
 
   const signUp = async (entries) => {
-    const { password, password_confirmation } = entries;
+    const { password, password_confirmation, email } = entries;
+    const hashedPassword = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      password + email
+    );
+    const hashedPasswordConfirmation = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      password_confirmation + email
+    );
+
     try {
-      console.log(entries);
+      console.log("post", entries);
       const res = await axios.post(
         `${API.url}/api/register`,
         {
           ...entries,
-          password: password,
-          password_confirmation: password_confirmation,
+          password: hashedPassword,
+          password_confirmation: hashedPasswordConfirmation,
         },
         {
           headers: API.headers,
