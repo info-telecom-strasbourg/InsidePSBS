@@ -26,11 +26,20 @@ export const RegisterProvider = ({ children }) => {
   };
 
   const signUp = async (entries) => {
+    const { password, password_confirmation } = entries;
     try {
       console.log(entries);
-      const res = await axios.post(`${API.url}/api/register`, entries, {
-        headers: API.headers,
-      });
+      const res = await axios.post(
+        `${API.url}/api/register`,
+        {
+          ...entries,
+          password: password,
+          password_confirmation: password_confirmation,
+        },
+        {
+          headers: API.headers,
+        }
+      );
     } catch (e) {
       console.log(e.toJSON());
     }
