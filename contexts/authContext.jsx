@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await axios.post(
         `${API.url}/api/login`,
-        { email, hashedPassword },
+        { email, password: hashedPassword },
         { headers: { ...API.headers } }
       );
       pushData({ token: res.data.token });
