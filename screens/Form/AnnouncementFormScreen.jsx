@@ -16,10 +16,12 @@ const AnnouncementFormScreen = () => {
   const [result, setResult] = useState({
     title: "",
     body: "",
+    color: "#ffffff",
   });
   const { data } = useLocalStorage();
 
   const handleSubmit = async (entries) => {
+    console.log(data.token);
     //check the content of the field to verify not too long
     try {
       const res = await axios
@@ -30,11 +32,11 @@ const AnnouncementFormScreen = () => {
           },
         })
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === 201) {
             router.replace(ROUTES.announcements);
           } else {
             setError(TEXT.form.error);
-            console.log(res.status);
+            console.log(res);
           }
         });
     } catch (e) {
