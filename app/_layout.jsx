@@ -9,7 +9,7 @@ import { LocalStorageProvider } from "../contexts/localStorageContext";
 
 const AppLayout = () => {
   lockScreenOrientation();
-  // TODO: implement notifications and preferences
+  // TODO: implement notifications and preferences must put it in a Provider
   var tocken = initNotification();
   console.log("tocken from page", tocken);
 
