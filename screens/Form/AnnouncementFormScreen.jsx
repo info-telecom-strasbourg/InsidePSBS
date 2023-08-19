@@ -10,8 +10,11 @@ import { API, TEXT } from "../../constants";
 import { useTheme } from "../../contexts";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import axios from "axios";
+import { useRouter } from "expo-router";
 
 const AnnouncementFormScreen = () => {
+  const router = useRouter();
+
   const [error, setError] = useState("");
   const [result, setResult] = useState({
     title: "",
@@ -21,7 +24,6 @@ const AnnouncementFormScreen = () => {
   const { data } = useLocalStorage();
 
   const handleSubmit = async (entries) => {
-    console.log(data.token);
     //check the content of the field to verify not too long
     try {
       const res = await axios
