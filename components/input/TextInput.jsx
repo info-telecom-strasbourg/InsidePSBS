@@ -44,7 +44,7 @@ const TextInput = ({
       />
       {error && (
         <>
-          <View style={height} />
+          <View style={{ height: 5 }} />
           <Text style={text_styles.body3({ text: COLORS.dark_red })}>
             {error}
           </Text>
