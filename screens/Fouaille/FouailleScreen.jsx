@@ -22,6 +22,7 @@ const FouailleScreen = () => {
     ...API.headers,
     Authorization: `Bearer ${data.token}`,
   };
+
   const [refreshing, setRefreshing] = useState(false);
   const { res, error, isLoading, fetch } = useFetch(url, headers);
   const { theme } = useTheme();
@@ -53,7 +54,7 @@ const FouailleScreen = () => {
         >
           {TEXT.common.error.loading}
         </Text>
-      ) : (
+      ) : res?.data.balance ? (
         <View style={styles.wrapper}>
           <Card
             firstname={res?.data.first_name}
@@ -61,6 +62,10 @@ const FouailleScreen = () => {
             money={res?.data.balance}
           />
           <TransactionSection commands={res?.data.orders} />
+        </View>
+      ) : (
+        <View>
+          <Text style={{ color: "white" }}>{TEXT.fouaille.noBalance}</Text>
         </View>
       )}
     </ScrollScreenContainer>
