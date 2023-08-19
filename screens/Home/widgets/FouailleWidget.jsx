@@ -63,7 +63,7 @@ const FouailleWidget = ({ width, height }) => {
       <View style={styles.textWrapper}>
         <View>
           <Text style={styles.title}>{TEXT.fouaille.title}</Text>
-          <Text style={styles.money}>{res?.data.balance}€</Text>
+          <Text style={styles.money}>{res ? "" : res.data.balance + "€"}</Text>
         </View>
         <View style={styles.transactionsWrapper}>
           {res?.data.orders?.map((command, index) => (
