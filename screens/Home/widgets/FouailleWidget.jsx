@@ -45,7 +45,7 @@ const FouailleWidget = ({ width, height }) => {
       </Widget>
     );
 
-  if (error)
+  if (error || !res.data.balance)
     return <ErrorWidget width={width} height={height} onPress={onPress} />;
 
   return (
@@ -63,7 +63,7 @@ const FouailleWidget = ({ width, height }) => {
       <View style={styles.textWrapper}>
         <View>
           <Text style={styles.title}>{TEXT.fouaille.title}</Text>
-          <Text style={styles.money}>{res ? "" : res.data.balance + "€"}</Text>
+          <Text style={styles.money}>{res.data.balance + "€"}</Text>
         </View>
         <View style={styles.transactionsWrapper}>
           {res?.data.orders?.map((command, index) => (
