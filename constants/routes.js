@@ -15,6 +15,7 @@ const ROUTES = {
   publication: "/publication",
   profile: "/settings/profile",
   cts: "/cts",
+  form: "/form",
 };
 
 export default ROUTES;

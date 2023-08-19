@@ -10,6 +10,7 @@ import organizations from "./organizations";
 import crousbot from "./crousbot";
 import cts from "./cts";
 import profile from "./profile";
+import form from "./form";
 
 export default {
   common,
@@ -24,4 +25,5 @@ export default {
   crousbot,
   cts,
   profile,
+  form,
 };

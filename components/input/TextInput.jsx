@@ -7,6 +7,10 @@ import { text_styles } from "../../styles";
 import { COLORS } from "../../constants";
 
 const TextInput = ({
+  multiline,
+  numberOfLines,
+  style,
+  maxLength,
   label,
   onChangeText,
   value,
@@ -24,10 +28,13 @@ const TextInput = ({
       <Text style={styles.textInputLabel(theme)}>{label}</Text>
       <View style={{ height: 10 }} />
       <Entry
+        multiline={multiline}
+        numberOfLines={numberOfLines}
+        maxLength={maxLength ? maxLength : 4000000000}
         secureTextEntry={secureTextEntry}
         inputMode={inputMode}
         autoComplete={autoComplete}
-        style={styles.textInputEntry(theme)}
+        style={[styles.textInputEntry(theme), style]}
         onChangeText={onChangeText}
         value={value}
         placeholder={placeholder}
@@ -37,7 +44,7 @@ const TextInput = ({
       />
       {error && (
         <>
-          <View style={{ height: 5 }} />
+          <View style={height} />
           <Text style={text_styles.body3({ text: COLORS.dark_red })}>
             {error}
           </Text>

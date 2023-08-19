@@ -1,14 +1,18 @@
 import React from "react";
 import { useTheme } from "../../contexts";
 import { LinearGradient } from "expo-linear-gradient";
-import { COLORS } from "../../constants";
+import { COLORS, ROUTES } from "../../constants";
 import { PlusIcon } from "../../assets/icons";
 import { TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
 
 const PlusButton = () => {
   const { theme } = useTheme();
+  const router = useRouter();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => router.push(`${ROUTES.form}/announcement`)}
+    >
       <LinearGradient
         colors={COLORS.primaryGradient}
         start={{ x: 0, y: 0 }}

@@ -23,11 +23,11 @@ const TabLayout = () => {
         name="home"
         options={{ title: "Accueil", tabBarIcon: HomeIcon }}
       />
-      {/* TODO: Add the calendar screen
-       <Tabs.Screen
+      {/* TODO: Add the calendar screen */}
+      <Tabs.Screen
         name="calendar"
         options={{ title: "Calendrier", tabBarIcon: CalendarIcon }}
-      /> */}
+      />
       <Tabs.Screen
         name="announcements"
         options={{ title: "Annonces", tabBarIcon: AnnouncementIcon }}

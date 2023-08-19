@@ -1,8 +1,8 @@
 import React from "react";
 import { OrganizationIdScreen } from "../../../screens";
 
-const OrganzationId = () => {
+const OrganizationId = () => {
   return <OrganizationIdScreen />;
 };
 
-export default OrganzationId;
+export default OrganizationId;

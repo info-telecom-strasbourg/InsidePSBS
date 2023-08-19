@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   textInputEntry: ({ text, box } = useTheme().theme) => ({
     backgroundColor: box,
     color: text,
-    height: 54,
+    minHeight: 54,
     borderRadius: 15,
     paddingHorizontal: 15,
     fontSize: 20,

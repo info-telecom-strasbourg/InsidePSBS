@@ -45,7 +45,7 @@ const FouailleWidget = ({ width, height }) => {
       </Widget>
     );
 
-  if (error || !res.data.balance)
+  if (error || !res?.data.balance)
     return <ErrorWidget width={width} height={height} onPress={onPress} />;
 
   return (
