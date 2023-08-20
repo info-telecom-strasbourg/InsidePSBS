@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BackButtonTopbar,
   Loader,
@@ -7,7 +7,7 @@ import {
 } from "../../components";
 import { API, ROUTES, TEXT, COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
-import { Image, Text, View } from "react-native";
+import { Image, Text, View, TouchableOpacity } from "react-native";
 import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import styles from "./settings.style";
@@ -15,7 +15,10 @@ import { text_styles } from "../../styles";
 import { useRouter } from "expo-router";
 import SettingSwitch from "./SettingSwitch";
 import SettingButton from "./SettingButton";
-import { Step1, Step2, Step3, Step4 } from "../../assets/icons";
+import uriToBlob from "../../utils/uriToBlob";
+import * as ImagePicker from "expo-image-picker";
+import axios from "axios";
+
 const SettingsScreen = () => {
   const { data } = useLocalStorage();
   const { theme } = useTheme();
@@ -24,7 +27,35 @@ const SettingsScreen = () => {
     ...API.headers,
     Authorization: `Bearer ${data.token}`,
   });
-  console.log(theme);
+
+  const handleImagePress = async () => {
+    await ImagePicker.requestMediaLibraryPermissionsAsync();
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      uriToBlob(result.assets[0].uri).then(async (blob) => {
+        console.log(blob);
+        await axios.put(
+          `${API.url}/api/user`,
+          { avatar: blob },
+          {
+            headers: {
+              ...API.headers,
+              Authorization: `Bearer ${data.token}`,
+            },
+          }
+        );
+      });
+    }
+  };
 
   return (
     <ScrollScreenContainer>
@@ -36,10 +67,12 @@ const SettingsScreen = () => {
       ) : (
         <View style={styles.container}>
           <View style={styles.wrapper}>
-            <Image
-              source={{ uri: res?.data.avatar_url }}
-              style={{ height: 80, width: 80 }}
-            />
+            <TouchableOpacity onPress={handleImagePress}>
+              <Image
+                source={{ uri: res?.data.avatar_url }}
+                style={{ height: 80, width: 80 }}
+              />
+            </TouchableOpacity>
             <Text style={text_styles.title3(theme)}>
               {res?.data.first_name} {res?.data.last_name}
             </Text>
@@ -61,24 +94,7 @@ const SettingsScreen = () => {
               justifyContent: "center",
               alignItems: "center",
             }}
-          >
-            <Step1
-              TextColor={theme.text}
-              DarkBackgroundColor={theme.box}
-              AccentColor={COLORS.dark_orange}
-            />
-            <Step2
-              TextColor={theme.text}
-              DarkBackgroundColor={theme.box}
-              AccentColor={COLORS.dark_orange}
-            />
-            <Step3
-              TextColor={theme.text}
-              DarkBackgroundColor={theme.box}
-              AccentColor={COLORS.dark_orange}
-            />
-            <Step4 TextColor={theme.text} AccentColor={COLORS.dark_orange} />
-          </View>
+          ></View>
 
           {/* TODO: implement notifications and preferences
           <Text style={text_styles.title4(theme)}>
