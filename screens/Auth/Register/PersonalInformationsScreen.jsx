@@ -8,7 +8,7 @@ import {
   Separator,
   TextInput,
 } from "../../../components";
-import { API, ROUTES, TEXT } from "../../../constants";
+import { API, ROUTES, TEXT, COLORS } from "../../../constants";
 import { useTheme } from "../../../contexts";
 import { useRegister } from "../../../contexts/registerContext";
 import { useFetch } from "../../../hooks";
@@ -21,6 +21,7 @@ import {
   checkPromotionYear,
   checkUsername,
 } from "../../../utils";
+import { Step2 } from "../../../assets/icons";
 
 const GAP = 15;
 
@@ -82,6 +83,19 @@ const PersonalInformationsScreen = () => {
 
   return (
     <ScrollScreenContainer>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 20,
+        }}
+      >
+        <Step2
+          TextColor={theme.text}
+          DarkBackgroundColor={theme.box}
+          AccentColor={COLORS.dark_orange}
+        />
+      </View>
       <View style={{ paddingHorizontal: 20, paddingVertical: 25 }}>
         <Text style={{ ...text_styles.title2(theme), fontSize: 23 }}>
           {TEXT.authentification.register.personal_information}

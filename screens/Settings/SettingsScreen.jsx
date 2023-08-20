@@ -5,7 +5,7 @@ import {
   PrimaryButton,
   ScrollScreenContainer,
 } from "../../components";
-import { API, ROUTES, TEXT } from "../../constants";
+import { API, ROUTES, TEXT, COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
 import { Image, Text, View } from "react-native";
 import { useFetch } from "../../hooks";
@@ -15,7 +15,7 @@ import { text_styles } from "../../styles";
 import { useRouter } from "expo-router";
 import SettingSwitch from "./SettingSwitch";
 import SettingButton from "./SettingButton";
-
+import { Step1, Step2, Step3, Step4 } from "../../assets/icons";
 const SettingsScreen = () => {
   const { data } = useLocalStorage();
   const { theme } = useTheme();
@@ -24,6 +24,7 @@ const SettingsScreen = () => {
     ...API.headers,
     Authorization: `Bearer ${data.token}`,
   });
+  console.log(theme);
 
   return (
     <ScrollScreenContainer>
@@ -53,6 +54,32 @@ const SettingsScreen = () => {
               onPress={() => router.push(ROUTES.profile)}
             />
           </View>
+          <View style={{ height: 15 }} />
+          <View
+            style={{
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Step1
+              TextColor={theme.text}
+              DarkBackgroundColor={theme.box}
+              AccentColor={COLORS.dark_orange}
+            />
+            <Step2
+              TextColor={theme.text}
+              DarkBackgroundColor={theme.box}
+              AccentColor={COLORS.dark_orange}
+            />
+            <Step3
+              TextColor={theme.text}
+              DarkBackgroundColor={theme.box}
+              AccentColor={COLORS.dark_orange}
+            />
+            <Step4 TextColor={theme.text} AccentColor={COLORS.dark_orange} />
+          </View>
+
           {/* TODO: implement notifications and preferences
           <Text style={text_styles.title4(theme)}>
             {TEXT.settings.notifications.title}

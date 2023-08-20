@@ -7,7 +7,7 @@ import {
   Separator,
   TextInput,
 } from "../../../components";
-import { ROUTES, TEXT } from "../../../constants";
+import { ROUTES, TEXT, COLORS } from "../../../constants";
 import { useTheme } from "../../../contexts";
 import { useRegister } from "../../../contexts/registerContext";
 import { text_styles } from "../../../styles";
@@ -18,6 +18,7 @@ import {
   checkPasswordConfirmation,
 } from "../../../utils";
 import PasswordInput from "../../../components/input/PasswordInput";
+import { Step1 } from "../../../assets/icons";
 
 const GAP = 15;
 
@@ -68,6 +69,19 @@ const GeneralInformationsScreen = () => {
 
   return (
     <ScrollScreenContainer>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 20,
+        }}
+      >
+        <Step1
+          TextColor={theme.text}
+          DarkBackgroundColor={theme.box}
+          AccentColor={COLORS.dark_orange}
+        />
+      </View>
       <View style={{ paddingHorizontal: 20, paddingVertical: 25 }}>
         <Text style={{ ...text_styles.title2(theme), fontSize: 23 }}>
           {TEXT.authentification.register.general_information}

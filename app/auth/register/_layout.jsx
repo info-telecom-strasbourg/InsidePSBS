@@ -50,7 +50,7 @@ const RegisterLayout = () => {
             {TEXT.authentification.register.title}
           </BackButtonTopbar>
         )}
-        <ProgressBar steps={STEPS} step={step} />
+        {/* <ProgressBar steps={STEPS} step={step} /> */}
         <Stack
           screenOptions={{
             headerShown: false,

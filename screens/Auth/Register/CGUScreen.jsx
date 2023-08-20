@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { PrimaryButton, ScreenContainer, Separator } from "../../../components";
 import { text_styles } from "../../../styles";
 import { useTheme } from "../../../contexts";
 import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import CheckBox from "expo-checkbox";
+import { Step4 } from "../../../assets/icons";
 
 const CguScreen = () => {
   const { theme } = useTheme();
@@ -16,15 +17,31 @@ const CguScreen = () => {
   const [error, setError] = useState("");
 
   const handleSubmit = () => {
+    console.log("submit");
     setError("");
     if (!checked) {
       setError(TEXT.authentification.errors.cgu);
       return;
+    } else {
+      router.push(`${ROUTES.register}/${Number(step) + 1}`);
+      return;
     }
-    router.push(`${ROUTES.register}/${Number(step) + 1}`);
   };
   return (
     <ScreenContainer>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 20,
+        }}
+      >
+        <Step4
+          TextColor={theme.text}
+          DarkBackgroundColor={theme.box}
+          AccentColor={COLORS.dark_orange}
+        />
+      </View>
       <View
         style={{
           paddingHorizontal: 20,
@@ -155,8 +172,8 @@ const CguScreen = () => {
 
         <Separator size={25} vertical />
         <PrimaryButton
-          text={TEXT.authentification.register.next}
           onPress={handleSubmit}
+          text={TEXT.authentification.register.next}
         />
       </View>
     </ScreenContainer>
