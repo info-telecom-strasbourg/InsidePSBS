@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Loader, ScrollScreenContainer, Topbar } from "../../components";
 import { API, TEXT } from "../../constants";
 import { RefreshControl, View } from "react-native";
@@ -6,15 +6,11 @@ import Publication from "./Publication";
 import PlusButton from "../../components/touchableicon/PlusButton";
 import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
-
+import announcements from "../../constants/text/announcements";
+import axios from "axios";
 const AnnouncementScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
-
-  const handleRefresh = async () => {
-    setRefreshing(true);
-    await new Promise((resolve) => setTimeout(resolve, 1)); // a implémenter avec le fetch
-    setRefreshing(false);
-  };
+  const [announcement, setAnnouncement] = useState([]);
 
   const { data } = useLocalStorage();
 
@@ -22,6 +18,29 @@ const AnnouncementScreen = () => {
     ...API.headers,
     Authorization: `Bearer ${data.token}`,
   });
+  useEffect(() => {
+    if (res?.data) {
+      setAnnouncement(res.data);
+    }
+  }, [res]);
+
+  const handleRefresh = async () => {
+    console.log("refreshing");
+    setRefreshing(true);
+    // a implémenter avec le fetch
+    try {
+      const res = await axios.get(`${API.url}/api/post`, {
+        headers: {
+          ...API.headers,
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
+      setAnnouncement(res.data.data);
+    } catch (e) {
+      console.log(e);
+    }
+    setRefreshing(false);
+  };
 
   return (
     <>
@@ -35,7 +54,7 @@ const AnnouncementScreen = () => {
           <Loader />
         ) : (
           <View style={{ padding: 15 }}>
-            {res?.data.map((data, index) => (
+            {announcement?.map((data, index) => (
               <Publication key={index} data={data} />
             ))}
           </View>
