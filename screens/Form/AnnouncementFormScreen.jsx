@@ -6,7 +6,7 @@ import {
   PrimaryButton,
   TextInput,
 } from "../../components";
-import { API, TEXT } from "../../constants";
+import { API, TEXT, ROUTES } from "../../constants";
 import { useTheme } from "../../contexts";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import axios from "axios";
@@ -81,7 +81,7 @@ const AnnouncementFormScreen = () => {
         />
         <View style={{ height: 25 }} />
         <PrimaryButton
-          text="Envoyer mon annonce"
+          text={TEXT.form.send}
           onPress={() => handleSubmit(result)}
         />
       </View>
