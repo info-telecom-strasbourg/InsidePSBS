@@ -35,7 +35,7 @@ const AnnouncementFormScreen = () => {
         })
         .then((res) => {
           if (res.status === 201) {
-            router.replace(ROUTES.announcements);
+            router.push(ROUTES.announcements);
           } else {
             setError(TEXT.form.error);
             console.log(res);
@@ -45,6 +45,8 @@ const AnnouncementFormScreen = () => {
       console.log(e);
       if (e.response.status === 422) {
         setError(TEXT.form.errorFields);
+      } else {
+        setError(TEXT.form.error);
       }
       return;
     }
@@ -81,7 +83,7 @@ const AnnouncementFormScreen = () => {
         />
         <View style={{ height: 25 }} />
         <PrimaryButton
-          text={TEXT.form.send}
+          text={TEXT.form.announcements.send}
           onPress={() => handleSubmit(result)}
         />
       </View>
