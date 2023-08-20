@@ -1,5 +1,5 @@
 const calendar = {
-  mounth: [
+  month: [
     "Janvier",
     "Février",
     "Mars",

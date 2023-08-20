@@ -12,7 +12,7 @@ const AnnouncementScreen = () => {
 
   const handleRefresh = async () => {
     setRefreshing(true);
-    await new Promise((resolve) => setTimeout(resolve, 1));
+    await new Promise((resolve) => setTimeout(resolve, 1)); // a implémenter avec le fetch
     setRefreshing(false);
   };
 
