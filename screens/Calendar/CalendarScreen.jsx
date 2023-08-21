@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollScreenContainer, Topbar } from "../../components";
 import { RefreshControl } from "react-native";
 import getWeek from "../../utils/date/getWeek";
@@ -10,6 +10,7 @@ import DaySelector from "./DaySelector";
 const CalendarScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedDay, setSelectedDay] = useState(new Date());
+  const [screenTitle, setScreenTitle] = useState("");
   const { theme } = useTheme();
 
   const handleRefresh = async () => {
@@ -18,6 +19,14 @@ const CalendarScreen = () => {
     setRefreshing(false);
   };
 
+  const changeScreenTitle = (month, year) => {
+    setScreenTitle(`${calendar.month[month]} ${year}`);
+  };
+
+  useEffect(() => {
+    changeScreenTitle(selectedDay.getMonth(), selectedDay.getFullYear());
+  }, [selectedDay]);
+
   return (
     <ScrollScreenContainer
       refreshControl={
@@ -25,11 +34,15 @@ const CalendarScreen = () => {
       }
     >
       <Topbar onPress={() => console.log("implémenter le modal")}>
-        {calendar.month[selectedDay.getMonth()]} {selectedDay.getFullYear()}{" "}
+        {screenTitle}{" "}
         <ChevronDownIcon color={theme.text} width={22} height={13} />
       </Topbar>
 
-      <DaySelector selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
+      <DaySelector
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
+        changeScreenTitle={changeScreenTitle}
+      />
     </ScrollScreenContainer>
   );
 };

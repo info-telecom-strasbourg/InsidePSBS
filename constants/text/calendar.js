@@ -8,7 +8,7 @@ const calendar = {
     "Juin",
     "Juillet",
     "Août",
-    "Septemebre",
+    "Septembre",
     "Octobre",
     "Novembre",
     "Décembre",

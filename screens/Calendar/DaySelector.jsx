@@ -1,10 +1,16 @@
 import { View, Text, Dimensions, FlatList } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { COLORS } from "../../constants";
 import getWeek from "../../utils/date/getWeek";
+import calendar from "../../constants/text/calendar";
+import { useTheme } from "../../contexts";
+import calendarStyle from "./calendar.style";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import compareDay from "../../utils/date/compareDay";
 
-const DaySelector = ({ selectedDay, setSelectedDay }) => {
+const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
   const [loading, setLoading] = useState(false);
+  const flatListRef = useRef(null);
   const [displayedWeeks, setDisplayedWeeks] = useState([
     getWeek(selectedDay.getTime() - 7 * 1000 * 3600 * 24),
     getWeek(selectedDay.getTime()),
@@ -15,21 +21,18 @@ const DaySelector = ({ selectedDay, setSelectedDay }) => {
   const handleScroll = async (event) => {
     if (loading) return;
     setLoading(true);
-    const page = Math.round(
-      event.nativeEvent.contentOffset.x /
-        event.nativeEvent.layoutMeasurement.width
-    );
+    const offset = event.nativeEvent.contentOffset.x;
+    const flatListWidth = event.nativeEvent.layoutMeasurement.width;
 
-    if (page === 0) await prevWeek(event);
-    if (page === 2) await nextWeek(event);
+    if (offset === 0) await prevWeek(event);
+    if (offset === 2 * flatListWidth) await nextWeek(event);
 
     setLoading(false);
   };
 
-  const nextWeek = async (event) => {
+  const prevWeek = async (event) => {
     setDisplayedWeeks((prev) => [prev[0], prev[0], prev[1]]);
-    await new Promise((resolve) => setTimeout(resolve, 1));
-    event.nativeEvent.contentOffset.x = width;
+    flatListRef.current.scrollToOffset({ offset: width, animated: false });
     setDisplayedWeeks((prev) => [
       getWeek(prev[0][0].getTime() - 7 * 1000 * 3600 * 24),
       prev[1],
@@ -37,32 +40,76 @@ const DaySelector = ({ selectedDay, setSelectedDay }) => {
     ]);
   };
 
-  const prevWeek = async () => {
-    console.log("Prev week");
+  const nextWeek = async () => {
+    setDisplayedWeeks((prev) => [prev[1], prev[2], prev[2]]);
+    flatListRef.current.scrollToOffset({ offset: width, animated: false });
+    setDisplayedWeeks((prev) => [
+      prev[0],
+      prev[1],
+      getWeek(prev[2][0].getTime() + 7 * 1000 * 3600 * 24),
+    ]);
   };
+
+  useEffect(() => {
+    changeScreenTitle(
+      displayedWeeks[1][3].getMonth(),
+      displayedWeeks[1][3].getFullYear()
+    );
+  }, [displayedWeeks]);
 
   return (
     <View>
       <FlatList
-        data={[1, 2, 3]}
-        onMomentumScrollEnd={handleScroll}
+        ref={flatListRef}
+        data={displayedWeeks}
+        onScroll={handleScroll}
         horizontal
-        keyExtractor={(_, index) => index.toString()}
         pagingEnabled
         contentOffset={{ x: width }}
-        renderItem={(d, index) => (
+        renderItem={(week, index) => (
           <View
             key={index}
             style={{
+              flexDirection: "row",
               width: width,
-              height: 50,
-              borderColor: d === 0 ? "red" : d === 1 ? "blue" : "green",
-              borderWidth: 4,
+              justifyContent: "space-between",
+              paddingHorizontal: 6,
             }}
-          />
+          >
+            {week.item.map((date, index) => (
+              <Day
+                key={index}
+                date={date.getDate()}
+                day={date.getDay()}
+                onPress={() => setSelectedDay(date)}
+                isSelected={compareDay(date, selectedDay)}
+              />
+            ))}
+          </View>
         )}
       />
     </View>
+  );
+};
+
+const Day = ({ day, date, isSelected, onPress }) => {
+  const { theme } = useTheme();
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        ...calendarStyle.dayContainer,
+        backgroundColor: isSelected ? COLORS.primary : theme.box,
+      }}
+    >
+      <Text style={{ ...calendarStyle.dayText, color: theme.text }}>
+        {calendar.day_short[(day + 6) % 7]}
+      </Text>
+      <Text style={{ ...calendarStyle.dateText, color: theme.text }}>
+        {date}
+      </Text>
+      <Text> </Text>
+    </TouchableOpacity>
   );
 };
 
