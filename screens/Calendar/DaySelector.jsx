@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, FlatList } from "react-native";
+import { View, Text, Dimensions, FlatList, ScrollView } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { COLORS } from "../../constants";
 import getWeek from "../../utils/date/getWeek";
@@ -10,7 +10,7 @@ import compareDay from "../../utils/date/compareDay";
 
 const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
   const [loading, setLoading] = useState(false);
-  const flatListRef = useRef(null);
+  const scrollRef = useRef(null);
   const [displayedWeeks, setDisplayedWeeks] = useState([
     getWeek(selectedDay.getTime() - 7 * 1000 * 3600 * 24),
     getWeek(selectedDay.getTime()),
@@ -32,7 +32,8 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
 
   const prevWeek = async (event) => {
     setDisplayedWeeks((prev) => [prev[0], prev[0], prev[1]]);
-    flatListRef.current.scrollToOffset({ offset: width, animated: false });
+    scrollRef.current.scrollTo({ x: width, animated: false });
+    await new Promise((resolve) => setTimeout(resolve, 1));
     setDisplayedWeeks((prev) => [
       getWeek(prev[0][0].getTime() - 7 * 1000 * 3600 * 24),
       prev[1],
@@ -42,7 +43,8 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
 
   const nextWeek = async () => {
     setDisplayedWeeks((prev) => [prev[1], prev[2], prev[2]]);
-    flatListRef.current.scrollToOffset({ offset: width, animated: false });
+    scrollRef.current.scrollTo({ x: width, animated: false });
+    await new Promise((resolve) => setTimeout(resolve, 1));
     setDisplayedWeeks((prev) => [
       prev[0],
       prev[1],
@@ -59,14 +61,14 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
 
   return (
     <View>
-      <FlatList
-        ref={flatListRef}
-        data={displayedWeeks}
+      <ScrollView
+        ref={scrollRef}
         onScroll={handleScroll}
-        horizontal
         pagingEnabled
+        horizontal
         contentOffset={{ x: width }}
-        renderItem={(week, index) => (
+      >
+        {displayedWeeks.map((week, index) => (
           <View
             key={index}
             style={{
@@ -76,7 +78,7 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
               paddingHorizontal: 6,
             }}
           >
-            {week.item.map((date, index) => (
+            {week.map((date, index) => (
               <Day
                 key={index}
                 date={date.getDate()}
@@ -86,8 +88,8 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
               />
             ))}
           </View>
-        )}
-      />
+        ))}
+      </ScrollView>
     </View>
   );
 };
