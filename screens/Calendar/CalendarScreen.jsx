@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { ScrollScreenContainer, Topbar } from "../../components";
 import { RefreshControl } from "react-native";
-import getWeek from "../../utils/date/getWeek";
-import calendar from "../../constants/text/calendar";
 import { ChevronDownIcon } from "../../assets/icons";
+import { ScrollScreenContainer, Topbar } from "../../components";
+import calendar from "../../constants/text/calendar";
 import { useTheme } from "../../contexts";
 import DaySelector from "./DaySelector";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const CalendarScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedDay, setSelectedDay] = useState(new Date());
   const [screenTitle, setScreenTitle] = useState("");
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const { theme } = useTheme();
 
   const handleRefresh = async () => {
@@ -27,16 +28,28 @@ const CalendarScreen = () => {
     changeScreenTitle(selectedDay.getMonth(), selectedDay.getFullYear());
   }, [selectedDay]);
 
+  const handleConfirmModal = (date) => {
+    setShowDatePicker(false);
+    setSelectedDay(date);
+  };
+
   return (
     <ScrollScreenContainer
       refreshControl={
         <RefreshControl onRefresh={handleRefresh} refreshing={refreshing} />
       }
     >
-      <Topbar onPress={() => console.log("implémenter le modal")}>
+      <Topbar onPress={() => setShowDatePicker(true)}>
         {screenTitle}{" "}
         <ChevronDownIcon color={theme.text} width={22} height={13} />
       </Topbar>
+      <DateTimePickerModal
+        date={selectedDay}
+        isVisible={showDatePicker}
+        mode="date"
+        onConfirm={handleConfirmModal}
+        onCancel={() => setShowDatePicker(false)}
+      />
 
       <DaySelector
         selectedDay={selectedDay}

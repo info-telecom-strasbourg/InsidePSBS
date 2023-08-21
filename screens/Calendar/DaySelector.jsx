@@ -18,6 +18,14 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
   ]);
   const { width } = Dimensions.get("window");
 
+  useEffect(() => {
+    setDisplayedWeeks([
+      getWeek(selectedDay.getTime() - 7 * 1000 * 3600 * 24),
+      getWeek(selectedDay.getTime()),
+      getWeek(selectedDay.getTime() + 7 * 1000 * 3600 * 24),
+    ]);
+  }, [selectedDay]);
+
   const handleScroll = async (event) => {
     if (loading) return;
     setLoading(true);
