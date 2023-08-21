@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { RefreshControl } from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ChevronDownIcon } from "../../assets/icons";
 import { ScrollScreenContainer, Topbar } from "../../components";
 import calendar from "../../constants/text/calendar";
 import { useTheme } from "../../contexts";
 import DaySelector from "./DaySelector";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { useLocalStorage } from "../../contexts/localStorageContext";
+import axios from "axios";
+import { API } from "../../constants";
+import EventList from "./EventList";
 
 const CalendarScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -13,10 +17,30 @@ const CalendarScreen = () => {
   const [screenTitle, setScreenTitle] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const { theme } = useTheme();
+  const { data } = useLocalStorage();
+  const [isLoading, setIsLoading] = useState(false);
+  const [eventList, setEventList] = useState([]);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`${API.url}/api/event`, {
+        headers: {
+          ...API.headers,
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
+      setEventList(res.data.data);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleRefresh = async () => {
     setRefreshing(true);
-    await new Promise((resolve) => setTimeout(resolve, 1)); // a implémenter avec le fetch
+    await fetchData();
     setRefreshing(false);
   };
 
@@ -32,6 +56,10 @@ const CalendarScreen = () => {
     setShowDatePicker(false);
     setSelectedDay(date);
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <ScrollScreenContainer
@@ -56,6 +84,8 @@ const CalendarScreen = () => {
         setSelectedDay={setSelectedDay}
         changeScreenTitle={changeScreenTitle}
       />
+
+      <EventList data={eventList} />
     </ScrollScreenContainer>
   );
 };
