@@ -38,22 +38,24 @@ const SettingsScreen = () => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
-      uriToBlob(result.assets[0].uri).then(async (blob) => {
-        console.log(blob);
-        await axios.put(
-          `${API.url}/api/user`,
-          { avatar: blob },
-          {
-            headers: {
-              ...API.headers,
-              Authorization: `Bearer ${data.token}`,
-            },
-          }
-        );
-      });
+      try {
+        uriToBlob(result.assets[0].uri).then(async (blob) => {
+          console.log(blob);
+          await axios.put(
+            `${API.url}/api/user`,
+            { avatar: blob },
+            {
+              headers: {
+                ...API.headers,
+                Authorization: `Bearer ${data.token}`,
+              },
+            }
+          );
+        });
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
