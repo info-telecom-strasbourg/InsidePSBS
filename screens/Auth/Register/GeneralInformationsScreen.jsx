@@ -68,7 +68,7 @@ const GeneralInformationsScreen = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollScreenContainer>
         <View
           style={{
