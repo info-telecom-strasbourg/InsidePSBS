@@ -39,13 +39,14 @@ export const RegisterProvider = ({ children }) => {
 
     try {
       console.log("post", entries);
+
       const res = await axios.post(
         `${API.url}/api/register`,
         {
           ...entries,
           password: hashedPassword,
           password_confirmation: hashedPasswordConfirmation,
-        },
+        }, // password and password_confirmation replace the one from ...entries
         {
           headers: API.headers,
         }
