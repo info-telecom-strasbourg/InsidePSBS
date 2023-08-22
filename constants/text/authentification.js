@@ -70,6 +70,7 @@ const authentification = {
     cgu: "Vous devez accepter les conditions d'utilisation",
     email_already_used: "Oups... Cet email est déjà utilisé",
     user_name_already_used: "Quelqu'un a déjà ce joli nom",
+    phone_already_used:"Ce téléphone est déjà relié à un compte"
   },
 };
 
