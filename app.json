@@ -10,7 +10,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.ITS.InsidePSBS",
-      "buildNumber": "2.0.3",
+      "buildNumber": "2.0.6",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos.",
         "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos."
@@ -22,7 +22,7 @@
         "backgroundColor": "#081425"
       },
       "package": "com.ITS.InsidePSBS",
-      "versionCode": 30,
+      "versionCode": 31,
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
@@ -33,7 +33,7 @@
     },
     "name": "InsidePSBS",
     "slug": "insidepsbs",
-    "version": "2.0.5",
+    "version": "2.0.6",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -63,18 +63,19 @@
         }
       ],
       [
-      "expo-build-properties",
-      {
-        "android": {
-          "compileSdkVersion": 33,
-          "targetSdkVersion": 33,
-          "buildToolsVersion": "33.0.0"
-        },
-        "ios": {
-          "deploymentTarget": "13.0"
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          },
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
         }
-      }
-    ]],
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "61177b6a-7651-4fcf-8e36-b10e30374c5c"
