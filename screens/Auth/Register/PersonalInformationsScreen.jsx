@@ -77,6 +77,8 @@ const PersonalInformationsScreen = () => {
         "user_name",
         TEXT.authentification.errors.user_name_already_used
       );
+    if (!(await checkAlreadyExist("phone", entries.phone)))
+      return setError("phone", TEXT.authentification.errors.phone_already_used);
 
     router.push(`${ROUTES.register}/${Number(step) + 1}`);
   };
