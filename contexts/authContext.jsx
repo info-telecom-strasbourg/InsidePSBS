@@ -28,7 +28,7 @@ const useProtectedRoute = (token) => {
     if (!isNavigationReady) return;
     if (!token && segments[0] !== "auth") {
       router.replace(ROUTES.auth);
-    } else if (token && segments[0] === "auth") router.replace(ROUTES.index);
+    } else if (token && segments[0] === "auth") router.push(ROUTES.home);
   }, [isNavigationReady, segments, token]);
 };
 
@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }) => {
         { headers: { ...API.headers } }
       );
       pushData({ token: res.data.token });
-      router.replace(ROUTES.home);
     } catch (e) {
       console.log(e.response);
       if (e.response.status) setErrorMessage(ERRORS[e.response.status]);
