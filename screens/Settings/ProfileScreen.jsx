@@ -90,10 +90,11 @@ const ProfileScreen = () => {
               text={TEXT.profile.password}
               onPress={() => router.push(`${ROUTES.profile}/password`)}
             />
-            <SettingButton
+            {/* TODO: implement unistra */}
+            {/* <SettingButton
               text={TEXT.profile.unistra}
               onPress={() => router.push(`${ROUTES.profile}/unistra`)}
-            />
+            /> */}
           </View>
 
           <PrimaryButton

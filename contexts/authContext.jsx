@@ -28,7 +28,10 @@ const useProtectedRoute = (token) => {
     if (!isNavigationReady) return;
     if (!token && segments[0] !== "auth") {
       router.replace(ROUTES.auth);
-    } else if (token && segments[0] === "auth") router.replace(ROUTES.index);
+    } else if (token && segments[0] === "auth") {
+      console.log("go to auth");
+      router.push(ROUTES.home);
+    }
   }, [isNavigationReady, segments, token]);
 };
 
@@ -64,12 +67,12 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       removeData("token");
-      await axios.post(`${API.url}/api/logout`, {
-        headers: {
-          ...API.headers,
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
+      // const res = await axios.post(`${API.url}/api/logout`, {
+      //   headers: {
+      //     ...API.headers,
+      //     Authorization: `Bearer ${data.token}`,
+      //   },
+      // });
     } catch (e) {
       console.error(e);
     }

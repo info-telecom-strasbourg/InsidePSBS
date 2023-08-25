@@ -69,7 +69,8 @@ const SettingsScreen = () => {
       ) : (
         <View style={styles.container}>
           <View style={styles.wrapper}>
-            <TouchableOpacity onPress={handleImagePress}>
+            <TouchableOpacity>
+              {/* onPress={handleImagePress} */}
               <Image
                 source={{ uri: res?.data.avatar_url }}
                 style={{ height: 80, width: 80 }}

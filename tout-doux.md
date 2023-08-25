@@ -69,3 +69,8 @@ TODO: Add the page to create a new announcement
 TODO: implement reactions and comment
 TODO: implement notifications and preferences
 TODO: implémenter un système de salage performant
+TODO: implement unistra
+
+erreur
+
+si compte pas validé mettre une erreur
