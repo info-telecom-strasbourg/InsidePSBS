@@ -25,7 +25,6 @@ const CguScreen = () => {
   const { entries, signUp } = useRegister();
 
   const handleSubmit = async () => {
-    console.log("submit");
     setError("");
     if (!checked) {
       setError(TEXT.authentification.errors.cgu);
@@ -158,7 +157,7 @@ const CguScreen = () => {
           <Separator size={25} vertical />
           <PrimaryButton
             onPress={handleSubmit}
-            text={TEXT.authentification.register.next}
+            text={TEXT.authentification.register.title}
           />
         </View>
       </ScreenContainer>
