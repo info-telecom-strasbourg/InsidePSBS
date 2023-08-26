@@ -43,9 +43,9 @@ const CguScreen = () => {
         textColor: COLORS.dark_red,
       });
       console.log(e.message);
+    } finally {
+      router.push(ROUTES.auth);
     }
-    router.push(ROUTES.auth);
-    return;
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
