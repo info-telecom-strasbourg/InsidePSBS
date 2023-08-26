@@ -14,23 +14,36 @@ import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import CheckBox from "expo-checkbox";
 import { Step4 } from "../../../assets/icons";
+import { useRegister } from "../../../contexts/registerContext";
+import toast from "../../../utils/toast";
 
 const CguScreen = () => {
   const { theme } = useTheme();
   const router = useRouter();
-  const { step } = useLocalSearchParams();
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState("");
+  const { entries, signUp } = useRegister();
 
-  const handleSubmit = () => {
-    console.log("submit");
+  const handleSubmit = async () => {
     setError("");
     if (!checked) {
       setError(TEXT.authentification.errors.cgu);
       return;
-    } else {
-      router.push(`${ROUTES.register}/${Number(step) + 1}`);
-      return;
+    }
+    try {
+      await signUp(entries);
+      toast("Votre compte a été créé. Validez-le par email", {
+        backgroundColor: theme.box,
+        textColor: theme.text,
+      });
+    } catch (e) {
+      toast("Une erreur est survenue. Veuillez réessayer ultérieurement", {
+        backgroundColor: COLORS.light_red,
+        textColor: COLORS.dark_red,
+      });
+      console.log(e.message);
+    } finally {
+      router.push(ROUTES.auth);
     }
   };
   return (
@@ -144,7 +157,7 @@ const CguScreen = () => {
           <Separator size={25} vertical />
           <PrimaryButton
             onPress={handleSubmit}
-            text={TEXT.authentification.register.next}
+            text={TEXT.authentification.register.title}
           />
         </View>
       </ScreenContainer>

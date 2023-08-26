@@ -3,6 +3,7 @@ import { Picker as NativePicker } from "@react-native-picker/picker";
 import styles from "./input.style";
 import { useTheme } from "../../contexts";
 import { Text, View } from "react-native";
+import { FONTS } from "../../constants";
 
 const Picker = ({ items, value, onValueChange, label }) => {
   const { theme } = useTheme();
@@ -13,6 +14,7 @@ const Picker = ({ items, value, onValueChange, label }) => {
       <View style={{ borderRadius: 15, overflow: "hidden" }}>
         <NativePicker
           selectedValue={value}
+          itemStyle={{ color: theme.text, fontFamily: FONTS.OpenSans.semiBold }}
           dropdownIconColor={theme.text}
           dropdownIconRippleColor="none"
           onValueChange={onValueChange}

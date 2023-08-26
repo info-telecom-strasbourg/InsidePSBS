@@ -17,7 +17,7 @@ const Step = () => {
       {step === "1" && <GeneralInformationsScreen />}
       {step === "2" && <PersonalInformationsScreen />}
       {step === "3" && <CGUScreen />}
-      {step === "4" && <ConfirmationScreen />}
+      {/* {step === "4" && <ConfirmationScreen />} */}
     </>
   );
 };
