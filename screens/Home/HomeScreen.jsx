@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import { DefaultTopbar, Loader, ScrollScreenContainer } from "../../components";
-import WidgetSection from "./widgets/WidgetSection";
-import { TEXT } from "../../constants";
 import { RefreshControl } from "react-native";
+import { DefaultTopbar, Loader, ScrollScreenContainer } from "../../components";
+import { TEXT } from "../../constants";
+import WidgetSection from "./widgets/WidgetSection";
 
 const HomeScreen = () => {
   const [refreshing, setRefreshing] = useState(false);

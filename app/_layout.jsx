@@ -6,6 +6,7 @@ import { AuthProvider, ThemeProvider } from "../contexts";
 import { StatusBar, WebContainer } from "../components";
 import { initNotification, lockScreenOrientation } from "../utils";
 import { LocalStorageProvider } from "../contexts/localStorageContext";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 const AppLayout = () => {
   lockScreenOrientation();
@@ -19,17 +20,19 @@ const AppLayout = () => {
     <ThemeProvider>
       <LocalStorageProvider>
         <AuthProvider>
-          <StatusBar />
-          <Container style={{ flex: 1 }}>
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                animation: "fade_from_bottom",
-              }}
-            >
-              <Stack.Screen name="(tabs)" options={{ animation: "fade" }} />
-            </Stack>
-          </Container>
+          <RootSiblingParent>
+            <StatusBar />
+            <Container style={{ flex: 1 }}>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  animation: "fade_from_bottom",
+                }}
+              >
+                <Stack.Screen name="(tabs)" options={{ animation: "fade" }} />
+              </Stack>
+            </Container>
+          </RootSiblingParent>
         </AuthProvider>
       </LocalStorageProvider>
     </ThemeProvider>
