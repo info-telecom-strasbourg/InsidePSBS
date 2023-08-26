@@ -5,7 +5,7 @@ on:
       - build-ios
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: its-macos
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
@@ -36,10 +36,10 @@ jobs:
         run: echo '${{ secrets.EAS_JSON }}' > eas.json
 
       - name: 🚀 Build app
-        run: eas build --platform ios --non-interactive # --local
+        run: eas build --platform ios --non-interactive --local
 
       - name: Submit to App Store
-        run: eas submit --platform ios --latest
+        run: eas submit --platform ios --path=.
 
       #      - name: Upload aab result
       #        uses: actions/upload-artifact@v3
