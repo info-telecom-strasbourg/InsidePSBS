@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BackButtonTopbar,
   Loader,
@@ -27,6 +27,9 @@ const SettingsScreen = () => {
     ...API.headers,
     Authorization: `Bearer ${data.token}`,
   });
+  useEffect(() => {
+    console.log(res?.data.avatar_url);
+  }, [res]);
 
   const handleImagePress = async () => {
     await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -40,19 +43,16 @@ const SettingsScreen = () => {
 
     if (!result.canceled) {
       try {
-        uriToBlob(result.assets[0].uri).then(async (blob) => {
-          console.log(blob);
-          await axios.put(
-            `${API.url}/api/user`,
-            { avatar: blob },
-            {
-              headers: {
-                ...API.headers,
-                Authorization: `Bearer ${data.token}`,
-              },
-            }
-          );
-        });
+        await axios.put(
+          `${API.url}/api/user`,
+          { avatar: result.assets[0].image },
+          {
+            headers: {
+              ...API.headers,
+              Authorization: `Bearer ${data.token}`,
+            },
+          }
+        );
       } catch (e) {
         console.log(e);
       }
