@@ -41,7 +41,7 @@ const CguScreen = () => {
         backgroundColor: COLORS.light_red,
         textColor: COLORS.dark_red,
       });
-      console.log(e.message);
+      console.error(e.message);
     } finally {
       router.push(ROUTES.auth);
     }

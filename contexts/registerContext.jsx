@@ -52,7 +52,8 @@ export const RegisterProvider = ({ children }) => {
         }
       );
     } catch (e) {
-      console.log(e.toJSON());
+      console.error(e.toJSON());
+      throw new Error("Issue during Signup");
     }
   };
 
