@@ -19,6 +19,7 @@ export const checkFirstName = (firstName) => {
   return firstName.length > 0;
 };
 
+
 export const checkLastName = (lastName) => {
   return lastName.length > 0;
 };
@@ -51,4 +52,13 @@ export const checkAlreadyExist = async (entry, value) => {
     console.log(error.response.data);
     return true;
   }
+};
+export const checkBirthDate = (birthDate) => {
+  const currentDate = new Date();
+  const minBirthYear = currentDate.getFullYear() - 100; // Assuming a maximum age of 100 years
+  const maxBirthYear = currentDate.getFullYear()-1;
+  
+  const inputYear = birthDate.getFullYear();
+
+  return inputYear >= minBirthYear && inputYear <= maxBirthYear;
 };
