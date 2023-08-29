@@ -15,9 +15,9 @@ import { text_styles } from "../../styles";
 import { useRouter } from "expo-router";
 import SettingSwitch from "./SettingSwitch";
 import SettingButton from "./SettingButton";
-import uriToBlob from "../../utils/uriToBlob";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
+import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
 
 const SettingsScreen = () => {
   const { data } = useLocalStorage();
@@ -32,6 +32,7 @@ const SettingsScreen = () => {
   }, [res]);
 
   const handleImagePress = async () => {
+    const sizeTarget = 320;
     await ImagePicker.requestMediaLibraryPermissionsAsync();
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -40,19 +41,38 @@ const SettingsScreen = () => {
       aspect: [1, 1],
       quality: 1,
     });
+    console.log(data.token);
 
     if (!result.canceled) {
       try {
-        await axios.put(
-          `${API.url}/api/user`,
-          { avatar: result.assets[0].image },
-          {
-            headers: {
-              ...API.headers,
-              Authorization: `Bearer ${data.token}`,
+        const manipResult = await manipulateAsync(
+          result.assets[0].uri,
+          [
+            {
+              resize: {
+                height: sizeTarget,
+                width: sizeTarget,
+              },
             },
-          }
+          ],
+          { compress: 0, format: SaveFormat.JPEG }
         );
+        console.log(manipResult);
+        axios
+          .put(
+            `${API.url}/api/user`,
+            { avatar: manipResult },
+            {
+              headers: {
+                ...API.headers,
+                Authorization: `Bearer ${data.token}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res);
+            console.log("sent");
+          });
       } catch (e) {
         console.log(e);
       }
