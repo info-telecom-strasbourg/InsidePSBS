@@ -16,6 +16,7 @@ import {
   checkPhone,
   checkPromotionYear,
   checkUsername,
+  checkBirthDate,
 } from "./checkInputs";
 
 export {
@@ -36,4 +37,5 @@ export {
   checkFirstName,
   checkLastName,
   checkPromotionYear,
+  checkBirthDate,
 };

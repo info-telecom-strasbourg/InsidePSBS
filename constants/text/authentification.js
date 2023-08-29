@@ -9,6 +9,7 @@ const authentification = {
   phone: "Numéro de téléphone *",
   promotion_year: "Promotion",
   sector: "Filière",
+  birth_date: "Date de naissance",
   sectors: {
     empty: "Non renseigné",
     ir: "IR",
@@ -25,6 +26,7 @@ const authentification = {
     user_name: "louis.royet",
     phone: "0666723073",
     promotion_year: "2059",
+    birth_date: "30/11/2000",
   },
 
   register: {
@@ -70,7 +72,8 @@ const authentification = {
     cgu: "Vous devez accepter les conditions d'utilisation",
     email_already_used: "Oups... Cet email est déjà utilisé",
     user_name_already_used: "Quelqu'un a déjà ce joli nom",
-    phone_already_used:"Ce téléphone est déjà relié à un compte"
+    phone_already_used:"Ce téléphone est déjà relié à un compte",
+    birth_date:"Ce n'est pas l'âge d'un étudiant ",
   },
 };
 

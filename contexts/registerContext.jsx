@@ -19,6 +19,7 @@ export const RegisterProvider = ({ children }) => {
     user_name: "",
     phone: "",
     promotion_year: "",
+    birth_date: "",
     sector: 2,
   });
 
