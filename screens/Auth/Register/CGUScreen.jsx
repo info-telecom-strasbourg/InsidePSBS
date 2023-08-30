@@ -25,6 +25,7 @@ const CguScreen = () => {
   const { entries, signUp } = useRegister();
 
   const handleSubmit = async () => {
+    console.log("submitting");
     setError("");
     if (!checked) {
       setError(TEXT.authentification.errors.cgu);
@@ -37,10 +38,13 @@ const CguScreen = () => {
         textColor: theme.text,
       });
     } catch (e) {
-      toast("Une erreur est survenue. Veuillez réessayer ultérieurement", {
-        backgroundColor: COLORS.light_red,
-        textColor: COLORS.dark_red,
-      });
+      toast(
+        "Une erreur est survenue. Veuillez réessayer ou contacter un administrateur",
+        {
+          backgroundColor: COLORS.light_red,
+          textColor: COLORS.dark_red,
+        }
+      );
       console.log(e.message);
     } finally {
       router.push(ROUTES.auth);

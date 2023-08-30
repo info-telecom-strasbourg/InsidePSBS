@@ -66,6 +66,7 @@ const PersonalInformationsScreen = () => {
     return date;
   };
   const handleSubmit = async () => {
+    console.log("submitting");
     setErrors({
       first_name: "",
       last_name: "",

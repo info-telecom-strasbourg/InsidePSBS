@@ -52,8 +52,11 @@ export const RegisterProvider = ({ children }) => {
           headers: API.headers,
         }
       );
+      console.log(res);
     } catch (e) {
       console.log(e.toJSON());
+      console.log(e.response);
+      console.log(e.data);
     }
   };
 
