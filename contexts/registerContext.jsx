@@ -52,6 +52,7 @@ export const RegisterProvider = ({ children }) => {
           headers: API.headers,
         }
       );
+      console.log(res);
     } catch (e) {
       console.error(e.toJSON());
       throw new Error("Issue during Signup");

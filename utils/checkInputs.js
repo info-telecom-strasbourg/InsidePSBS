@@ -58,7 +58,7 @@ export const checkBirthDate = (birthDate) => {
   const minBirthYear = currentDate.getFullYear() - 100; // Assuming a maximum age of 100 years
   const maxBirthYear = currentDate.getFullYear()-1;
   
-  const inputYear = birthDate.getFullYear();
+  const inputYear = birthDate.substring(0, 4);
 
   return inputYear >= minBirthYear && inputYear <= maxBirthYear;
 };
