@@ -2,6 +2,7 @@ import HomeScreen from "./Home/HomeScreen";
 import FouailleScreen from "./Fouaille/FouailleScreen";
 import AnnouncementScreen from "./Announcements/AnnouncementScreen";
 import LoginScreen from "./Auth/LoginScreen";
+import ForgotPasswordScreen from "./Auth/ForgotPasswordScreen";
 import CalendarScreen from "./Calendar/CalendarScreen";
 import MessagesScreen from "./Messages/MessagesScreen";
 import ProfileScreen from "./Settings/ProfileScreen";
@@ -25,4 +26,6 @@ export {
   PublicationScreen,
   CrousBotScreen,
   CtsScreen,
+  ForgotPasswordScreen,
+
 };

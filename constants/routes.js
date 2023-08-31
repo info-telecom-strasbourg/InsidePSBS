@@ -9,6 +9,7 @@ const ROUTES = {
   auth: "/auth",
   login: "/auth/login",
   register: "/auth/register",
+  forgot_password: "/auth/forgot_password",
   organizations: "/organizations",
   crousbot: "/crousbot",
   index: "/",

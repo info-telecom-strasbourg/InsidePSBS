@@ -54,11 +54,23 @@ const authentification = {
     login_with_unistra: "Se connecter avec Unistra",
     submit: "Se connecter",
     not_registered: "Pas encore de compte ?",
+    forgot_password: "Mot de passe oublié ?",
+    reset_password: "Réinitialiser",
+    
+  },
+  forgot_password: {
+    title: "Mot de passe oublié ?",
+    description:"Pour réinitialiser votre mot de passe, veuillez saisir votre adresse e-mail. Vous recevrez un lien par e-mail pour créer un nouveau mot de passe.",
+    submit: "Réinitialiser le mot de passe",
+    email_sent: "Un email vous a été envoyé",
+    error: "Une erreur est survenue,veuillez contacter un admin ou réessayer plus tard",
+
   },
 
   errors: {
     empty: "Ce champ ne peut pas être vide",
     email: "C'est pas un email ça !",
+    email_not_found: "Cet email n'est pas enregistré",
     password:
       "Le mot de passe doit contenir au moins 8 caractères et au moins une majuscule, une minuscule et un chiffre (c'est un peu technique)",
     password_confirmation: "C'est pas ce que tu m'as dit avant...",

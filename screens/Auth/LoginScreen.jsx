@@ -27,31 +27,50 @@ const LoginScreen = () => {
         {TEXT.authentification.login.title}
       </BackButtonTopbar>
       <View style={{ padding: 15 }}>
-        <TextInput
-          value={result.email}
-          onChangeText={(val) => setResult((prev) => ({ ...prev, email: val }))}
-          label={TEXT.authentification.email}
-          autoComplete={"email"}
-          autoCapitalize="none"
-        />
-        <View style={{ height: 15 }} />
-        <PasswordInput
-          autoComplete={"current-password"}
-          value={result.password}
-          onChangeText={(val) =>
-            setResult((prev) => ({ ...prev, password: val }))
-          }
-          label={TEXT.authentification.password}
-        />
-        <View style={{ height: 20 }} />
-        <View style={{ flexDirection: "row" }}>
-          <Text style={text_styles.body3({ text: theme.text })}>
-            {TEXT.authentification.login.not_registered}
-          </Text>
-          <View style={{ width: 5 }} />
+        {/* <View style={{ flexDirection: "row-reverse" }}>
           <TouchableOpacity onPress={() => router.push(`${ROUTES.register}/1`)}>
             <Text style={text_styles.body3({ text: COLORS.primary })}>
               {TEXT.authentification.register.title}
+            </Text>
+          </TouchableOpacity>
+          <View style={{ width: 5 }} />
+          <Text style={text_styles.body3({ text: theme.text })}>
+            {TEXT.authentification.login.not_registered}
+          </Text>
+        </View> */}
+        <View style={{ height: 15 }} />
+
+        <View>
+          <TextInput
+            value={result.email}
+            onChangeText={(val) =>
+              setResult((prev) => ({ ...prev, email: val }))
+            }
+            label={TEXT.authentification.email}
+            autoComplete={"email"}
+            autoCapitalize="none"
+          />
+          <View style={{ height: 15 }} />
+          <PasswordInput
+            autoComplete={"current-password"}
+            value={result.password}
+            onChangeText={(val) =>
+              setResult((prev) => ({ ...prev, password: val }))
+            }
+            label={TEXT.authentification.password}
+          />
+          <View style={{ height: 20 }} />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={text_styles.body3({ text: theme.text })}>
+            {TEXT.authentification.login.forgot_password}
+          </Text>
+          <View style={{ width: 5 }} />
+          <TouchableOpacity
+            onPress={() => router.push(`${ROUTES.forgot_password}`)}
+          >
+            <Text style={text_styles.body3({ text: COLORS.primary })}>
+              {TEXT.authentification.login.reset_password}
             </Text>
           </TouchableOpacity>
         </View>

@@ -3,6 +3,7 @@ node_modules/
 android/
 ios/
 dist/
+.vscode/
 .env
 google-services.json
 npm-debug.*
