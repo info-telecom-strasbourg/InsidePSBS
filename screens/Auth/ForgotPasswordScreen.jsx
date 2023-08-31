@@ -35,7 +35,6 @@ const ForgotPasswordScreen = () => {
       const res = await axios.post(`${API.url}/api/forgot-password`, {
         email: email,
       });
-      console.log(res);
       if (res.status == 200) {
         toast(TEXT.authentification.forgot_password.email_sent, {
           backgroundColor: theme.box,
