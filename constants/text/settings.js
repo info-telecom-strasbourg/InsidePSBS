@@ -6,7 +6,9 @@ const settings = {
   },
   preferences: {
     title: "Préférences",
+    color: "Thème de couleur",
     light_mode: "Mode clair",
+    classic_mode: "Mode classique",
     dark_mode: "Mode sombre",
   },
   about: {
