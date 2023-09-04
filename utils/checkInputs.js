@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API } from "../constants";
 
-export const chewckEmail = (email) => {
+export const checkEmail = (email) => {
   const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$/;
   return regexEmail.test(email);
 };
