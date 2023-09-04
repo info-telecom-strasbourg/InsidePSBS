@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API } from "../constants";
 
-export const checkEmail = (email) => {
+export const chewckEmail = (email) => {
   const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$/;
   return regexEmail.test(email);
 };
@@ -61,8 +61,8 @@ export const checkBirthDate = (birthDate) => {
   }
   const currentDate = new Date();
   const minBirthYear = currentDate.getFullYear() - 100; // Assuming a maximum age of 100 years
-  const maxBirthYear = currentDate.getFullYear()-1;
-  if (parts[2]<0 || parts[2]>31 || parts[1]<0 || parts[1]>12 || parts[0]<minBirthYear || parts[0]>maxBirthYear){
+  const maxBirthYear = currentDate.getFullYear() - 1;
+  if (parts[2] < 0 || parts[2] > 31 || parts[1] < 0 || parts[1] > 12 || parts[0] < minBirthYear || parts[0] > maxBirthYear) {
     return false;
   }
   return true;
