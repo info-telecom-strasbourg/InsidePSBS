@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import {
   ColoredButton,
   PrimaryButton,
@@ -52,9 +52,11 @@ const AuthScreen = () => {
             onPress={() => router.push(ROUTES.login)}
           />
           <Separator vertical size={80} />
-          <Text style={{ ...text_styles.body3(theme), alignSelf: "center" }}>
-            Conditions d'utilisations
-          </Text>
+          <TouchableOpacity onPress={() => router.push(ROUTES.cgu)}>
+            <Text style={{ ...text_styles.body3(theme), alignSelf: "center" }}>
+              Conditions d'utilisations
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScreenContainer>
