@@ -17,7 +17,7 @@ const ROUTES = {
   profile: "/settings/profile",
   cts: "/cts",
   form: "/form",
-  cgu: "/cgu",
+  cgu: "/auth/cgu",
 };
 
 export default ROUTES;
