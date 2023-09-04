@@ -54,11 +54,17 @@ export const checkAlreadyExist = async (entry, value) => {
   }
 };
 export const checkBirthDate = (birthDate) => {
+  const parts = birthDate.split('-');
+
+  if (parts.length !== 3) {
+    return false;
+  }
   const currentDate = new Date();
   const minBirthYear = currentDate.getFullYear() - 100; // Assuming a maximum age of 100 years
   const maxBirthYear = currentDate.getFullYear()-1;
-  
-  const inputYear = birthDate.substring(0, 4);
+  if (parts[2]<0 || parts[2]>31 || parts[1]<0 || parts[1]>12 || parts[0]<minBirthYear || parts[0]>maxBirthYear){
+    return false;
+  }
+  return true;
 
-  return inputYear >= minBirthYear && inputYear <= maxBirthYear;
 };
