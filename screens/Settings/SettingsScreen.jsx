@@ -4,6 +4,7 @@ import {
   Loader,
   PrimaryButton,
   ScrollScreenContainer,
+  Picker,
 } from "../../components";
 import { API, ROUTES, TEXT, COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
@@ -18,9 +19,8 @@ import SettingButton from "./SettingButton";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
-
 const SettingsScreen = () => {
-  const { data } = useLocalStorage();
+  const { data, pushData } = useLocalStorage();
   const { theme } = useTheme();
   const router = useRouter();
   const { res, isLoading, error } = useFetch(`${API.url}/api/user/me`, {
@@ -131,23 +131,44 @@ const SettingsScreen = () => {
             <SettingSwitch text="Plafond de dépense atteint" />
           </View>  */}
 
-          {/* <View style={{ height: 15 }} />
+          <View style={{ height: 15 }} />
 
           <Text style={text_styles.title4(theme)}>
             {TEXT.settings.preferences.title}
           </Text>
+          <Picker
+            value={data.theme}
+            onValueChange={(val) => {
+              console.log("val", val);
+              pushData({ ...data, theme: val });
+            }}
+            label={TEXT.settings.preferences.color}
+            items={[
+              { id: "light", name: "Thème clair", short_name: "Thème clair" },
+              {
+                id: "dark",
+                name: "Thème sombre",
+                short_name: "Thème sombre (OLED)",
+              },
+              {
+                id: "classic",
+                name: "Thème classique",
+                short_name: "Thème classique",
+              },
+            ]}
+          />
           <View style={styles.section}></View>
 
           <View style={{ height: 15 }} />
 
-          <Text style={text_styles.title4(theme)}>
+          {/*<Text style={text_styles.title4(theme)}>
             {TEXT.settings.about.title}
           </Text>
-          <View style={styles.section}>
+           <View style={styles.section}>
             <SettingButton text="Nous contacter" />
             <SettingButton text="Conditions d'utilisation" />
             <SettingButton text="Crédits" />
-          </View> */}
+          </View>  */}
         </View>
       )}
     </ScrollScreenContainer>

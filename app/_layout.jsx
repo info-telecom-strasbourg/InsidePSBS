@@ -12,13 +12,12 @@ const AppLayout = () => {
   lockScreenOrientation();
   // TODO: implement notifications and preferences must put it in a Provider
   var tocken = initNotification();
-  console.log("tocken from page", tocken);
 
   const Container = Platform.OS === "web" ? WebContainer : View;
 
   return (
-    <ThemeProvider>
-      <LocalStorageProvider>
+    <LocalStorageProvider>
+      <ThemeProvider>
         <AuthProvider>
           <RootSiblingParent>
             <StatusBar />
@@ -34,8 +33,8 @@ const AppLayout = () => {
             </Container>
           </RootSiblingParent>
         </AuthProvider>
-      </LocalStorageProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </LocalStorageProvider>
   );
 };
 
