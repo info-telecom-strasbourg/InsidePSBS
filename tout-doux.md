@@ -54,6 +54,8 @@
 
 - Authentification
 
+UX agrandissement zone cliquable acceptation CGU
+
 ## Code commenter pour refléter ce qui est implémenté
 
 ### back-end ready
