@@ -10,7 +10,7 @@ export function getDate(day_diff) {
   if (day[0] === "0") {
     day = day[1];
   }
-  var month = date.toLocaleString("default", { month: "long" });
+  var month = date.toLocaleString("fr-FR", { month: "long" });
   var date = parseInt(day) + " " + month;
   return date;
 }
@@ -20,7 +20,7 @@ export async function getMenuIllkirch(date) {
   var response = await axios.get(URL);
   var buffer = response.data;
 
-  const formatedDate = `${date.getDate()} ${date.toLocaleString("default", {
+  const formatedDate = `${date.getDate()} ${date.toLocaleString("fr-FR", {
     month: "long",
   })}`;
 

@@ -51,11 +51,11 @@ const CrousBotScreen = () => {
         <View style={styles.dayContainer}>
           <Text style={styles.dateContainer}>
             {capitalize(
-              date.toLocaleString("default", {
+              date.toLocaleString("fr-FR", {
                 weekday: "long",
                 day: "numeric",
                 month: "long",
-              }),
+              })
             )}
           </Text>
           <View style={styles.buttonWrapper}>
