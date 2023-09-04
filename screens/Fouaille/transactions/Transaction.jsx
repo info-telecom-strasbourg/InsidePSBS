@@ -50,10 +50,12 @@ const Transaction = ({ data }) => {
             <Text style={styles.details}>
               {data.total_price > 0
                 ? "Rechargement"
-                : `${data.amount} x ${capitalize(data.product.name)}`}
+                : `${data.amount} x ${capitalize(data?.product?.name || "")}`}
             </Text>
 
-            <Text style={styles.details}>{getStringDate(data.date)}</Text>
+            <Text style={styles.details}>
+              {data.date ? getStringDate(data.date) : "erreur de date"}
+            </Text>
           </View>
         </>
       )}
