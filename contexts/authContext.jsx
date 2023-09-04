@@ -25,6 +25,13 @@ const useProtectedRoute = (token) => {
   }, [rootNavigation]);
 
   useEffect(() => {
+    console.log(
+      " useProtectedRoute useEffect triggered",
+      isNavigationReady,
+      segments,
+      token
+    );
+
     if (!isNavigationReady) return;
     if (!token && segments[0] !== "auth") {
       router.replace(ROUTES.auth);

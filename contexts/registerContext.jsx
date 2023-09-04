@@ -24,6 +24,9 @@ export const RegisterProvider = ({ children }) => {
   });
 
   const updateEntry = (key, value) => {
+    if (key === "email") {
+      value = value.trim();
+    }
     setEntries((entries) => ({ ...entries, [key]: value }));
   };
 
