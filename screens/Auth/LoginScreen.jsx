@@ -3,23 +3,26 @@ import {
   BackButtonTopbar,
   PrimaryButton,
   ScrollScreenContainer,
+  SecondaryButton,
   TextInput,
 } from "../../components";
-import { COLORS, ROUTES, TEXT } from "../../constants";
+import { COLORS, ROUTES, TEXT, ERRORS } from "../../constants";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useAuth, useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
 import { useRouter } from "expo-router";
 import PasswordInput from "../../components/input/PasswordInput";
+import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useEffect } from "react";
 
 const LoginScreen = () => {
-  const { login, errorMessage, setErrorMessage } = useAuth();
+  const { login, reset_email, errorMessage, setErrorMessage } = useAuth();
   const [result, setResult] = useState({
     email: "",
     password: "",
   });
   const { theme } = useTheme();
+  const { data } = useLocalStorage();
   const router = useRouter();
 
   /* 
@@ -99,8 +102,14 @@ const LoginScreen = () => {
         />
         <View style={{ height: 20 }} />
         <Text style={text_styles.body3({ text: COLORS.dark_red })}>
-          {errorMessage}
+          {errorMessage !== ERRORS[409] ? errorMessage : `${TEXT.authentification.verify_email.message}`}
         </Text>
+        <View style={{ height: 20 }} />
+
+        {errorMessage === ERRORS[409] ? <SecondaryButton
+          text={TEXT.authentification.verify_email.button} onPress={() => {
+            reset_email(data.token)
+          }} /> : ""}
       </View>
     </ScrollScreenContainer>
   );

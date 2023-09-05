@@ -67,6 +67,12 @@ const authentification = {
 
   },
 
+  verify_email: {
+    message: `Un email de vérification vous a été envoyé, s'il a expiré, vous pouvez en demander un nouveau en cliquant sur le bouton ci-dessous.`,
+    button: "Renvoyer le mail",
+    toast_message: "Un email de vérification vous a été envoyé",
+  },
+
   errors: {
     empty: "Ce champ ne peut pas être vide",
     email: "C'est pas un email ça !",
