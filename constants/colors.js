@@ -5,6 +5,7 @@ const COLORS = {
   black: "#000000",
   white: "#ffffff",
   light_purple: "#E1D5FC",
+
   dark_purple: "#6C5A95",
   light_blue: "#CADCF0",
   dark_blue: "#647cd2",
@@ -16,6 +17,14 @@ const COLORS = {
   dark_orange: "#da6948",
   light_yellow: "#d7c895",
   dark_yellow: "#ab9735",
+
+  background:"#22262E",
+  box:"#363F50",
+  box_secondary:"#4F5B71",
+  text:"#FFFFFF",
+  text_secondary:"#AEAEAE",
+  tabBar:"#22262E",
+
 
   background_light: "#EDEDED",
   box_light: "#FFFFFF",

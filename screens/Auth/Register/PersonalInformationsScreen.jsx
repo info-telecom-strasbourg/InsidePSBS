@@ -55,9 +55,9 @@ const PersonalInformationsScreen = () => {
   } = useFetch(`${API.url}/api/sector`, {
     ...API.headers,
   });
-
+  console.log(sectors?.data);
   const handleDateChange = (date) => {
-    date = date.replace(/\D/g, "");
+    date = date?.replace(/\D/g, "");
     if (2 <= date.length && date.length < 4) {
       date = date.slice(0, 2) + "/" + date.slice(2, 4);
     } else if (4 <= date.length) {

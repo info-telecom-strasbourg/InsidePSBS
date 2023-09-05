@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useLocalStorage } from "./localStorageContext";
 import { Appearance, useColorScheme } from "react-native";
 import { COLORS } from "../constants";
 import * as SystemUI from "expo-system-ui";
@@ -9,13 +10,23 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const systemScheme = useColorScheme();
-  const [colorScheme, setColorScheme] = useState(systemScheme);
+  const [colorScheme, setColorScheme] = useState("classic");
+  const { data } = useLocalStorage();
+  console.log(data);
+  if (data?.theme) {
+    setColorScheme(data.theme);
+  } else {
+    data.theme = "classic";
+  }
 
   const setTheme = async ({ colorScheme }) => {
     setColorScheme(colorScheme);
     await SystemUI.setBackgroundColorAsync(
-      colorScheme === "dark" ? COLORS.background_dark : COLORS.background_light
+      colorScheme === "dark"
+        ? COLORS.background_dark
+        : colorScheme === "light"
+        ? COLORS.background_light
+        : COLORS.background
     );
   };
 
@@ -28,6 +39,15 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   const theme = {};
+  if (colorScheme === "classic") {
+    theme.background = COLORS.background;
+    theme.box = COLORS.box;
+    theme.box_secondary = COLORS.box_secondary;
+    theme.text = COLORS.text;
+    theme.text_secondary = COLORS.text_secondary;
+    theme.tabBar = COLORS.tabBar;
+  }
+
   if (colorScheme === "light") {
     theme.background = COLORS.background_light;
     theme.box = COLORS.box_light;

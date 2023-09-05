@@ -58,7 +58,7 @@ const FouailleWidget = ({ width, height }) => {
       style={{ flexDirection: "row" }}
     >
       <View style={styles.iconWrapper}>
-        <FouailleIcon width={64} height={64} color={COLORS.light_purple} />
+        <FouailleIcon width={64} height={64} color={COLORS.text} />
       </View>
       <View style={styles.textWrapper}>
         <View>
