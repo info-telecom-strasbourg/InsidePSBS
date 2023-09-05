@@ -5,7 +5,7 @@ import { useTheme } from "../../contexts";
 import { COLORS, ROUTES } from "../../constants";
 import { useRouter } from "expo-router";
 import { text_styles } from "../../styles";
-import { getStringDate, hideTextOverflow } from "../../utils";
+import { getStringDateTime, hideTextOverflow } from "../../utils";
 import ChevronDown from "../../assets/icons/ChevronDown";
 import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
 
@@ -35,7 +35,7 @@ const Publication = ({ data }) => {
         <View>
           <Text style={text_styles.title3(theme)}>{data.author.name}</Text>
           <Text style={text_styles.body3({ text: theme.text_secondary })}>
-            {getStringDate(data.date)}
+            {getStringDateTime(data.date)}
           </Text>
         </View>
       </TouchableOpacity>

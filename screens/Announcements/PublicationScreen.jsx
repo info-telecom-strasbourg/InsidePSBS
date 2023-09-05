@@ -11,7 +11,7 @@ import { useLocalSearchParams } from "expo-router";
 import styles from "./publication.style";
 import { API } from "../../constants";
 import { text_styles } from "../../styles";
-import { getStringDate, hideTextOverflow } from "../../utils";
+import { getStringDateTime, hideTextOverflow } from "../../utils";
 import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
 import { useTheme } from "../../contexts";
 import { useFetch } from "../../hooks";
@@ -69,7 +69,7 @@ const PublicationScreen = () => {
               {res?.data.author.name}
             </Text>
             <Text style={text_styles.body3({ text: theme.text_secondary })}>
-              {getStringDate(res?.data.date)}
+              {getStringDateTime(res?.data.date)}
             </Text>
           </View>
         </TouchableOpacity>

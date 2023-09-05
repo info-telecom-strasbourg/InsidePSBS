@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { RefreshControl } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { ChevronDownIcon } from "../../assets/icons";
-import { ScrollScreenContainer, Topbar } from "../../components";
+import { Loader, ScrollScreenContainer, Topbar } from "../../components";
 import calendar from "../../constants/text/calendar";
 import { useTheme } from "../../contexts";
 import DaySelector from "./DaySelector";
@@ -10,6 +10,8 @@ import { useLocalStorage } from "../../contexts/localStorageContext";
 import axios from "axios";
 import { API } from "../../constants";
 import EventList from "./EventList";
+import { getStringDate } from "../../utils";
+import createDateFromDDMMYYYY from "../../utils/date/createDateFromDDMMYYYY";
 
 const CalendarScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -24,12 +26,19 @@ const CalendarScreen = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(`${API.url}/api/event`, {
-        headers: {
-          ...API.headers,
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
+      const currentDate = createDateFromDDMMYYYY(getStringDate(selectedDay));
+      const nextDate = createDateFromDDMMYYYY(
+        getStringDate(new Date(selectedDay).setDate(selectedDay.getDate() + 1))
+      );
+      const res = await axios.get(
+        `${API.url}/api/event?start_at=${currentDate}&end_at=${nextDate}`,
+        {
+          headers: {
+            ...API.headers,
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
       setEventList(res.data.data);
     } catch (e) {
       console.log(e);
@@ -50,6 +59,8 @@ const CalendarScreen = () => {
 
   useEffect(() => {
     changeScreenTitle(selectedDay.getMonth(), selectedDay.getFullYear());
+    setEventList([]);
+    fetchData();
   }, [selectedDay]);
 
   const handleConfirmModal = (date) => {
@@ -84,8 +95,7 @@ const CalendarScreen = () => {
         setSelectedDay={setSelectedDay}
         changeScreenTitle={changeScreenTitle}
       />
-
-      <EventList data={eventList} />
+      {isLoading ? <Loader /> : <EventList data={eventList} />}
     </ScrollScreenContainer>
   );
 };

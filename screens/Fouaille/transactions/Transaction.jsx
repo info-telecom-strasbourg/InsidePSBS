@@ -9,7 +9,11 @@ import {
   ChevronUpIcon,
 } from "../../../assets/icons";
 import { COLORS } from "../../../constants";
-import { capitalize, getStringDate, getTimeDifference } from "../../../utils";
+import {
+  capitalize,
+  getStringDateTime,
+  getTimeDifference,
+} from "../../../utils";
 import { useTheme } from "../../../contexts";
 
 const Transaction = ({ data }) => {
@@ -54,7 +58,7 @@ const Transaction = ({ data }) => {
             </Text>
 
             <Text style={styles.details}>
-              {data.date ? getStringDate(data.date) : "erreur de date"}
+              {data.date ? getStringDateTime(data.date) : "erreur de date"}
             </Text>
           </View>
         </>

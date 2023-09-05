@@ -5,9 +5,19 @@ import { COLORS, FONTS } from "../../constants";
 import calendar from "../../constants/text/calendar";
 import getColor from "../../utils/getColors";
 import getHour from "../../utils/date/getHour";
+import { text_styles } from "../../styles";
+import { useTheme } from "../../contexts";
 
 const EventList = ({ data }) => {
-  if (!data) return null;
+  const { theme } = useTheme();
+  if (!data || data.length === 0)
+    return (
+      <View style={{ paddingHorizontal: 11, paddingVertical: 20 }}>
+        <Text style={text_styles.title3(theme)}>
+          Pas d'évènement aujourd'hui 😢
+        </Text>
+      </View>
+    );
   return (
     <View style={{ paddingHorizontal: 11, paddingVertical: 20, gap: 20 }}>
       {data.map((event, index) => (
