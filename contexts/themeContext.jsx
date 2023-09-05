@@ -11,6 +11,8 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [colorScheme, setColorScheme] = useState("classic");
+  const systemScheme = useColorScheme();
+
   useEffect(() => {
     const getTheme = async () => {
       try {
@@ -27,7 +29,12 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   const setTheme = async ({ colorScheme }) => {
-    setColorScheme(colorScheme);
+    if (colorScheme === "auto") {
+      console.log(systemScheme);
+      setColorScheme(systemScheme);
+    } else {
+      setColorScheme(colorScheme);
+    }
     await SystemUI.setBackgroundColorAsync(
       colorScheme === "dark"
         ? COLORS.background_dark
@@ -74,7 +81,7 @@ export const ThemeProvider = ({ children }) => {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, colorScheme }}>
+    <ThemeContext.Provider value={{ theme, colorScheme, setColorScheme }}>
       {children}
     </ThemeContext.Provider>
   );
