@@ -3,9 +3,10 @@ import {
   BackButtonTopbar,
   PrimaryButton,
   ScrollScreenContainer,
+  SecondaryButton,
   TextInput,
 } from "../../components";
-import { COLORS, ROUTES, TEXT } from "../../constants";
+import { COLORS, ROUTES, TEXT, ERRORS } from "../../constants";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useAuth, useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
@@ -14,11 +15,12 @@ import PasswordInput from "../../components/input/PasswordInput";
 import { useEffect } from "react";
 
 const LoginScreen = () => {
-  const { login, errorMessage, setErrorMessage } = useAuth();
+  const { login, reset_email, errorMessage, setErrorMessage } = useAuth();
   const [result, setResult] = useState({
     email: "",
     password: "",
   });
+  const [tokenVerifyEmail, setTokenVerifyEmail] = useState(null);
   const { theme } = useTheme();
   const router = useRouter();
 
@@ -93,14 +95,24 @@ const LoginScreen = () => {
               setErrorMessage(TEXT.authentification.login.no_information_while_login)
               return;
             } else {
-              login(result)
+              login(result).then((res) => {
+                setTokenVerifyEmail(res)
+              }).catch((err) => {
+                console.log("grrrr", err)
+              })
             }
           }}
         />
         <View style={{ height: 20 }} />
         <Text style={text_styles.body3({ text: COLORS.dark_red })}>
-          {errorMessage}
+          {errorMessage !== ERRORS[409] ? errorMessage : `${TEXT.authentification.verify_email.message}`}
         </Text>
+        <View style={{ height: 20 }} />
+
+        {tokenVerifyEmail ? <SecondaryButton
+          text={TEXT.authentification.verify_email.button} onPress={() => {
+            reset_email(tokenVerifyEmail)
+          }} /> : ""}
       </View>
     </ScrollScreenContainer>
   );

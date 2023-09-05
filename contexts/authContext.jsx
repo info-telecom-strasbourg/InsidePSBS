@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRootNavigation, useRouter, useSegments } from "expo-router";
-import { API, ERRORS, ROUTES } from "../constants";
+import { API, ERRORS, ROUTES, TEXT } from "../constants";
 import axios from "axios";
 import { useLocalStorage } from "./localStorageContext";
 import * as Crypto from "expo-crypto";
@@ -39,6 +39,26 @@ export const AuthProvider = ({ children }) => {
 
   useProtectedRoute(data.token);
 
+  const reset_email = async (token) => {
+    try {
+      const res = await axios.post(
+        `${API.url}/api/email/verification-notification`, {
+        headers: {
+          ...API.headers,
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      if (res.status === 200) {
+        toast(TEXT.authentification.verify_email.toast_message, {
+          backgroundColor: theme.box,
+          textColor: theme.text,
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   const login = async ({ email, password }) => {
     const hashedPassword = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256,
@@ -51,13 +71,17 @@ export const AuthProvider = ({ children }) => {
         { email, password: hashedPassword },
         { headers: { ...API.headers } }
       );
-      pushData({ token: res.data.token });
+      if (res.status === 200) pushData({ token: res.data.token });
     } catch (e) {
       console.log(e.response);
       if (e.response.status) setErrorMessage(ERRORS[e.response.status]);
+      if (e.response.status === 409) {
+        return e.response.data.token
+      }
       // TODO ROMAIN error message does'nt work
       else console.error(e);
     }
+    return null;
   };
 
   const logout = async () => {
@@ -74,7 +98,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   return (
-    <AuthContext.Provider value={{ login, logout, errorMessage, setErrorMessage }}>
+    <AuthContext.Provider value={{ login, logout, errorMessage, setErrorMessage, reset_email }}>
       {children}
     </AuthContext.Provider>
   );
