@@ -119,7 +119,10 @@ const SettingsScreen = () => {
               alignItems: "center",
             }}
           ></View>
-
+          {/* 
+          <Text style={text_styles.title4(theme)}>
+            {TEXT.settings.preferences.title}
+          </Text> */}
           {/* TODO: implement notifications and preferences
           <Text style={text_styles.title4(theme)}>
             {TEXT.settings.notifications.title}
@@ -135,9 +138,6 @@ const SettingsScreen = () => {
 
           <View style={{ height: 15 }} />
 
-          <Text style={text_styles.title4(theme)}>
-            {TEXT.settings.preferences.title}
-          </Text>
           <Picker
             value={data.theme}
             onValueChange={(val) => {
