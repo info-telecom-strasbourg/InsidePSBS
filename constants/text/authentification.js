@@ -9,7 +9,7 @@ const authentification = {
   phone: "Numéro de téléphone *",
   promotion_year: "Promotion",
   sector: "Filière",
-  birth_date: "Date de naissance",
+  birth_date: "Date de naissance (optionnel)",
   sectors: {
     empty: "Non renseigné",
     ir: "IR",

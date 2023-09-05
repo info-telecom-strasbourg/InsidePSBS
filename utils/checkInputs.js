@@ -54,6 +54,7 @@ export const checkAlreadyExist = async (entry, value) => {
   }
 };
 export const checkBirthDate = (birthDate) => {
+  if (birthDate === '') return true;
   const parts = birthDate.split('-');
 
   if (parts.length !== 3) {

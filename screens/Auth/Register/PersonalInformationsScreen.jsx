@@ -187,23 +187,23 @@ const PersonalInformationsScreen = () => {
                 inputMode="numeric"
               />
             </View>
-            <Separator size={GAP} horizontal />
-            <View style={{ flex: 1 }}>
-              <TextInput
-                label={TEXT.authentification.birth_date}
-                placeholder={TEXT.authentification.placeholders.birth_date}
-                value={Date}
-                onChangeText={(text) => {
-                  var date = handleDateChange(text);
-                  setDate(date);
+          </View>
+          <Separator size={GAP} vertical />
+          <View style={{ flex: 1 }}>
+            <TextInput
+              label={TEXT.authentification.birth_date}
+              placeholder={TEXT.authentification.placeholders.birth_date}
+              value={Date}
+              onChangeText={(text) => {
+                var date = handleDateChange(text);
+                setDate(date);
 
-                  var date = createDataFromDDMMYYYY(date);
-                  updateEntry("birth_date", date);
-                }}
-                inputMode="numeric"
-                error={errors.birth_date}
-              />
-            </View>
+                var date = createDataFromDDMMYYYY(date);
+                updateEntry("birth_date", date);
+              }}
+              inputMode="numeric"
+              error={errors.birth_date}
+            />
           </View>
         </View>
         <Separator size={25} vertical />
