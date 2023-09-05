@@ -19,9 +19,11 @@ import SettingButton from "./SettingButton";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const SettingsScreen = () => {
   const { data, pushData } = useLocalStorage();
-  const { theme } = useTheme();
+  const { theme, setColorScheme } = useTheme();
   const router = useRouter();
   const { res, isLoading, error } = useFetch(`${API.url}/api/user/me`, {
     ...API.headers,
@@ -117,7 +119,10 @@ const SettingsScreen = () => {
               alignItems: "center",
             }}
           ></View>
-
+          {/* 
+          <Text style={text_styles.title4(theme)}>
+            {TEXT.settings.preferences.title}
+          </Text> */}
           {/* TODO: implement notifications and preferences
           <Text style={text_styles.title4(theme)}>
             {TEXT.settings.notifications.title}
@@ -133,27 +138,35 @@ const SettingsScreen = () => {
 
           <View style={{ height: 15 }} />
 
-          <Text style={text_styles.title4(theme)}>
-            {TEXT.settings.preferences.title}
-          </Text>
           <Picker
             value={data.theme}
             onValueChange={(val) => {
               console.log("val", val);
+              AsyncStorage.setItem("theme", val);
+              setColorScheme(val);
               pushData({ ...data, theme: val });
             }}
             label={TEXT.settings.preferences.color}
             items={[
-              { id: "light", name: "Thème clair", short_name: "Thème clair" },
+              {
+                id: "light",
+                name: "⚪ Thème clair",
+                short_name: "⚪ Thème clair",
+              },
               {
                 id: "dark",
-                name: "Thème sombre",
-                short_name: "Thème sombre (OLED)",
+                name: "⚫ Thème sombre",
+                short_name: "⚫ Thème sombre (OLED)",
               },
               {
                 id: "classic",
-                name: "Thème classique",
-                short_name: "Thème classique",
+                name: "🔵 Thème classique",
+                short_name: "🔵 Thème classique",
+              },
+              {
+                id: "auto",
+                name: "⚫⚪ Thème automatique",
+                short_name: "⚫⚪ Thème automatique",
               },
             ]}
           />
