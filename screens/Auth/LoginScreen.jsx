@@ -11,15 +11,25 @@ import { useAuth, useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
 import { useRouter } from "expo-router";
 import PasswordInput from "../../components/input/PasswordInput";
+import { useEffect } from "react";
 
 const LoginScreen = () => {
-  const { login, errorMessage } = useAuth();
+  const { login, errorMessage, setErrorMessage } = useAuth();
   const [result, setResult] = useState({
     email: "",
     password: "",
   });
   const { theme } = useTheme();
   const router = useRouter();
+
+  /* 
+    to clean error message after exiting page,
+    useEffect for this is maybe overkill but works,
+    maybe there is a cleaner way to do this ?
+  */
+  useEffect(() => {
+    setErrorMessage("")
+  }, [])
 
   return (
     <ScrollScreenContainer>
@@ -77,7 +87,15 @@ const LoginScreen = () => {
         <View style={{ height: 20 }} />
         <PrimaryButton
           text={TEXT.authentification.login.submit}
-          onPress={() => login(result)}
+          onPress={() => {
+            if (result.email === "" || result.password === "" ||
+              result.email === "" && result.password === "") {
+              setErrorMessage(TEXT.authentification.login.no_information_while_login)
+              return;
+            } else {
+              login(result)
+            }
+          }}
         />
         <View style={{ height: 20 }} />
         <Text style={text_styles.body3({ text: COLORS.dark_red })}>
