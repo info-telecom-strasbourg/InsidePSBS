@@ -39,10 +39,10 @@ export const AuthProvider = ({ children }) => {
 
   useProtectedRoute(data.token);
 
-  const reset_email = async ({ token }) => {
+  const reset_email = async (token) => {
     try {
       const res = await axios.post(
-        `${API.url}/api/verification-notification/`, {
+        `${API.url}/api/email/verification-notification`, {
         headers: {
           ...API.headers,
           Authorization: `Bearer ${token}`,
@@ -76,12 +76,12 @@ export const AuthProvider = ({ children }) => {
       console.log(e.response);
       if (e.response.status) setErrorMessage(ERRORS[e.response.status]);
       if (e.response.status === 409) {
-        console.log(e.response.data.token);
-        pushData({ token: e.response.data.token });
+        return e.response.data.token
       }
       // TODO ROMAIN error message does'nt work
       else console.error(e);
     }
+    return null;
   };
 
   const logout = async () => {

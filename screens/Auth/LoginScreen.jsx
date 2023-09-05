@@ -12,7 +12,6 @@ import { useAuth, useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
 import { useRouter } from "expo-router";
 import PasswordInput from "../../components/input/PasswordInput";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useEffect } from "react";
 
 const LoginScreen = () => {
@@ -21,8 +20,8 @@ const LoginScreen = () => {
     email: "",
     password: "",
   });
+  const [tokenVerifyEmail, setTokenVerifyEmail] = useState(null);
   const { theme } = useTheme();
-  const { data } = useLocalStorage();
   const router = useRouter();
 
   /* 
@@ -96,7 +95,11 @@ const LoginScreen = () => {
               setErrorMessage(TEXT.authentification.login.no_information_while_login)
               return;
             } else {
-              login(result)
+              login(result).then((res) => {
+                setTokenVerifyEmail(res)
+              }).catch((err) => {
+                console.log("grrrr", err)
+              })
             }
           }}
         />
@@ -106,9 +109,9 @@ const LoginScreen = () => {
         </Text>
         <View style={{ height: 20 }} />
 
-        {errorMessage === ERRORS[409] ? <SecondaryButton
+        {tokenVerifyEmail ? <SecondaryButton
           text={TEXT.authentification.verify_email.button} onPress={() => {
-            reset_email(data.token)
+            reset_email(tokenVerifyEmail)
           }} /> : ""}
       </View>
     </ScrollScreenContainer>
