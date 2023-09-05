@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRootNavigation, useRouter, useSegments } from "expo-router";
+import toast from "../utils/toast"
+import { useTheme } from "./themeContext";
 import { API, ERRORS, ROUTES, TEXT } from "../constants";
 import axios from "axios";
 import { useLocalStorage } from "./localStorageContext";
@@ -33,6 +35,7 @@ const useProtectedRoute = (token) => {
 };
 
 export const AuthProvider = ({ children }) => {
+  const { theme } = useTheme();
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState(null);
   const { data, pushData, removeData } = useLocalStorage();
@@ -42,6 +45,7 @@ export const AuthProvider = ({ children }) => {
   const reset_email = async (token) => {
     try {
       const res = await axios.post(
+<<<<<<< HEAD
         `${API.url}/api/email/verification-notification`,
         {
           headers: {
@@ -50,6 +54,14 @@ export const AuthProvider = ({ children }) => {
           },
         }
       );
+=======
+        `${API.url}/api/email/verification-notification`, {}, {
+        headers: {
+          ...API.headers,
+          Authorization: `Bearer ${token}`,
+        },
+      })
+>>>>>>> c020ba9bd839fc1a04e5041243537056d9ab6544
       if (res.status === 200) {
         toast(TEXT.authentification.verify_email.toast_message, {
           backgroundColor: theme.box,
