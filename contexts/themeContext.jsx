@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useLocalStorage } from "./localStorageContext";
 import { Appearance, useColorScheme } from "react-native";
 import { COLORS } from "../constants";
 import * as SystemUI from "expo-system-ui";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ThemeContext = createContext({});
 export const useTheme = () => {
@@ -11,13 +11,20 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [colorScheme, setColorScheme] = useState("classic");
-  const { data } = useLocalStorage();
-  console.log(data);
-  if (data?.theme) {
-    setColorScheme(data.theme);
-  } else {
-    data.theme = "classic";
-  }
+  useEffect(() => {
+    const getTheme = async () => {
+      try {
+        const value = await AsyncStorage.getItem("theme");
+        if (value !== null) {
+          setColorScheme(value);
+        }
+      } catch (e) {
+        // error reading value
+        console.error(e);
+      }
+    };
+    getTheme();
+  }, []);
 
   const setTheme = async ({ colorScheme }) => {
     setColorScheme(colorScheme);
@@ -36,7 +43,7 @@ export const ThemeProvider = ({ children }) => {
     return () => {
       appearanceListener.remove();
     };
-  }, []);
+  }, [colorScheme]);
 
   const theme = {};
   if (colorScheme === "classic") {
