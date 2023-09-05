@@ -7,6 +7,7 @@ import getColor from "../../utils/getColors";
 import getHour from "../../utils/date/getHour";
 import { text_styles } from "../../styles";
 import { useTheme } from "../../contexts";
+import { useRouter } from "expo-router";
 
 const EventList = ({ data }) => {
   const { theme } = useTheme();
@@ -20,18 +21,21 @@ const EventList = ({ data }) => {
     );
   return (
     <View style={{ paddingHorizontal: 11, paddingVertical: 20, gap: 20 }}>
-      {data.map((event, index) => (
-        <Event
-          key={index}
-          author={event.author}
-          title={event.title}
-          start_at={event.start_at}
-          end_at={event.end_at}
-          description={event.description}
-          location={event.location}
-          color={event.color}
-        />
-      ))}
+      {data.map((event) => {
+        return (
+          <Event
+            key={event.id}
+            index={event.id}
+            author={event.author}
+            title={event.title}
+            start_at={event.start_at}
+            end_at={event.end_at}
+            description={event.description}
+            location={event.location}
+            color={event.color}
+          />
+        );
+      })}
     </View>
   );
 };
@@ -44,8 +48,10 @@ const Event = ({
   description,
   location,
   color,
+  index,
 }) => {
   const { backgroundColor, foregroundColor } = getColor(color);
+  const router = useRouter();
 
   const styles = StyleSheet.create({
     bottomIconContainer: {
@@ -76,6 +82,7 @@ const Event = ({
         alignItems: "center",
         gap: 10,
       }}
+      onPress={() => router.push(`/event/${index}`)}
     >
       <View style={{ alignItems: "center" }}>
         <Text style={styles.hourLabel}>{getHour(start_at)}</Text>
