@@ -30,7 +30,7 @@ const SettingsScreen = () => {
     Authorization: `Bearer ${data.token}`,
   });
   useEffect(() => {
-    console.log(res?.data.avatar_url);
+    console.log("avatar url :", res?.data.avatar_url);
   }, [res]);
 
   const handleImagePress = async () => {

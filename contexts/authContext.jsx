@@ -42,12 +42,14 @@ export const AuthProvider = ({ children }) => {
   const reset_email = async (token) => {
     try {
       const res = await axios.post(
-        `${API.url}/api/email/verification-notification`, {
-        headers: {
-          ...API.headers,
-          Authorization: `Bearer ${token}`,
-        },
-      })
+        `${API.url}/api/email/verification-notification`,
+        {
+          headers: {
+            ...API.headers,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (res.status === 200) {
         toast(TEXT.authentification.verify_email.toast_message, {
           backgroundColor: theme.box,
@@ -57,7 +59,7 @@ export const AuthProvider = ({ children }) => {
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 
   const login = async ({ email, password }) => {
     const hashedPassword = await Crypto.digestStringAsync(
@@ -73,10 +75,11 @@ export const AuthProvider = ({ children }) => {
       );
       if (res.status === 200) pushData({ token: res.data.token });
     } catch (e) {
+      console.log(e);
       console.log(e.response);
       if (e.response.status) setErrorMessage(ERRORS[e.response.status]);
       if (e.response.status === 409) {
-        return e.response.data.token
+        return e.response.data.token;
       }
       // TODO ROMAIN error message does'nt work
       else console.error(e);
@@ -86,19 +89,30 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
+      console.log("trying to logout");
       removeData("token");
-      await axios.post(`${API.url}/api/logout`, {
-        headers: {
-          ...API.headers,
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
+      console.log(data.token);
+      await axios.post(
+        `${API.url}/api/logout`,
+        {},
+        {
+          headers: {
+            ...API.headers,
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
+      console.log("logged out,replacing the route");
+      router.replace(ROUTES.index);
     } catch (e) {
-      console.error(e);
+      console.error("error while logout", e);
+      console.error("error while logout", e.response);
     }
   };
   return (
-    <AuthContext.Provider value={{ login, logout, errorMessage, setErrorMessage, reset_email }}>
+    <AuthContext.Provider
+      value={{ login, logout, errorMessage, setErrorMessage, reset_email }}
+    >
       {children}
     </AuthContext.Provider>
   );
