@@ -42,7 +42,8 @@ export const RegisterProvider = ({ children }) => {
     );
     let birth_date_cleaned = birth_date;
     if (birth_date === "") {
-      birth_date_cleaned = null;
+      delete entries.birth_date;
+      console.log("birth_date deleted", entries);
     }
 
     try {
@@ -54,7 +55,6 @@ export const RegisterProvider = ({ children }) => {
           ...entries,
           password: hashedPassword,
           password_confirmation: hashedPasswordConfirmation,
-          birth_date: birth_date_cleaned,
         }, // password and password_confirmation replace the one from ...entries
         {
           headers: API.headers,
