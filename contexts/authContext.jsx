@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useRootNavigation, useRouter, useSegments } from "expo-router";
 import toast from "../utils/toast";
 import { useTheme } from "./themeContext";
-import { API, ERRORS, ROUTES, TEXT } from "../constants";
+import { API, ERRORS, ROUTES, TEXT, COLORS } from "../constants";
 import axios from "axios";
 import { useLocalStorage } from "./localStorageContext";
 import * as Crypto from "expo-crypto";
@@ -56,8 +56,8 @@ export const AuthProvider = ({ children }) => {
       );
       if (res.status === 200) {
         toast(TEXT.authentification.verify_email.toast_message, {
-          backgroundColor: theme.box,
-          textColor: theme.text,
+          backgroundColor: COLORS.light_green,
+          textColor: COLORS.dark_green,
         });
       }
     } catch (e) {
