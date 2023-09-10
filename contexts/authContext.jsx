@@ -12,7 +12,9 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-const useProtectedRoute = (token) => {
+const useProtectedRoute = () => {
+  const { data, pushData, removeData } = useLocalStorage();
+  const token = data.token;
   const [isNavigationReady, setIsNavigationReady] = useState(false);
   const segments = useSegments();
   const router = useRouter();
@@ -40,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const { data, pushData, removeData } = useLocalStorage();
 
-  useProtectedRoute(data.token);
+  useProtectedRoute();
 
   const reset_email = async (token) => {
     try {
@@ -107,7 +109,7 @@ export const AuthProvider = ({ children }) => {
         }
       );
       console.log("logged out,replacing the route");
-      router.replace(ROUTES.index);
+      router.replace(ROUTES.auth);
     } catch (e) {
       console.error("error while logout", e);
       console.error("error while logout", e.response);
