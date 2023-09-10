@@ -19,6 +19,8 @@ export const ThemeProvider = ({ children }) => {
         const value = await AsyncStorage.getItem("theme");
         if (value !== null) {
           setColorScheme(value);
+        } else {
+          AsyncStorage.setItem("theme", "classic"); // not clean but works
         }
       } catch (e) {
         // error reading value
