@@ -8,7 +8,7 @@ import {
 } from "../../components";
 import { API, ROUTES, TEXT, COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
-import { Image, Text, View, TouchableOpacity } from "react-native";
+import { Image, Text, View, TouchableOpacity, Linking } from "react-native";
 import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import styles from "./settings.style";
@@ -59,7 +59,7 @@ const SettingsScreen = () => {
           ],
           { compress: 0, format: SaveFormat.JPEG }
         );
-        console.log(manipResult);
+        console.log(typeof manipResult);
         axios
           .put(
             `${API.url}/api/user`,
@@ -171,17 +171,27 @@ const SettingsScreen = () => {
             ]}
           />
           <View style={styles.section}></View>
-
           <View style={{ height: 15 }} />
 
-          {/*<Text style={text_styles.title4(theme)}>
+          <Text style={text_styles.title4(theme)}>
             {TEXT.settings.about.title}
           </Text>
-           <View style={styles.section}>
-            <SettingButton text="Nous contacter" />
-            <SettingButton text="Conditions d'utilisation" />
-            <SettingButton text="Crédits" />
-          </View>  */}
+          <View style={styles.section}>
+            <SettingButton
+              text="Nous contacter"
+              onPress={() => {
+                Linking.openURL("mailto:gatien_its@chenu.me"); //temporary must be changed for its email
+              }}
+            />
+            <SettingButton
+              text="Conditions d'utilisation"
+              onPress={() => router.push(ROUTES.cgu)}
+            />
+            <SettingButton
+              text="Crédits"
+              onPress={() => router.push(ROUTES.credits)}
+            />
+          </View>
         </View>
       )}
     </ScrollScreenContainer>

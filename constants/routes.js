@@ -18,6 +18,7 @@ const ROUTES = {
   cts: "/cts",
   form: "/form",
   cgu: "/auth/cgu",
+  credits: "/credits",
 };
 
 export default ROUTES;

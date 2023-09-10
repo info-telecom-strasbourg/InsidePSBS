@@ -32,7 +32,10 @@ const useProtectedRoute = () => {
     if (!isNavigationReady) return;
     if (!token && segments[0] !== "auth") {
       router.replace(ROUTES.auth);
-    } else if (token && segments[0] === "auth") router.push(ROUTES.home);
+    } else if (token && segments[0] === "auth" && segments[1] !== "cgu") {
+      // not really clean but CGU is the only page that can be accessed with and without being logged in
+      router.push(ROUTES.home);
+    }
   }, [isNavigationReady, segments, token]);
 };
 

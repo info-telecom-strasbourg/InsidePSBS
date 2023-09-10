@@ -11,6 +11,7 @@ import crousbot from "./crousbot";
 import cts from "./cts";
 import profile from "./profile";
 import form from "./form";
+import credits from "./credits";
 
 export default {
   common,
@@ -26,4 +27,5 @@ export default {
   cts,
   profile,
   form,
+  credits,
 };

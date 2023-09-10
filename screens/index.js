@@ -13,6 +13,7 @@ import PublicationScreen from "./Announcements/PublicationScreen";
 import CrousBotScreen from "./CrousBot/CrousBotScreen";
 import CtsScreen from "./Cts/CtsScreen";
 import CguScreen from "./Cgu/CguScreen";
+import CreditsScreen from "./Credits/Credits";
 export {
   AnnouncementScreen,
   LoginScreen,
@@ -29,5 +30,6 @@ export {
   CtsScreen,
   ForgotPasswordScreen,
   CguScreen,
+  CreditsScreen,
 
 };
