@@ -77,7 +77,7 @@ const PublicationScreen = () => {
         <Text style={text_styles.title2(theme)}>{res?.data.title}</Text>
         <View style={{ height: 5 }} />
         <Text style={text_styles.body3(theme)}>{res?.data.body}</Text>
-        <View
+        {/* <View
           style={{
             justifyContent: "space-between",
             flexDirection: "row",
@@ -104,7 +104,7 @@ const PublicationScreen = () => {
         <View style={{ height: 20 }} />
         <Text style={text_styles.body2({ text: theme.text_secondary })}>
           Aucun commentaire
-        </Text>
+        </Text> */}
       </View>
     </ScrollScreenContainer>
   );
