@@ -1,7 +1,10 @@
 const getTimeDifference = (date) => {
-  const currentDate = new Date().getTime();
-  const inputDate = new Date(date).getTime();
-  const timeDifference = inputDate - currentDate;
+  const currentDate = new Date();
+  const inputDate = new Date(date);
+  currentDate.setHours(0, 0, 0, 0);
+  inputDate.setHours(0, 0, 0, 0);
+
+  const timeDifference = inputDate.getTime() - currentDate.getTime();
   const dayDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
   switch (dayDifference) {
