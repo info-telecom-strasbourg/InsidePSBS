@@ -18,7 +18,7 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 
 const ProfileScreen = () => {
-  const { data } = useLocalStorage();
+  const { data, removeData } = useLocalStorage();
   const { theme } = useTheme();
   const { logout } = useAuth();
   const router = useRouter();
@@ -112,13 +112,14 @@ const ProfileScreen = () => {
             textStyle={{ fontSize: 17 }}
             onPress={async () => {
               try {
-                logout();
+                await removeData("token");
                 const res = await axios.delete(`${API.url}/api/user`, {
                   headers: {
                     ...API.headers,
                     Authorization: `Bearer ${data.token}`,
                   },
                 });
+                router.replace(ROUTES.auth);
               } catch (error) {
                 console.log(error);
               }

@@ -30,6 +30,7 @@ export const checkUsername = (username) => {
 };
 
 export const checkPhone = (phone) => {
+  if (phone === '') return true;
   const regexPhone = /^[0-9]{10}$/;
   return regexPhone.test(phone);
 };
@@ -39,6 +40,7 @@ export const checkPromotionYear = (promotionYear) => {
 };
 
 export const checkAlreadyExist = async (entry, value) => {
+  if (entry === 'phone' && value === '') return true;
   try {
     const res = await axios.get(
       `${API.url}/api/register/availability?${entry}=${value}`,

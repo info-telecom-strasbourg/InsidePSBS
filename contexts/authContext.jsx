@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       console.log("trying to logout");
-      removeData("token");
+      await removeData("token");
       console.log(data.token);
       await axios.post(
         `${API.url}/api/logout`,

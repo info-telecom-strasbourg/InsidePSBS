@@ -6,7 +6,7 @@ const authentification = {
   first_name: "Prénom *",
   last_name: "Nom *",
   user_name: "Nom d'utilisateur *",
-  phone: "Numéro de téléphone *",
+  phone: "Numéro de téléphone (optionnel)",
   promotion_year: "Promotion",
   sector: "Filière",
   birth_date: "Date de naissance (optionnel)",

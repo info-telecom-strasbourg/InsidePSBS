@@ -31,7 +31,8 @@ export const RegisterProvider = ({ children }) => {
   };
 
   const signUp = async (entries) => {
-    const { password, password_confirmation, email, birth_date } = entries;
+    const { password, password_confirmation, email, birth_date, phone } =
+      entries;
     const hashedPassword = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256,
       password + email
@@ -40,7 +41,10 @@ export const RegisterProvider = ({ children }) => {
       Crypto.CryptoDigestAlgorithm.SHA256,
       password_confirmation + email
     );
-    let birth_date_cleaned = birth_date;
+    if (phone === "") {
+      delete entries.phone;
+      console.log("phone deleted", entries);
+    }
     if (birth_date === "") {
       delete entries.birth_date;
       console.log("birth_date deleted", entries);
