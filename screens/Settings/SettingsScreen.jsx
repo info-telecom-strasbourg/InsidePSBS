@@ -180,7 +180,7 @@ const SettingsScreen = () => {
             <SettingButton
               text="Nous contacter"
               onPress={() => {
-                Linking.openURL("mailto:gatien_its@chenu.me"); //temporary must be changed for its email
+                Linking.openURL("mailto:info.telecom.strasbourg@gmail.com"); //temporary must be changed for its email
               }}
             />
             <SettingButton
