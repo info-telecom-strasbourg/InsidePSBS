@@ -31,6 +31,10 @@ const HomeScreen = () => {
   const { theme } = useTheme();
   const [upcomingEvent, setUpcomingEvent] = useState([]);
   const { data } = useLocalStorage();
+  console.log(data.token);
+  useEffect(() => {
+    console.log(upcomingEvent);
+  }, [upcomingEvent]);
 
   const handleRefresh = async () => {
     setLoading(true);
@@ -56,6 +60,7 @@ const HomeScreen = () => {
           signal: controller.signal,
         }
       );
+      console.log(res.data.data);
       setUpcomingEvent(res.data.data);
     } catch (err) {
       console.log(err);
@@ -91,7 +96,11 @@ const HomeScreen = () => {
                 Oh oh... Il ne se passe pas grand chose ici !
               </Text>
             ) : (
-              <ScrollView horizontal contentContainerStyle={{ gap: 11 }}>
+              <ScrollView
+                showsHorizontalScrollIndicator={false}
+                horizontal
+                contentContainerStyle={{ gap: 11 }}
+              >
                 {upcomingEvent.map((event) => (
                   <EventCard key={event.id} event={event} />
                 ))}

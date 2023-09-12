@@ -34,7 +34,7 @@ const SettingsScreen = () => {
   }, [res]);
 
   const handleImagePress = async () => {
-    const sizeTarget = 320;
+    const sizeTarget = 512;
     await ImagePicker.requestMediaLibraryPermissionsAsync();
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -57,17 +57,31 @@ const SettingsScreen = () => {
               },
             },
           ],
-          { compress: 0, format: SaveFormat.JPEG }
+          { compress: 1, format: SaveFormat.JPEG }
         );
         console.log(typeof manipResult);
-        axios
-          .put(
-            `${API.url}/api/user`,
+        console.log(manipResult);
+
+        const formData = new FormData();
+        formData.append("avatar", {
+          uri: manipResult.uri,
+          name: "avatar.jpg",
+          type: "image/jpeg",
+        });
+        const res = await axios
+          .post(
+            `${API.url}/api/user/avatar`,
             { avatar: manipResult },
             {
               headers: {
                 ...API.headers,
                 Authorization: `Bearer ${data.token}`,
+                "Content-Type": "multipart/form-data",
+              },
+              transformRequest: (data, headers) => {
+                // !!! override data to return formData
+                // since axios converts that to string
+                return formData;
               },
             }
           )
@@ -76,7 +90,8 @@ const SettingsScreen = () => {
             console.log("sent");
           });
       } catch (e) {
-        console.log(e);
+        console.error(e);
+        console.log(e.response.data);
       }
     }
   };
