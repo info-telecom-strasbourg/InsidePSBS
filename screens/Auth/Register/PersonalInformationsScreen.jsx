@@ -148,29 +148,23 @@ const PersonalInformationsScreen = () => {
             autoCapitalize="none"
           />
           <Separator size={GAP} vertical />
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ flex: 4 }}>
-              <TextInput
-                label={TEXT.authentification.phone}
-                placeholder={TEXT.authentification.placeholders.phone}
-                value={entries.phone}
-                onChangeText={(text) => updateEntry("phone", text)}
-                inputMode="numeric"
-                error={errors.phone}
-              />
-            </View>
-            <Separator size={GAP} horizontal />
-            <View style={{ flex: 2 }}>
-              <Picker
-                value={entries.sector}
-                onValueChange={(val) => {
-                  updateEntry("sector", val);
-                }}
-                label={TEXT.authentification.sector}
-                items={sectors?.data}
-              />
-            </View>
-          </View>
+          <TextInput
+            label={TEXT.authentification.phone}
+            placeholder={TEXT.authentification.placeholders.phone}
+            value={entries.phone}
+            onChangeText={(text) => updateEntry("phone", text)}
+            inputMode="numeric"
+            error={errors.phone}
+          />
+          <Separator size={GAP} vertical />
+          <Picker
+            value={entries.sector}
+            onValueChange={(val) => {
+              updateEntry("sector", val);
+            }}
+            label={TEXT.authentification.sector}
+            items={sectors?.data}
+          />
 
           <Separator size={GAP} vertical />
           <View
