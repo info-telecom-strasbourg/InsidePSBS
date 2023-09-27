@@ -20,7 +20,7 @@ const Publication = ({ data }) => {
     <TouchableOpacity
       activeOpacity={1}
       style={styles.container(theme)}
-      // onPress={() => router.push(`${ROUTES.publication}/${data.id}`)}
+      onPress={() => router.push(`${ROUTES.publication}/${data.id}`)}
     >
       {/* TODO: implement a profile view */}
       <TouchableOpacity
