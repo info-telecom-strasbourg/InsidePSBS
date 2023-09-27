@@ -129,7 +129,13 @@ const EventCard = ({ event }) => {
         justifyContent: "space-between",
       }}
     >
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 4,
+        }}
+      >
         <View
           style={{
             width: 8,
@@ -146,15 +152,16 @@ const EventCard = ({ event }) => {
         <Text
           style={{
             color: foregroundColor,
+            fontFamily: FONTS.OpenSans.semiBold,
           }}
         >
           {getTimeDifference(event.start_at)}
         </Text>
         <View>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 2 }}>
-            <ClockIcon width={10} height={10} color={foregroundColor} />
+            <ClockIcon width={12} height={12} color={foregroundColor} />
             <Text>
-              {getHour(event.start_at)} - {getHour(event.end_at)}
+              {getHour(event.start_at)}-{getHour(event.end_at)}
             </Text>
           </View>
           <View
@@ -173,13 +180,14 @@ const EventCard = ({ event }) => {
                 flex: 1,
               }}
             >
-              <GpsIcon width={10} height={10} color={foregroundColor} />
+              <GpsIcon width={12} height={12} color={foregroundColor} />
               <Text numberOfLines={1}>{event.location}</Text>
             </View>
             <Image
               source={{ uri: event.author.logo_url }}
               width={20}
               height={20}
+              style={{ borderRadius: 20 }}
             />
           </View>
         </View>

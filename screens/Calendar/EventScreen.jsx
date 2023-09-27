@@ -83,6 +83,7 @@ const EventScreen = () => {
                 alt={`${event.author.name}`}
                 width={50}
                 height={50}
+                style={{ borderRadius: 50 }}
               />
               <Text style={text_styles.title3({ text: event.color })}>
                 {event.author.name}

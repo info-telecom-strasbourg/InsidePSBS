@@ -8,6 +8,7 @@ import getHour from "../../utils/date/getHour";
 import { text_styles } from "../../styles";
 import { useTheme } from "../../contexts";
 import { useRouter } from "expo-router";
+import { hideTextOverflow } from "../../utils";
 
 const EventList = ({ data }) => {
   const { theme } = useTheme();
@@ -57,7 +58,7 @@ const Event = ({
     bottomIconContainer: {
       flexDirection: "row",
       alignItems: "center",
-      gap: 5,
+      gap: 3,
       flex: 1,
     },
 
@@ -93,18 +94,25 @@ const Event = ({
         style={{
           backgroundColor: backgroundColor,
           borderRadius: 20,
-          paddingVertical: 10,
+          paddingVertical: 15,
           paddingHorizontal: 15,
           flex: 1,
+          gap: 15,
         }}
       >
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
+            gap: 10,
           }}
         >
-          <Image source={{ uri: author.logo_url }} width={80} height={80} />
+          <Image
+            source={{ uri: author.logo_url }}
+            width={50}
+            height={50}
+            style={{ borderRadius: 80 }}
+          />
           <View style={{ flex: 1 }}>
             <Text
               numberOfLines={1}
@@ -116,33 +124,39 @@ const Event = ({
             >
               {title}
             </Text>
-            <Text
-              numberOfLines={2}
-              style={{
-                color: COLORS.black,
-                fontSize: 16,
-                fontFamily: FONTS.OpenSans.regular,
-              }}
-            >
-              {description}
-            </Text>
+            {description && (
+              <Text
+                numberOfLines={2}
+                style={{
+                  color: COLORS.black,
+                  fontSize: 16,
+                  fontFamily: FONTS.OpenSans.regular,
+                }}
+              >
+                {description}
+              </Text>
+            )}
           </View>
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <View style={styles.bottomIconContainer}>
-            <CalendarIcon width={16} height={17} color={foregroundColor} />
-            <Text numberOfLines={1} style={styles.bottomIconLabel}>
-              {calendar.day_short[(new Date(start_at).getDay() + 6) % 7]}{" "}
-              {new Date(start_at).getDate()}{" "}
-              {calendar.month[new Date(start_at).getMonth()]}
-            </Text>
-          </View>
-          <View style={styles.bottomIconContainer}>
-            <GpsIcon width={13} height={17} color={foregroundColor} />
-            <Text numberOfLines={1} style={styles.bottomIconLabel}>
-              {location}
-            </Text>
-          </View>
+          {start_at && (
+            <View style={styles.bottomIconContainer}>
+              <CalendarIcon width={16} height={17} color={foregroundColor} />
+              <Text numberOfLines={1} style={styles.bottomIconLabel}>
+                {calendar.day_short[(new Date(start_at).getDay() + 6) % 7]}{" "}
+                {new Date(start_at).getDate()}{" "}
+                {calendar.month_short[new Date(start_at).getMonth()]}.
+              </Text>
+            </View>
+          )}
+          {location && (
+            <View style={styles.bottomIconContainer}>
+              <GpsIcon width={13} height={17} color={foregroundColor} />
+              <Text numberOfLines={1} style={styles.bottomIconLabel}>
+                {hideTextOverflow(location, 14)}
+              </Text>
+            </View>
+          )}
         </View>
       </View>
     </TouchableOpacity>

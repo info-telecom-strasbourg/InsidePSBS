@@ -13,6 +13,22 @@ const calendar = {
     "Novembre",
     "Décembre",
   ],
+
+  month_short: [
+    "Jan",
+    "Fév",
+    "Mar",
+    "Avr",
+    "Mai",
+    "Juin",
+    "Juil",
+    "Août",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Déc",
+  ],
+
   day: [
     "Lundi",
     "Mardi",
