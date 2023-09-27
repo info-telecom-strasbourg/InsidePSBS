@@ -16,6 +16,7 @@ import { text_styles } from "../../styles";
 import SettingButton from "./SettingButton";
 import axios from "axios";
 import { useRouter } from "expo-router";
+import Avatar from "./Avatar";
 
 const ProfileScreen = () => {
   const { data, removeData } = useLocalStorage();
@@ -38,10 +39,7 @@ const ProfileScreen = () => {
       ) : (
         <View style={styles.container}>
           <View style={styles.wrapper}>
-            <Image
-              source={{ uri: res?.data.avatar_url }}
-              style={{ height: 80, width: 80 }}
-            />
+            <Avatar url={res?.data.avatar_url} pressable />
             <Text style={text_styles.title3(theme)}>
               {res?.data.first_name} {res?.data.last_name}
             </Text>

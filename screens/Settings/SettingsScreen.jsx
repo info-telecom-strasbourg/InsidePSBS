@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   BackButtonTopbar,
   Loader,
@@ -6,21 +5,18 @@ import {
   ScrollScreenContainer,
   Picker,
 } from "../../components";
-import { API, ROUTES, TEXT, COLORS } from "../../constants";
+import { API, ROUTES, TEXT } from "../../constants";
 import { useTheme } from "../../contexts";
-import { Image, Text, View, TouchableOpacity, Linking } from "react-native";
+import { Text, View, Linking } from "react-native";
 import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import styles from "./settings.style";
 import { text_styles } from "../../styles";
 import { useRouter } from "expo-router";
-import SettingSwitch from "./SettingSwitch";
 import SettingButton from "./SettingButton";
-import * as ImagePicker from "expo-image-picker";
-import axios from "axios";
-import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Avatar from "./Avatar";
+
 const SettingsScreen = () => {
   const { data, pushData } = useLocalStorage();
   const { theme, setColorScheme } = useTheme();
@@ -29,72 +25,6 @@ const SettingsScreen = () => {
     ...API.headers,
     Authorization: `Bearer ${data.token}`,
   });
-  useEffect(() => {
-    console.log("avatar url :", res?.data.avatar_url);
-  }, [res]);
-
-  const handleImagePress = async () => {
-    const sizeTarget = 512;
-    await ImagePicker.requestMediaLibraryPermissionsAsync();
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-    console.log(data.token);
-
-    if (!result.canceled) {
-      try {
-        const manipResult = await manipulateAsync(
-          result.assets[0].uri,
-          [
-            {
-              resize: {
-                height: sizeTarget,
-                width: sizeTarget,
-              },
-            },
-          ],
-          { compress: 1, format: SaveFormat.JPEG }
-        );
-        console.log(typeof manipResult);
-        console.log(manipResult);
-
-        const formData = new FormData();
-        formData.append("avatar", {
-          uri: manipResult.uri,
-          name: "avatar.jpg",
-          type: "image/jpeg",
-        });
-        const res = await axios
-          .post(
-            `${API.url}/api/user/avatar`,
-            { avatar: manipResult },
-            {
-              headers: {
-                ...API.headers,
-                Authorization: `Bearer ${data.token}`,
-                "Content-Type": "multipart/form-data",
-              },
-              transformRequest: (data, headers) => {
-                // !!! override data to return formData
-                // since axios converts that to string
-                return formData;
-              },
-            }
-          )
-          .then((res) => {
-            console.log(res);
-            console.log("sent");
-          });
-      } catch (e) {
-        console.error(e);
-        console.log(e.response.data);
-      }
-    }
-  };
 
   return (
     <ScrollScreenContainer>
@@ -106,12 +36,7 @@ const SettingsScreen = () => {
       ) : (
         <View style={styles.container}>
           <View style={styles.wrapper}>
-            <TouchableOpacity onPress={handleImagePress}>
-              <Image
-                source={{ uri: res?.data.avatar_url }}
-                style={{ height: 80, width: 80 }}
-              />
-            </TouchableOpacity>
+            <Avatar url={res?.data.avatar_url} />
             <Text style={text_styles.title3(theme)}>
               {res?.data.first_name} {res?.data.last_name}
             </Text>
