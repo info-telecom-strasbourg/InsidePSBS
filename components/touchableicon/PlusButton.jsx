@@ -12,17 +12,21 @@ const PlusButton = () => {
   return (
     <TouchableOpacity
       onPress={() => router.push(`${ROUTES.form}/announcement`)}
+      style={{
+        width: 50,
+        height: 50,
+        position: "absolute",
+        bottom: 21,
+        right: 11,
+      }}
     >
       <LinearGradient
         colors={COLORS.primaryGradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{
-          width: 50,
-          height: 50,
-          position: "absolute",
-          bottom: 21,
-          right: 11,
+          height: "100%",
+          width: "100%",
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 20,
