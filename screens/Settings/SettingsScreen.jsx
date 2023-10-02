@@ -7,7 +7,7 @@ import {
 } from "../../components";
 import { API, ROUTES, TEXT } from "../../constants";
 import { useTheme } from "../../contexts";
-import { Text, View, Linking } from "react-native";
+import { Text, View, Linking, TouchableOpacity } from "react-native";
 import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import styles from "./settings.style";
@@ -35,7 +35,10 @@ const SettingsScreen = () => {
         <Loader />
       ) : (
         <View style={styles.container}>
-          <View style={styles.wrapper}>
+          <TouchableOpacity
+            style={styles.wrapper}
+            onPress={() => router.push(ROUTES.profile)}
+          >
             <Avatar url={res?.data.avatar_url} />
             <Text style={text_styles.title3(theme)}>
               {res?.data.first_name} {res?.data.last_name}
@@ -50,7 +53,7 @@ const SettingsScreen = () => {
               textStyle={{ fontSize: 15 }}
               onPress={() => router.push(ROUTES.profile)}
             />
-          </View>
+          </TouchableOpacity>
           <View style={{ height: 15 }} />
           <View
             style={{
