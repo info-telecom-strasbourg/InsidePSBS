@@ -24,7 +24,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
 
@@ -46,7 +46,7 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-function RootLayoutNav() {
+const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
 
   return (
@@ -57,4 +57,4 @@ function RootLayoutNav() {
       </Stack>
     </ThemeProvider>
   );
-}
+};

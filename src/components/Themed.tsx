@@ -19,31 +19,31 @@ type ThemeProperties = {
 export type TextProps = ThemeProperties & DefaultText["props"];
 export type ViewProps = ThemeProperties & DefaultView["props"];
 
-export function useThemeColor(
+export const useThemeColor = (
   properties: { light?: string; dark?: string },
-  colorName: keyof typeof Colors.light & keyof typeof Colors.dark,
-) {
+  colorName: keyof typeof Colors.light & keyof typeof Colors.dark
+) => {
   const theme = useColorScheme() ?? "light";
   const colorFromProperties = properties[theme];
 
   return colorFromProperties ? colorFromProperties : Colors[theme][colorName];
-}
+};
 
-export function Text(properties: TextProps) {
+export const Text = (properties: TextProps) => {
   const { style, lightColor, darkColor, ...otherProperties } = properties;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
 
   return <DefaultText style={[{ color }, style]} {...otherProperties} />;
-}
+};
 
-export function View(properties: ViewProps) {
+export const View = (properties: ViewProps) => {
   const { style, lightColor, darkColor, ...otherProperties } = properties;
   const backgroundColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "background",
+    "background"
   );
 
   return (
     <DefaultView style={[{ backgroundColor }, style]} {...otherProperties} />
   );
-}
+};

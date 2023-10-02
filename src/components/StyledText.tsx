@@ -1,10 +1,11 @@
-import { Text, TextProps as TextProperties } from "./Themed";
+import type { TextProps as TextProperties } from "./Themed";
+import { Text } from "./Themed";
 
-export function MonoText(properties: TextProperties) {
+export const MonoText = (properties: TextProperties) => {
   return (
     <Text
       {...properties}
       style={[properties.style, { fontFamily: "SpaceMono" }]}
     />
   );
-}
+};
