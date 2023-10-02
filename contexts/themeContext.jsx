@@ -82,6 +82,15 @@ export const ThemeProvider = ({ children }) => {
     theme.tabBar = COLORS.tabBar_dark;
   }
 
+  if (colorScheme === "gold") {
+    theme.background = COLORS.background_gold;
+    theme.box = COLORS.box_gold;
+    theme.box_secondary = COLORS.box_secondary_gold;
+    theme.text = COLORS.text_gold;
+    theme.text_secondary = COLORS.text_secondary_gold;
+    theme.tabBar = COLORS.tabBar_gold;
+  }
+
   return (
     <ThemeContext.Provider value={{ theme, colorScheme, setColorScheme }}>
       {children}

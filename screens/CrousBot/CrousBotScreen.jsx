@@ -9,7 +9,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "../../assets/icons";
 import { Text, TouchableOpacity, View } from "react-native";
 import { getMenuIllkirch, menuFormatter } from "./CrousApi";
 
-import { TEXT } from "../../constants";
+import { COLORS, TEXT } from "../../constants";
 import { useTheme } from "../../contexts";
 import crousbotStyle from "./crousbot.style";
 import { capitalize } from "../../utils";
@@ -67,7 +67,7 @@ const CrousBotScreen = () => {
                 marginLeft: 20,
               }}
             >
-              <ChevronLeftIcon width={11} height={19} color={theme.text} />
+              <ChevronLeftIcon width={11} height={19} color={COLORS.white} />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setDate(nextDay(date))}
@@ -77,7 +77,7 @@ const CrousBotScreen = () => {
                 marginRight: 20,
               }}
             >
-              <ChevronRightIcon width={11} height={19} color={theme.text} />
+              <ChevronRightIcon width={11} height={19} color={COLORS.white} />
             </TouchableOpacity>
           </View>
         </View>

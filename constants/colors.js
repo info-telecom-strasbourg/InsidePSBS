@@ -18,13 +18,12 @@ const COLORS = {
   light_yellow: "#d7c895",
   dark_yellow: "#ab9735",
 
-  background:"#22262E",
-  box:"#363F50",
-  box_secondary:"#4F5B71",
-  text:"#FFFFFF",
-  text_secondary:"#AEAEAE",
-  tabBar:"#22262E",
-
+  background: "#22262E",
+  box: "#363F50",
+  box_secondary: "#4F5B71",
+  text: "#FFFFFF",
+  text_secondary: "#AEAEAE",
+  tabBar: "#22262E",
 
   background_light: "#EDEDED",
   box_light: "#FFFFFF",
@@ -39,6 +38,13 @@ const COLORS = {
   text_dark: "#FFFFFF",
   text_secondary_dark: "#AEAEAE",
   tabBar_dark: "#000000",
+
+  background_gold: "#F0C34D",
+  box_gold: "#F3DA96",
+  box_secondary_gold: "#DCC178",
+  text_gold: "#463A19",
+  text_secondary_gold: "#5E5029",
+  tabBar_gold: "#F0C34D",
 };
 
 export default COLORS;

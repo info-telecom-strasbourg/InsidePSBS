@@ -16,15 +16,78 @@ import { useRouter } from "expo-router";
 import SettingButton from "./SettingButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Avatar from "./Avatar";
+import { useEffect, useState } from "react";
 
 const SettingsScreen = () => {
   const { data, pushData } = useLocalStorage();
   const { theme, setColorScheme } = useTheme();
   const router = useRouter();
-  const { res, isLoading, error } = useFetch(`${API.url}/api/user/me`, {
+  const { res, isLoading } = useFetch(`${API.url}/api/user/me`, {
     ...API.headers,
     Authorization: `Bearer ${data.token}`,
   });
+
+  const url = `${API.url}/api/fouaille?per_page=1`;
+  const headers = {
+    ...API.headers,
+    Authorization: `Bearer ${data.token}`,
+  };
+
+  const { res: fouailleRes } = useFetch(url, headers);
+
+  const [themeList, setThemeList] = useState([
+    {
+      id: "light",
+      name: "⚪ Thème clair",
+      short_name: "⚪ Thème clair",
+    },
+    {
+      id: "dark",
+      name: "⚫ Thème sombre",
+      short_name: "⚫ Thème sombre (OLED)",
+    },
+    {
+      id: "classic",
+      name: "🔵 Thème classique",
+      short_name: "🔵 Thème classique",
+    },
+    {
+      id: "auto",
+      name: "⚫⚪ Thème automatique",
+      short_name: "⚫⚪ Thème automatique",
+    },
+  ]);
+
+  useEffect(() => {
+    if (parseInt(fouailleRes?.data?.balance) >= 100)
+      setThemeList([
+        {
+          id: "light",
+          name: "⚪ Thème clair",
+          short_name: "⚪ Thème clair",
+        },
+        {
+          id: "dark",
+          name: "⚫ Thème sombre",
+          short_name: "⚫ Thème sombre (OLED)",
+        },
+        {
+          id: "classic",
+          name: "🔵 Thème classique",
+          short_name: "🔵 Thème classique",
+        },
+        {
+          id: "auto",
+          name: "⚫⚪ Thème automatique",
+          short_name: "⚫⚪ Thème automatique",
+        },
+        {
+          id: "gold",
+          name: "🟡 Thème gold",
+          short_name: "🟡 Thème gold",
+        },
+      ]);
+  }, [fouailleRes]);
 
   return (
     <ScrollScreenContainer>
@@ -90,28 +153,7 @@ const SettingsScreen = () => {
               pushData({ ...data, theme: val });
             }}
             label={TEXT.settings.preferences.color}
-            items={[
-              {
-                id: "light",
-                name: "⚪ Thème clair",
-                short_name: "⚪ Thème clair",
-              },
-              {
-                id: "dark",
-                name: "⚫ Thème sombre",
-                short_name: "⚫ Thème sombre (OLED)",
-              },
-              {
-                id: "classic",
-                name: "🔵 Thème classique",
-                short_name: "🔵 Thème classique",
-              },
-              {
-                id: "auto",
-                name: "⚫⚪ Thème automatique",
-                short_name: "⚫⚪ Thème automatique",
-              },
-            ]}
+            items={themeList}
           />
           <View style={styles.section}></View>
           <View style={{ height: 15 }} />

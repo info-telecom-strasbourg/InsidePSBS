@@ -12,7 +12,7 @@ const CrousBotstyles = () => {
       justifyContent: "center",
     },
     dateContainer: {
-      ...text_styles.title3(theme),
+      ...text_styles.title3({ text: COLORS.white }),
       alignSelf: "center",
       alignItems: "center",
       justifyContent: "center",

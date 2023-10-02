@@ -112,10 +112,20 @@ const Day = ({ day, date, isSelected, onPress }) => {
         backgroundColor: isSelected ? COLORS.primary : theme.box,
       }}
     >
-      <Text style={{ ...calendarStyle.dayText, color: theme.text }}>
+      <Text
+        style={{
+          ...calendarStyle.dayText,
+          color: isSelected ? COLORS.white : theme.text,
+        }}
+      >
         {calendar.day_short[(day + 6) % 7]}
       </Text>
-      <Text style={{ ...calendarStyle.dateText, color: theme.text }}>
+      <Text
+        style={{
+          ...calendarStyle.dateText,
+          color: isSelected ? COLORS.white : theme.text,
+        }}
+      >
         {date}
       </Text>
       <Text> </Text>

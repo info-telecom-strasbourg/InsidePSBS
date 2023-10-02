@@ -2,6 +2,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Image, TouchableOpacity, View } from "react-native";
 import { CameraIcon } from "../../assets/icons";
 import { COLORS } from "../../constants";
+import { useTheme } from "../../contexts";
 
 const Avatar = ({ url, pressable = false }) => {
   const handleImagePress = async () => {
@@ -66,16 +67,20 @@ const Avatar = ({ url, pressable = false }) => {
       }
     }
   };
+
   return (
     <TouchableOpacity
       onPress={handleImagePress}
       disabled={!pressable}
-      style={{ width: 80, height: 80, position: "relative" }}
+      style={{
+        width: 80,
+        height: 80,
+        position: "relative",
+        overflow: "hidden",
+        borderRadius: 80,
+      }}
     >
-      <Image
-        source={{ uri: url }}
-        style={{ height: 80, width: 80, borderRadius: 80 }}
-      />
+      <Image source={{ uri: url }} width={80} height={80} />
       {pressable && (
         <View
           style={{
