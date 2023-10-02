@@ -60,6 +60,8 @@
     "no-template-curly-in-string": "error",
     "no-this-before-super": "error",
     "no-undef": "off",
+    "no-unused-expressions": "warn",
+    "no-unused-labels": "warn",
     "no-unused-vars": "warn",
     "prefer-numeric-literals": "error",
     "prefer-object-spread": "error",
