@@ -31,7 +31,7 @@ const CalendarScreen = () => {
         getStringDate(new Date(selectedDay).setDate(selectedDay.getDate() + 1))
       );
       const res = await axios.get(
-        `${API.url}/api/event?start_at=${currentDate}&end_at=${nextDate}`,
+        `${API.url}/api/event?start_at=${currentDate}&end_at=${nextDate}`, // a changer bug lorsque la date est sur 2 jours
         {
           headers: {
             ...API.headers,

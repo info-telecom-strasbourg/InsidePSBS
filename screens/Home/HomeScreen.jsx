@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import axios from "axios";
+import { useRouter } from "expo-router";
 import {
   Image,
   RefreshControl,
@@ -7,24 +9,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { ClockIcon, GpsIcon } from "../../assets/icons";
 import { DefaultTopbar, Loader, ScrollScreenContainer } from "../../components";
 import { API, FONTS, TEXT } from "../../constants";
-import WidgetSection from "./widgets/WidgetSection";
-import { text_styles } from "../../styles";
 import { useTheme } from "../../contexts";
-import axios from "axios";
-import createDateFromDDMMYYYY from "../../utils/date/createDateFromDDMMYYYY";
-import {
-  getStringDate,
-  getTimeDifference,
-  hideTextOverflow,
-} from "../../utils";
 import { useLocalStorage } from "../../contexts/localStorageContext";
-import { ClockIcon, GpsIcon } from "../../assets/icons";
+import { text_styles } from "../../styles";
+import { getStringDate, getTimeDifference } from "../../utils";
+import createDateFromDDMMYYYY from "../../utils/date/createDateFromDDMMYYYY";
 import getHour from "../../utils/date/getHour";
 import getColor from "../../utils/getColors";
-import { useRouter } from "expo-router";
-import { ScrollView } from "react-native-gesture-handler";
+import WidgetSection from "./widgets/WidgetSection";
 
 const HomeScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -37,8 +33,9 @@ const HomeScreen = () => {
   }, [upcomingEvent]);
 
   const handleRefresh = async () => {
+    const controller = new AbortController();
     setLoading(true);
-    await fetchData();
+    await fetchData(controller);
     setLoading(false);
   };
 
