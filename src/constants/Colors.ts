@@ -1,6 +1,6 @@
 import type { Theme } from "@/types/Theme";
 
-const colors = {
+const COLORS = {
   primary: "#F6745E",
   light_primary: "#e09a8c",
   primaryGradient: ["#F6745E", "#F6745E", "#F45135"],
@@ -51,41 +51,41 @@ const colors = {
 
 export const themes: { [key: string]: Theme } = {
   light: {
-    background: colors.background_light,
-    box: colors.box_light,
-    box_secondary: colors.box_secondary_light,
-    text: colors.text_light,
-    text_secondary: colors.text_secondary_light,
-    tabBar: colors.tabBar_light,
-    primary: colors.primary,
+    background: COLORS.background_light,
+    box: COLORS.box_light,
+    box_secondary: COLORS.box_secondary_light,
+    text: COLORS.text_light,
+    text_secondary: COLORS.text_secondary_light,
+    tabBar: COLORS.tabBar_light,
+    primary: COLORS.primary,
   },
   dark: {
-    background: colors.background_dark,
-    box: colors.box_dark,
-    box_secondary: colors.box_secondary_dark,
-    text: colors.text_dark,
-    text_secondary: colors.text_secondary_dark,
-    tabBar: colors.tabBar_dark,
-    primary: colors.primary,
+    background: COLORS.background_dark,
+    box: COLORS.box_dark,
+    box_secondary: COLORS.box_secondary_dark,
+    text: COLORS.text_dark,
+    text_secondary: COLORS.text_secondary_dark,
+    tabBar: COLORS.tabBar_dark,
+    primary: COLORS.primary,
   },
   classic: {
-    background: colors.background,
-    box: colors.box,
-    box_secondary: colors.box_secondary,
-    text: colors.text,
-    text_secondary: colors.text_secondary,
-    tabBar: colors.tabBar,
-    primary: colors.primary,
+    background: COLORS.background,
+    box: COLORS.box,
+    box_secondary: COLORS.box_secondary,
+    text: COLORS.text,
+    text_secondary: COLORS.text_secondary,
+    tabBar: COLORS.tabBar,
+    primary: COLORS.primary,
   },
   gold: {
-    background: colors.background_gold,
-    box: colors.box_gold,
-    box_secondary: colors.box_secondary_gold,
-    text: colors.text_gold,
-    text_secondary: colors.text_secondary_gold,
-    tabBar: colors.tabBar_gold,
-    primary: colors.primary,
+    background: COLORS.background_gold,
+    box: COLORS.box_gold,
+    box_secondary: COLORS.box_secondary_gold,
+    text: COLORS.text_gold,
+    text_secondary: COLORS.text_secondary_gold,
+    tabBar: COLORS.tabBar_gold,
+    primary: COLORS.primary,
   },
 };
 
-export default colors;
+export default COLORS;

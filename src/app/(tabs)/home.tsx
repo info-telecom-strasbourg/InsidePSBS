@@ -1,7 +1,5 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
 import { useRouter } from "expo-router";
-import { logout } from "@/utils/auth";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const Home = () => {
   const router = useRouter();
@@ -11,9 +9,6 @@ const Home = () => {
       <Text>Home</Text>
       <TouchableOpacity onPress={() => router.push("/cgu")}>
         <Text>CGU</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={async () => logout()}>
-        <Text>Logout</Text>
       </TouchableOpacity>
     </View>
   );

@@ -7,30 +7,30 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 export const unstable_settings = {
-  initialRouteName: "/home",
+  initialRouteName: "/",
 };
 
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
-  //   const [loaded, error] = useFonts({
-  //     SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
-  //     ...FontAwesome.font,
-  //   });
+  const [loaded, error] = useFonts({
+    SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
+    ...FontAwesome.font,
+  });
 
-  //   useEffect(() => {
-  //     if (error) throw error;
-  //   }, [error]);
+  useEffect(() => {
+    if (error) throw error;
+  }, [error]);
 
-  //   useEffect(() => {
-  //     if (loaded) {
-  //       SplashScreen.hideAsync();
-  //     }
-  //   }, [loaded]);
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
 
-  //   if (!loaded) {
-  //     return null;
-  //   }
+  if (!loaded) {
+    return null;
+  }
 
   return <RootLayoutNav />;
 };
