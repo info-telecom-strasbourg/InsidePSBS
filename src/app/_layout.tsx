@@ -1,52 +1,54 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
+import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export const unstable_settings = {
-  initialRouteName: "(tabs)",
+  initialRouteName: "/home",
 };
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
-    ...FontAwesome.font,
-  });
+const RootLayout = () => {
+  //   const [loaded, error] = useFonts({
+  //     SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
+  //     ...FontAwesome.font,
+  //   });
 
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+  //   useEffect(() => {
+  //     if (error) throw error;
+  //   }, [error]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  //   useEffect(() => {
+  //     if (loaded) {
+  //       SplashScreen.hideAsync();
+  //     }
+  //   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+  //   if (!loaded) {
+  //     return null;
+  //   }
 
   return <RootLayoutNav />;
-}
+};
 
 const RootLayoutNav = () => {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-      </Stack>
+    <Provider>
+      <Stack />
+    </Provider>
+  );
+};
+
+const Provider = ({ children }: PropsWithChildren) => {
+  return (
+    <ThemeProvider>
+      <AuthProvider>{children}</AuthProvider>
     </ThemeProvider>
   );
 };
+
+export default RootLayout;

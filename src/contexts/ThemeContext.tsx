@@ -19,6 +19,16 @@ export const useTheme = () => {
   return useContext(ThemeContext);
 };
 
+// Provider
+export const ThemeProvider = ({ children }: PropsWithChildren) => {
+  const { colorScheme, setColorScheme, theme } = useThememProvider();
+  return (
+    <ThemeContext.Provider value={{ colorScheme, setColorScheme, theme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
 const useThememProvider = (): ThemeContextValue => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("classic");
   const [themeColors, setThemeColors] = useState<Theme>(themes[colorScheme]);
@@ -30,7 +40,7 @@ const useThememProvider = (): ThemeContextValue => {
       try {
         const storedTheme = await AsyncStorage.getItem("theme");
         if (storedTheme) setColorScheme(storedTheme as ColorScheme);
-        else AsyncStorage.setItem("theme", colorScheme);
+        else await AsyncStorage.setItem("theme", colorScheme);
       } catch (error) {
         console.error(error);
       }
@@ -70,14 +80,4 @@ const useThememProvider = (): ThemeContextValue => {
     colorScheme,
     setColorScheme,
   };
-};
-
-// Provider
-export const ThemeProvider = ({ children }: PropsWithChildren) => {
-  const { colorScheme, setColorScheme, theme } = useThememProvider();
-  return (
-    <ThemeContext.Provider value={{ colorScheme, setColorScheme, theme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
 };
