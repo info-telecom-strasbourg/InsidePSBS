@@ -28,7 +28,7 @@ const WidgetSection = () => {
       {
         text: TEXT.common.redirect.continue,
         onPress: () =>
-          router.replace("https://nextcloud.its-tps.fr/s/J8C9b3YFPDMAjGH"),
+          router.replace("https://nextcloud.its-tps.fr/s/zfFkwR6y5wxt5gW"),
       },
     ]);
   };
