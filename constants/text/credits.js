@@ -10,7 +10,7 @@ const credits = {
     "L'homme à son prime",
   ],
   enzo: ["Enzo Bergamini", "Enzo la merde", "La pire VP Tech de l'histoire"],
-  felix: ["Felix Lusseau", "Le roi de TPS", "Le grand maître des serveurs"],
+  felix: ["Félix Lusseau", "Le roi de TPS", "Le grand maître des serveurs"],
   alexander: ["Alexander Yanovskyy", "Le prince du C", "Sabaka Gaff Gaff"],
   jeanne: ["Jeanne König-Wacheux"],
   thomas: ["Thomas Dumond", "Le président de LosKeeper"],
