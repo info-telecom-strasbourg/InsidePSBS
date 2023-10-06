@@ -1,11 +1,14 @@
-import { Text, View } from "react-native";
+import { SettingsButton } from "@/components/Buttons";
+import { BackButtonTopbar } from "@/components/Topbar";
+import { ScrollScreenView } from "@/components/Views";
 
 const Credits = () => {
-  console.log("Crédits");
   return (
-    <View>
-      <Text>Crédits</Text>
-    </View>
+    <ScrollScreenView>
+      <BackButtonTopbar rightIcon={<SettingsButton />}>
+        Credits
+      </BackButtonTopbar>
+    </ScrollScreenView>
   );
 };
 

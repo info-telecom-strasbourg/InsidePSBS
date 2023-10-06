@@ -1,11 +1,14 @@
-import { Text, View } from "react-native";
+import { SettingsButton } from "@/components/Buttons";
+import { BackButtonTopbar } from "@/components/Topbar";
+import { ScrollScreenView } from "@/components/Views";
 
 const Fouaille = () => {
-  console.log("Fouaille");
   return (
-    <View>
-      <Text>Fouaille</Text>
-    </View>
+    <ScrollScreenView>
+      <BackButtonTopbar rightIcon={<SettingsButton />}>
+        Fouaille
+      </BackButtonTopbar>
+    </ScrollScreenView>
   );
 };
 

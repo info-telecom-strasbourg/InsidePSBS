@@ -1,23 +1,48 @@
-import { login } from "@/utils/auth";
+import {
+  PrimaryButton,
+  SecondaryButton,
+  SettingsButton,
+} from "@/components/Buttons";
+import { Body1 } from "@/components/Text";
+import { DefaultTopbar } from "@/components/Topbar";
+import { ScrollScreenView } from "@/components/Views";
+import { logout } from "@/utils/auth";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
 
 const AppIndex = () => {
-  console.log("Index");
   const router = useRouter();
+  const [token, setToken] = useState<string>("");
+  const { getItem: getToken } = useAsyncStorage("token");
+  useEffect(() => {
+    updateToken();
+  }, []);
+
+  const updateToken = async () => {
+    setToken(await getToken());
+  };
+
   return (
-    <View>
-      <Text>Index</Text>
-      <TouchableOpacity onPress={() => router.push("/auth/login")}>
-        <Text>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.push("/home")}>
-        <Text>Home</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={async () => login()}>
-        <Text>Login</Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollScreenView
+      contentContainerStyle={{ gap: 10 }}
+      onRefresh={updateToken}
+    >
+      <DefaultTopbar rightIcon={<SettingsButton />}>Index</DefaultTopbar>
+      <Body1>{token || "not logged in"}</Body1>
+      <PrimaryButton onPress={() => router.push("/home")}>Home</PrimaryButton>
+      <PrimaryButton onPress={() => router.push("/settings/")}>
+        Settings
+      </PrimaryButton>
+      <PrimaryButton onPress={() => router.push("/auth/login")}>
+        Login
+      </PrimaryButton>
+      <PrimaryButton onPress={() => router.push("/auth/register")}>
+        Register
+      </PrimaryButton>
+      <SecondaryButton onPress={async () => logout()}>Logout</SecondaryButton>
+    </ScrollScreenView>
   );
 };
+
 export default AppIndex;

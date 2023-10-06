@@ -1,15 +1,16 @@
+import { PrimaryButton, SettingsButton } from "@/components/Buttons";
+import { BackButtonTopbar } from "@/components/Topbar";
+import { ScrollScreenView } from "@/components/Views";
 import { logout } from "@/utils/auth";
-import { Text, TouchableOpacity, View } from "react-native";
 
 const Profile = () => {
-  console.log("Profile");
   return (
-    <View>
-      <Text>Profile</Text>
-      <TouchableOpacity onPress={async () => logout()}>
-        <Text>Logout</Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollScreenView>
+      <BackButtonTopbar rightIcon={<SettingsButton />}>
+        Profile
+      </BackButtonTopbar>
+      <PrimaryButton onPress={async () => logout()}>Logout</PrimaryButton>
+    </ScrollScreenView>
   );
 };
 

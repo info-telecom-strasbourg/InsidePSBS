@@ -1,11 +1,12 @@
-import { Text, View } from "react-native";
+import { SettingsButton } from "@/components/Buttons";
+import { BackButtonTopbar } from "@/components/Topbar";
+import { ScrollScreenView } from "@/components/Views";
 
 const Crous = () => {
-  console.log("Crous");
   return (
-    <View>
-      <Text>Crous</Text>
-    </View>
+    <ScrollScreenView>
+      <BackButtonTopbar rightIcon={<SettingsButton />}>Crous</BackButtonTopbar>
+    </ScrollScreenView>
   );
 };
 

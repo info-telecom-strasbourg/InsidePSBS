@@ -1,18 +1,16 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import { PrimaryButton, SettingsButton } from "@/components/Buttons";
+import { Topbar } from "@/components/Topbar";
+import { ScrollScreenView } from "@/components/Views";
 import { useRouter } from "expo-router";
-import { logout } from "@/utils/auth";
+import React from "react";
 
 const Calendar = () => {
   const router = useRouter();
-  console.log("Calendar");
   return (
-    <View>
-      <Text>Calendar</Text>
-      <TouchableOpacity onPress={() => router.push("/cgu")}>
-        <Text>CGU</Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollScreenView>
+      <Topbar rightIcon={<SettingsButton />}>Calendar</Topbar>
+      <PrimaryButton onPress={() => router.push("/cgu")}>CGU</PrimaryButton>
+    </ScrollScreenView>
   );
 };
 

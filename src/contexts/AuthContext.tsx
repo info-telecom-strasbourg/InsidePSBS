@@ -35,7 +35,6 @@ const useProtectedRoute = async () => {
   useEffect(() => {
     (async () => {
       const token = await getToken();
-      console.log(token);
       if (!isNavigationReady) return;
       if (!token && segments[0] !== "(public)") return router.replace("/"); // a modifier avec les vraies routes
       if (token && segments[1] === "auth") router.replace("/");

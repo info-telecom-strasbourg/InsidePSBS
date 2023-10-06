@@ -1,11 +1,14 @@
-import { Text, View } from "react-native";
+import { SettingsButton } from "@/components/Buttons";
+import { BackButtonTopbar } from "@/components/Topbar";
+import { ScrollScreenView } from "@/components/Views";
 
 const Organizations = () => {
-  console.log("Organizations");
   return (
-    <View>
-      <Text>Organizations</Text>
-    </View>
+    <ScrollScreenView>
+      <BackButtonTopbar rightIcon={<SettingsButton />}>
+        Organization
+      </BackButtonTopbar>
+    </ScrollScreenView>
   );
 };
 

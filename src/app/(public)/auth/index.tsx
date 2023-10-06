@@ -1,16 +1,17 @@
+import { PrimaryButton, SettingsButton } from "@/components/Buttons";
+import { BackButtonTopbar } from "@/components/Topbar";
+import { ScrollScreenView } from "@/components/Views";
 import { useRouter } from "expo-router";
-import { View, Text, TouchableOpacity } from "react-native";
 
 const Auth = () => {
-  console.log("Auth");
   const router = useRouter();
   return (
-    <View>
-      <Text>Auth</Text>
-      <TouchableOpacity onPress={() => router.push("/auth/login")}>
-        <Text>Login</Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollScreenView>
+      <BackButtonTopbar rightIcon={<SettingsButton />}>Auth</BackButtonTopbar>
+      <PrimaryButton onPress={() => router.push("/auth/login")}>
+        Login
+      </PrimaryButton>
+    </ScrollScreenView>
   );
 };
 

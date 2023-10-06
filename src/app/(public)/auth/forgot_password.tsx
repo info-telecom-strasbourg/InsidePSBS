@@ -1,16 +1,17 @@
+import { PrimaryButton, SettingsButton } from "@/components/Buttons";
+import { BackButtonTopbar } from "@/components/Topbar";
+import { ScrollScreenView } from "@/components/Views";
 import { useRouter } from "expo-router";
-import { View, Text, TouchableOpacity } from "react-native";
 
 const ForgotPassword = () => {
-  console.log("Forgot Password");
   const router = useRouter();
   return (
-    <View>
-      <Text>Forgot Password</Text>
-      <TouchableOpacity onPress={() => router.push("/cgu")}>
-        <Text>CGU</Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollScreenView>
+      <BackButtonTopbar rightIcon={<SettingsButton />}>
+        Forgot Password
+      </BackButtonTopbar>
+      <PrimaryButton onPress={() => router.push("/cgu")}>CGU</PrimaryButton>
+    </ScrollScreenView>
   );
 };
 
