@@ -56,6 +56,10 @@ const RootLayoutNav = () => {
           }}
         >
           <Stack.Screen name="(tabs)" options={{ animation: "fade" }} />
+          <Stack.Screen
+            name="(modals)"
+            options={{ animation: "slide_from_right" }}
+          />
         </Stack>
       </SafeAreaView>
     </Provider>
