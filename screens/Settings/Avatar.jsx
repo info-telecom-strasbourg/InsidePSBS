@@ -3,8 +3,13 @@ import { Image, TouchableOpacity, View } from "react-native";
 import { CameraIcon } from "../../assets/icons";
 import { COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
+import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
+import axios from "axios";
+import { API } from "../../constants";
+import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const Avatar = ({ url, pressable = false }) => {
+  const { data } = useLocalStorage();
   const handleImagePress = async () => {
     const sizeTarget = 512;
     await ImagePicker.requestMediaLibraryPermissionsAsync();
