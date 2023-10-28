@@ -3,24 +3,20 @@ import * as Notifications from 'expo-notifications';
 
 import { useEffect } from "react";
 
-const initNotification = () => {
+const initNotification = async () => {
     const {registerForPushNotificationsAsync, handleNotificationResponse} = useNotifications() ;
-    useEffect(() => {
-      var tocken;
-      tocken=registerForPushNotificationsAsync();
-      Notifications.setNotificationHandler({
+    const expo_token = await registerForPushNotificationsAsync();
+    Notifications.setNotificationHandler({
         handleNotification: async () => ({
           shouldShowAlert: true,
           shouldPlaySound: true,
           shouldSetBadge: true,
         }),
-      });
-      const responseListener = Notifications.addNotificationResponseReceivedListener( handleNotificationResponse );
-      return () => {
-        if (responseListener) {
-          Notifications.removeNotificationSubscription(responseListener);
-        };
-      };
-    }, []);
-    };
+    });
+    const responseListener = Notifications.addNotificationResponseReceivedListener( handleNotificationResponse );
+    // if (responseListener) {
+    //   Notifications.removeNotificationSubscription(responseListener);
+    // };
+    return expo_token;
+};
 export default initNotification;

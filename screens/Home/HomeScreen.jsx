@@ -21,13 +21,14 @@ import createDateFromDDMMYYYY from "../../utils/date/createDateFromDDMMYYYY";
 import getHour from "../../utils/date/getHour";
 import getColor from "../../utils/getColors";
 import WidgetSection from "./widgets/WidgetSection";
-
+import verifyExpoTocken from "../../utils/verifyExpoTocken";
 const HomeScreen = () => {
   const [loading, setLoading] = useState(false);
   const { theme } = useTheme();
   const [upcomingEvent, setUpcomingEvent] = useState([]);
   const { data } = useLocalStorage();
   console.log(data.token);
+
   useEffect(() => {
     console.log(upcomingEvent);
   }, [upcomingEvent]);

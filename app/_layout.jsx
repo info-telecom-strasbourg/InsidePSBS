@@ -10,8 +10,6 @@ import { RootSiblingParent } from "react-native-root-siblings";
 
 const AppLayout = () => {
   lockScreenOrientation();
-  // TODO: implement notifications and preferences must put it in a Provider
-  var tocken = initNotification();
 
   const Container = Platform.OS === "web" ? WebContainer : View;
 

@@ -28,7 +28,6 @@ export {
   capitalize,
   loadFonts,
   hideTextOverflow,
-  initNotification,
   checkEmail,
   checkPassword,
   checkPasswordConfirmation,
