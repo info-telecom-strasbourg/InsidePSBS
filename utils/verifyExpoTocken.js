@@ -1,13 +1,11 @@
-import { useLocalStorage } from "../contexts/localStorageContext";
-import initNotification from "./initNotification";
 import axios from "axios";
 import { API } from "../constants";
 
-async function subscribePushNotificationsAsync(data, expo_tocken) {
+async function subscribePushNotificationsAsync(data, expo_token) {
   try {
     await axios.post(
       `${API.url}/api/exponent/devices/subscribe`,
-      { expo_token: expo_tocken },
+      { expo_token: expo_token },
       {
         headers: {
           ...API.headers,
@@ -20,15 +18,13 @@ async function subscribePushNotificationsAsync(data, expo_tocken) {
     console.error("error", e);
   }
 }
-const verifyExpoTocken = async () => {
-  const { data, pushData } = useLocalStorage();
-  const expo_tocken = await initNotification();
-  console.log("expo_tocken", expo_tocken, data.expo_tocken);
-  if (expo_tocken && expo_tocken !== data.expo_tocken) {
-    console.log("posting the expo-tocken", expo_tocken);
+const verifyExpoTocken = async (expo_token,data,pushData) => {
+  console.log("expo_token", expo_token, );
+  if (expo_token && expo_token !== data.expo_token) {
+    console.log("posting the expo-tocken", expo_token);
     try {
-      await subscribePushNotificationsAsync(data, expo_tocken);
-      pushData("expo_tocken", expo_tocken);
+      await subscribePushNotificationsAsync(data, expo_token);
+      pushData("expo_token", expo_token);
     } catch (e) {
       console.error(e);
     }
