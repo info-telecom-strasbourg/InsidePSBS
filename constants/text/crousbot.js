@@ -1,5 +1,5 @@
 const crousbot = {
-    page_name: "Crous Bot",
+    page_name: "CrousBot",
     menu_error:"Pas de menu disponible pour aujourd'hui !",
     starter:"🥗 Entrée",
     main:"🍽️ Menu du jour",

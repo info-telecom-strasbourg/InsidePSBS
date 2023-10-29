@@ -27,7 +27,6 @@ const HomeScreen = () => {
   const { theme } = useTheme();
   const [upcomingEvent, setUpcomingEvent] = useState([]);
   const { data, pushData } = useLocalStorage();
-  console.log(data.token);
   useEffect(() => {
     initNotification(data, pushData);
   }, []);
