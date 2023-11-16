@@ -11,7 +11,7 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from "../../assets/icons";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Picker as NativePicker } from "@react-native-picker/picker";
-import { getMenuIllkirch, menuFormatter } from "./CrousApi";
+import { getDate, getMenu, menuFormatter } from "./CrousApi";
 
 import { COLORS, TEXT, FONTS } from "../../constants";
 import { useTheme } from "../../contexts";
@@ -39,7 +39,6 @@ const CrousBotScreen = () => {
   const styles = crousbotStyle();
   const { theme } = useTheme();
   const { data, pushData, removeData } = useLocalStorage();
-  console.log(data);
   const [sector, setSector] = useState(data.sector);
   const [menu, setMenu] = useState(null);
   const [date, setDate] = useState(new Date());
@@ -49,16 +48,22 @@ const CrousBotScreen = () => {
     { id: 1, name: "cronenbourg", short_name: "Cronenbourg" },
     { id: 2, name: "illkirch", short_name: "Illkirch" },
     { id: 3, name: "paul-appell", short_name: "Paul-appell" },
+    { id: 4, name: "esplanade", short_name: "Esplanade" },
+    { id: 5, name: "gallia", short_name: "Gallia" },
   ];
   useEffect(() => {
-    getMenuIllkirch(date).then((res) => {
-      if (res === -1) setMenu(null);
-      else {
-        res = menuFormatter(res);
-        setMenu(res);
+    const fetchMenu = async () => {
+      const res = await getMenu("illkirch");
+      if (res === -1) {
+        setMenu(null);
+      } else {
+        dish = menuFormatter(res);
+        setMenu(dish);
       }
-    });
-  }, [date]);
+    };
+
+    fetchMenu();
+  }, []);
 
   const nextDay = (date) => {
     return new Date(date.getTime() + 24 * 60 * 60 * 1000);
@@ -120,25 +125,25 @@ const CrousBotScreen = () => {
                 <Loader />
               ) : (
                 <View style={{ paddingVertical: 30 }}>
-                  {menu ? (
+                  {menu[date.toISOString().substring(0, 10)] ? (
                     <>
                       <Section
                         title={TEXT.crousbot.starter}
-                        content={menu.starter}
+                        content={menu[date.toISOString().substring(0, 10)].starter}
                       />
-                      <Section title={TEXT.crousbot.main} content={menu.main} />
+                      <Section title={TEXT.crousbot.main} content={menu[date.toISOString().substring(0, 10)].main} />
                       <Section
                         title={TEXT.crousbot.pasta}
-                        content={menu.pasta}
+                        content={menu[date.toISOString().substring(0, 10)].pasta}
                       />
-                      <Section title={TEXT.crousbot.veg} content={menu.veg} />
+                      <Section title={TEXT.crousbot.veg} content={menu[date.toISOString().substring(0, 10)].veg} />
                       <Section
                         title={TEXT.crousbot.grill}
-                        content={menu.grill}
+                        content={menu[date.toISOString().substring(0, 10)].grill}
                       />
                       <Section
                         title={TEXT.crousbot.dessert}
-                        content={menu.dessert}
+                        content={menu[date.toISOString().substring(0, 10)].dessert}
                       />
                     </>
                   ) : (
