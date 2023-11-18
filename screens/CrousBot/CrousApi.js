@@ -2,20 +2,6 @@ import axios from "axios";
 
 import API_CROUS from "../../constants/api-crous";
 
-export function getDate(day_diff) {
-  // Get the date of the day
-  var date = new Date();
-  date.setDate(date.getDate() + day_diff);
-  var day = date.getDate().toString();
-  if (day[0] === "0") {
-    day = day[1];
-  }
-  var month = date.toLocaleString("fr-FR", { month: "long" });
-  var date = parseInt(day) + " " + month;
-
-  return date;
-}
-
 export async function getMenu(name) {
   var URL = `${API_CROUS.url}/${name}`;
   response = await axios.get(URL);

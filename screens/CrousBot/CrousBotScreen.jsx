@@ -11,7 +11,7 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from "../../assets/icons";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Picker as NativePicker } from "@react-native-picker/picker";
-import { getDate, getMenu, menuFormatter } from "./CrousApi";
+import { getMenu, menuFormatter } from "./CrousApi";
 
 import { COLORS, TEXT, FONTS } from "../../constants";
 import { useTheme } from "../../contexts";
@@ -51,10 +51,11 @@ const CrousBotScreen = () => {
     { id: 4, name: "esplanade", short_name: "Esplanade" },
     { id: 5, name: "gallia", short_name: "Gallia" },
   ];
+
   useEffect(() => {
     const fetchMenu = async () => {
-      const res = await getMenu("illkirch");
-      if (res === -1) {
+      var res = await getMenu("illkirch");
+      if (res === -1 || res === null) {
         setMenu(null);
       } else {
         dish = menuFormatter(res);
@@ -125,7 +126,7 @@ const CrousBotScreen = () => {
                 <Loader />
               ) : (
                 <View style={{ paddingVertical: 30 }}>
-                  {menu[date.toISOString().substring(0, 10)] ? (
+                  {menu && menu[date.toISOString().substring(0, 10)] ? (
                     <>
                       <Section
                         title={TEXT.crousbot.starter}
