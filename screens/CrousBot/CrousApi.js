@@ -3,8 +3,11 @@ import axios from "axios";
 import API_CROUS from "../../constants/api-crous";
 
 export async function getMenu(name) {
+
   var URL = `${API_CROUS.url}/${name}`;
-  response = await axios.get(URL);
+  console.log(URL);
+  response = await axios.get(URL,{ timeout: 5000});
+  console.log(response.data)
 
   return response.data;
 }

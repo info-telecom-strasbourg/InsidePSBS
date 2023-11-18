@@ -54,7 +54,9 @@ const CrousBotScreen = () => {
 
   useEffect(() => {
     const fetchMenu = async () => {
+      console.log("fetching menu");
       var res = await getMenu("illkirch");
+      console.log(res);
       if (res === -1 || res === null) {
         setMenu(null);
       } else {
@@ -130,21 +132,35 @@ const CrousBotScreen = () => {
                     <>
                       <Section
                         title={TEXT.crousbot.starter}
-                        content={menu[date.toISOString().substring(0, 10)].starter}
+                        content={
+                          menu[date.toISOString().substring(0, 10)].starter
+                        }
                       />
-                      <Section title={TEXT.crousbot.main} content={menu[date.toISOString().substring(0, 10)].main} />
+                      <Section
+                        title={TEXT.crousbot.main}
+                        content={menu[date.toISOString().substring(0, 10)].main}
+                      />
                       <Section
                         title={TEXT.crousbot.pasta}
-                        content={menu[date.toISOString().substring(0, 10)].pasta}
+                        content={
+                          menu[date.toISOString().substring(0, 10)].pasta
+                        }
                       />
-                      <Section title={TEXT.crousbot.veg} content={menu[date.toISOString().substring(0, 10)].veg} />
+                      <Section
+                        title={TEXT.crousbot.veg}
+                        content={menu[date.toISOString().substring(0, 10)].veg}
+                      />
                       <Section
                         title={TEXT.crousbot.grill}
-                        content={menu[date.toISOString().substring(0, 10)].grill}
+                        content={
+                          menu[date.toISOString().substring(0, 10)].grill
+                        }
                       />
                       <Section
                         title={TEXT.crousbot.dessert}
-                        content={menu[date.toISOString().substring(0, 10)].dessert}
+                        content={
+                          menu[date.toISOString().substring(0, 10)].dessert
+                        }
                       />
                     </>
                   ) : (
@@ -168,7 +184,7 @@ const CrousBotScreen = () => {
           right: 11,
         }}
       >
-        <NativePicker
+        {/* <NativePicker
           selectedValue={sector}
           itemStyle={{
             color: theme.text,
@@ -190,7 +206,7 @@ const CrousBotScreen = () => {
               value={item.id}
             />
           ))}
-        </NativePicker>
+        </NativePicker> */}
       </View>
     </>
   );
