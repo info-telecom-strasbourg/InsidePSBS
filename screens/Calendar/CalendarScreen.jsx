@@ -8,10 +8,11 @@ import { useTheme } from "../../contexts";
 import DaySelector from "./DaySelector";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import axios from "axios";
-import { API } from "../../constants";
+import { API, ROUTES } from "../../constants";
 import EventList from "./EventList";
 import { getStringDate } from "../../utils";
 import createDateFromDDMMYYYY from "../../utils/date/createDateFromDDMMYYYY";
+import PlusButton from "../../components/touchableicon/PlusButton";
 
 const CalendarScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -73,30 +74,33 @@ const CalendarScreen = () => {
   }, []);
 
   return (
-    <ScrollScreenContainer
-      refreshControl={
-        <RefreshControl onRefresh={handleRefresh} refreshing={refreshing} />
-      }
-    >
-      <Topbar onPress={() => setShowDatePicker(true)}>
-        {screenTitle}{" "}
-        <ChevronDownIcon color={theme.text} width={22} height={13} />
-      </Topbar>
-      <DateTimePickerModal
-        date={selectedDay}
-        isVisible={showDatePicker}
-        mode="date"
-        onConfirm={handleConfirmModal}
-        onCancel={() => setShowDatePicker(false)}
-      />
+    <>
+      <ScrollScreenContainer
+        refreshControl={
+          <RefreshControl onRefresh={handleRefresh} refreshing={refreshing} />
+        }
+      >
+        <Topbar onPress={() => setShowDatePicker(true)}>
+          {screenTitle}{" "}
+          <ChevronDownIcon color={theme.text} width={22} height={13} />
+        </Topbar>
+        <DateTimePickerModal
+          date={selectedDay}
+          isVisible={showDatePicker}
+          mode="date"
+          onConfirm={handleConfirmModal}
+          onCancel={() => setShowDatePicker(false)}
+        />
 
-      <DaySelector
-        selectedDay={selectedDay}
-        setSelectedDay={setSelectedDay}
-        changeScreenTitle={changeScreenTitle}
-      />
-      {isLoading ? <Loader /> : <EventList data={eventList} />}
-    </ScrollScreenContainer>
+        <DaySelector
+          selectedDay={selectedDay}
+          setSelectedDay={setSelectedDay}
+          changeScreenTitle={changeScreenTitle}
+        />
+        {isLoading ? <Loader /> : <EventList data={eventList} />}
+      </ScrollScreenContainer>
+      <PlusButton url={ROUTES.add_event} />
+    </>
   );
 };
 

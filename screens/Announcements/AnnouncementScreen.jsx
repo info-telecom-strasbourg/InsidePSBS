@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Loader, ScrollScreenContainer, Topbar } from "../../components";
-import { API, TEXT } from "../../constants";
+import { API, ROUTES, TEXT } from "../../constants";
 import { RefreshControl, View } from "react-native";
 import Publication from "./Publication";
 import PlusButton from "../../components/touchableicon/PlusButton";
@@ -8,6 +8,7 @@ import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import announcements from "../../constants/text/announcements";
 import axios from "axios";
+import { Constants } from "expo-camera";
 const AnnouncementScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [announcement, setAnnouncement] = useState([]);
@@ -61,7 +62,7 @@ const AnnouncementScreen = () => {
         )}
       </ScrollScreenContainer>
       {/* TODO: Add the page to create a new announcement */}
-      <PlusButton />
+      <PlusButton url={ROUTES.announcements} />
     </>
   );
 };

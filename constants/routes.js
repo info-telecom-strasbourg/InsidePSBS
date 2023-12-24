@@ -3,6 +3,7 @@ const ROUTES = {
   home: "/home",
   messages: "/messages",
   announcements: "/announcements",
+  add_event: "/add_event",
   calendar: "/calendar",
   settings: "/settings",
   fouaille: "/fouaille",

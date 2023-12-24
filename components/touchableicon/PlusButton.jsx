@@ -6,12 +6,12 @@ import { PlusIcon } from "../../assets/icons";
 import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 
-const PlusButton = () => {
+const PlusButton = (props) => {
   const { theme } = useTheme();
   const router = useRouter();
   return (
     <TouchableOpacity
-      onPress={() => router.push(`${ROUTES.form}/announcement`)}
+      onPress={() => router.push(`${ROUTES.form}${props.url}`)}
       style={{
         width: 50,
         height: 50,
