@@ -10,6 +10,7 @@ const fouaille = {
     date: "Date",
     price: "Prix",
     totalSpent: "Total dépensé",
+    totalRecharged: "Total rechargé",
   },
   }
   
