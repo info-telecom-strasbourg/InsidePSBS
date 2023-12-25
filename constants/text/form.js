@@ -11,7 +11,6 @@ const form = {
         description: "📖 Description de l'événement",
         date: "📅 Date de l'événement",
         end_date: "📅 Date fin de l'événement",
-
         start_time: "🕒 Heure de l'événement",
         end_time:"🕒 Heure de fin de l'événement",
         location: "📍 Lieu de l'événement",

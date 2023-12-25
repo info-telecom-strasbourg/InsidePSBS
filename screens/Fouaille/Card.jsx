@@ -1,17 +1,25 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
 
 import fouailleStyles from "./fouaille.style";
 import { NetworkIcon } from "../../assets/icons";
-import { TEXT } from "../../constants";
+import { TEXT, ROUTES } from "../../constants";
 import { useTheme } from "../../contexts";
+import { useRouter } from "expo-router";
 
 const Card = ({ money, firstname, lastname }) => {
   const styles = fouailleStyles();
   const { theme } = useTheme();
+  const router = useRouter();
 
   return (
-    <View style={styles.card.container}>
+    <TouchableOpacity
+      style={styles.card.container}
+      onPress={() => {
+        console.log("go to card");
+        router.push(ROUTES.vizualisation);
+      }}
+    >
       <View style={styles.card.wrapper}>
         <View>
           <Text style={styles.card.title}>{TEXT.fouaille.card}</Text>
@@ -22,7 +30,7 @@ const Card = ({ money, firstname, lastname }) => {
       <Text style={styles.card.name}>
         {firstname} {lastname}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

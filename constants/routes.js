@@ -7,6 +7,7 @@ const ROUTES = {
   calendar: "/calendar",
   settings: "/settings",
   fouaille: "/fouaille",
+  vizualisation: "/fouaille/vizualisation",
   auth: "/auth",
   login: "/auth/login",
   register: "/auth/register",

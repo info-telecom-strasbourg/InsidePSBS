@@ -1,5 +1,5 @@
 import React from "react";
-import { FouailleScreen } from "../../screens";
+import { FouailleScreen } from "../../../screens";
 
 const Fouaille = () => {
   return <FouailleScreen />;
