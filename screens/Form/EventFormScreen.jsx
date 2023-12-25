@@ -17,39 +17,35 @@ import styles from "../../components/input/input.style";
 import CheckBox from "expo-checkbox";
 
 const EventFormScreen = () => {
-  const [selectedDay, setSelectedDay] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showStartTimePicker, setShowStartTimePicker] = useState(false);
-  const [selectedEndTime, setSelectedEndTime] = useState(new Date());
-  const [showEndTimePicker, setShowEndTimePicker] = useState(false);
-
-  const [MultipleDay, setMultipleDay] = useState(false);
-
-  const handleConfirmModal = (date) => {
-    setShowDatePicker(false);
-    setSelectedDay(date);
-  };
-
-  const handleStartConfirmModal = (date) => {
-    setShowStartTimePicker(false);
-    setSelectedDay(date);
-  };
-  const handleEndConfirmModal = (date) => {
-    setShowEndTimePicker(false);
-    while (selectedDay > date) {
-      // add 1 day to date
-      date.setDate(date.getDate() + 1);
-    }
-    setSelectedEndTime(date);
-  };
   const router = useRouter();
 
-  const [error, setError] = useState("");
+  const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  const [showStartTimePicker, setShowStartTimePicker] = useState(false);
+  const [showEndTimePicker, setShowEndTimePicker] = useState(false);
+  const [MultipleDay, setMultipleDay] = useState(false);
+
   const [result, setResult] = useState({
     title: "",
-    body: "",
-    color: "#ffffff",
+    description: "",
+    start_at: new Date(),
+    end_at: new Date(),
+    location: "",
   });
+  const handleStartConfirmModal = (date) => {
+    setShowStartDatePicker(false);
+    setShowStartTimePicker(false);
+    setResult((prev) => ({ ...prev, start_at: date }));
+  };
+
+  const handleEndConfirmModal = (date) => {
+    setShowEndDatePicker(false);
+    setShowEndTimePicker(false);
+    setResult((prev) => ({ ...prev, end_at: date }));
+  };
+
+  const [error, setError] = useState("");
+
   const { data } = useLocalStorage();
   const showHour = (time) => {
     const hour = time.toLocaleTimeString().split(":").slice(0, 2);
@@ -57,7 +53,6 @@ const EventFormScreen = () => {
   };
 
   const handleSubmit = async (entries) => {
-    //check the content of the field to verify not too long
     try {
       const res = await axios
         .post(`${API.url}/api/post`, entries, {
@@ -107,12 +102,12 @@ const EventFormScreen = () => {
         <View style={{ height: 25 }} />
         {/*date  */}
 
-        <Text onPress={() => setShowDatePicker(true)}>
+        <Text onPress={() => setShowStartDatePicker(true)}>
           <Text style={styles.textInputLabel(theme)}>
             {TEXT.form.event.date} :{"  "}
           </Text>
           <Text style={[styles.textInputEntry(theme)]}>
-            {selectedDay.toLocaleDateString()}
+            {result.start_at.toLocaleDateString()}
           </Text>
         </Text>
 
@@ -123,21 +118,22 @@ const EventFormScreen = () => {
             {TEXT.form.event.start_time} :{"  "}
           </Text>
           <Text style={styles.textInputEntry(theme)}>
-            {showHour(selectedDay)}
+            {showHour(result.start_at)}
           </Text>
         </Text>
 
         <View style={{ height: 25 }} />
         <View style={{ flexDirection: "row" }}>
+          <Text style={styles.textInputLabel(theme)}>
+            {TEXT.form.event.multiple_dates}
+          </Text>
+          <View style={{ width: 10 }} />
+
           <CheckBox
             color={MultipleDay ? COLORS.primary : theme.text}
             onValueChange={setMultipleDay}
             value={MultipleDay}
           />
-          <View style={{ width: 10 }} />
-          <Text style={styles.textInputLabel(theme)}>
-            {TEXT.form.event.multiple_dates}
-          </Text>
         </View>
 
         {MultipleDay ? (
@@ -145,12 +141,12 @@ const EventFormScreen = () => {
             <View style={{ height: 25 }} />
             {/*date  */}
 
-            <Text onPress={() => setShowDatePicker(true)}>
+            <Text onPress={() => setShowEndDatePicker(true)}>
               <Text style={styles.textInputLabel(theme)}>
-                {TEXT.form.event.date} :{"  "}
+                {TEXT.form.event.end_date} :{"  "}
               </Text>
               <Text style={[styles.textInputEntry(theme)]}>
-                {selectedDay.toLocaleDateString()}
+                {result.end_at.toLocaleDateString()}
               </Text>
             </Text>
           </>
@@ -166,26 +162,34 @@ const EventFormScreen = () => {
             {TEXT.form.event.end_time} :{"  "}
           </Text>
           <Text style={styles.textInputEntry(theme)}>
-            {showHour(selectedEndTime)}
+            {showHour(result.end_at)}
           </Text>
         </Text>
 
         <DateTimePickerModal
-          date={selectedDay}
-          isVisible={showDatePicker}
+          date={result.start_at}
+          isVisible={showStartDatePicker}
           mode="date"
-          onConfirm={handleConfirmModal}
-          onCancel={() => setShowDatePicker(false)}
+          onConfirm={handleStartConfirmModal}
+          onCancel={() => setShowStartDatePicker(false)}
+        />
+
+        <DateTimePickerModal
+          date={result.end_at}
+          isVisible={showEndDatePicker}
+          mode="date"
+          onConfirm={handleEndConfirmModal}
+          onCancel={() => setShowEndDatePicker(false)}
         />
         <DateTimePickerModal
-          date={selectedDay}
+          date={result.start_at}
           isVisible={showStartTimePicker}
           mode="time"
           onConfirm={handleStartConfirmModal}
           onCancel={() => setShowStartTimePicker(false)}
         />
         <DateTimePickerModal
-          date={selectedEndTime}
+          date={result.end_at}
           isVisible={showEndTimePicker}
           mode="time"
           onConfirm={handleEndConfirmModal}
@@ -197,7 +201,7 @@ const EventFormScreen = () => {
         <TextInput
           value={result.title}
           onChangeText={(val) => setResult((prev) => ({ ...prev, title: val }))}
-          label={TEXT.form.event.name}
+          label={TEXT.form.event.location}
           multiline={true}
           numberOfLines={1}
           style={{

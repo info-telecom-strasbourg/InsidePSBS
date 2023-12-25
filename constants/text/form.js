@@ -8,12 +8,14 @@ const form = {
     event:{
         title: "Créer un événement",
         name: "Nom de l'événement",
-        description: "Description de l'événement",
+        description: "📖 Description de l'événement",
         date: "📅 Date de l'événement",
+        end_date: "📅 Date fin de l'événement",
+
         start_time: "🕒 Heure de l'événement",
         end_time:"🕒 Heure de fin de l'événement",
-        location: "Lieu de l'événement",
-        multiple_dates: "Événement sur plusieurs jours ?",
+        location: "📍 Lieu de l'événement",
+        multiple_dates: "Événement sur plusieurs jours :",
         send:"Envoyer mon événement",
     },
     errorFields:'Veuillez remplir tous les champs',
@@ -21,4 +23,3 @@ const form = {
   };
   
   export default form;
-  
