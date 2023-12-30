@@ -13,15 +13,15 @@ async function subscribePushNotificationsAsync(data, expo_token) {
         },
       }
     );
-    console.log("posted the expo-tocken");
+    console.log("posted the expo-token");
   } catch (e) {
     console.error("error", e);
   }
 }
-const verifyExpoTocken = async (expo_token,data,pushData) => {
-  console.log("expo_token", expo_token, );
+const verifyExpoToken = async (expo_token, data, pushData) => {
+  console.log("expo_token", expo_token,);
   if (expo_token && expo_token !== data.expo_token) {
-    console.log("posting the expo-tocken", expo_token);
+    console.log("posting the expo-token", expo_token);
     try {
       await subscribePushNotificationsAsync(data, expo_token);
       pushData("expo_token", expo_token);
@@ -31,4 +31,4 @@ const verifyExpoTocken = async (expo_token,data,pushData) => {
   }
 };
 
-export default verifyExpoTocken;
+export default verifyExpoToken;
