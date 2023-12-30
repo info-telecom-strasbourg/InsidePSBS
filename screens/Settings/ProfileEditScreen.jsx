@@ -45,15 +45,32 @@ const ProfileEditScreen = () => {
 
     return (
       <>
+        <View style={{ 
+            flexDirection: 'row', 
+            justifyContent: 'flex-end', 
+            alignItems: 'center',
+            backgroundColor: '#f2f2f2', // need to change this to the theme color
+            padding: 10
+          }}>
+          <PrimaryButton
+            style={{ marginLeft: 10 }}
+            text={"X"} onPress={() => { setModalVisible(false) }}
+          />
+        </View>
         <WebView
           {...restProps}
+          useWebKit={true} 
           source={newSource}
+          startInLoadingState={true} 
           onShouldStartLoadWithRequest={(request) => {
             // If we're loading the current URI, allow it to load
             if (request.url === currentURI) return true;
             // We're loading a new URL -- change state first
             setURI(request.url);
-            return false;
+            console.log("request", request);
+            // need to return true the first apparently
+            //https://github.com/react-native-webview/react-native-webview/issues/1138#issuecomment-693587994
+            return true;
           }}
           onMessage={(event) => {
             // Handle messages from the webview
@@ -63,6 +80,14 @@ const ProfileEditScreen = () => {
               setModalVisible(false);
               router.push("/settings/profile");
             }
+          }}
+          renderError={(syntheticEvent) => {
+            const { nativeEvent } = syntheticEvent;
+            console.warn('WebView renderError: ', nativeEvent);
+          }}
+          onError={(syntheticEvent) => {
+            const { nativeEvent } = syntheticEvent;
+            console.warn('WebView error: ', nativeEvent);
           }}
         />
       </>
@@ -174,6 +199,7 @@ const ProfileEditScreen = () => {
           },
         }
       );
+      console.log(res);
       router.back();
     } catch (e) {
       console.log(e.response.data);
