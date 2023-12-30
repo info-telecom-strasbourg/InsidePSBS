@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   BackButtonTopbar,
   Loader,
@@ -11,7 +11,8 @@ import { API, TEXT } from "../../constants";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { text_styles } from "../../styles";
 import { useTheme } from "../../contexts";
-import { Text, View } from "react-native";
+import { Text, View, Modal } from "react-native";
+import { WebView } from 'react-native-webview';
 import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 import axios from "axios";
@@ -21,6 +22,7 @@ import {
   checkPromotionYear,
   checkUsername,
 } from "../../utils";
+import { ValidIcon, InvalidIcon } from "../../assets/icons";
 
 const ProfileEditScreen = () => {
   const { entry } = useLocalSearchParams();
@@ -34,6 +36,38 @@ const ProfileEditScreen = () => {
   const router = useRouter();
 
   const { theme } = useTheme();
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const CustomHeaderWebView = (props) => {
+    const { uri, onLoadStart, ...restProps } = props;
+    const [currentURI, setURI] = useState(props.source.uri);
+    const newSource = { ...props.source, uri: currentURI };
+
+    return (
+      <>
+        <WebView
+          {...restProps}
+          source={newSource}
+          onShouldStartLoadWithRequest={(request) => {
+            // If we're loading the current URI, allow it to load
+            if (request.url === currentURI) return true;
+            // We're loading a new URL -- change state first
+            setURI(request.url);
+            return false;
+          }}
+          onMessage={(event) => {
+            // Handle messages from the webview
+            const { data } = event.nativeEvent;
+            // console.log("data", data);
+            if (data === 'Back') {
+              setModalVisible(false);
+              router.push("/settings/profile");
+            }
+          }}
+        />
+      </>
+    );
+  };
 
   const inputs = {
     user_name: (
@@ -63,6 +97,35 @@ const ProfileEditScreen = () => {
         placeholder={res?.data[entry]}
         error={errorMessage}
       />
+    ),
+    unistra: (
+      <>
+        {res?.data.unistra_id != null ?
+          <Text style={text_styles.body1(theme)}>{"\n"}{TEXT.profile.unistra_user} : <Text style={{ fontWeight: 'bold' }}>{res?.data.unistra_id}</Text></Text>
+          : <Text style={text_styles.body1(theme)}>{"\n"}{TEXT.profile.unistra_no_user}</Text>}
+        <PrimaryButton
+          style={{ marginTop: 50 }}
+          text={TEXT.profile.unistra_connection} onPress={() => { setModalVisible(true)/* ; console.log("Pressed"); console.log(modalVisible) */ }}
+        />
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={{ flex: 1 }}>
+            <CustomHeaderWebView
+              source={{
+                uri: `${API.url}/api/cas`,
+                headers: {
+                  'Authorization': `Bearer ${data.token}`,
+                },
+              }}
+            />
+          </View>
+        </Modal>
+      </>
     ),
   };
 
@@ -128,10 +191,13 @@ const ProfileEditScreen = () => {
           <Text style={text_styles.title2(theme)}>{TEXT.profile[entry]}</Text>
           {inputs[entry]}
           <View height={25} />
-          <PrimaryButton
-            text={TEXT.profile.edit_profile}
-            onPress={handleSubmit}
-          />
+          {inputs[entry] != inputs["unistra"] ?
+            < PrimaryButton
+              text={TEXT.profile.edit_profile}
+              onPress={handleSubmit}
+            />
+            : <></>
+          }
         </View>
       )}
     </ScreenContainer>

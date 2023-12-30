@@ -88,11 +88,15 @@ const ProfileScreen = () => {
               text={TEXT.profile.password}
               onPress={() => router.push(`${ROUTES.profile}/password`)}
             />
-            {/* TODO: implement unistra */}
-            {/* <SettingButton
+            <SettingButton
               text={TEXT.profile.unistra}
+              rightIcon={
+                <Text style={text_styles.body3({ text: theme.text_secondary })}>
+                  {res?.data.unistra_id}
+                </Text>
+              }
               onPress={() => router.push(`${ROUTES.profile}/unistra`)}
-            /> */}
+            />
           </View>
 
           <PrimaryButton
