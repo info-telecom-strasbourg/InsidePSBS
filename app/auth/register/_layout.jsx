@@ -1,13 +1,14 @@
-import React, { useEffect, useRef } from "react";
 import { Stack, useRouter, useLocalSearchParams } from "expo-router";
-import { COLORS, ROUTES, TEXT } from "../../../constants";
+import React, { useEffect, useRef } from "react";
 import { Animated, useWindowDimensions } from "react-native";
+
 import {
-  BackButtonTopbar,
-  DefaultTopbar,
-  ProgressBar,
-  ScreenContainer,
+    BackButtonTopbar,
+    DefaultTopbar,
+    ProgressBar,
+    ScreenContainer,
 } from "../../../components";
+import { COLORS, ROUTES, TEXT } from "../../../constants";
 import { useTheme } from "../../../contexts";
 import { RegisterProvider } from "../../../contexts/registerContext";
 

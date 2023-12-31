@@ -1,5 +1,5 @@
+import { useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
-import { BackButtonTopbar, ScrollScreenContainer } from "../../components";
 import {
   Image,
   RefreshControl,
@@ -7,15 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+
 import styles from "./publication.style";
+import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
+import { BackButtonTopbar, ScrollScreenContainer } from "../../components";
 import { API } from "../../constants";
+import { useTheme } from "../../contexts";
+import { useLocalStorage } from "../../contexts/localStorageContext";
+import { useFetch } from "../../hooks";
 import { text_styles } from "../../styles";
 import { getStringDateTime, hideTextOverflow } from "../../utils";
-import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
-import { useTheme } from "../../contexts";
-import { useFetch } from "../../hooks";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const PublicationScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -41,8 +42,7 @@ const PublicationScreen = () => {
       background={theme.box}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-      }
-    >
+      }>
       <BackButtonTopbar>
         {hideTextOverflow(res?.data.title, 10)}
       </BackButtonTopbar>
@@ -50,15 +50,13 @@ const PublicationScreen = () => {
       <View
         style={{
           padding: 16,
-        }}
-      >
+        }}>
         <TouchableOpacity
           style={{
             flexDirection: "row",
             alignItems: "center",
             marginBottom: 30,
-          }}
-        >
+          }}>
           <Image
             source={{ uri: res?.data.author.logo_url }}
             style={styles.image()}

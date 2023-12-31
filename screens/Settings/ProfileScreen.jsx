@@ -1,4 +1,11 @@
+import axios from "axios";
+import { useRouter } from "expo-router";
 import React from "react";
+import { Image, Text, View } from "react-native";
+
+import Avatar from "./Avatar";
+import SettingButton from "./SettingButton";
+import styles from "./settings.style";
 import {
   BackButtonTopbar,
   ColoredButton,
@@ -7,16 +14,10 @@ import {
   ScrollScreenContainer,
 } from "../../components";
 import { API, COLORS, ROUTES, TEXT } from "../../constants";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useAuth, useTheme } from "../../contexts";
+import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useFetch } from "../../hooks";
-import { Image, Text, View } from "react-native";
-import styles from "./settings.style";
 import { text_styles } from "../../styles";
-import SettingButton from "./SettingButton";
-import axios from "axios";
-import { useRouter } from "expo-router";
-import Avatar from "./Avatar";
 
 const ProfileScreen = () => {
   const { data, removeData } = useLocalStorage();

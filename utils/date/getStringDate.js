@@ -15,7 +15,7 @@ export const getStringDateTime = (date) => {
 
 export const getStringDate = (date) => {
   const dateObj = new Date(date);
-  let year = dateObj.getFullYear();
+  const year = dateObj.getFullYear();
   let month = dateObj.getMonth() + 1;
   let day = dateObj.getDate();
   day = String(day).length === 1 ? `0${day}` : day;

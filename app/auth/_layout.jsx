@@ -1,7 +1,8 @@
-import React from "react";
 import { Stack } from "expo-router";
-import { COLORS } from "../../constants";
+import React from "react";
 import { View } from "react-native";
+
+import { COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
 
 const AuthLayout = () => {

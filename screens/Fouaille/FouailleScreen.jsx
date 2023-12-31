@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { RefreshControl, Text, View } from "react-native";
 
+import Card from "./Card";
 import fouailleStyles from "./fouaille.style";
+import TransactionSection from "./transactions/TransactionSection";
 import {
   BackButtonTopbar,
   Loader,
   ScrollScreenContainer,
 } from "../../components";
 import { API, TEXT } from "../../constants";
-import { useFetch } from "../../hooks";
-import { useLocalStorage } from "../../contexts/localStorageContext";
-import Card from "./Card";
-import TransactionSection from "./transactions/TransactionSection";
-import { text_styles } from "../../styles";
 import { useTheme } from "../../contexts";
+import { useLocalStorage } from "../../contexts/localStorageContext";
+import { useFetch } from "../../hooks";
+import { text_styles } from "../../styles";
 
 const FouailleScreen = () => {
   const { data } = useLocalStorage();
@@ -38,8 +38,7 @@ const FouailleScreen = () => {
     <ScrollScreenContainer
       refreshControl={
         <RefreshControl onRefresh={handleRefresh} refreshing={refreshing} />
-      }
-    >
+      }>
       <BackButtonTopbar>{TEXT.fouaille.title}</BackButtonTopbar>
       {isLoading ? (
         <Loader />
@@ -50,8 +49,7 @@ const FouailleScreen = () => {
             textAlign: "center",
             marginVertical: 20,
             marginHorizontal: 11,
-          }}
-        >
+          }}>
           {TEXT.common.error.loading}
         </Text>
       ) : res?.data.balance ? (

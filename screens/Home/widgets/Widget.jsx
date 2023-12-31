@@ -22,8 +22,7 @@ const Widget = ({
         }),
         ...style,
       }}
-      onPress={onPress}
-    >
+      onPress={onPress}>
       {children}
     </TouchableOpacity>
   );

@@ -1,22 +1,23 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Text, View, Linking, TouchableOpacity } from "react-native";
+
+import Avatar from "./Avatar";
+import SettingButton from "./SettingButton";
+import styles from "./settings.style";
 import {
-  BackButtonTopbar,
-  Loader,
-  PrimaryButton,
-  ScrollScreenContainer,
-  Picker,
+    BackButtonTopbar,
+    Loader,
+    PrimaryButton,
+    ScrollScreenContainer,
+    Picker,
 } from "../../components";
 import { API, ROUTES, TEXT } from "../../constants";
 import { useTheme } from "../../contexts";
-import { Text, View, Linking, TouchableOpacity } from "react-native";
-import { useFetch } from "../../hooks";
 import { useLocalStorage } from "../../contexts/localStorageContext";
-import styles from "./settings.style";
+import { useFetch } from "../../hooks";
 import { text_styles } from "../../styles";
-import { useRouter } from "expo-router";
-import SettingButton from "./SettingButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Avatar from "./Avatar";
-import { useEffect, useState } from "react";
 
 const SettingsScreen = () => {
   const { data, pushData } = useLocalStorage();
@@ -100,8 +101,7 @@ const SettingsScreen = () => {
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.wrapper}
-            onPress={() => router.push(ROUTES.profile)}
-          >
+            onPress={() => router.push(ROUTES.profile)}>
             <Avatar url={res?.data.avatar_url} />
             <Text style={text_styles.title3(theme)}>
               {res?.data.first_name} {res?.data.last_name}
@@ -124,7 +124,7 @@ const SettingsScreen = () => {
               justifyContent: "center",
               alignItems: "center",
             }}
-          ></View>
+                    />
           {/* 
           <Text style={text_styles.title4(theme)}>
             {TEXT.settings.preferences.title}
@@ -155,7 +155,7 @@ const SettingsScreen = () => {
             label={TEXT.settings.preferences.color}
             items={themeList}
           />
-          <View style={styles.section}></View>
+          <View style={styles.section} />
           <View style={{ height: 15 }} />
 
           <Text style={text_styles.title4(theme)}>

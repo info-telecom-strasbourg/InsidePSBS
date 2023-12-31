@@ -1,20 +1,20 @@
+import axios from "axios";
+import CheckBox from "expo-checkbox";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { View, Text } from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 import {
   ScrollScreenContainer,
   BackButtonTopbar,
   PrimaryButton,
   TextInput,
 } from "../../components";
+import styles from "../../components/input/input.style";
 import { API, TEXT, ROUTES, COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
 import { useLocalStorage } from "../../contexts/localStorageContext";
-import axios from "axios";
-import { useRouter } from "expo-router";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import styles from "../../components/input/input.style";
-
-import CheckBox from "expo-checkbox";
 
 const EventFormScreen = () => {
   const router = useRouter();
@@ -53,32 +53,31 @@ const EventFormScreen = () => {
   };
 
   const handleSubmit = async (entries) => {
-    try {
-      const res = await axios
-        .post(`${API.url}/api/post`, entries, {
-          headers: {
-            ...API.headers,
-            Authorization: `Bearer ${data.token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status === 201) {
-            router.push(ROUTES.announcements);
-          } else {
-            setError(TEXT.form.error);
-            console.log(res);
-          }
-        });
-    } catch (e) {
-      console.log(e);
-      if (e.response.status === 422) {
-        setError(TEXT.form.errorFields);
-      } else {
-        setError(TEXT.form.error);
-      }
-      return;
+        try {
+            const res = await axios
+                .post(`${API.url}/api/post`, entries, {
+                    headers: {
+                        ...API.headers,
+                        Authorization: `Bearer ${data.token}`,
+                    },
+                })
+                .then((res) => {
+                    if (res.status === 201) {
+                        router.push(ROUTES.announcements);
+                    } else {
+                        setError(TEXT.form.error);
+                        console.log(res);
+                    }
+                });
+        } catch (e) {
+            console.log(e);
+            if (e.response.status === 422) {
+                setError(TEXT.form.errorFields);
+            } else {
+                setError(TEXT.form.error);
+            }
     }
-  };
+    };
   const { theme } = useTheme();
   return (
     <ScrollScreenContainer>
@@ -91,7 +90,7 @@ const EventFormScreen = () => {
           value={result.title}
           onChangeText={(val) => setResult((prev) => ({ ...prev, title: val }))}
           label={TEXT.form.event.name}
-          multiline={true}
+          multiline
           numberOfLines={1}
           style={{
             maxHeight: 100,
@@ -202,7 +201,7 @@ const EventFormScreen = () => {
           value={result.title}
           onChangeText={(val) => setResult((prev) => ({ ...prev, title: val }))}
           label={TEXT.form.event.location}
-          multiline={true}
+          multiline
           numberOfLines={1}
           style={{
             maxHeight: 100,
@@ -215,7 +214,7 @@ const EventFormScreen = () => {
           value={result.body}
           onChangeText={(val) => setResult((prev) => ({ ...prev, body: val }))}
           label={TEXT.form.event.description}
-          multiline={true}
+          multiline
           numberOfLines={1}
           style={{ height: 100, textAlignVertical: "top" }}
           maxLength={4000000000}

@@ -1,17 +1,18 @@
 import axios from "axios";
+
 import { API } from "../constants";
 
 async function subscribePushNotificationsAsync(data, expo_token) {
   try {
     await axios.post(
       `${API.url}/api/exponent/devices/subscribe`,
-      { expo_token: expo_token },
+      { expo_token },
       {
         headers: {
           ...API.headers,
           Authorization: `Bearer ${data.token}`,
         },
-      }
+      },
     );
     console.log("posted the expo-token");
   } catch (e) {
@@ -19,7 +20,7 @@ async function subscribePushNotificationsAsync(data, expo_token) {
   }
 }
 const verifyExpoToken = async (expo_token, data, pushData) => {
-  console.log("expo_token", expo_token,);
+  console.log("expo_token", expo_token);
   if (expo_token && expo_token !== data.expo_token) {
     console.log("posting the expo-token", expo_token);
     try {

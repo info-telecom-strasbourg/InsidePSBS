@@ -1,8 +1,9 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SystemUI from "expo-system-ui";
 import { createContext, useContext, useEffect, useState } from "react";
 import { Appearance, useColorScheme } from "react-native";
+
 import { COLORS } from "../constants";
-import * as SystemUI from "expo-system-ui";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ThemeContext = createContext({});
 export const useTheme = () => {
@@ -41,8 +42,8 @@ export const ThemeProvider = ({ children }) => {
       colorScheme === "dark"
         ? COLORS.background_dark
         : colorScheme === "light"
-        ? COLORS.background_light
-        : COLORS.background
+          ? COLORS.background_light
+          : COLORS.background,
     );
   };
 

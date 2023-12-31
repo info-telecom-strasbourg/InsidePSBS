@@ -2,8 +2,8 @@ import React from "react";
 import { Text, View } from "react-native";
 
 import fouailleStyles from "./fouaille.style";
-import { COLORS, TEXT } from "../../constants";
 import { ArrowDownIcon, ArrowUpIcon } from "../../assets/icons";
+import { COLORS, TEXT } from "../../constants";
 
 const Transactions = ({ commands }) => {
   const styles = fouailleStyles();

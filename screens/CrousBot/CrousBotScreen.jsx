@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
-import { useLocalStorage } from "../../contexts/localStorageContext";
-
-import {
-  BackButtonTopbar,
-  Loader,
-  ScrollScreenContainer,
-  Separator,
-} from "../../components";
-import { ChevronLeftIcon, ChevronRightIcon } from "../../assets/icons";
-import { Text, TouchableOpacity, View } from "react-native";
 import { Picker as NativePicker } from "@react-native-picker/picker";
-import { getMenu, menuFormatter } from "./CrousApi";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import { getMenu, menuFormatter } from "./CrousApi";
+import crousbotStyle from "./crousbot.style";
+import { ChevronLeftIcon, ChevronRightIcon } from "../../assets/icons";
+import {
+    BackButtonTopbar,
+    Loader,
+    ScrollScreenContainer,
+    Separator,
+} from "../../components";
 import { COLORS, TEXT, FONTS } from "../../constants";
 import { useTheme } from "../../contexts";
-import crousbotStyle from "./crousbot.style";
-import { capitalize } from "../../utils";
+import { useLocalStorage } from "../../contexts/localStorageContext";
 import { text_styles } from "../../styles";
+import { capitalize } from "../../utils";
 
 const input_styles = StyleSheet.create({
   textInputLabel: ({ text } = useTheme().theme) => ({
@@ -96,7 +94,7 @@ const CrousBotScreen = () => {
                   weekday: "long",
                   day: "numeric",
                   month: "long",
-                })
+                }),
               )}
             </Text>
             <View style={styles.buttonWrapper}>
@@ -106,8 +104,7 @@ const CrousBotScreen = () => {
                   ...styles.dayButton,
                   justifyContent: "flex-start",
                   marginLeft: 20,
-                }}
-              >
+                }}>
                 <ChevronLeftIcon width={11} height={19} color={COLORS.white} />
               </TouchableOpacity>
               <TouchableOpacity
@@ -116,8 +113,7 @@ const CrousBotScreen = () => {
                   ...styles.dayButton,
                   justifyContent: "flex-end",
                   marginRight: 20,
-                }}
-              >
+                }}>
                 <ChevronRightIcon width={11} height={19} color={COLORS.white} />
               </TouchableOpacity>
             </View>
@@ -182,8 +178,7 @@ const CrousBotScreen = () => {
           position: "absolute",
           bottom: 21,
           right: 11,
-        }}
-      >
+        }}>
         {/* <NativePicker
           selectedValue={sector}
           itemStyle={{
@@ -219,8 +214,7 @@ const Section = ({ title, content }) => {
       <Text style={text_styles.title3(theme)}>{title}</Text>
       <Separator vertical size={10} />
       <View
-        style={{ backgroundColor: theme.box, borderRadius: 15, padding: 15 }}
-      >
+        style={{ backgroundColor: theme.box, borderRadius: 15, padding: 15 }}>
         <Text style={text_styles.body3(theme)}>{content}</Text>
       </View>
     </View>

@@ -40,13 +40,14 @@ const publications = [
         author: {
             name: "BDE",
             full_name: "Bureau des étudiants",
-            logo_url: "https:\\/\\/fouaille.bde-tps.fr\\/storage\\/images\\/organization_logo\\/bureau_des_etudiants_400.png"
+            logo_url:
+        "https:\\/\\/fouaille.bde-tps.fr\\/storage\\/images\\/organization_logo\\/bureau_des_etudiants_400.png",
         },
         medias: [],
         reactions: [],
         number_of_comments: 0,
-        comments: []
-    }
-]
+        comments: [],
+    },
+];
 
 export default publications;

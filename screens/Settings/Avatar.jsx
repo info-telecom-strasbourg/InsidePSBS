@@ -1,11 +1,11 @@
+import axios from "axios";
+import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { Image, TouchableOpacity, View } from "react-native";
+
 import { CameraIcon } from "../../assets/icons";
-import { COLORS } from "../../constants";
+import { COLORS, API } from "../../constants";
 import { useTheme } from "../../contexts";
-import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
-import axios from "axios";
-import { API } from "../../constants";
 import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const Avatar = ({ url, pressable = false }) => {
@@ -34,7 +34,7 @@ const Avatar = ({ url, pressable = false }) => {
               },
             },
           ],
-          { compress: 1, format: SaveFormat.JPEG }
+          { compress: 1, format: SaveFormat.JPEG },
         );
         console.log(typeof manipResult);
         console.log(manipResult);
@@ -60,7 +60,7 @@ const Avatar = ({ url, pressable = false }) => {
                 // since axios converts that to string
                 return formData;
               },
-            }
+            },
           )
           .then((res) => {
             console.log(res);
@@ -83,8 +83,7 @@ const Avatar = ({ url, pressable = false }) => {
         position: "relative",
         overflow: "hidden",
         borderRadius: 80,
-      }}
-    >
+      }}>
       <Image source={{ uri: url }} width={80} height={80} />
       {pressable && (
         <View
@@ -96,8 +95,7 @@ const Avatar = ({ url, pressable = false }) => {
             bottom: 0,
             padding: 5,
             alignItems: "center",
-          }}
-        >
+          }}>
           <CameraIcon height={13} width={13} color={COLORS.white} />
         </View>
       )}

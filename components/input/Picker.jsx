@@ -1,9 +1,10 @@
-import React from "react";
 import { Picker as NativePicker } from "@react-native-picker/picker";
-import styles from "./input.style";
-import { useTheme } from "../../contexts";
+import React from "react";
 import { Text, View } from "react-native";
+
+import styles from "./input.style";
 import { FONTS } from "../../constants";
+import { useTheme } from "../../contexts";
 
 const Picker = ({ items, value, onValueChange, label }) => {
   const { theme } = useTheme();
@@ -18,8 +19,7 @@ const Picker = ({ items, value, onValueChange, label }) => {
           dropdownIconColor={theme.text}
           dropdownIconRippleColor="none"
           onValueChange={onValueChange}
-          style={styles.textInputEntry(theme)}
-        >
+          style={styles.textInputEntry(theme)}>
           {items?.map((item, index) => (
             <NativePicker.Item
               key={index}

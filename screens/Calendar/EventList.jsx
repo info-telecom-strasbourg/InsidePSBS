@@ -1,14 +1,15 @@
+import { useRouter } from "expo-router";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
 import { CalendarIcon, ClockIcon, GpsIcon } from "../../assets/icons";
 import { COLORS, FONTS } from "../../constants";
 import calendar from "../../constants/text/calendar";
-import getColor from "../../utils/getColors";
-import getHour from "../../utils/date/getHour";
-import { text_styles } from "../../styles";
 import { useTheme } from "../../contexts";
-import { useRouter } from "expo-router";
+import { text_styles } from "../../styles";
 import { hideTextOverflow } from "../../utils";
+import getHour from "../../utils/date/getHour";
+import getColor from "../../utils/getColors";
 
 const EventList = ({ data }) => {
   const { theme } = useTheme();
@@ -83,8 +84,7 @@ const Event = ({
         alignItems: "center",
         gap: 10,
       }}
-      onPress={() => router.push(`/event/${index}`)}
-    >
+      onPress={() => router.push(`/event/${index}`)}>
       <View style={{ alignItems: "center" }}>
         <Text style={styles.hourLabel}>{getHour(start_at)}</Text>
         <ClockIcon width={26} height={26} color={backgroundColor} />
@@ -92,21 +92,19 @@ const Event = ({
       </View>
       <View
         style={{
-          backgroundColor: backgroundColor,
+          backgroundColor,
           borderRadius: 20,
           paddingVertical: 15,
           paddingHorizontal: 15,
           flex: 1,
           gap: 15,
-        }}
-      >
+        }}>
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
             gap: 10,
-          }}
-        >
+          }}>
           <Image
             source={{ uri: author.logo_url }}
             width={50}
@@ -120,8 +118,7 @@ const Event = ({
                 color: COLORS.black,
                 fontSize: 20,
                 fontFamily: FONTS.OpenSans.bold,
-              }}
-            >
+              }}>
               {title}
             </Text>
             {description && (
@@ -131,8 +128,7 @@ const Event = ({
                   color: COLORS.black,
                   fontSize: 16,
                   fontFamily: FONTS.OpenSans.regular,
-                }}
-              >
+                }}>
                 {description}
               </Text>
             )}

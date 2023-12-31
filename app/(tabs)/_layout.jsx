@@ -1,8 +1,8 @@
 import { Tabs } from "expo-router";
 
 import { AnnouncementIcon, CalendarIcon, HomeIcon } from "../../assets/icons";
-import { useTheme } from "../../contexts";
 import { COLORS } from "../../constants";
+import { useTheme } from "../../contexts";
 
 const TabLayout = () => {
   const { theme } = useTheme();
@@ -17,8 +17,7 @@ const TabLayout = () => {
           backgroundColor: theme.tabBar,
           elevation: 0,
         },
-      }}
-    >
+      }}>
       <Tabs.Screen
         name="home"
         options={{ title: "Accueil", tabBarIcon: HomeIcon }}

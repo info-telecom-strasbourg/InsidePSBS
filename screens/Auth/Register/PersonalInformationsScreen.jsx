@@ -1,12 +1,14 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
+
+import { Step2 } from "../../../assets/icons";
 import {
-  Picker,
-  PrimaryButton,
-  ScrollScreenContainer,
-  Separator,
-  TextInput,
+    Picker,
+    PrimaryButton,
+    ScrollScreenContainer,
+    Separator,
+    TextInput,
 } from "../../../components";
 import { API, ROUTES, TEXT, COLORS } from "../../../constants";
 import { useTheme } from "../../../contexts";
@@ -14,15 +16,14 @@ import { useRegister } from "../../../contexts/registerContext";
 import { useFetch } from "../../../hooks";
 import { text_styles } from "../../../styles";
 import {
-  checkAlreadyExist,
-  checkFirstName,
-  checkLastName,
-  checkPhone,
-  checkPromotionYear,
-  checkBirthDate,
-  checkUsername,
+    checkAlreadyExist,
+    checkFirstName,
+    checkLastName,
+    checkPhone,
+    checkPromotionYear,
+    checkBirthDate,
+    checkUsername,
 } from "../../../utils";
-import { Step2 } from "../../../assets/icons";
 import createDataFromDDMMYYYY from "../../../utils/date/createDateFromDDMMYYYY";
 
 const GAP = 15;
@@ -60,7 +61,7 @@ const PersonalInformationsScreen = () => {
     date = date?.replace(/\D/g, "");
     if (2 <= date.length && date.length < 4) {
       date = date.slice(0, 2) + "/" + date.slice(2, 4);
-    } else if (4 <= date.length) {
+    } else if (date.length >= 4) {
       date = date.slice(0, 2) + "/" + date.slice(2, 4) + "/" + date.slice(4, 8);
     }
     return date;
@@ -86,7 +87,7 @@ const PersonalInformationsScreen = () => {
     if (!checkPromotionYear(entries.promotion_year))
       return setError(
         "promotion_year",
-        TEXT.authentification.errors.promotion_year
+        TEXT.authentification.errors.promotion_year,
       );
     if (!checkBirthDate(entries.birth_date)) {
       return setError("birth_date", TEXT.authentification.errors.birth_date);
@@ -94,7 +95,7 @@ const PersonalInformationsScreen = () => {
     if (!(await checkAlreadyExist("user_name", entries.user_name)))
       return setError(
         "user_name",
-        TEXT.authentification.errors.user_name_already_used
+        TEXT.authentification.errors.user_name_already_used,
       );
     if (!(await checkAlreadyExist("phone", entries.phone)))
       return setError("phone", TEXT.authentification.errors.phone_already_used);
@@ -110,8 +111,7 @@ const PersonalInformationsScreen = () => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: 20,
-          }}
-        >
+          }}>
           <Step2
             TextColor={theme.text}
             DarkBackgroundColor={theme.box}
@@ -170,8 +170,7 @@ const PersonalInformationsScreen = () => {
           <View
             style={{
               flexDirection: "row",
-            }}
-          >
+            }}>
             <View style={{ flex: 1 }}>
               <TextInput
                 placeholder={TEXT.authentification.placeholders.promotion_year}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import SettingButton from "./SettingButton";
 import { Switch } from "react-native";
+
+import SettingButton from "./SettingButton";
 import { COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
 

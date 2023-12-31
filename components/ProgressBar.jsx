@@ -1,6 +1,7 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+
 import { COLORS } from "../constants";
 import { useTheme } from "../contexts";
 
@@ -38,8 +39,7 @@ const ProgressBar = ({ step, steps }) => {
         onLayout={(e) => {
           const newWidth = e.nativeEvent.layout.width;
           setWidth(newWidth);
-        }}
-      >
+        }}>
         <LinearGradient
           colors={COLORS.primaryGradient}
           style={{ width: "100%", height: "100%" }}

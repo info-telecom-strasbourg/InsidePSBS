@@ -1,23 +1,23 @@
-import getLayout from "./getLayout";
-import lockScreenOrientation from "./lockScreenOrientation";
-import getTimeDifference from "./date/getTimeDifference";
-import { getStringDateTime, getStringDate } from "./date/getStringDate";
 import capitalize from "./capitalize";
-import loadFonts from "./loadFonts";
+import {
+    checkAlreadyExist,
+    checkEmail,
+    checkFirstName,
+    checkLastName,
+    checkPassword,
+    checkPasswordConfirmation,
+    checkPhone,
+    checkPromotionYear,
+    checkUsername,
+    checkBirthDate,
+} from "./checkInputs";
+import { getStringDateTime, getStringDate } from "./date/getStringDate";
+import getTimeDifference from "./date/getTimeDifference";
+import getLayout from "./getLayout";
 import hideTextOverflow from "./hideTextOverflow";
 import initNotification from "./initNotification";
-import {
-  checkAlreadyExist,
-  checkEmail,
-  checkFirstName,
-  checkLastName,
-  checkPassword,
-  checkPasswordConfirmation,
-  checkPhone,
-  checkPromotionYear,
-  checkUsername,
-  checkBirthDate,
-} from "./checkInputs";
+import loadFonts from "./loadFonts";
+import lockScreenOrientation from "./lockScreenOrientation";
 
 export {
   getLayout,

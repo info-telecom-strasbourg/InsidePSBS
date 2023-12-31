@@ -2,9 +2,9 @@ import React from "react";
 import { Text, TextInput as Entry, View } from "react-native";
 
 import styles from "./input.style";
+import { COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
-import { COLORS } from "../../constants";
 
 const TextInput = ({
   multiline,

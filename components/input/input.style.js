@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+
 import { FONTS } from "../../constants";
 import { useTheme } from "../../contexts/themeContext";
 

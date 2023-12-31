@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 import { BackButtonTopbar, ScrollScreenContainer } from "../../components";
+import { FONTS, TEXT } from "../../constants";
 import { useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
-
-import { FONTS, TEXT } from "../../constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const CreditsScreen = () => {
   const { theme } = useTheme();
@@ -22,8 +22,7 @@ const CreditsScreen = () => {
           paddingVertical: 25,
           borderRadius: 20,
           paddingHorizontal: 15,
-        }}
-      >
+        }}>
         <CreditsSection
           title={TEXT.credits.frontend_title}
           contributors={[TEXT.credits.romain, TEXT.credits.gatien]}
@@ -55,14 +54,12 @@ const CreditsSection = ({ title, contributors }) => {
     <View
       style={{
         gap: 10,
-      }}
-    >
+      }}>
       <Text
         style={{
           ...text_styles.body1(theme),
           fontFamily: FONTS.OpenSans.bold,
-        }}
-      >
+        }}>
         {title}
       </Text>
       <View style={{ gap: 5 }}>

@@ -7,9 +7,6 @@ const crousbot = {
   veg: "🌱 Pôle Végétarien",
   grill: "🥩 Pôle Grill",
   dessert: "🍰 Dessert",
-
-
-
 };
 
 export default crousbot;

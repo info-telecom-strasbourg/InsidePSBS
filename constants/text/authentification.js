@@ -56,19 +56,22 @@ const authentification = {
     not_registered: "Pas encore de compte ?",
     forgot_password: "Mot de passe oublié ?",
     reset_password: "Réinitialiser",
-    no_information_while_login: "Veuillez saisir vos informations de connexion.",
+    no_information_while_login:
+      "Veuillez saisir vos informations de connexion.",
   },
   forgot_password: {
     title: "Mot de passe oublié ?",
-    description: "Pour réinitialiser votre mot de passe, veuillez saisir votre adresse e-mail. Vous recevrez un lien par e-mail pour créer un nouveau mot de passe.",
+    description:
+      "Pour réinitialiser votre mot de passe, veuillez saisir votre adresse e-mail. Vous recevrez un lien par e-mail pour créer un nouveau mot de passe.",
     submit: "Réinitialiser le mot de passe",
     email_sent: "Un email vous a été envoyé",
-    error: "Une erreur est survenue,veuillez contacter un admin ou réessayer plus tard",
-
+    error:
+      "Une erreur est survenue,veuillez contacter un admin ou réessayer plus tard",
   },
 
   verify_email: {
-    message: `Un email de vérification vous a été envoyé, s'il a expiré, vous pouvez en demander un nouveau en cliquant sur le bouton ci-dessous.`,
+    message:
+      "Un email de vérification vous a été envoyé, s'il a expiré, vous pouvez en demander un nouveau en cliquant sur le bouton ci-dessous.",
     button: "Renvoyer le mail",
     toast_message: "Un email de vérification vous a été envoyé",
   },

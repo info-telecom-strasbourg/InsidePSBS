@@ -1,6 +1,6 @@
+import * as ScreenOrientation from "expo-screen-orientation";
 import { useEffect } from "react";
 import { Platform } from "react-native";
-import * as ScreenOrientation from "expo-screen-orientation";
 
 const lockScreenOrientation = () => {
   useEffect(() => {
@@ -8,7 +8,7 @@ const lockScreenOrientation = () => {
 
     const lock = async () => {
       await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.PORTRAIT
+        ScreenOrientation.OrientationLock.PORTRAIT,
       );
     };
 

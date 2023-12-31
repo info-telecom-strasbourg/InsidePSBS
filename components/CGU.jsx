@@ -1,16 +1,17 @@
 import React from "react";
-import { useTheme } from "../contexts";
 import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
+    SafeAreaView,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import { text_styles } from "../styles";
+
 import { API, TEXT } from "../constants";
-import { useFetch } from "../hooks";
+import { useTheme } from "../contexts";
 import { useLocalStorage } from "../contexts/localStorageContext";
+import { useFetch } from "../hooks";
+import { text_styles } from "../styles";
 
 const CGUText = () => {
   const { theme } = useTheme();
@@ -22,14 +23,18 @@ const CGUText = () => {
   });
   return (
     <ScrollView style={{ flex: 1 }}>
-      {
-        res?.sections?.map((section, index) => (
-          <View key={index}>
-            <Text style={text_styles.title3(theme)}>{section.title}{"\n"}</Text>
-            <Text style={text_styles.body3(theme)}>{section.content}{"\n"}</Text>
-          </View>
-        ))
-      }
+      {res?.sections?.map((section, index) => (
+        <View key={index}>
+                    <Text style={text_styles.title3(theme)}>
+                        {section.title}
+                        {"\n"}
+                    </Text>
+                    <Text style={text_styles.body3(theme)}>
+                        {section.content}
+                        {"\n"}
+                    </Text>
+                </View>
+            ))}
     </ScrollView>
   );
 };

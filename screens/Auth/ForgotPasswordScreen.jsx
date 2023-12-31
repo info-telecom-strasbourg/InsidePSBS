@@ -2,17 +2,18 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { Text, View } from "react-native";
+
 import {
   BackButtonTopbar,
   PrimaryButton,
   ScreenContainer,
   Separator,
 } from "../../components";
+import TextInput from "../../components/input/TextInput";
 import { API, COLORS, ROUTES, TEXT } from "../../constants";
 import { useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
 import { checkAlreadyExist, checkEmail } from "../../utils";
-import TextInput from "../../components/input/TextInput";
 import toast from "../../utils/toast";
 
 const ForgotPasswordScreen = () => {
@@ -55,13 +56,12 @@ const ForgotPasswordScreen = () => {
 
   return (
     <ScreenContainer>
-      <BackButtonTopbar rightIcon={<></>}></BackButtonTopbar>
+      <BackButtonTopbar rightIcon={<></>} />
       <View
         style={{
           paddingHorizontal: 20,
           paddingVertical: 25,
-        }}
-      >
+        }}>
         <View style={{ width: "100%" }}>
           <Text style={{ ...text_styles.title3(theme), color: COLORS.primary }}>
             {TEXT.authentification.forgot_password.title}

@@ -1,6 +1,7 @@
-import React from "react";
-import { useTheme } from "../contexts";
 import { StatusBar as Status } from "expo-status-bar";
+import React from "react";
+
+import { useTheme } from "../contexts";
 
 const StatusBar = () => {
   const { theme } = useTheme();

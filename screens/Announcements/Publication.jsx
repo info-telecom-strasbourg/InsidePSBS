@@ -1,13 +1,14 @@
+import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+
 import styles from "./publication.style";
-import { useTheme } from "../../contexts";
+import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
+import ChevronDown from "../../assets/icons/ChevronDown";
 import { COLORS, ROUTES } from "../../constants";
-import { useRouter } from "expo-router";
+import { useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
 import { getStringDateTime, hideTextOverflow } from "../../utils";
-import ChevronDown from "../../assets/icons/ChevronDown";
-import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
 
 const Publication = ({ data }) => {
   var body_length = data.body.length;
@@ -20,16 +21,14 @@ const Publication = ({ data }) => {
     <TouchableOpacity
       activeOpacity={1}
       style={styles.container(theme)}
-      onPress={() => router.push(`${ROUTES.publication}/${data.id}`)}
-    >
+      onPress={() => router.push(`${ROUTES.publication}/${data.id}`)}>
       {/* TODO: implement a profile view */}
       <TouchableOpacity
         style={{
           flexDirection: "row",
           alignItems: "center",
           marginBottom: 15,
-        }}
-      >
+        }}>
         <Image source={{ uri: data.author.logo_url }} style={styles.image()} />
         <View style={{ width: 10 }} />
         <View>
@@ -53,8 +52,7 @@ const Publication = ({ data }) => {
           }}
           onPress={() => {
             router.push(`${ROUTES.publication}/${data.id}`);
-          }}
-        >
+          }}>
           <Text style={text_styles.body3({ text: COLORS.primary })}>
             Voir plus
           </Text>
@@ -67,8 +65,7 @@ const Publication = ({ data }) => {
           justifyContent: "space-between",
           flexDirection: "row",
           marginTop: 20,
-        }}
-      >
+        }}>
         {/* <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
         >

@@ -1,7 +1,9 @@
+import { useRouter } from "expo-router";
 import React from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import { useRouter } from "expo-router";
 
+import ErrorWidget from "./ErrorWidget";
+import Widget from "./Widget";
 import fouailleWidgetStyle from "./fouaillewidget.style";
 import {
   ArrowDownIcon,
@@ -9,9 +11,7 @@ import {
   FouailleIcon,
 } from "../../../assets/icons";
 import { API, COLORS, ROUTES, TEXT } from "../../../constants";
-import Widget from "./Widget";
 import { useTheme } from "../../../contexts";
-import ErrorWidget from "./ErrorWidget";
 import { useLocalStorage } from "../../../contexts/localStorageContext";
 import { useFetch } from "../../../hooks";
 
@@ -24,7 +24,7 @@ const FouailleWidget = ({ width, height }) => {
     {
       ...API.headers,
       Authorization: `Bearer ${data.token}`,
-    }
+    },
   );
 
   const { theme } = useTheme();
@@ -39,8 +39,7 @@ const FouailleWidget = ({ width, height }) => {
         width={width}
         height={height}
         backgroundColor={theme.box}
-        onPress={onPress}
-      >
+        onPress={onPress}>
         <ActivityIndicator />
       </Widget>
     );
@@ -55,8 +54,7 @@ const FouailleWidget = ({ width, height }) => {
       onPress={onPress}
       width={width}
       height={height}
-      style={{ flexDirection: "row" }}
-    >
+      style={{ flexDirection: "row" }}>
       <View style={styles.iconWrapper}>
         <FouailleIcon width={64} height={64} color={COLORS.text} />
       </View>

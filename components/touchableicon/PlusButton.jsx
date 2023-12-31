@@ -1,10 +1,11 @@
-import React from "react";
-import { useTheme } from "../../contexts";
 import { LinearGradient } from "expo-linear-gradient";
-import { COLORS, ROUTES } from "../../constants";
-import { PlusIcon } from "../../assets/icons";
-import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import React from "react";
+import { TouchableOpacity } from "react-native";
+
+import { PlusIcon } from "../../assets/icons";
+import { COLORS, ROUTES } from "../../constants";
+import { useTheme } from "../../contexts";
 
 const PlusButton = (props) => {
   const { theme } = useTheme();
@@ -18,8 +19,7 @@ const PlusButton = (props) => {
         position: "absolute",
         bottom: 21,
         right: 11,
-      }}
-    >
+      }}>
       <LinearGradient
         colors={COLORS.primaryGradient}
         start={{ x: 0, y: 0 }}
@@ -30,8 +30,7 @@ const PlusButton = (props) => {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 20,
-        }}
-      >
+        }}>
         <PlusIcon color={COLORS.white} height={21} width={21} />
       </LinearGradient>
     </TouchableOpacity>

@@ -1,12 +1,13 @@
-import { View, Text, Dimensions, FlatList, ScrollView } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
+import { View, Text, Dimensions, FlatList, ScrollView } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import calendarStyle from "./calendar.style";
 import { COLORS } from "../../constants";
-import getWeek from "../../utils/date/getWeek";
 import calendar from "../../constants/text/calendar";
 import { useTheme } from "../../contexts";
-import calendarStyle from "./calendar.style";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import compareDay from "../../utils/date/compareDay";
+import getWeek from "../../utils/date/getWeek";
 
 const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
   const [loading, setLoading] = useState(false);
@@ -63,7 +64,7 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
   useEffect(() => {
     changeScreenTitle(
       displayedWeeks[1][3].getMonth(),
-      displayedWeeks[1][3].getFullYear()
+      displayedWeeks[1][3].getFullYear(),
     );
   }, [displayedWeeks]);
 
@@ -74,8 +75,7 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
         onScroll={handleScroll}
         pagingEnabled
         horizontal
-        contentOffset={{ x: width }}
-      >
+        contentOffset={{ x: width }}>
         {displayedWeeks.map((week, index) => (
           <View
             key={index}
@@ -84,8 +84,7 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
               width: width,
               justifyContent: "space-between",
               paddingHorizontal: 6,
-            }}
-          >
+            }}>
             {week.map((date, index) => (
               <Day
                 key={index}
@@ -110,22 +109,19 @@ const Day = ({ day, date, isSelected, onPress }) => {
       style={{
         ...calendarStyle.dayContainer,
         backgroundColor: isSelected ? COLORS.primary : theme.box,
-      }}
-    >
+      }}>
       <Text
         style={{
           ...calendarStyle.dayText,
           color: isSelected ? COLORS.white : theme.text,
-        }}
-      >
+        }}>
         {calendar.day_short[(day + 6) % 7]}
       </Text>
       <Text
         style={{
           ...calendarStyle.dateText,
           color: isSelected ? COLORS.white : theme.text,
-        }}
-      >
+        }}>
         {date}
       </Text>
       <Text> </Text>

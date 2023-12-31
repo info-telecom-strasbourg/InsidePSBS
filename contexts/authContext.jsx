@@ -1,11 +1,13 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
+import * as Crypto from "expo-crypto";
 import { useRootNavigation, useRouter, useSegments } from "expo-router";
-import toast from "../utils/toast";
+import { createContext, useContext, useEffect, useState } from "react";
+
+import { useLocalStorage } from "./localStorageContext";
 import { useTheme } from "./themeContext";
 import { API, ERRORS, ROUTES, TEXT, COLORS } from "../constants";
-import axios from "axios";
-import { useLocalStorage } from "./localStorageContext";
-import * as Crypto from "expo-crypto";
+import toast from "../utils/toast";
+
 const AuthContext = createContext(null);
 
 export const useAuth = () => {
@@ -57,7 +59,7 @@ export const AuthProvider = ({ children }) => {
             ...API.headers,
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (res.status === 200) {
         toast(TEXT.authentification.verify_email.toast_message, {
@@ -73,14 +75,14 @@ export const AuthProvider = ({ children }) => {
   const login = async ({ email, password }) => {
     const hashedPassword = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256,
-      password + email
+      password + email,
     );
 
     try {
       const res = await axios.post(
         `${API.url}/api/login`,
         { email, password: hashedPassword },
-        { headers: { ...API.headers } }
+        { headers: { ...API.headers } },
       );
       if (res.status === 200) pushData({ token: res.data.token });
     } catch (e) {
@@ -109,7 +111,7 @@ export const AuthProvider = ({ children }) => {
             ...API.headers,
             Authorization: `Bearer ${data.token}`,
           },
-        }
+        },
       );
       console.log("logged out,replacing the route");
       router.replace(ROUTES.auth);
@@ -120,8 +122,7 @@ export const AuthProvider = ({ children }) => {
   };
   return (
     <AuthContext.Provider
-      value={{ login, logout, errorMessage, setErrorMessage, reset_email }}
-    >
+      value={{ login, logout, errorMessage, setErrorMessage, reset_email }}>
       {children}
     </AuthContext.Provider>
   );

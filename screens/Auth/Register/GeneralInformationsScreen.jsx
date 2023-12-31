@@ -1,12 +1,15 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
+
+import { Step1 } from "../../../assets/icons";
 import {
-  PrimaryButton,
-  ScrollScreenContainer,
-  Separator,
-  TextInput,
+    PrimaryButton,
+    ScrollScreenContainer,
+    Separator,
+    TextInput,
 } from "../../../components";
+import PasswordInput from "../../../components/input/PasswordInput";
 import { ROUTES, TEXT, COLORS } from "../../../constants";
 import { useTheme } from "../../../contexts";
 import { useRegister } from "../../../contexts/registerContext";
@@ -17,8 +20,6 @@ import {
   checkPassword,
   checkPasswordConfirmation,
 } from "../../../utils";
-import PasswordInput from "../../../components/input/PasswordInput";
-import { Step1 } from "../../../assets/icons";
 
 const GAP = 15;
 
@@ -54,12 +55,12 @@ const GeneralInformationsScreen = () => {
     if (
       !checkPasswordConfirmation(
         entries.password,
-        entries.password_confirmation
+        entries.password_confirmation,
       )
     )
       return setError(
         "password_confirmation",
-        TEXT.authentification.errors.password_confirmation
+        TEXT.authentification.errors.password_confirmation,
       );
     if (!(await checkAlreadyExist("email", entries.email)))
       return setError("email", TEXT.authentification.errors.email_already_used);
@@ -75,8 +76,7 @@ const GeneralInformationsScreen = () => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: 20,
-          }}
-        >
+          }}>
           <Step1
             TextColor={theme.text}
             DarkBackgroundColor={theme.box}

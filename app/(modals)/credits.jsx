@@ -1,4 +1,5 @@
 import React from "react";
+
 import { CreditsScreen } from "../../screens";
 
 const Credits = () => {

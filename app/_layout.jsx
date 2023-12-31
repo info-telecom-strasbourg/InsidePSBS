@@ -1,12 +1,12 @@
-import React from "react";
 import { Stack } from "expo-router";
+import React from "react";
 import { Platform, View } from "react-native";
-
-import { AuthProvider, ThemeProvider } from "../contexts";
-import { StatusBar, WebContainer } from "../components";
-import { initNotification, lockScreenOrientation } from "../utils";
-import { LocalStorageProvider } from "../contexts/localStorageContext";
 import { RootSiblingParent } from "react-native-root-siblings";
+
+import { StatusBar, WebContainer } from "../components";
+import { AuthProvider, ThemeProvider } from "../contexts";
+import { LocalStorageProvider } from "../contexts/localStorageContext";
+import { initNotification, lockScreenOrientation } from "../utils";
 
 const AppLayout = () => {
   lockScreenOrientation();
@@ -24,8 +24,7 @@ const AppLayout = () => {
                 screenOptions={{
                   headerShown: false,
                   animation: "fade_from_bottom",
-                }}
-              >
+                }}>
                 <Stack.Screen name="(tabs)" options={{ animation: "fade" }} />
               </Stack>
             </Container>

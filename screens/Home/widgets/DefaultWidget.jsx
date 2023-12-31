@@ -1,8 +1,8 @@
 import React from "react";
 import { Text } from "react-native";
 
-import styles from "./widget.style";
 import Widget from "./Widget";
+import styles from "./widget.style";
 import { useTheme } from "../../../contexts";
 
 const DefaultWidget = ({
@@ -22,8 +22,7 @@ const DefaultWidget = ({
       height={height}
       backgroundColor={backgroundColor || theme.box}
       onPress={onPress}
-      style={styles.defaultWidget}
-    >
+      style={styles.defaultWidget}>
       {icon}
       <Text style={{ ...styles.widgetTitle({ foregroundColor }), ...style }}>
         {text}

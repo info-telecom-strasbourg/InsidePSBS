@@ -1,5 +1,6 @@
-import {StyleSheet} from "react-native";
-import {COLORS} from "../../constants";
+import { StyleSheet } from "react-native";
+
+import { COLORS } from "../../constants";
 
 const styles = StyleSheet.create({
     container: () => ({
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
         padding: 6,
         borderRadius: 90,
     }),
-    linkContainer: ({box = COLORS.box_light}) => ({
+    linkContainer: ({ box = COLORS.box_light }) => ({
         backgroundColor: box,
         borderRadius: 15,
         flexDirection: "row",

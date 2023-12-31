@@ -3,7 +3,8 @@ const fouaille = {
   unit: "€",
   card: "Carte Fouaille",
   transactions: "Dernières transactions",
-  noBalance: "Il semble que votre compte ne soit pas relié à votre compte fouaille",
+  noBalance:
+    "Il semble que votre compte ne soit pas relié à votre compte fouaille",
   vizualisation: {
     title: "Vizualisation",
     name: "Nom",
@@ -12,7 +13,6 @@ const fouaille = {
     totalSpent: "Total dépensé",
     totalRecharged: "Total rechargé",
   },
-  }
-  
+};
 
 export default fouaille;

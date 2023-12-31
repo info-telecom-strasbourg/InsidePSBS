@@ -1,8 +1,9 @@
 import React from "react";
-import {PublicationScreen} from "../../../screens";
+
+import { PublicationScreen } from "../../../screens";
 
 const Publication = () => {
-    return <PublicationScreen/>;
+    return <PublicationScreen />;
 };
 
 export default Publication;

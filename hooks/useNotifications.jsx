@@ -1,5 +1,5 @@
-import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
 import { Linking, Platform } from "react-native";
 
 // hook to handle push notifications

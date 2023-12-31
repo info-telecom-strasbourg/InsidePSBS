@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { useFetch } from "../../hooks";
 import { RefreshControl, Text, View } from "react-native";
+
+import fouailleStyles from "./fouaille.style";
 import {
   BackButtonTopbar,
   Loader,
   ScrollScreenContainer,
 } from "../../components";
 import { API, TEXT } from "../../constants";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useTheme } from "../../contexts";
-import fouailleStyles from "./fouaille.style";
+import { useLocalStorage } from "../../contexts/localStorageContext";
+import { useFetch } from "../../hooks";
 
 const VizualisationScreen = () => {
   const styles = fouailleStyles();
@@ -30,7 +31,7 @@ const VizualisationScreen = () => {
   // console.log(res.data.orders);
   let totalSpent = 0;
   let totalRecharge = 0;
-  let consumedArticle = {};
+  const consumedArticle = {};
 
   res?.data?.orders.forEach((item) => {
     if (item.total_price < 0) {
@@ -57,10 +58,10 @@ const VizualisationScreen = () => {
       type: "pie",
     },
   ];
-  let PieLayout = {
-    height: 400,
-    width: 400,
-  };
+  const PieLayout = {
+        height: 400,
+        width: 400,
+    };
 
   return (
     <ScrollScreenContainer>

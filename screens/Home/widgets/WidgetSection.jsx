@@ -1,18 +1,18 @@
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Alert, View } from "react-native";
 
-import { getLayout } from "../../../utils";
-import { useRouter } from "expo-router";
-import { COLORS, ROUTES, TEXT } from "../../../constants";
 import FouailleWidget from "./FouailleWidget";
-import {
-  CrousIcon,
-  CTSIcon,
-  ImageIcon,
-  PeopleIcon,
-  ShirtIcon,
-} from "../../../assets/icons";
 import Widget from "./Widget";
+import {
+    CrousIcon,
+    CTSIcon,
+    ImageIcon,
+    PeopleIcon,
+    ShirtIcon,
+} from "../../../assets/icons";
+import { COLORS, ROUTES, TEXT } from "../../../constants";
+import { getLayout } from "../../../utils";
 
 const WidgetSection = () => {
   const [{ width }, setLayout] = useState({ width: 0 });
@@ -42,8 +42,7 @@ const WidgetSection = () => {
         backgroundColor={COLORS.dark_green}
         onPress={() => {
           router.push(ROUTES.organizations);
-        }}
-      >
+        }}>
         <PeopleIcon color={COLORS.light_green} width={70} height={70} />
       </Widget>,
     ],
@@ -53,8 +52,7 @@ const WidgetSection = () => {
         width={widgetSize()}
         height={widgetSize()}
         backgroundColor={COLORS.white}
-        onPress={mpsPress}
-      >
+        onPress={mpsPress}>
         <ImageIcon color={COLORS.light_orange} width={80} height={80} />
       </Widget>,
       // //Laverie
@@ -72,8 +70,7 @@ const WidgetSection = () => {
         backgroundColor={COLORS.light_red}
         onPress={() => {
           router.push(ROUTES.crousbot);
-        }}
-      >
+        }}>
         <CrousIcon color={COLORS.dark_red} width={90} height={80} />
       </Widget>,
     ],

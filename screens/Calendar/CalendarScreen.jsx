@@ -1,18 +1,19 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { RefreshControl } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+import DaySelector from "./DaySelector";
+import EventList from "./EventList";
 import { ChevronDownIcon } from "../../assets/icons";
 import { Loader, ScrollScreenContainer, Topbar } from "../../components";
+import PlusButton from "../../components/touchableicon/PlusButton";
+import { API, ROUTES } from "../../constants";
 import calendar from "../../constants/text/calendar";
 import { useTheme } from "../../contexts";
-import DaySelector from "./DaySelector";
 import { useLocalStorage } from "../../contexts/localStorageContext";
-import axios from "axios";
-import { API, ROUTES } from "../../constants";
-import EventList from "./EventList";
 import { getStringDate } from "../../utils";
 import createDateFromDDMMYYYY from "../../utils/date/createDateFromDDMMYYYY";
-import PlusButton from "../../components/touchableicon/PlusButton";
 
 const CalendarScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -29,7 +30,7 @@ const CalendarScreen = () => {
     try {
       const currentDate = createDateFromDDMMYYYY(getStringDate(selectedDay));
       const nextDate = createDateFromDDMMYYYY(
-        getStringDate(new Date(selectedDay).setDate(selectedDay.getDate() + 1))
+        getStringDate(new Date(selectedDay).setDate(selectedDay.getDate() + 1)),
       );
       const res = await axios.get(
         `${API.url}/api/event?start_at=${currentDate}&end_at=${nextDate}`, // a changer bug lorsque la date est sur 2 jours
@@ -38,7 +39,7 @@ const CalendarScreen = () => {
             ...API.headers,
             Authorization: `Bearer ${data.token}`,
           },
-        }
+        },
       );
       setEventList(res.data.data);
     } catch (e) {
@@ -78,8 +79,7 @@ const CalendarScreen = () => {
       <ScrollScreenContainer
         refreshControl={
           <RefreshControl onRefresh={handleRefresh} refreshing={refreshing} />
-        }
-      >
+        }>
         <Topbar onPress={() => setShowDatePicker(true)}>
           {screenTitle}{" "}
           <ChevronDownIcon color={theme.text} width={22} height={13} />

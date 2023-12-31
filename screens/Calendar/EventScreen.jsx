@@ -1,20 +1,21 @@
 import axios from "axios";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
+import { View, Text, Image } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import { ClockIcon, GpsIcon } from "../../assets/icons";
 import {
-  BackButtonTopbar,
-  Loader,
-  ScrollScreenContainer,
+    BackButtonTopbar,
+    Loader,
+    ScrollScreenContainer,
 } from "../../components";
 import { API, COLORS, FONTS } from "../../constants";
-import { useLocalStorage } from "../../contexts/localStorageContext";
-import { getStringDate, hideTextOverflow } from "../../utils";
-import { View, Text, Image } from "react-native";
-import getHour from "../../utils/date/getHour";
-import { text_styles } from "../../styles";
 import { useTheme } from "../../contexts";
-import { ClockIcon, GpsIcon } from "../../assets/icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { useLocalStorage } from "../../contexts/localStorageContext";
+import { text_styles } from "../../styles";
+import { getStringDate, hideTextOverflow } from "../../utils";
+import getHour from "../../utils/date/getHour";
 
 const EventScreen = () => {
   const { id } = useLocalSearchParams();
@@ -61,8 +62,7 @@ const EventScreen = () => {
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 10,
-              }}
-            >
+              }}>
               <View
                 style={{
                   width: 15,
@@ -76,8 +76,7 @@ const EventScreen = () => {
               </Text>
             </View>
             <TouchableOpacity
-              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-            >
+              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
               <Image
                 source={{ uri: event.author.logo_url }}
                 alt={`${event.author.name}`}
@@ -92,16 +91,14 @@ const EventScreen = () => {
           </View>
           <View style={{ gap: 10 }}>
             <View
-              style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
-            >
+              style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
               <ClockIcon color={theme.text} width={30} height={30} />
               <View>
                 <Text
                   style={{
                     ...text_styles.body1(theme),
                     fontFamily: FONTS.OpenSans.bold,
-                  }}
-                >
+                  }}>
                   {getStringDate(event.start_at)}
                 </Text>
                 <Text style={text_styles.body3(theme)}>
@@ -110,14 +107,12 @@ const EventScreen = () => {
               </View>
             </View>
             <View
-              style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
-            >
+              style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
               <GpsIcon color={theme.text} height={30} width={30} />
               <Text
                 style={{
                   ...text_styles.body2(theme),
-                }}
-              >
+                }}>
                 {event.location}
               </Text>
             </View>

@@ -9,12 +9,12 @@ import {
   ChevronUpIcon,
 } from "../../../assets/icons";
 import { COLORS } from "../../../constants";
-import {
-  capitalize,
-  getStringDateTime,
-  getTimeDifference,
-} from "../../../utils";
 import { useTheme } from "../../../contexts";
+import {
+    capitalize,
+    getStringDateTime,
+    getTimeDifference,
+} from "../../../utils";
 
 const Transaction = ({ data }) => {
   const styles = transactionStyle();
@@ -25,8 +25,7 @@ const Transaction = ({ data }) => {
     <TouchableOpacity
       activeOpacity={1}
       style={styles.transaction}
-      onPress={() => setExpanded((expanded) => !expanded)}
-    >
+      onPress={() => setExpanded((expanded) => !expanded)}>
       <View style={styles.row}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           {data.total_price > 0 ? (

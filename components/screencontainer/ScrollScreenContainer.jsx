@@ -12,8 +12,7 @@ const ScrollScreenContainer = ({ children, refreshControl, background }) => {
         style={styles.screenContainer({
           background: background || theme.background,
         })}
-        refreshControl={refreshControl}
-      >
+        refreshControl={refreshControl}>
         {children}
       </ScrollView>
     </SafeAreaView>

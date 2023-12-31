@@ -1,8 +1,8 @@
+import API from "./api";
 import COLORS from "./colors";
-import TEXT from "./text";
+import ERRORS from "./errors";
 import FONTS from "./fonts";
 import ROUTES from "./routes";
-import API from "./api";
-import ERRORS from "./errors";
+import TEXT from "./text";
 
 export { COLORS, TEXT, FONTS, ROUTES, API, ERRORS };

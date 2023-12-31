@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+
 import { useTheme } from "../../contexts/themeContext";
 
 const fouailleStyles = () => {

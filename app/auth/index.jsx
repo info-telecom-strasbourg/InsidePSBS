@@ -1,16 +1,17 @@
+import { useRouter } from "expo-router";
 import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
+
+import { InsidePsbs } from "../../assets/icons";
 import {
   ColoredButton,
   PrimaryButton,
   ScreenContainer,
   Separator,
 } from "../../components";
-import { text_styles } from "../../styles";
-import { useTheme } from "../../contexts";
 import { COLORS, ROUTES } from "../../constants";
-import { InsidePsbs } from "../../assets/icons";
-import { useRouter } from "expo-router";
+import { useTheme } from "../../contexts";
+import { text_styles } from "../../styles";
 
 const AuthScreen = () => {
   const { theme } = useTheme();
@@ -23,15 +24,13 @@ const AuthScreen = () => {
           flexDirection: "column",
           flex: 1,
           padding: 22,
-        }}
-      >
+        }}>
         <View />
         <View
           style={{
             alignItems: "center",
             justifyContent: "center",
-          }}
-        >
+          }}>
           <InsidePsbs width={132} height={120} />
           <Separator vertical size={20} />
           <Text style={text_styles.title1(theme)}>Bienvenue sur</Text>

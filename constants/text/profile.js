@@ -12,7 +12,8 @@ const profile = {
   unistra: "Compte Unistra",
   unistra_connection: "Connexion Unistra",
   unistra_user: "Utilisateur Unistra lié",
-  unistra_no_user: "Aucun utilisateur Unistra lié, cliquer ci-dessous pour lier :",
+  unistra_no_user:
+    "Aucun utilisateur Unistra lié, cliquer ci-dessous pour lier :",
   password_confirmation: "Confirmer le mot de passe",
   disconnect: "Déconnexion",
   delete_account: "Supprimer le compte",

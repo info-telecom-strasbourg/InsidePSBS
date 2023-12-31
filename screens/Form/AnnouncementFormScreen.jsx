@@ -1,5 +1,8 @@
+import axios from "axios";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { View, Text } from "react-native";
+
 import {
   ScrollScreenContainer,
   BackButtonTopbar,
@@ -9,8 +12,6 @@ import {
 import { API, TEXT, ROUTES } from "../../constants";
 import { useTheme } from "../../contexts";
 import { useLocalStorage } from "../../contexts/localStorageContext";
-import axios from "axios";
-import { useRouter } from "expo-router";
 
 const AnnouncementFormScreen = () => {
   const router = useRouter();
@@ -25,32 +26,31 @@ const AnnouncementFormScreen = () => {
 
   const handleSubmit = async (entries) => {
     //check the content of the field to verify not too long
-    try {
-      const res = await axios
-        .post(`${API.url}/api/post`, entries, {
-          headers: {
-            ...API.headers,
-            Authorization: `Bearer ${data.token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status === 201) {
-            router.push(ROUTES.announcements);
-          } else {
-            setError(TEXT.form.error);
-            console.log(res);
-          }
-        });
-    } catch (e) {
-      console.log(e);
-      if (e.response.status === 422) {
-        setError(TEXT.form.errorFields);
-      } else {
-        setError(TEXT.form.error);
-      }
-      return;
+        try {
+            const res = await axios
+                .post(`${API.url}/api/post`, entries, {
+                    headers: {
+                        ...API.headers,
+                        Authorization: `Bearer ${data.token}`,
+                    },
+                })
+                .then((res) => {
+                    if (res.status === 201) {
+                        router.push(ROUTES.announcements);
+                    } else {
+                        setError(TEXT.form.error);
+                        console.log(res);
+                    }
+                });
+        } catch (e) {
+            console.log(e);
+            if (e.response.status === 422) {
+                setError(TEXT.form.errorFields);
+            } else {
+                setError(TEXT.form.error);
+            }
     }
-  };
+    };
   const { theme } = useTheme();
   return (
     <ScrollScreenContainer>
@@ -64,7 +64,7 @@ const AnnouncementFormScreen = () => {
           value={result.title}
           onChangeText={(val) => setResult((prev) => ({ ...prev, title: val }))}
           label={TEXT.form.announcements.messageTitle}
-          multiline={true}
+          multiline
           numberOfLines={1}
           style={{
             maxHeight: 100,
@@ -76,7 +76,7 @@ const AnnouncementFormScreen = () => {
           value={result.body}
           onChangeText={(val) => setResult((prev) => ({ ...prev, body: val }))}
           label={TEXT.form.announcements.messageContent}
-          multiline={true}
+          multiline
           numberOfLines={1}
           style={{ height: 300, textAlignVertical: "top" }}
           maxLength={4000000000}

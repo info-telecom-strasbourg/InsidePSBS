@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
-import { useTheme } from "../../../contexts/themeContext";
+
 import { FONTS } from "../../../constants";
+import { useTheme } from "../../../contexts/themeContext";
 
 const transactionStyle = () => {
   const { theme } = useTheme();

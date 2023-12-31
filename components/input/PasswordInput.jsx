@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import styles from "./input.style";
+import { EyeClosedIcon, EyeIcon } from "../../assets/icons";
+import { COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
 import { text_styles } from "../../styles";
-import { COLORS } from "../../constants";
-import { EyeClosedIcon, EyeIcon } from "../../assets/icons";
 
 const PasswordInput = ({
   label,
@@ -42,8 +42,7 @@ const PasswordInput = ({
             height: "100%",
             justifyContent: "center",
             paddingHorizontal: 15,
-          }}
-        >
+          }}>
           {showPassword ? (
             <EyeClosedIcon color={theme.text} width={20} />
           ) : (

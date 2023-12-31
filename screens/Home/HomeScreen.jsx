@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-
 import axios from "axios";
 import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   RefreshControl,
@@ -10,6 +9,8 @@ import {
   View,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+
+import WidgetSection from "./widgets/WidgetSection";
 import { ClockIcon, GpsIcon } from "../../assets/icons";
 import { DefaultTopbar, Loader, ScrollScreenContainer } from "../../components";
 import { API, FONTS, TEXT } from "../../constants";
@@ -20,7 +21,6 @@ import { getStringDate, getTimeDifference } from "../../utils";
 import createDateFromDDMMYYYY from "../../utils/date/createDateFromDDMMYYYY";
 import getHour from "../../utils/date/getHour";
 import getColor from "../../utils/getColors";
-import WidgetSection from "./widgets/WidgetSection";
 import initNotification from "../../utils/initNotification";
 const HomeScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -50,7 +50,7 @@ const HomeScreen = () => {
       const endDate = new Date().setDate(currentDate.getDate() + 30);
       const res = await axios.get(
         `${API.url}/api/event?start_at=${createDateFromDDMMYYYY(
-          getStringDate(currentDate)
+          getStringDate(currentDate),
         )}&end_at=${createDateFromDDMMYYYY(getStringDate(endDate))}&per_page=5`,
         {
           headers: {
@@ -58,7 +58,7 @@ const HomeScreen = () => {
             Authorization: `Bearer ${data.token}`,
           },
           signal: controller.signal,
-        }
+        },
       );
       console.log(res.data.data);
       setUpcomingEvent(res.data.data);
@@ -81,8 +81,7 @@ const HomeScreen = () => {
     <ScrollScreenContainer
       refreshControl={
         <RefreshControl refreshing={loading} onRefresh={handleRefresh} />
-      }
-    >
+      }>
       <DefaultTopbar>{TEXT.common.app_name}</DefaultTopbar>
       {loading ? (
         <Loader />
@@ -99,8 +98,7 @@ const HomeScreen = () => {
               <ScrollView
                 showsHorizontalScrollIndicator={false}
                 horizontal
-                contentContainerStyle={{ gap: 11 }}
-              >
+                contentContainerStyle={{ gap: 11 }}>
                 {upcomingEvent.map((event) => (
                   <EventCard key={event.id} event={event} />
                 ))}
@@ -127,15 +125,13 @@ const EventCard = ({ event }) => {
         paddingHorizontal: 10,
         paddingVertical: 7,
         justifyContent: "space-between",
-      }}
-    >
+      }}>
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
           gap: 4,
-        }}
-      >
+        }}>
         <View
           style={{
             width: 8,
@@ -153,8 +149,7 @@ const EventCard = ({ event }) => {
           style={{
             color: foregroundColor,
             fontFamily: FONTS.OpenSans.semiBold,
-          }}
-        >
+          }}>
           {getTimeDifference(event.start_at)}
         </Text>
         <View>
@@ -170,16 +165,14 @@ const EventCard = ({ event }) => {
               justifyContent: "space-between",
               alignItems: "center",
               gap: 5,
-            }}
-          >
+            }}>
             <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 2,
                 flex: 1,
-              }}
-            >
+              }}>
               <GpsIcon width={12} height={12} color={foregroundColor} />
               <Text numberOfLines={1}>{event.location}</Text>
             </View>

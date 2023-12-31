@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { Text, View } from "react-native";
+
 import { PrimaryButton, ScreenContainer, Separator } from "../../../components";
 import { API, COLORS, ROUTES } from "../../../constants";
 import { useTheme } from "../../../contexts";
@@ -23,8 +24,7 @@ const ConfirmationScreen = () => {
         style={{
           paddingHorizontal: 20,
           paddingVertical: 25,
-        }}
-      >
+        }}>
         <View style={{ width: "100%" }}>
           <Text style={text_styles.title1(theme)}>Félicitations !</Text>
           <Text style={text_styles.title1(theme)}>

@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+
 import { loadFonts } from "../utils";
 
 const LocalStorageContext = createContext(null);
@@ -62,8 +63,7 @@ export const LocalStorageProvider = ({ children }) => {
   return (
     <LocalStorageContext.Provider
       value={{ data, pushData, removeData }}
-      onLayout={onLayoutRootView}
-    >
+      onLayout={onLayoutRootView}>
       {children}
     </LocalStorageContext.Provider>
   );

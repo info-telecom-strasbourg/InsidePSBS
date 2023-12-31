@@ -2,9 +2,9 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 import styles from "./topbar.style";
-import TouchableSettingsIcon from "../touchableicon/TouchableSettingsIcon";
-import { text_styles } from "../../styles";
 import { useTheme } from "../../contexts";
+import { text_styles } from "../../styles";
+import TouchableSettingsIcon from "../touchableicon/TouchableSettingsIcon";
 
 const Topbar = ({
   children,
@@ -18,8 +18,7 @@ const Topbar = ({
       <TouchableOpacity
         style={styles.topbarTitleWrapper()}
         activeOpacity={1}
-        onPress={onPress}
-      >
+        onPress={onPress}>
         <View style={styles.topbarWrapper()}>{leftIcon}</View>
         <View style={{ width: 15 }} />
         <View style={styles.topbarWrapper()}>

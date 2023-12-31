@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
+
 import { COLORS } from "../../constants";
 import { useTheme } from "../../contexts";
-
 import { text_styles } from "../../styles";
 
 const CrousBotstyles = () => {
