@@ -16,9 +16,12 @@
   },
   "plugins": ["@typescript-eslint", "react"],
   "rules": {
-    "indent": ["error", 4],
+    "indent": ["warn", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "prettier/prettier": ["warn", { "singleQuote": false }]
   }
 }
