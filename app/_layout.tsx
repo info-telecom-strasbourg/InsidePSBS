@@ -1,17 +1,19 @@
 import { Stack } from "expo-router";
-import React from "react";
 import { Platform, View } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
+import debug from "utils/debug";
 
 import { StatusBar, WebContainer } from "../components";
-import { AuthProvider, ThemeProvider } from "../contexts";
+import { AuthProvider } from "../contexts/authContext";
 import { LocalStorageProvider } from "../contexts/localStorageContext";
-import { initNotification, lockScreenOrientation } from "../utils";
+import { ThemeProvider } from "../contexts/themeContext";
+import { lockScreenOrientation } from "../utils";
 
 const AppLayout = () => {
   lockScreenOrientation();
 
   const Container = Platform.OS === "web" ? WebContainer : View;
+  debug("Test");
 
   return (
     <LocalStorageProvider>

@@ -1,6 +1,7 @@
+import { Body3 } from "components/text/Body";
+import { Title1 } from "components/text/Title";
 import { useRouter } from "expo-router";
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 import { InsidePsbs } from "../../assets/icons";
 import {
@@ -9,9 +10,9 @@ import {
   ScreenContainer,
   Separator,
 } from "../../components";
-import { COLORS, ROUTES } from "../../constants";
-import { useTheme } from "../../contexts";
-import { text_styles } from "../../styles";
+import COLORS from "../../constants/colors";
+import ROUTES from "../../constants/routes";
+import { useTheme } from "../../contexts/themeContext";
 
 const AuthScreen = () => {
   const { theme } = useTheme();
@@ -33,10 +34,8 @@ const AuthScreen = () => {
           }}>
           <InsidePsbs width={132} height={120} />
           <Separator vertical size={20} />
-          <Text style={text_styles.title1(theme)}>Bienvenue sur</Text>
-          <Text style={text_styles.title1({ text: COLORS.primary })}>
-            Inside PSBS
-          </Text>
+          <Title1>Bienvenue sur</Title1>
+          <Title1 style={{ color: COLORS.primary }}>Inside PSBS</Title1>
         </View>
         <View>
           <PrimaryButton
@@ -52,9 +51,9 @@ const AuthScreen = () => {
           />
           <Separator vertical size={80} />
           <TouchableOpacity onPress={() => router.push(ROUTES.cgu)}>
-            <Text style={{ ...text_styles.body3(theme), alignSelf: "center" }}>
-              Conditions d'utilisations
-            </Text>
+            <Body3 style={{ alignSelf: "center" }}>
+              Conditions d&apos;utilisations
+            </Body3>
           </TouchableOpacity>
         </View>
       </View>

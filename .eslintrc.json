@@ -16,12 +16,14 @@
   },
   "plugins": ["@typescript-eslint", "react"],
   "rules": {
-    "indent": ["warn", 2],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
     "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "double"],
-    "semi": ["error", "always"],
+    "quotes": ["warn", "double"],
+    "semi": ["warn", "always"],
     "no-unused-vars": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
-    "prettier/prettier": ["warn", { "singleQuote": false }]
+    "prettier/prettier": ["warn", { "singleQuote": false }],
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": "off"
   }
 }

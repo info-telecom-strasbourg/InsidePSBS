@@ -1,9 +1,7 @@
 import { Stack } from "expo-router";
-import React from "react";
 import { View } from "react-native";
 
-import { COLORS } from "../../constants";
-import { useTheme } from "../../contexts";
+import { useTheme } from "../../contexts/themeContext";
 
 const AuthLayout = () => {
   const { theme } = useTheme();
@@ -13,9 +11,9 @@ const AuthLayout = () => {
         screenOptions={{
           headerShown: false,
           animation: "fade_from_bottom",
-          backgroundColor: COLORS.primary,
+          // backgroundColor: COLORS.primary,
         }}
-        cardStyle={{ backgroundColor: COLORS.primary }}
+        // cardStyle={{ backgroundColor: COLORS.primary }}
       />
     </View>
   );
