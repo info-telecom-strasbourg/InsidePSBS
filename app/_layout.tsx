@@ -3,11 +3,12 @@ import { Platform, View } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
 import debug from "utils/debug";
 
-import { StatusBar, WebContainer } from "../components";
+import StatusBar from "../components/StatusBar";
+import WebContainer from "../components/screencontainer/WebContainer";
 import { AuthProvider } from "../contexts/authContext";
 import { LocalStorageProvider } from "../contexts/localStorageContext";
 import { ThemeProvider } from "../contexts/themeContext";
-import { lockScreenOrientation } from "../utils";
+import lockScreenOrientation from "../utils/lockScreenOrientation";
 
 const AppLayout = () => {
   lockScreenOrientation();

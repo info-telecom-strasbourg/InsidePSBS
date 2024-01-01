@@ -1,6 +1,6 @@
+import ScreenContainer from "components/screencontainer/ScreenContainer";
 import { Redirect, useRootNavigationState } from "expo-router";
 
-import { ScreenContainer } from "../components";
 import ROUTES from "../constants/routes";
 export default function Page() {
   const rootNavigationState = useRootNavigationState();

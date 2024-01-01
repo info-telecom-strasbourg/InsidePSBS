@@ -1,4 +1,4 @@
-import { CguScreen } from "../../screens";
+import CguScreen from "screens/Cgu/CguScreen";
 
 const Cgu = () => {
   return <CguScreen />;

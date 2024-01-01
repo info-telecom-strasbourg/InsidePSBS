@@ -1,21 +1,17 @@
+import Separator from "components/Separator";
+import PrimaryButton from "components/buttons/PrimaryButton";
+import SecondaryButton from "components/buttons/SecondaryButton";
+import ScreenContainer from "components/screencontainer/ScreenContainer";
 import { Body3 } from "components/text/Body";
 import { Title1 } from "components/text/Title";
 import { useRouter } from "expo-router";
 import { TouchableOpacity, View } from "react-native";
 
 import { InsidePsbs } from "../../assets/icons";
-import {
-  ColoredButton,
-  PrimaryButton,
-  ScreenContainer,
-  Separator,
-} from "../../components";
 import COLORS from "../../constants/colors";
 import ROUTES from "../../constants/routes";
-import { useTheme } from "../../contexts/themeContext";
 
 const AuthScreen = () => {
-  const { theme } = useTheme();
   const router = useRouter();
   return (
     <ScreenContainer>
@@ -43,10 +39,8 @@ const AuthScreen = () => {
             onPress={() => router.push(`${ROUTES.register}/1`)}
           />
           <Separator vertical size={20} />
-          <ColoredButton
+          <SecondaryButton
             text="J'ai déjà un compte"
-            background={theme.box}
-            foreground={theme.text}
             onPress={() => router.push(ROUTES.login)}
           />
           <Separator vertical size={80} />
