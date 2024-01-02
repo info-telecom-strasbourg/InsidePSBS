@@ -2,15 +2,25 @@ import { Body3, Title2, Title3 } from "components/Text";
 import COLORS from "constants/colors";
 import ROUTES from "constants/routes";
 import { useRouter } from "expo-router";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { getStringDateTime } from "utils/date/getStringDate";
 import hideTextOverflow from "utils/hideTextOverflow";
 
-import styles from "./publication.style";
 import ChevronDown from "../../assets/icons/ChevronDown";
 import { useTheme } from "../../contexts/themeContext";
 
-const Publication = ({ data }) => {
+type PublicationDataType = {
+  id: number;
+  title: string;
+  body: string;
+  date: Date;
+  author: {
+    name: string;
+    logo_url: string;
+  };
+};
+
+const Publication = ({ data }: { data: PublicationDataType }) => {
   const body_length = data.body.length;
   // TODO: implement reactions and comment
   // reaction not implemented in backend
@@ -20,7 +30,13 @@ const Publication = ({ data }) => {
   return (
     <TouchableOpacity
       activeOpacity={1}
-      style={styles.container(theme)}
+      style={{
+        backgroundColor: theme.box,
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        borderRadius: 20,
+        marginVertical: 10,
+      }}
       onPress={() => router.push(`${ROUTES.publication}/${data.id}`)}>
       {/* TODO: implement a profile view */}
       <TouchableOpacity
@@ -29,7 +45,10 @@ const Publication = ({ data }) => {
           alignItems: "center",
           marginBottom: 15,
         }}>
-        <Image source={{ uri: data.author.logo_url }} style={styles.image()} />
+        <Image
+          source={{ uri: data.author.logo_url }}
+          style={{ width: 40, height: 40, borderRadius: 15 }}
+        />
         <View style={{ width: 10 }} />
         <View>
           <Title3>{data.author.name}</Title3>

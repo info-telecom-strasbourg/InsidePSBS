@@ -22,11 +22,10 @@ const CalendarScreen = () => {
   const [screenTitle, setScreenTitle] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const { theme } = useTheme();
-  const { data } = useLocalStorage();
   const [isLoading, setIsLoading] = useState(false);
   const [eventList, setEventList] = useState([]);
 
-  const changeScreenTitle = (month, year) => {
+  const changeScreenTitle = (month: number, year: number) => {
     setScreenTitle(`${calendar.month[month]} ${year}`);
   };
 

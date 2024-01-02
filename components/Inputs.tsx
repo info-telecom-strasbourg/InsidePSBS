@@ -29,9 +29,9 @@ type PickerProps = NativePickerProps & {
   label: string;
 };
 
-type PickerItem = {
+export type PickerItem = {
   short_name: string;
-  id: number;
+  id: string;
 };
 
 export const TextInput = ({

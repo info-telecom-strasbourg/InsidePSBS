@@ -1,10 +1,9 @@
-import * as React from "react";
-import { Image, ImageSourcePropType, StyleProp, ViewStyle } from "react-native";
+import { Image, ImageStyle } from "react-native";
 
 interface ImageIconProps {
   height: number;
   width: number;
-  style?: any;
+  style?: ImageStyle;
 }
 
 const ImageIcon = ({ height, width, style }: ImageIconProps) => (
@@ -12,9 +11,9 @@ const ImageIcon = ({ height, width, style }: ImageIconProps) => (
     style={{
       resizeMode: "cover",
       height,
-            width: width,
-            ...style,
-        }}
+      width,
+      ...style,
+    }}
     source={require("../../assets/images/media_physique_strasbourg_400.png")}
   />
 );

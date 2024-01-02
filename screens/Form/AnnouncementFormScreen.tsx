@@ -1,0 +1,89 @@
+import { PrimaryButton } from "components/Button";
+import { ScrollScreenContainer } from "components/Containers";
+import { TextInput } from "components/Inputs";
+import { BackButtonTopbar } from "components/Topbar";
+import TEXT from "constants/text";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Text, View } from "react-native";
+
+import { useLocalStorage } from "../../contexts/localStorageContext";
+
+const AnnouncementFormScreen = () => {
+  const router = useRouter();
+
+  const [error, setError] = useState("");
+  const [result, setResult] = useState({
+    title: "",
+    body: "",
+    color: "#ffffff",
+  });
+  const { data } = useLocalStorage();
+
+  // const handleSubmit = async (entries) => {
+  //   //check the content of the field to verify not too long
+  //   try {
+  //     const res = await axios
+  //       .post(`${env.API_URL}/api/post`, entries, {
+  //         headers: {
+  //           ...API.headers,
+  //           Authorization: `Bearer ${data.token}`,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         if (res.status === 201) {
+  //           router.push(ROUTES.announcements);
+  //         } else {
+  //           setError(TEXT.form.error);
+  //           console.log(res);
+  //         }
+  //       });
+  //   } catch (e) {
+  //     console.log(e);
+  //     if (e.response.status === 422) {
+  //       setError(TEXT.form.errorFields);
+  //     } else {
+  //       setError(TEXT.form.error);
+  //     }
+  //   }
+  // };
+  return (
+    <ScrollScreenContainer>
+      <BackButtonTopbar rightIcon={<></>}>
+        {TEXT.form.announcements.title}
+      </BackButtonTopbar>
+      <View style={{ height: 15 }} />
+      <Text style={{ color: "orange" }}>{error}</Text>
+      <View style={{ padding: 15 }}>
+        <TextInput
+          value={result.title}
+          onChangeText={(val) => setResult((prev) => ({ ...prev, title: val }))}
+          label={TEXT.form.announcements.messageTitle}
+          multiline
+          numberOfLines={1}
+          style={{
+            maxHeight: 100,
+          }}
+          maxLength={50}
+        />
+        <View style={{ height: 25 }} />
+        <TextInput
+          value={result.body}
+          onChangeText={(val) => setResult((prev) => ({ ...prev, body: val }))}
+          label={TEXT.form.announcements.messageContent}
+          multiline
+          numberOfLines={1}
+          style={{ height: 300, textAlignVertical: "top" }}
+          maxLength={4000000000}
+        />
+        <View style={{ height: 25 }} />
+        <PrimaryButton
+          text={TEXT.form.announcements.send}
+          // onPress={() => handleSubmit(result)}
+        />
+      </View>
+    </ScrollScreenContainer>
+  );
+};
+
+export default AnnouncementFormScreen;

@@ -4,7 +4,7 @@ import { BackButtonTopbar } from "components/Topbar";
 import FONTS from "constants/fonts";
 import TEXT from "constants/text";
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { useTheme } from "../../contexts/themeContext";
@@ -50,8 +50,13 @@ const CreditsScreen = () => {
   );
 };
 
-const CreditsSection = ({ title, contributors }) => {
-  const { theme } = useTheme();
+const CreditsSection = ({
+  title,
+  contributors,
+}: {
+  title: string;
+  contributors: string[][];
+}) => {
   return (
     <View
       style={{
@@ -72,9 +77,8 @@ const CreditsSection = ({ title, contributors }) => {
   );
 };
 
-const Credit = ({ contributor }) => {
+const Credit = ({ contributor }: { contributor: string[] }) => {
   const [id, setId] = useState(0);
-  const { theme } = useTheme();
 
   const incrementId = () => {
     setId((id) => (id + 1) % contributor.length);

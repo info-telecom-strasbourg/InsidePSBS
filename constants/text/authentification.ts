@@ -2,7 +2,6 @@ const authentification = {
   email: "Email *",
   password: "Mot de passe *",
   password_confirmation: "Confirmer le mot de passe *",
-  forgot_password: "Mot de passe oublié ?",
   first_name: "Prénom *",
   last_name: "Nom *",
   user_name: "Nom d'utilisateur *",

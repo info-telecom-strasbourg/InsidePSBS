@@ -3,7 +3,6 @@ import { ScrollScreenContainer } from "components/Containers";
 import { Picker, TextInput } from "components/Inputs";
 import Separator from "components/Separator";
 import { Title2 } from "components/Text";
-import API from "constants/api";
 import COLORS from "constants/colors";
 import ROUTES from "constants/routes";
 import TEXT from "constants/text";
@@ -19,7 +18,6 @@ import {
   checkPromotionYear,
   checkUsername,
 } from "utils/checkInputs";
-import { env } from "utils/env";
 
 import { Step2 } from "../../../assets/icons";
 import { useRegister } from "../../../contexts/registerContext";
@@ -49,14 +47,14 @@ const PersonalInformationsScreen = () => {
   const [Date, setDate] = useState("");
 
   const router = useRouter();
-  const {
-    res: sectors,
-    isLoading,
-    error,
-  } = useFetch(`${env.API_URL}/api/sector`, {
-    ...API.headers,
-  });
-  console.log(sectors?.data);
+  // const {
+  //   res: sectors,
+  //   isLoading,
+  //   error,
+  // } = useFetch(`${env.API_URL}/api/sector`, {
+  //   ...API.headers,
+  // });
+
   const handleDateChange = (date) => {
     date = date?.replace(/\D/g, "");
     if (2 <= date.length && date.length < 4) {
@@ -159,11 +157,12 @@ const PersonalInformationsScreen = () => {
           <Separator size={GAP} vertical />
           <Picker
             selectedValue={entries.sector}
-            onValueChange={(val) => {
-              updateEntry("sector", val);
-            }}
+            // onValueChange={(val) => {
+            //   updateEntry("sector", val);
+            // }}
             label={TEXT.authentification.sector}
-            items={sectors?.data}
+            // items={sectors?.data
+            items={[]}
           />
 
           <Separator size={GAP} vertical />

@@ -2,25 +2,23 @@ import { ScrollScreenContainer } from "components/Containers";
 import { Loader } from "components/Loader";
 import { BackButtonTopbar } from "components/Topbar";
 import TEXT from "constants/text";
-import { useTheme } from "contexts/ThemeContext";
-import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 
-import { fetchApiData } from "./CtsApi";
-
 const CtsScreen = () => {
-  const { theme } = useTheme();
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  // const { theme } = useTheme();
+  // const [data, setData] = useState(null);
+  // const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    fetchApiData().then((res) => {
-      if (res === -1) setData(null);
-      else {
-        setData(res);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetchApiData().then((res) => {
+  //     if (res === -1) setData(null);
+  //     else {
+  //       setData(res);
+  //     }
+  //   });
+  // }, []);
+
+  const isLoading = false;
 
   return (
     <ScrollScreenContainer>

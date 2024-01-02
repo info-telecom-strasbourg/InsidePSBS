@@ -1,5 +1,13 @@
+import COLORS from "constants/colors";
+import { useTheme } from "contexts/themeContext";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { Dimensions, ScrollView, Text, View } from "react-native";
+import {
+  Dimensions,
+  GestureResponderEvent,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import calendarStyle from "./calendar.style";
@@ -14,7 +22,7 @@ const DaySelector = ({
 }: {
   selectedDay: Date;
   setSelectedDay: Dispatch<SetStateAction<Date>>;
-  changeScreenTitle: Dispatch<SetStateAction<string>>;
+  changeScreenTitle: (month: number, year: number) => void;
 }) => {
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef(null);
@@ -40,7 +48,7 @@ const DaySelector = ({
     const flatListWidth = event.nativeEvent.layoutMeasurement.width;
 
     if (offset === 0) await prevWeek(event);
-    if (offset === 2 * flatListWidth) await nextWeek(event);
+    if (offset === 2 * flatListWidth) await nextWeek();
 
     setLoading(false);
   };
@@ -81,7 +89,7 @@ const DaySelector = ({
         onScroll={handleScroll}
         pagingEnabled
         horizontal
-        contentOffset={{ x: width }}>
+        contentOffset={{ x: width, y: 0 }}>
         {displayedWeeks.map((week, index) => (
           <View
             key={index}
@@ -107,7 +115,17 @@ const DaySelector = ({
   );
 };
 
-const Day = ({ day, date, isSelected, onPress }) => {
+const Day = ({
+  day,
+  date,
+  isSelected,
+  onPress,
+}: {
+  day: number;
+  date: number;
+  isSelected: boolean;
+  onPress: ((event: GestureResponderEvent) => void) & (() => void);
+}) => {
   const { theme } = useTheme();
   return (
     <TouchableOpacity

@@ -1,9 +1,4 @@
-import axios from "axios";
-import API from "constants/api";
-import COLORS from "constants/colors";
-import ERRORS from "constants/errors";
 import ROUTES from "constants/routes";
-import TEXT from "constants/text";
 import * as Crypto from "expo-crypto";
 import { useRootNavigation, useRouter, useSegments } from "expo-router";
 import {
@@ -13,12 +8,18 @@ import {
   useEffect,
   useState,
 } from "react";
-import { env } from "utils/env";
 
 import { useLocalStorage } from "./localStorageContext";
-import toast from "../utils/toast";
 
-const AuthContext = createContext(null);
+type AuthContextType = {
+  login: (data: { email: string; password: string }) => Promise<string>;
+  logout: () => void;
+  errorMessage: string;
+  setErrorMessage: (message: string) => void;
+  reset_email: (token: string) => void;
+};
+
+const AuthContext = createContext<AuthContextType>(null);
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -58,76 +59,82 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   useProtectedRoute();
 
-  const reset_email = async (token) => {
-    try {
-      const res = await axios.post(
-        `${env.API_URL}/api/email/verification-notification`,
-        {},
-        {
-          headers: {
-            ...API.headers,
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      if (res.status === 200) {
-        toast(TEXT.authentification.verify_email.toast_message, {
-          backgroundColor: COLORS.light_green,
-          textColor: COLORS.dark_green,
-        });
-      }
-    } catch (e) {
-      console.error(e);
-    }
+  const reset_email = async (token: string) => {
+    //   try {
+    //     const res = await axios.post(
+    //       `${env.API_URL}/api/email/verification-notification`,
+    //       {},
+    //       {
+    //         headers: {
+    //           ...API.headers,
+    //           Authorization: `Bearer ${token}`,
+    //         },
+    //       },
+    //     );
+    //     if (res.status === 200) {
+    //       toast(TEXT.authentification.verify_email.toast_message, {
+    //         backgroundColor: COLORS.light_green,
+    //         textColor: COLORS.dark_green,
+    //       });
+    //     }
+    //   } catch (e) {
+    //     console.error(e);
+    //   }
   };
 
-  const login = async ({ email, password }) => {
+  const login = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
     const hashedPassword = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256,
       password + email,
     );
 
-    try {
-      const res = await axios.post(
-        `${env.API_URL}/api/login`,
-        { email, password: hashedPassword },
-        { headers: { ...API.headers } },
-      );
-      if (res.status === 200) pushData({ token: res.data.token });
-    } catch (e) {
-      console.log(e);
-      console.log(e.response);
-      if (e.response.status) setErrorMessage(ERRORS[e.response.status]);
-      if (e.response.status === 409) {
-        return e.response.data.token;
-      }
-      // TODO ROMAIN error message doesn't work
-      else console.error(e);
-    }
+    // try {
+    //   const res = await axios.post(
+    //     `${env.API_URL}/api/login`,
+    //     { email, password: hashedPassword },
+    //     { headers: { ...API.headers } },
+    //   );
+    //   if (res.status === 200) pushData({ token: res.data.token });
+    // } catch (e) {
+    //   console.log(e);
+    //   console.log(e.response);
+    //   if (e.response.status) setErrorMessage(ERRORS[e.response.status]);
+    //   if (e.response.status === 409) {
+    //     return e.response.data.token;
+    //   }
+    //   // TODO ROMAIN error message doesn't work
+    //   else console.error(e);
+    // }
     return null;
   };
 
   const logout = async () => {
-    try {
-      console.log("trying to logout");
-      await removeData("token");
-      console.log(data.token);
-      await axios.post(
-        `${env.API_URL}/api/logout`,
-        {},
-        {
-          headers: {
-            ...API.headers,
-            Authorization: `Bearer ${data.token}`,
-          },
-        },
-      );
-      console.log("logged out,replacing the route");
-      router.replace(ROUTES.auth);
-    } catch (e) {
-      console.error("error while logout", e);
-      console.error("error while logout", e.response);
-    }
+    // try {
+    //   console.log("trying to logout");
+    //   await removeData("token");
+    //   console.log(data.token);
+    //   await axios.post(
+    //     `${env.API_URL}/api/logout`,
+    //     {},
+    //     {
+    //       headers: {
+    //         ...API.headers,
+    //         Authorization: `Bearer ${data.token}`,
+    //       },
+    //     },
+    //   );
+    //   console.log("logged out,replacing the route");
+    //   router.replace(ROUTES.auth);
+    // } catch (e) {
+    //   console.error("error while logout", e);
+    //   console.error("error while logout", e.response);
+    // }
   };
   return (
     <AuthContext.Provider

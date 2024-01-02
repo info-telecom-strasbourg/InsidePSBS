@@ -1,26 +1,15 @@
 import { ScrollScreenContainer } from "components/Containers";
 import { Body3, Title2, Title3 } from "components/Text";
 import { BackButtonTopbar } from "components/Topbar";
-import API from "constants/api";
-import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import {
-  Image,
-  RefreshControl,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, RefreshControl, TouchableOpacity, View } from "react-native";
 import { getStringDateTime } from "utils/date/getStringDate";
 import hideTextOverflow from "utils/hideTextOverflow";
 
-import styles from "./publication.style";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useTheme } from "../../contexts/themeContext";
 
 const PublicationScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const { id } = useLocalSearchParams();
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -28,11 +17,9 @@ const PublicationScreen = () => {
     setRefreshing(false);
   };
 
-  const { data } = useLocalStorage();
-
   const { res, isLoading, error } = { res: null, isLoading: null, error: null };
 
-  const { theme, colorScheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <ScrollScreenContainer
@@ -56,7 +43,7 @@ const PublicationScreen = () => {
           }}>
           <Image
             source={{ uri: res?.data.author.logo_url }}
-            style={styles.image()}
+            style={{ width: 40, height: 40, borderRadius: 15 }}
           />
           <View style={{ width: 10 }} />
           <View>

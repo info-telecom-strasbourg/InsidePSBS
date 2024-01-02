@@ -1,10 +1,35 @@
-import axios from "axios";
-import API from "constants/api";
 import * as Crypto from "expo-crypto";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
-import { env } from "utils/env";
 
-const RegisterContext = createContext({});
+type RegisterContextType = {
+  entries: {
+    email: string;
+    password: string;
+    password_confirmation: string;
+    first_name: string;
+    last_name: string;
+    user_name: string;
+    phone: string;
+    promotion_year: string;
+    birth_date: string;
+    sector: number;
+  };
+  updateEntry: (key: string, value: string) => void;
+  signUp: (entries: {
+    email: string;
+    password: string;
+    password_confirmation: string;
+    first_name: string;
+    last_name: string;
+    user_name: string;
+    phone: string;
+    promotion_year: string;
+    birth_date: string;
+    sector: number;
+  }) => void;
+};
+
+const RegisterContext = createContext<RegisterContextType | null>(null);
 
 export const useRegister = () => {
   return useContext(RegisterContext);
@@ -51,27 +76,27 @@ export const RegisterProvider = ({ children }: PropsWithChildren) => {
       console.log("birth_date deleted", entries);
     }
 
-    try {
-      console.log("post", entries);
+    // try {
+    //   console.log("post", entries);
 
-      const res = await axios.post(
-        `${env.API_URL}/api/register`,
-        {
-          ...entries,
-          password: hashedPassword,
-          password_confirmation: hashedPasswordConfirmation,
-        }, // password and password_confirmation replace the one from ...entries
-        {
-          headers: API.headers,
-        },
-      );
-      console.log(res);
-    } catch (e) {
-      console.error(e.response.data);
+    //   const res = await axios.post(
+    //     `${env.API_URL}/api/register`,
+    //     {
+    //       ...entries,
+    //       password: hashedPassword,
+    //       password_confirmation: hashedPasswordConfirmation,
+    //     }, // password and password_confirmation replace the one from ...entries
+    //     {
+    //       headers: API.headers,
+    //     },
+    //   );
+    //   console.log(res);
+    // } catch (e) {
+    //   console.error(e.response.data);
 
-      console.error(e.toJSON());
-      throw new Error("Issue during Signup");
-    }
+    //   console.error(e.toJSON());
+    //   throw new Error("Issue during Signup");
+    // }
   };
 
   return (
