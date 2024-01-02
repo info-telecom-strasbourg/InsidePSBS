@@ -1,6 +1,6 @@
 import { BackButtonTopbar } from "components/Topbar";
 import { SafeAreaView, View } from "react-native";
-import { ScreenContainer } from "react-native-screens";
+import { ScreenContainer } from "components/Containers";
 
 import CGUText from "../../components/CGU";
 

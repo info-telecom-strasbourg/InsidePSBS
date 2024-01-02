@@ -1,10 +1,10 @@
+import { ScreenContainer } from "components/Containers";
 import { BackButtonTopbar, DefaultTopbar } from "components/Topbar";
 import ROUTES from "constants/routes";
 import authentificationText from "constants/text/authentification";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
-import { ScreenContainer } from "react-native-screens";
 
 import { RegisterProvider } from "../../../contexts/registerContext";
 

@@ -16,7 +16,7 @@ export const Loader = () => {
         height: Dimensions.get("window").height - 100,
       }}>
       <Lottie
-        source={require("../../assets/loaders/loader.json")}
+        source={require("assets/loaders/loader.json")}
         style={{ width: 200, height: 200 }}
         autoPlay
         loop

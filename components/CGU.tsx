@@ -1,6 +1,5 @@
 import API from "constants/api";
 import { useTheme } from "contexts/themeContext";
-import useFetch from "hooks/useFetch";
 import { ScrollView, View } from "react-native";
 
 import { Body3, Title3 } from "./Text";
@@ -10,13 +9,13 @@ const CGUText = () => {
   const { theme } = useTheme();
   console.log(theme);
   const { data } = useLocalStorage();
-  const { res } = useFetch(`${API.url}/api/cgu`, {
-    ...API.headers,
-    Authorization: `Bearer ${data.token}`,
-  });
+  // const { res } = useFetch(`${API.url}/api/cgu`, {
+  //   ...API.headers,
+  //   Authorization: `Bearer ${data.token}`,
+  // });
   return (
     <ScrollView style={{ flex: 1 }}>
-      {res?.sections?.map((section, index) => (
+      {/* {res?.sections?.map((section, index) => (
         <View key={index}>
           <Title3>
             {section.title}
@@ -27,7 +26,7 @@ const CGUText = () => {
             {"\n"}
           </Body3>
         </View>
-      ))}
+      ))} */}
     </ScrollView>
   );
 };

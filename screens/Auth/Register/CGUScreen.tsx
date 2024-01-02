@@ -8,7 +8,7 @@ import CheckBox from "expo-checkbox";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView, View } from "react-native";
-import { ScreenContainer } from "react-native-screens";
+import { ScreenContainer } from "components/Containers";
 
 import { Step4 } from "../../../assets/icons";
 import CGUText from "../../../components/CGU";

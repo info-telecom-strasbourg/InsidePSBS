@@ -7,7 +7,7 @@ import TEXT from "constants/text";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
-import { ScreenContainer } from "react-native-screens";
+import { ScreenContainer } from "components/Containers";
 import { checkPassword, checkPasswordConfirmation } from "utils/checkInputs";
 
 import { useLocalStorage } from "../../contexts/localStorageContext";

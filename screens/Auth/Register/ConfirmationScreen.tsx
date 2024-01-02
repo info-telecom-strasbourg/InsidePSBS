@@ -6,7 +6,7 @@ import ROUTES from "constants/routes";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { Text, View } from "react-native";
-import { ScreenContainer } from "react-native-screens";
+import { ScreenContainer } from "components/Containers";
 
 import { useRegister } from "../../../contexts/registerContext";
 

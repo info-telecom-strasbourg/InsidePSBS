@@ -1,9 +1,9 @@
 import { PrimaryButton, SecondaryButton } from "components/Button";
+import { ScreenContainer } from "components/Containers";
 import Separator from "components/Separator";
 import { Body3, Title1 } from "components/Text";
 import { useRouter } from "expo-router";
 import { TouchableOpacity, View } from "react-native";
-import { ScreenContainer } from "react-native-screens";
 
 import { InsidePsbs } from "../../assets/icons";
 import COLORS from "../../constants/colors";
@@ -20,7 +20,6 @@ const AuthScreen = () => {
           flex: 1,
           padding: 22,
         }}>
-        <View />
         <View
           style={{
             alignItems: "center",

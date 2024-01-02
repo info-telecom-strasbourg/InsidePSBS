@@ -1,15 +1,18 @@
 import { ScreenContainer } from "components/Containers";
-import { Redirect, useRootNavigationState } from "expo-router";
+import { useRootNavigationState } from "expo-router";
+import { Text } from "react-native";
 
-import ROUTES from "../constants/routes";
-export default function Page() {
+const Page = () => {
   const rootNavigationState = useRootNavigationState();
 
   if (!rootNavigationState?.key) return null;
 
   return (
     <ScreenContainer>
-      <Redirect href={ROUTES.announcements} />
+      {/* <Redirect href={ROUTES.home} /> */}
+      <Text>Home</Text>
     </ScreenContainer>
   );
-}
+};
+
+export default Page;

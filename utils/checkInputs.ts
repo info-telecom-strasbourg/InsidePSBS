@@ -1,8 +1,3 @@
-import axios from "axios";
-import API from "constants/api";
-
-import { env } from "./env";
-
 export const checkEmail = (email) => {
   const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$/;
   return regexEmail.test(email);
@@ -42,19 +37,19 @@ export const checkPromotionYear = (promotionYear) => {
 
 export const checkAlreadyExist = async (entry, value) => {
   if (entry === "phone" && value === "") return true;
-  try {
-    await axios.get(
-      `${env.API_URL}/api/register/availability?${entry}=${value}`,
-      {
-        headers: API.headers,
-      },
-    );
-    return true;
-  } catch (error) {
-    if (error.response.status === 409) return false;
-    console.log(error.response.data);
-    return true;
-  }
+  // try {
+  //   await axios.get(
+  //     `${env.API_URL}/api/register/availability?${entry}=${value}`,
+  //     {
+  //       headers: API.headers,
+  //     },
+  //   );
+  //   return true;
+  // } catch (error) {
+  //   if (error.response.status === 409) return false;
+  //   console.log(error.response.data);
+  //   return true;
+  // }
 };
 export const checkBirthDate = (birthDate) => {
   if (birthDate === "") return true;

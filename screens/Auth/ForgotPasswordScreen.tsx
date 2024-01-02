@@ -7,7 +7,7 @@ import COLORS from "constants/colors";
 import TEXT from "constants/text";
 import React from "react";
 import { View } from "react-native";
-import { ScreenContainer } from "react-native-screens";
+import { ScreenContainer } from "components/Containers";
 import debug from "utils/debug";
 
 const ForgotPasswordScreen = () => {

@@ -64,7 +64,9 @@ export const LocalStorageProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <LocalStorageContext.Provider value={{ data, pushData, removeData }}>
-      <View onLayout={onLayoutRootView}>{children}</View>
+      <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+        {children}
+      </View>
     </LocalStorageContext.Provider>
   );
 };
