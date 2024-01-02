@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import { ScrollScreenContainer } from "components/Containers";
+import { Body1, Body2 } from "components/Text";
+import { BackButtonTopbar } from "components/Topbar";
+import FONTS from "constants/fonts";
+import TEXT from "constants/text";
+import { useState } from "react";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { BackButtonTopbar, ScrollScreenContainer } from "../../components";
-import { FONTS, TEXT } from "../../constants";
-import { useTheme } from "../../contexts";
-import { text_styles } from "../../styles";
+import { useTheme } from "../../contexts/themeContext";
 
 const CreditsScreen = () => {
   const { theme } = useTheme();
@@ -55,13 +57,12 @@ const CreditsSection = ({ title, contributors }) => {
       style={{
         gap: 10,
       }}>
-      <Text
+      <Body1
         style={{
-          ...text_styles.body1(theme),
           fontFamily: FONTS.OpenSans.bold,
         }}>
         {title}
-      </Text>
+      </Body1>
       <View style={{ gap: 5 }}>
         {contributors.map((contributor, id) => (
           <Credit contributor={contributor} key={id} />
@@ -81,9 +82,7 @@ const Credit = ({ contributor }) => {
 
   return (
     <TouchableOpacity onPress={incrementId}>
-      <Text style={text_styles.body2({ text: theme.text })}>
-        • {contributor[id]}
-      </Text>
+      <Body2>• {contributor[id]}</Body2>
     </TouchableOpacity>
   );
 };

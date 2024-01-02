@@ -1,16 +1,16 @@
-import axios from "axios";
+import { PrimaryButton } from "components/Button";
+import Separator from "components/Separator";
+import { Title1, Title4 } from "components/Text";
+import COLORS from "constants/colors";
+import ROUTES from "constants/routes";
 import { useRouter } from "expo-router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Text, View } from "react-native";
+import { ScreenContainer } from "react-native-screens";
 
-import { PrimaryButton, ScreenContainer, Separator } from "../../../components";
-import { API, COLORS, ROUTES } from "../../../constants";
-import { useTheme } from "../../../contexts";
 import { useRegister } from "../../../contexts/registerContext";
-import { text_styles } from "../../../styles";
 
 const ConfirmationScreen = () => {
-  const { theme } = useTheme();
   const router = useRouter();
   const { signUp, entries } = useRegister();
 
@@ -26,17 +26,15 @@ const ConfirmationScreen = () => {
           paddingVertical: 25,
         }}>
         <View style={{ width: "100%" }}>
-          <Text style={text_styles.title1(theme)}>Félicitations !</Text>
-          <Text style={text_styles.title1(theme)}>
+          <Title1>Félicitations !</Title1>
+          <Title1>
             Vous avez créé votre{" "}
             <Text style={{ color: COLORS.primary }}>compte fouaille</Text>
-          </Text>
+          </Title1>
         </View>
         <Separator size={20} vertical />
         <View style={{ width: "100%" }}>
-          <Text style={text_styles.title4(theme)}>
-            Un mail vous a été envoyé pour activer votre compte
-          </Text>
+          <Title4>Un mail vous a été envoyé pour activer votre compte</Title4>
           <Separator size={30} vertical />
           <PrimaryButton
             text="J'ai validé mon email"

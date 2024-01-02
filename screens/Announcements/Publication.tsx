@@ -1,17 +1,17 @@
+import { Body3, Title2, Title3 } from "components/Text";
+import COLORS from "constants/colors";
+import ROUTES from "constants/routes";
 import { useRouter } from "expo-router";
-import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { getStringDateTime } from "utils/date/getStringDate";
+import hideTextOverflow from "utils/hideTextOverflow";
 
 import styles from "./publication.style";
-import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
 import ChevronDown from "../../assets/icons/ChevronDown";
-import { COLORS, ROUTES } from "../../constants";
-import { useTheme } from "../../contexts";
-import { text_styles } from "../../styles";
-import { getStringDateTime, hideTextOverflow } from "../../utils";
+import { useTheme } from "../../contexts/themeContext";
 
 const Publication = ({ data }) => {
-  var body_length = data.body.length;
+  const body_length = data.body.length;
   // TODO: implement reactions and comment
   // reaction not implemented in backend
   // var reactions_length = data.reactions.length;
@@ -32,17 +32,15 @@ const Publication = ({ data }) => {
         <Image source={{ uri: data.author.logo_url }} style={styles.image()} />
         <View style={{ width: 10 }} />
         <View>
-          <Text style={text_styles.title3(theme)}>{data.author.name}</Text>
-          <Text style={text_styles.body3({ text: theme.text_secondary })}>
+          <Title3>{data.author.name}</Title3>
+          <Body3 style={{ color: theme.text_secondary }}>
             {getStringDateTime(data.date)}
-          </Text>
+          </Body3>
         </View>
       </TouchableOpacity>
-      <Text style={text_styles.title2(theme)}>{data.title}</Text>
+      <Title2>{data.title}</Title2>
       <View style={{ height: 5 }} />
-      <Text style={text_styles.body3(theme)}>
-        {hideTextOverflow(data.body, 500)}
-      </Text>
+      <Body3>{hideTextOverflow(data.body, 500)}</Body3>
       {body_length >= 500 && (
         <TouchableOpacity
           style={{
@@ -53,9 +51,7 @@ const Publication = ({ data }) => {
           onPress={() => {
             router.push(`${ROUTES.publication}/${data.id}`);
           }}>
-          <Text style={text_styles.body3({ text: COLORS.primary })}>
-            Voir plus
-          </Text>
+          <Body3 style={{ color: COLORS.primary }}>Voir plus</Body3>
           <View style={{ width: 5 }} />
           <ChevronDown color={COLORS.primary} width={12} height={12} />
         </TouchableOpacity>

@@ -1,25 +1,24 @@
+import { PrimaryButton } from "components/Button";
+import { ScrollScreenContainer } from "components/Containers";
+import { TextInput } from "components/Inputs";
+import Separator from "components/Separator";
+import { Title2 } from "components/Text";
+import COLORS from "constants/colors";
+import ROUTES from "constants/routes";
+import TEXT from "constants/text";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
-
-import { Step1 } from "../../../assets/icons";
+import { useState } from "react";
+import { SafeAreaView, View } from "react-native";
 import {
-    PrimaryButton,
-    ScrollScreenContainer,
-    Separator,
-    TextInput,
-} from "../../../components";
-import PasswordInput from "../../../components/input/PasswordInput";
-import { ROUTES, TEXT, COLORS } from "../../../constants";
-import { useTheme } from "../../../contexts";
-import { useRegister } from "../../../contexts/registerContext";
-import { text_styles } from "../../../styles";
-import {
-  checkAlreadyExist,
   checkEmail,
   checkPassword,
   checkPasswordConfirmation,
-} from "../../../utils";
+  checkAlreadyExist,
+} from "utils/checkInputs";
+
+import { Step1 } from "../../../assets/icons";
+import { useRegister } from "../../../contexts/registerContext";
+import { useTheme } from "../../../contexts/themeContext";
 
 const GAP = 15;
 
@@ -84,9 +83,9 @@ const GeneralInformationsScreen = () => {
           />
         </View>
         <View style={{ paddingHorizontal: 20, paddingVertical: 25 }}>
-          <Text style={{ ...text_styles.title2(theme), fontSize: 23 }}>
+          <Title2 style={{ fontSize: 23 }}>
             {TEXT.authentification.register.general_information}
-          </Text>
+          </Title2>
           <Separator size={25} vertical />
           <TextInput
             label={TEXT.authentification.email}
@@ -98,7 +97,8 @@ const GeneralInformationsScreen = () => {
             autoCapitalize="none"
           />
           <Separator vertical size={GAP} />
-          <PasswordInput
+          <TextInput
+            type="password"
             label={TEXT.authentification.password}
             onChangeText={(val) => updateEntry("password", val)}
             value={entries.password}
@@ -108,7 +108,8 @@ const GeneralInformationsScreen = () => {
             error={errors.password}
           />
           <Separator vertical size={GAP} />
-          <PasswordInput
+          <TextInput
+            type="password"
             label={TEXT.authentification.password_confirmation}
             onChangeText={(val) => updateEntry("password_confirmation", val)}
             value={entries.password_confirmation}

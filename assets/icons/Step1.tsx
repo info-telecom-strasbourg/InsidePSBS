@@ -1,7 +1,16 @@
 import * as React from "react";
 import Svg, { SvgProps, Path, Rect } from "react-native-svg";
-const Step1 = ({ svgprops, TextColor, DarkBackgroundColor, AccentColor }) => (
-    <Svg width={346} height={44} fill="none" {...svgprops}>
+const Step1 = ({
+  TextColor,
+  DarkBackgroundColor,
+  AccentColor,
+  ...props
+}: SvgProps & {
+  TextColor: string;
+  DarkBackgroundColor: string;
+  AccentColor: string;
+}) => (
+  <Svg width={346} height={44} fill="none" {...props}>
     <Path
       stroke={DarkBackgroundColor}
       strokeWidth={5}

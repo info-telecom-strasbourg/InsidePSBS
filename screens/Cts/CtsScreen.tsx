@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ScrollScreenContainer } from "components/Containers";
+import { Loader } from "components/Loader";
+import { BackButtonTopbar } from "components/Topbar";
+import TEXT from "constants/text";
+import { useTheme } from "contexts/ThemeContext";
+import { useEffect, useState } from "react";
+import { Text, View } from "react-native";
 
 import { fetchApiData } from "./CtsApi";
-import { ChevronLeftIcon, ChevronRightIcon } from "../../assets/icons";
-import {
-  BackButtonTopbar,
-  Loader,
-  ScrollScreenContainer,
-} from "../../components";
-import { TEXT, COLORS } from "../../constants";
-import { useTheme } from "../../contexts";
-import { text_styles } from "../../styles";
 
 const CtsScreen = () => {
   const { theme } = useTheme();

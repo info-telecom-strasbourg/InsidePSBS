@@ -1,18 +1,18 @@
+import { PrimaryButton, SecondaryButton } from "components/Button";
+import { ScrollScreenContainer } from "components/Containers";
+import { TextInput } from "components/Inputs";
+import { Body3 } from "components/Text";
+import { BackButtonTopbar } from "components/Topbar";
+import COLORS from "constants/colors";
+import ERRORS from "constants/errors";
+import ROUTES from "constants/routes";
+import TEXT from "constants/text";
+import { useAuth } from "contexts/authContext";
 import { useRouter } from "expo-router";
-import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 
-import {
-  BackButtonTopbar,
-  PrimaryButton,
-  ScrollScreenContainer,
-  SecondaryButton,
-  TextInput,
-} from "../../components";
-import PasswordInput from "../../components/input/PasswordInput";
-import { COLORS, ROUTES, TEXT, ERRORS } from "../../constants";
-import { useAuth, useTheme } from "../../contexts";
-import { text_styles } from "../../styles";
+import { useTheme } from "../../contexts/themeContext";
 
 const LoginScreen = () => {
   const { login, reset_email, errorMessage, setErrorMessage } = useAuth();
@@ -63,7 +63,8 @@ const LoginScreen = () => {
             autoCapitalize="none"
           />
           <View style={{ height: 15 }} />
-          <PasswordInput
+          <TextInput
+            type="password"
             autoComplete="current-password"
             value={result.password}
             onChangeText={(val) =>
@@ -74,15 +75,15 @@ const LoginScreen = () => {
           <View style={{ height: 20 }} />
         </View>
         <View style={{ flexDirection: "row" }}>
-          <Text style={text_styles.body3({ text: theme.text })}>
+          <Body3 style={{ color: theme.text }}>
             {TEXT.authentification.login.forgot_password}
-          </Text>
+          </Body3>
           <View style={{ width: 5 }} />
           <TouchableOpacity
             onPress={() => router.push(`${ROUTES.forgot_password}`)}>
-            <Text style={text_styles.body3({ text: COLORS.primary })}>
+            <Body3 style={{ color: COLORS.primary }}>
               {TEXT.authentification.login.reset_password}
-            </Text>
+            </Body3>
           </TouchableOpacity>
         </View>
         <View style={{ height: 20 }} />
@@ -109,11 +110,11 @@ const LoginScreen = () => {
           }}
         />
         <View style={{ height: 20 }} />
-        <Text style={text_styles.body3({ text: COLORS.dark_red })}>
+        <Body3 style={{ color: COLORS.dark_red }}>
           {errorMessage !== ERRORS[409]
             ? errorMessage
             : `${TEXT.authentification.verify_email.message}`}
-        </Text>
+        </Body3>
         <View style={{ height: 20 }} />
 
         {tokenVerifyEmail ? (

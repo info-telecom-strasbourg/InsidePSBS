@@ -1,16 +1,21 @@
+import { PrimaryButton } from "components/Button";
+import Separator from "components/Separator";
+import { Body3, Title2 } from "components/Text";
+import COLORS from "constants/colors";
+import ROUTES from "constants/routes";
+import TEXT from "constants/text";
 import CheckBox from "expo-checkbox";
-import { useRouter, useLocalSearchParams } from "expo-router";
-import React, { useState } from "react";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { SafeAreaView, View } from "react-native";
+import { ScreenContainer } from "react-native-screens";
 
 import { Step4 } from "../../../assets/icons";
-import { PrimaryButton, ScreenContainer, Separator } from "../../../components";
 import CGUText from "../../../components/CGU";
-import { COLORS, ROUTES, TEXT } from "../../../constants";
-import { useTheme } from "../../../contexts";
 import { useRegister } from "../../../contexts/registerContext";
-import { text_styles } from "../../../styles";
+import { useTheme } from "../../../contexts/themeContext";
 import toast from "../../../utils/toast";
+
 const CguScreen = () => {
   const { theme } = useTheme();
   const router = useRouter();
@@ -65,9 +70,9 @@ const CguScreen = () => {
             paddingVertical: 25,
             flex: 1,
           }}>
-          <Text style={{ ...text_styles.title2(theme), fontSize: 23 }}>
+          <Title2 style={{ fontSize: 23 }}>
             {TEXT.authentification.register.cgu}
-          </Text>
+          </Title2>
           <Separator size={25} vertical />
           <CGUText />
           <Separator size={20} vertical />
@@ -78,14 +83,10 @@ const CguScreen = () => {
               value={checked}
             />
             <View style={{ width: 10 }} />
-            <Text style={text_styles.body3(theme)}>
-              {TEXT.authentification.register.accept_cgu}
-            </Text>
+            <Body3>{TEXT.authentification.register.accept_cgu}</Body3>
           </View>
           <Separator size={10} vertical />
-          <Text style={text_styles.body3({ text: COLORS.dark_red })}>
-            {error}
-          </Text>
+          <Body3 style={{ color: COLORS.dark_red }}>{error}</Body3>
 
           <Separator size={25} vertical />
           <PrimaryButton

@@ -1,15 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, Text, Dimensions, FlatList, ScrollView } from "react-native";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dimensions, ScrollView, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import calendarStyle from "./calendar.style";
-import { COLORS } from "../../constants";
 import calendar from "../../constants/text/calendar";
-import { useTheme } from "../../contexts";
 import compareDay from "../../utils/date/compareDay";
 import getWeek from "../../utils/date/getWeek";
 
-const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
+const DaySelector = ({
+  selectedDay,
+  setSelectedDay,
+  changeScreenTitle,
+}: {
+  selectedDay: Date;
+  setSelectedDay: Dispatch<SetStateAction<Date>>;
+  changeScreenTitle: Dispatch<SetStateAction<string>>;
+}) => {
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef(null);
   const [displayedWeeks, setDisplayedWeeks] = useState([
@@ -81,7 +87,7 @@ const DaySelector = ({ selectedDay, setSelectedDay, changeScreenTitle }) => {
             key={index}
             style={{
               flexDirection: "row",
-              width: width,
+              width,
               justifyContent: "space-between",
               paddingHorizontal: 6,
             }}>

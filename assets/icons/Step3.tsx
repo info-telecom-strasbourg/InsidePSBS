@@ -1,7 +1,16 @@
 import * as React from "react";
 import Svg, { SvgProps, Rect, Path } from "react-native-svg";
-const Step3 = ({ svgprops, TextColor, DarkBackgroundColor, AccentColor }) => (
-    <Svg width={346} height={44} fill="none" {...svgprops}>
+const Step3 = ({
+  TextColor,
+  DarkBackgroundColor,
+  AccentColor,
+  ...props
+}: SvgProps & {
+  TextColor: string;
+  DarkBackgroundColor: string;
+  AccentColor: string;
+}) => (
+  <Svg width={346} height={44} fill="none" {...props}>
     <Path stroke={AccentColor} strokeWidth={5} d="M19 13h100M119 13h100" />
     <Path stroke={DarkBackgroundColor} strokeWidth={5} d="M219 13h100" />
     <Rect width={27} height={27} x={5.5} fill={AccentColor} rx={13.5} />

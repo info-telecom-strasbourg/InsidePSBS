@@ -1,29 +1,29 @@
+import { PrimaryButton } from "components/Button";
+import { ScrollScreenContainer } from "components/Containers";
+import { Picker, TextInput } from "components/Inputs";
+import Separator from "components/Separator";
+import { Title2 } from "components/Text";
+import API from "constants/api";
+import COLORS from "constants/colors";
+import ROUTES from "constants/routes";
+import TEXT from "constants/text";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
-
-import { Step2 } from "../../../assets/icons";
-import {
-  Picker,
-  PrimaryButton,
-  ScrollScreenContainer,
-  Separator,
-  TextInput,
-} from "../../../components";
-import { API, ROUTES, TEXT, COLORS } from "../../../constants";
-import { useTheme } from "../../../contexts";
-import { useRegister } from "../../../contexts/registerContext";
-import { useFetch } from "../../../hooks";
-import { text_styles } from "../../../styles";
+import { useState } from "react";
+import { SafeAreaView, View } from "react-native";
 import {
   checkAlreadyExist,
+  checkBirthDate,
   checkFirstName,
   checkLastName,
   checkPhone,
   checkPromotionYear,
-  checkBirthDate,
   checkUsername,
-} from "../../../utils";
+} from "utils/checkInputs";
+import { env } from "utils/env";
+
+import { Step2 } from "../../../assets/icons";
+import { useRegister } from "../../../contexts/registerContext";
+import { useTheme } from "../../../contexts/themeContext";
 import createDataFromDDMMYYYY from "../../../utils/date/createDateFromDDMMYYYY";
 
 const GAP = 15;
@@ -53,7 +53,7 @@ const PersonalInformationsScreen = () => {
     res: sectors,
     isLoading,
     error,
-  } = useFetch(`${API.url}/api/sector`, {
+  } = useFetch(`${env.API_URL}/api/sector`, {
     ...API.headers,
   });
   console.log(sectors?.data);
@@ -119,9 +119,9 @@ const PersonalInformationsScreen = () => {
           />
         </View>
         <View style={{ paddingHorizontal: 20, paddingVertical: 25 }}>
-          <Text style={{ ...text_styles.title2(theme), fontSize: 23 }}>
+          <Title2 style={{ fontSize: 23 }}>
             {TEXT.authentification.register.personal_information}
-          </Text>
+          </Title2>
           <Separator size={25} vertical />
           <TextInput
             label={TEXT.authentification.first_name}
@@ -158,7 +158,7 @@ const PersonalInformationsScreen = () => {
           />
           <Separator size={GAP} vertical />
           <Picker
-            value={entries.sector}
+            selectedValue={entries.sector}
             onValueChange={(val) => {
               updateEntry("sector", val);
             }}
@@ -188,10 +188,10 @@ const PersonalInformationsScreen = () => {
               placeholder={TEXT.authentification.placeholders.birth_date}
               value={Date}
               onChangeText={(text) => {
-                var date = handleDateChange(text);
+                let date = handleDateChange(text);
                 setDate(date);
 
-                var date = createDataFromDDMMYYYY(date);
+                date = createDataFromDDMMYYYY(date);
                 updateEntry("birth_date", date);
               }}
               inputMode="numeric"

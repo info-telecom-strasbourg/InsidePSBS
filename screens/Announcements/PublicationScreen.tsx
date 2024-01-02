@@ -1,5 +1,9 @@
+import { ScrollScreenContainer } from "components/Containers";
+import { Body3, Title2, Title3 } from "components/Text";
+import { BackButtonTopbar } from "components/Topbar";
+import API from "constants/api";
 import { useLocalSearchParams } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Image,
   RefreshControl,
@@ -7,16 +11,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { getStringDateTime } from "utils/date/getStringDate";
+import hideTextOverflow from "utils/hideTextOverflow";
 
 import styles from "./publication.style";
-import { HeartBorderIcon, MessagesIcon } from "../../assets/icons";
-import { BackButtonTopbar, ScrollScreenContainer } from "../../components";
-import { API } from "../../constants";
-import { useTheme } from "../../contexts";
 import { useLocalStorage } from "../../contexts/localStorageContext";
-import { useFetch } from "../../hooks";
-import { text_styles } from "../../styles";
-import { getStringDateTime, hideTextOverflow } from "../../utils";
+import { useTheme } from "../../contexts/themeContext";
 
 const PublicationScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -30,16 +30,13 @@ const PublicationScreen = () => {
 
   const { data } = useLocalStorage();
 
-  const { res, isLoading, error } = useFetch(`${API.url}/api/post/${id}`, {
-    ...API.headers,
-    Authorization: `Bearer ${data.token}`,
-  });
+  const { res, isLoading, error } = { res: null, isLoading: null, error: null };
 
   const { theme, colorScheme } = useTheme();
 
   return (
     <ScrollScreenContainer
-      background={theme.box}
+      style={{ backgroundColor: theme.box }}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
       }>
@@ -63,18 +60,16 @@ const PublicationScreen = () => {
           />
           <View style={{ width: 10 }} />
           <View>
-            <Text style={text_styles.title3(theme)}>
-              {res?.data.author.name}
-            </Text>
-            <Text style={text_styles.body3({ text: theme.text_secondary })}>
+            <Title3>{res?.data.author.name}</Title3>
+            <Body3 style={{ color: theme.text_secondary }}>
               {getStringDateTime(res?.data.date)}
-            </Text>
+            </Body3>
           </View>
         </TouchableOpacity>
 
-        <Text style={text_styles.title2(theme)}>{res?.data.title}</Text>
+        <Title2>{res?.data.title}</Title2>
         <View style={{ height: 5 }} />
-        <Text style={text_styles.body3(theme)}>{res?.data.body}</Text>
+        <Body3>{res?.data.body}</Body3>
         {/* <View
           style={{
             justifyContent: "space-between",

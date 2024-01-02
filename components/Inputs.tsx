@@ -21,7 +21,7 @@ import { Body3 } from "./Text";
 type TextInputProps = EntryProps & {
   label?: string;
   error?: string;
-  type: "text" | "password";
+  type?: "text" | "password";
 };
 
 type PickerProps = NativePickerProps & {
@@ -96,12 +96,7 @@ export const TextInput = ({
   );
 };
 
-export const Picker = ({
-  items,
-  selectedValue,
-  label,
-  ...props
-}: PickerProps) => {
+export const Picker = ({ items, label, ...props }: PickerProps) => {
   const { theme } = useTheme();
   return (
     <View>
@@ -111,7 +106,6 @@ export const Picker = ({
       <View style={{ height: 10 }} />
       <View style={{ borderRadius: 15, overflow: "hidden" }}>
         <NativePicker
-          selectedValue={selectedValue}
           itemStyle={{ color: theme.text, fontFamily: FONTS.OpenSans.semiBold }}
           dropdownIconColor={theme.text}
           dropdownIconRippleColor="none"

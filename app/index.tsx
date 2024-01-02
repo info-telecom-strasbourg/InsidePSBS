@@ -9,7 +9,7 @@ export default function Page() {
 
   return (
     <ScreenContainer>
-      <Redirect href={ROUTES.home} />
+      <Redirect href={ROUTES.announcements} />
     </ScreenContainer>
   );
 }
