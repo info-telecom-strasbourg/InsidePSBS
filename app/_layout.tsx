@@ -1,20 +1,33 @@
+import { WebContainer } from "components/Containers";
 import { Stack } from "expo-router";
+import * as ScreenOrientation from "expo-screen-orientation";
+import { useEffect } from "react";
 import { Platform, View } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
-import debug from "utils/debug";
 
 import StatusBar from "../components/StatusBar";
-import WebContainer from "../components/screencontainer/WebContainer";
 import { AuthProvider } from "../contexts/authContext";
 import { LocalStorageProvider } from "../contexts/localStorageContext";
 import { ThemeProvider } from "../contexts/themeContext";
-import lockScreenOrientation from "../utils/lockScreenOrientation";
 
 const AppLayout = () => {
-  lockScreenOrientation();
+  // lock screen orientation
+  useEffect(() => {
+    if (Platform.OS === "web") return;
+
+    const lock = async () => {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT,
+      );
+    };
+
+    lock();
+    return () => {
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
 
   const Container = Platform.OS === "web" ? WebContainer : View;
-  debug("Test");
 
   return (
     <LocalStorageProvider>

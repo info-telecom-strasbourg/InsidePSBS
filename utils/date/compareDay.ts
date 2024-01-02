@@ -1,4 +1,4 @@
-const compareDay = (date1, date2) => {
+const compareDay = (date1: Date, date2: Date) => {
   return (
     date1.getFullYear() === date2.getFullYear() &&
     date1.getMonth() === date2.getMonth() &&

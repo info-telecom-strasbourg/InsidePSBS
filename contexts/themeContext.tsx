@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import COLORS from "constants/colors";
 import * as SystemUI from "expo-system-ui";
 import {
   PropsWithChildren,
@@ -8,8 +9,6 @@ import {
   useState,
 } from "react";
 import { Appearance, useColorScheme } from "react-native";
-
-import { COLORS } from "../constants";
 
 type ThemeType = {
   background: string;

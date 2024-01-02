@@ -1,11 +1,21 @@
 import axios from "axios";
+import API from "constants/api";
+import COLORS from "constants/colors";
+import ERRORS from "constants/errors";
+import ROUTES from "constants/routes";
+import TEXT from "constants/text";
 import * as Crypto from "expo-crypto";
 import { useRootNavigation, useRouter, useSegments } from "expo-router";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { env } from "utils/env";
 
 import { useLocalStorage } from "./localStorageContext";
-import { useTheme } from "./themeContext";
-import { API, ERRORS, ROUTES, TEXT, COLORS } from "../constants";
 import toast from "../utils/toast";
 
 const AuthContext = createContext(null);
@@ -15,7 +25,7 @@ export const useAuth = () => {
 };
 
 const useProtectedRoute = () => {
-  const { data, pushData, removeData } = useLocalStorage();
+  const { data } = useLocalStorage();
   const token = data.token;
   const [isNavigationReady, setIsNavigationReady] = useState(false);
   const segments = useSegments();
@@ -41,8 +51,7 @@ const useProtectedRoute = () => {
   }, [isNavigationReady, segments, token]);
 };
 
-export const AuthProvider = ({ children }) => {
-  const { theme } = useTheme();
+export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState(null);
   const { data, pushData, removeData } = useLocalStorage();
@@ -52,7 +61,7 @@ export const AuthProvider = ({ children }) => {
   const reset_email = async (token) => {
     try {
       const res = await axios.post(
-        `${API.url}/api/email/verification-notification`,
+        `${env.API_URL}/api/email/verification-notification`,
         {},
         {
           headers: {
@@ -80,7 +89,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const res = await axios.post(
-        `${API.url}/api/login`,
+        `${env.API_URL}/api/login`,
         { email, password: hashedPassword },
         { headers: { ...API.headers } },
       );
@@ -92,7 +101,7 @@ export const AuthProvider = ({ children }) => {
       if (e.response.status === 409) {
         return e.response.data.token;
       }
-      // TODO ROMAIN error message does'nt work
+      // TODO ROMAIN error message doesn't work
       else console.error(e);
     }
     return null;
@@ -104,7 +113,7 @@ export const AuthProvider = ({ children }) => {
       await removeData("token");
       console.log(data.token);
       await axios.post(
-        `${API.url}/api/logout`,
+        `${env.API_URL}/api/logout`,
         {},
         {
           headers: {

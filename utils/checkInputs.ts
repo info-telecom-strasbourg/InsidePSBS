@@ -1,6 +1,7 @@
 import axios from "axios";
+import API from "constants/api";
 
-import { API } from "../constants";
+import { env } from "./env";
 
 export const checkEmail = (email) => {
   const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$/;
@@ -36,14 +37,14 @@ export const checkPhone = (phone) => {
 };
 
 export const checkPromotionYear = (promotionYear) => {
-  return parseInt(promotionYear) <= 2155;
+  return parseInt(promotionYear, 10) <= 2155;
 };
 
 export const checkAlreadyExist = async (entry, value) => {
   if (entry === "phone" && value === "") return true;
   try {
-    const res = await axios.get(
-      `${API.url}/api/register/availability?${entry}=${value}`,
+    await axios.get(
+      `${env.API_URL}/api/register/availability?${entry}=${value}`,
       {
         headers: API.headers,
       },
@@ -66,13 +67,13 @@ export const checkBirthDate = (birthDate) => {
   const minBirthYear = currentDate.getFullYear() - 100; // Assuming a maximum age of 100 years
   const maxBirthYear = currentDate.getFullYear() - 1;
   if (
-        parts[2] < 0 ||
+    parts[2] < 0 ||
     parts[2] > 31 ||
     parts[1] < 0 ||
     parts[1] > 12 ||
     parts[0] < minBirthYear ||
     parts[0] > maxBirthYear
-    ) {
+  ) {
     return false;
   }
   return true;

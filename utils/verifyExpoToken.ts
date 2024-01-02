@@ -1,11 +1,12 @@
 import axios from "axios";
+import API from "constants/api";
 
-import { API } from "../constants";
+import { env } from "./env";
 
 async function subscribePushNotificationsAsync(data, expo_token) {
   try {
     await axios.post(
-      `${API.url}/api/exponent/devices/subscribe`,
+      `${env.API_URL}/api/exponent/devices/subscribe`,
       { expo_token },
       {
         headers: {

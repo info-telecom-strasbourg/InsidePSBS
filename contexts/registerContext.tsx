@@ -1,8 +1,8 @@
 import axios from "axios";
+import API from "constants/api";
 import * as Crypto from "expo-crypto";
-import { createContext, useContext, useState } from "react";
-
-import { API } from "../constants";
+import { PropsWithChildren, createContext, useContext, useState } from "react";
+import { env } from "utils/env";
 
 const RegisterContext = createContext({});
 
@@ -10,7 +10,7 @@ export const useRegister = () => {
   return useContext(RegisterContext);
 };
 
-export const RegisterProvider = ({ children }) => {
+export const RegisterProvider = ({ children }: PropsWithChildren) => {
   const [entries, setEntries] = useState({
     email: "",
     password: "",
@@ -55,7 +55,7 @@ export const RegisterProvider = ({ children }) => {
       console.log("post", entries);
 
       const res = await axios.post(
-        `${API.url}/api/register`,
+        `${env.API_URL}/api/register`,
         {
           ...entries,
           password: hashedPassword,

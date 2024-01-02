@@ -1,4 +1,4 @@
-const getWeek = (date) => {
+const getWeek = (date: Date) => {
   const currentDate = new Date(date);
   const firstDay = currentDate.getDate() - ((currentDate.getDay() + 6) % 7);
   const week = new Array(7).fill(0).map((_, i) => {

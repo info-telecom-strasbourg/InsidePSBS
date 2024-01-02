@@ -1,4 +1,4 @@
-const getTimeDifference = (date) => {
+const getTimeDifference = (date: Date) => {
   const currentDate = new Date();
   const inputDate = new Date(date);
   currentDate.setHours(0, 0, 0, 0);
