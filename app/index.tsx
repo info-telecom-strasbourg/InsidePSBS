@@ -1,4 +1,4 @@
-import ScreenContainer from "components/screencontainer/ScreenContainer";
+import { ScreenContainer } from "components/Containers";
 import { Redirect, useRootNavigationState } from "expo-router";
 
 import ROUTES from "../constants/routes";

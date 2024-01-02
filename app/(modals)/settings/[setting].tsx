@@ -1,8 +1,7 @@
-import React from "react";
 import { View } from "react-native";
 
 const Setting = () => {
-  return <View />;
+  return <View />; // TODO: implement
 };
 
 export default Setting;

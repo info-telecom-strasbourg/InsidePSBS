@@ -1,8 +1,8 @@
+import COLORS from "constants/colors";
+import { useTheme } from "contexts/themeContext";
 import { Tabs } from "expo-router";
 
 import { AnnouncementIcon, CalendarIcon, HomeIcon } from "../../assets/icons";
-import { COLORS } from "../../constants";
-import { useTheme } from "../../contexts";
 
 const TabLayout = () => {
   const { theme } = useTheme();
@@ -10,7 +10,7 @@ const TabLayout = () => {
     <Tabs
       screenOptions={{
         headerShown: false,
-        animation: "fade",
+        // animation: "fade",
         tabBarActiveTintColor: COLORS.primary,
         tabBarInactiveTintColor: theme.text,
         tabBarStyle: {

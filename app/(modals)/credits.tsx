@@ -1,6 +1,4 @@
-import React from "react";
-
-import { CreditsScreen } from "../../screens";
+import CreditsScreen from "screens/Credits/Credits";
 
 const Credits = () => {
   return <CreditsScreen />;

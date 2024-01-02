@@ -1,6 +1,4 @@
-import React from "react";
-
-import { AnnouncementScreen } from "../../screens";
+import AnnouncementScreen from "screens/Announcements/AnnouncementScreen";
 
 const Announcements = () => {
   return <AnnouncementScreen />;

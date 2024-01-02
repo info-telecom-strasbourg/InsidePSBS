@@ -1,11 +1,9 @@
+import { PrimaryButton, SecondaryButton } from "components/Button";
 import Separator from "components/Separator";
-import PrimaryButton from "components/buttons/PrimaryButton";
-import SecondaryButton from "components/buttons/SecondaryButton";
-import ScreenContainer from "components/screencontainer/ScreenContainer";
-import { Body3 } from "components/text/Body";
-import { Title1 } from "components/text/Title";
+import { Body3, Title1 } from "components/Text";
 import { useRouter } from "expo-router";
 import { TouchableOpacity, View } from "react-native";
+import { ScreenContainer } from "react-native-screens";
 
 import { InsidePsbs } from "../../assets/icons";
 import COLORS from "../../constants/colors";

@@ -1,6 +1,4 @@
-import React from "react";
-
-import { CrousBotScreen } from "../../screens";
+import CrousBotScreen from "screens/CrousBot/CrousBotScreen";
 
 const CrousBot = () => {
   return <CrousBotScreen />;

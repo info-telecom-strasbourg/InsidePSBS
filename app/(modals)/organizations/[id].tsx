@@ -1,6 +1,4 @@
-import React from "react";
-
-import { OrganizationIdScreen } from "../../../screens";
+import OrganizationIdScreen from "screens/Organizations/OrganizationIdScreen";
 
 const OrganizationId = () => {
   return <OrganizationIdScreen />;

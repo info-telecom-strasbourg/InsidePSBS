@@ -1,5 +1,4 @@
 import { useLocalSearchParams } from "expo-router";
-import React from "react";
 
 import ProfileEditPassword from "../../../../screens/Settings/ProfileEditPassword";
 import ProfileEditScreen from "../../../../screens/Settings/ProfileEditScreen";

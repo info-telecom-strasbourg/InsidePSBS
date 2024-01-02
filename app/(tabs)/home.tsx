@@ -1,6 +1,5 @@
-import React from "react";
+import HomeScreen from "screens/Home/HomeScreen";
 
-import { HomeScreen } from "../../screens";
 const Home = () => {
   return <HomeScreen />;
 };

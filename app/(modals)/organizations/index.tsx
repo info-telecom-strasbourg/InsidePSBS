@@ -1,6 +1,4 @@
-import React from "react";
-
-import { OrganizationsScreen } from "../../../screens";
+import OrganizationsScreen from "screens/Organizations/OrganizationsScreen";
 
 const Organizations = () => {
   return <OrganizationsScreen />;

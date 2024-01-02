@@ -4,11 +4,11 @@ import { SafeAreaView, Text, View } from "react-native";
 
 import { Step2 } from "../../../assets/icons";
 import {
-    Picker,
-    PrimaryButton,
-    ScrollScreenContainer,
-    Separator,
-    TextInput,
+  Picker,
+  PrimaryButton,
+  ScrollScreenContainer,
+  Separator,
+  TextInput,
 } from "../../../components";
 import { API, ROUTES, TEXT, COLORS } from "../../../constants";
 import { useTheme } from "../../../contexts";
@@ -16,13 +16,13 @@ import { useRegister } from "../../../contexts/registerContext";
 import { useFetch } from "../../../hooks";
 import { text_styles } from "../../../styles";
 import {
-    checkAlreadyExist,
-    checkFirstName,
-    checkLastName,
-    checkPhone,
-    checkPromotionYear,
-    checkBirthDate,
-    checkUsername,
+  checkAlreadyExist,
+  checkFirstName,
+  checkLastName,
+  checkPhone,
+  checkPromotionYear,
+  checkBirthDate,
+  checkUsername,
 } from "../../../utils";
 import createDataFromDDMMYYYY from "../../../utils/date/createDateFromDDMMYYYY";
 
