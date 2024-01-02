@@ -8,9 +8,8 @@ import {
   View,
 } from "react-native";
 
-import { Title1 } from "./text/Title";
-import TouchableBackIcon from "./touchableicon/TouchableBackIcon";
-import TouchableSettingsIcon from "./touchableicon/TouchableSettingsIcon";
+import { Title1 } from "./Text";
+import { TouchableSettingsIcon, TouchableBackIcon } from "./TouchableIcon";
 
 type TopbarPropsType = PropsWithChildren<{
   leftIcon?: ReactNode;
