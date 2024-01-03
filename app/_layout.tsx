@@ -1,11 +1,7 @@
-import { WebContainer } from "components/Containers";
-import Text from "components/Text";
+import { ScreenContainer, WebContainer } from "components/Containers";
 import { Stack } from "expo-router";
-import * as ScreenOrientation from "expo-screen-orientation";
-import { useEffect } from "react";
 import { Platform, View } from "react-native";
 import { RootSiblingParent } from "react-native-root-siblings";
-import debug from "utils/debug";
 
 import StatusBar from "../components/StatusBar";
 import { AuthProvider } from "../contexts/authContext";
