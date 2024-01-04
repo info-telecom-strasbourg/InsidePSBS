@@ -1,4 +1,4 @@
-import EventScreen from "../../../screens/Calendar/EventScreen";
+import EventScreen from "../../../../screens/Calendar/EventScreen";
 
 const EventId = () => {
   return <EventScreen />;

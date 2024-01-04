@@ -13,7 +13,6 @@ import DaySelector from "./DaySelector";
 import EventList from "./EventList";
 import { ChevronDownIcon } from "../../assets/icons";
 import calendar from "../../constants/text/calendar";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useTheme } from "../../contexts/themeContext";
 
 const CalendarScreen = () => {

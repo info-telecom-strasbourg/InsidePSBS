@@ -2,7 +2,11 @@ import COLORS from "constants/colors";
 import { useTheme } from "contexts/themeContext";
 import { Tabs } from "expo-router";
 
-import { AnnouncementIcon, CalendarIcon, HomeIcon } from "../../assets/icons";
+import {
+  AnnouncementIcon,
+  CalendarIcon,
+  HomeIcon,
+} from "../../../assets/icons";
 
 const TabLayout = () => {
   const { theme } = useTheme();

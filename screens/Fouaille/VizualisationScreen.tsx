@@ -1,22 +1,17 @@
 import { ScrollScreenContainer } from "components/Containers";
 import { BackButtonTopbar } from "components/Topbar";
-import API from "constants/api";
 import TEXT from "constants/text";
 import { useState } from "react";
 import { Text, View } from "react-native";
-import { env } from "utils/env";
 
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useTheme } from "../../contexts/themeContext";
 
 const VizualisationScreen = () => {
-  const { data } = useLocalStorage();
-
-  const url = `${env.API_URL}/api/fouaille?per_page=100000000`;
-  const headers = {
-    ...API.headers,
-    Authorization: `Bearer ${data.token}`,
-  };
+  // const url = `${env.API_URL}/api/fouaille?per_page=100000000`;
+  // const headers = {
+  //   ...API.headers,
+  //   Authorization: `Bearer ${data.token}`,
+  // };
 
   const [refreshing, setRefreshing] = useState(false);
   // const { res, error, isLoading, fetch } = useFetch(url, headers);

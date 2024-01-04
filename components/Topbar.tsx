@@ -52,7 +52,7 @@ export const BackButtonTopbar = ({
   children,
   rightIcon,
   onPress,
-}: TopbarPropsType) => {
+}: Omit<TopbarPropsType, "leftIcon">) => {
   const router = useRouter();
   return (
     <Topbar

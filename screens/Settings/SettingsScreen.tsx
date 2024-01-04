@@ -12,7 +12,6 @@ import { Linking, TouchableOpacity, View } from "react-native";
 import Avatar from "./Avatar";
 import SettingButton from "./SettingButton";
 import styles from "./settings.style";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useTheme } from "../../contexts/themeContext";
 
 type ThemeType = PickerItem & {
@@ -21,7 +20,6 @@ type ThemeType = PickerItem & {
 };
 
 const SettingsScreen = () => {
-  const { data, pushData } = useLocalStorage();
   const { theme, setColorScheme } = useTheme();
   const router = useRouter();
   // const { res, isLoading } = useFetch(`${API.url}/api/user/me`, {

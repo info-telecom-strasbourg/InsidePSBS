@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 
-import ProfileEditPassword from "../../../../screens/Settings/ProfileEditPassword";
+import ProfileEditPassword from "../../../../../screens/Settings/ProfileEditPassword";
 
 const ProfileEntry = () => {
   const { entry } = useLocalSearchParams();

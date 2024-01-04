@@ -12,11 +12,11 @@ export const ScreenContainer = ({
   const { theme } = useTheme();
 
   return (
-    <SafeAreaView
+    <View
       style={[{ flex: 1, backgroundColor: theme.background }, style]}
       {...props}>
       {children}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -27,13 +27,13 @@ export const ScrollScreenContainer = ({
 }: PropsWithChildren<ScrollViewProps>) => {
   const { theme } = useTheme();
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <ScrollView
         style={[{ flex: 1, backgroundColor: theme.background }, style]}
         {...props}>
         {children}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -57,7 +57,9 @@ export const WebContainer = ({
         style,
       ]}
       {...props}>
-      <View style={{ flex: 1, maxWidth: 400 }}>{children}</View>
+      <View style={{ flex: 1, maxWidth: 400, position: "relative" }}>
+        {children}
+      </View>
     </View>
   );
 };

@@ -2,7 +2,6 @@ import COLORS from "constants/colors";
 import { Image, TouchableOpacity, View } from "react-native";
 
 import { CameraIcon } from "../../assets/icons";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 
 const Avatar = ({
   url,
@@ -11,7 +10,6 @@ const Avatar = ({
   url?: string;
   pressable?: boolean;
 }) => {
-  const { data } = useLocalStorage();
   const handleImagePress = async () => {
     //   const sizeTarget = 512;
     //   await ImagePicker.requestMediaLibraryPermissionsAsync();

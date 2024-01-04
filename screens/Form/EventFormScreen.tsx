@@ -6,12 +6,10 @@ import COLORS from "constants/colors";
 import FONTS from "constants/fonts";
 import TEXT from "constants/text";
 import CheckBox from "expo-checkbox";
-import { useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useTheme } from "../../contexts/themeContext";
 
 type EventFormProps = {

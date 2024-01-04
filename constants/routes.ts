@@ -1,5 +1,4 @@
 const ROUTES = {
-  test: "/test",
   home: "/home",
   messages: "/messages",
   announcements: "/announcements",
@@ -19,8 +18,10 @@ const ROUTES = {
   profile: "/settings/profile",
   cts: "/cts",
   form: "/form",
-  cgu: "/auth/cgu",
+  cgu: "/cgu",
   credits: "/credits",
+  tests: "/tests",
+  test_account: "/test-account",
 };
 
 export default ROUTES;

@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 
-import VizualisationScreen from "../../../screens/Fouaille/VizualisationScreen";
+import VizualisationScreen from "../../../../screens/Fouaille/VizualisationScreen";
 
 const Page = () => {
   const { slug } = useLocalSearchParams();

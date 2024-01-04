@@ -4,11 +4,9 @@ import TEXT from "constants/text";
 import { useState } from "react";
 import { RefreshControl } from "react-native";
 
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useTheme } from "../../contexts/themeContext";
 
 const FouailleScreen = () => {
-  const { data } = useLocalStorage();
   // const url = `${API.url}/api/fouaille?per_page=20`;
   // const headers = {
   //   ...API.headers,

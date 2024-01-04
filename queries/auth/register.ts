@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { env } from "utils/env";
+import { fetchOrThrow } from "utils/fetchOrThrow";
 import { hashPassword } from "utils/hashPassword";
 import { z } from "zod";
 
@@ -21,7 +22,7 @@ const responseSchema = z.object({
     user_name: z.string(),
     last_name: z.string(),
     first_name: z.string(),
-    sector: z.number(),
+    sector_id: z.number(),
     email: z.string(),
     phone: z.string(),
     promotion_year: z.number(),
@@ -31,14 +32,6 @@ const responseSchema = z.object({
   token: z.string(),
 });
 
-const errorSchema = z.object({
-  message: z.string(),
-  errors: z.object({
-    email: z.string().array(),
-    user_name: z.string().array(),
-  }),
-});
-
 type requestType = z.infer<typeof requestSchema>;
 type responseType = z.infer<typeof responseSchema>;
 
@@ -46,45 +39,38 @@ const fetcher = async (
   url: string,
   data: requestType,
 ): Promise<responseType> => {
-  try {
-    requestSchema.parse(data);
+  // Validate request data
+  requestSchema.parse(data);
 
-    // Hash password and password_confirmation
-    const hashedPassword = await hashPassword(data.password, data.email);
-    const hashedPasswordConfirmation = await hashPassword(
-      data.password_confirmation,
-      data.email,
-    );
+  // Hash password and password_confirmation
+  const hashedPassword = await hashPassword(data.password, data.email);
+  const hashedPasswordConfirmation = await hashPassword(
+    data.password_confirmation,
+    data.email,
+  );
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...data,
-        password: hashedPassword,
-        password_confirmation: hashedPasswordConfirmation,
-      }),
-    });
+  const response = await fetchOrThrow(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ...data,
+      password: hashedPassword,
+      password_confirmation: hashedPasswordConfirmation,
+    }),
+  });
 
-    const responseData = await response.json();
-    responseSchema.parse(responseData);
+  const responseData = await response.json();
+  responseSchema.parse(responseData);
 
-    return responseData;
-  } catch (error) {
-    if (error.status === 422 && error.errors) {
-      errorSchema.parse(error);
-      throw error.errors; // It is possible to add another error handling here
-    }
-    throw error;
-  }
+  return responseData;
 };
 
-export const useRegister = (userData: requestType) => {
+export const useRegister = (req: requestType) => {
   const { data, error, isLoading, mutate } = useSWR(
     `${env.API_URL}/api/register`,
-    (url) => fetcher(url, userData),
+    (url) => fetcher(url, req),
   );
 
   return {
@@ -94,4 +80,9 @@ export const useRegister = (userData: requestType) => {
     error,
     mutate,
   };
+};
+
+export const register = async (req: requestType) => {
+  const response = await fetcher(`${env.API_URL}/api/register`, req);
+  return response;
 };

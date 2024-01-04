@@ -7,23 +7,34 @@ import ROUTES from "constants/routes";
 import TEXT from "constants/text";
 import { useAuth } from "contexts/authContext";
 import { useRouter } from "expo-router";
+import { logout } from "queries/auth/logout";
 import { Text, View } from "react-native";
+import toast, { successToast } from "utils/toast";
 
 import SettingButton from "./SettingButton";
 import styles from "./settings.style";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useTheme } from "../../contexts/themeContext";
 
 const ProfileScreen = () => {
-  const { data, removeData } = useLocalStorage();
   const { theme } = useTheme();
-  const { logout } = useAuth();
+  const { token, resetToken } = useAuth();
   const router = useRouter();
 
   // const { res, isLoading, error } = useFetch(`${API.url}/api/user/me`, {
   //   ...API.headers,
   //   Authorization: `Bearer ${data.token}`,
   // });
+
+  const handleLogout = async () => {
+    try {
+      await logout(token);
+      successToast("Vous avez été déconnecté avec succès");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      resetToken();
+    }
+  };
 
   return (
     <ScrollScreenContainer>
@@ -97,7 +108,7 @@ const ProfileScreen = () => {
           text={TEXT.profile.disconnect}
           textStyle={{ fontSize: 17 }}
           onPress={() => {
-            logout();
+            handleLogout();
           }}
         />
         <View style={{ height: 10 }} />

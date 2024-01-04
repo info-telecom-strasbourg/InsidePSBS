@@ -5,7 +5,8 @@ ios/
 dist/
 .vscode/
 .env
-.env.local
+.env*.local
+.env*.test
 google-services.json
 npm-debug.*
 *.jks

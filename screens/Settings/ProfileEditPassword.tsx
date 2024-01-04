@@ -1,4 +1,5 @@
 import { PrimaryButton } from "components/Button";
+import { ScreenContainer } from "components/Containers";
 import { TextInput } from "components/Inputs";
 import Separator from "components/Separator";
 import { Title2 } from "components/Text";
@@ -7,10 +8,8 @@ import TEXT from "constants/text";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
-import { ScreenContainer } from "components/Containers";
 import { checkPassword, checkPasswordConfirmation } from "utils/checkInputs";
 
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import { useTheme } from "../../contexts/themeContext";
 
 const ProfileEditPassword = () => {
@@ -26,7 +25,6 @@ const ProfileEditPassword = () => {
   });
 
   const router = useRouter();
-  const { data } = useLocalStorage();
 
   const setEntry = (key, value) => {
     setEntries((i) => ({ ...i, [key]: value }));

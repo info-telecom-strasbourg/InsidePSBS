@@ -7,7 +7,6 @@ import { StyleSheet, Text, View } from "react-native";
 
 import Widget from "./Widget";
 import { FouailleIcon } from "../../../assets/icons";
-import { useLocalStorage } from "../../../contexts/localStorageContext";
 import { useTheme } from "../../../contexts/themeContext";
 
 const FouailleWidget = ({
@@ -19,7 +18,6 @@ const FouailleWidget = ({
 }) => {
   const router = useRouter();
 
-  const { data } = useLocalStorage();
   // const { res, error, isLoading } = useFetch(
   //   `${API.url}/api/fouaille?per_page=2`,
   //   {

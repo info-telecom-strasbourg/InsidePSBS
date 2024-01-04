@@ -19,18 +19,15 @@ import getTimeDifference from "utils/date/getTimeDifference";
 
 import WidgetSection from "./widgets/WidgetSection";
 import { ClockIcon, GpsIcon } from "../../assets/icons";
-import { useLocalStorage } from "../../contexts/localStorageContext";
 import getHour from "../../utils/date/getHour";
 import getColor from "../../utils/getColors";
-import initNotification from "../../utils/initNotification";
 
 const HomeScreen = () => {
   const [loading, setLoading] = useState(false);
   const [upcomingEvent, setUpcomingEvent] = useState([]);
-  const { data, pushData } = useLocalStorage();
-  useEffect(() => {
-    initNotification(data, pushData);
-  }, []);
+  // useEffect(() => {
+  //   initNotification(data, pushData);
+  // }, []);
 
   useEffect(() => {
     console.log(upcomingEvent);

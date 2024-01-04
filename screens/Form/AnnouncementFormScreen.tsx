@@ -7,8 +7,6 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Text, View } from "react-native";
 
-import { useLocalStorage } from "../../contexts/localStorageContext";
-
 const AnnouncementFormScreen = () => {
   const router = useRouter();
 
@@ -18,7 +16,6 @@ const AnnouncementFormScreen = () => {
     body: "",
     color: "#ffffff",
   });
-  const { data } = useLocalStorage();
 
   // const handleSubmit = async (entries) => {
   //   //check the content of the field to verify not too long

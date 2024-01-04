@@ -4,6 +4,7 @@ import Separator from "components/Separator";
 import { Body3, Title1 } from "components/Text";
 import { useRouter } from "expo-router";
 import { TouchableOpacity, View } from "react-native";
+import { env } from "utils/env";
 
 import { InsidePsbs } from "../../assets/icons";
 import COLORS from "../../constants/colors";
@@ -46,6 +47,16 @@ const AuthScreen = () => {
               Conditions d&apos;utilisations
             </Body3>
           </TouchableOpacity>
+          {env.STAGE === "dev" && (
+            <>
+              <Separator vertical size={20} />
+              <TouchableOpacity onPress={() => router.push(ROUTES.tests)}>
+                <Body3 style={{ alignSelf: "center", color: COLORS.dark_red }}>
+                  Tests Page
+                </Body3>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
       </View>
     </ScreenContainer>

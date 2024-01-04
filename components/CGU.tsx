@@ -1,14 +1,9 @@
-import API from "constants/api";
 import { useTheme } from "contexts/themeContext";
-import { ScrollView, View } from "react-native";
-
-import { Body3, Title3 } from "./Text";
-import { useLocalStorage } from "../contexts/localStorageContext";
+import { ScrollView } from "react-native";
 
 const CGUText = () => {
   const { theme } = useTheme();
   console.log(theme);
-  const { data } = useLocalStorage();
   // const { res } = useFetch(`${API.url}/api/cgu`, {
   //   ...API.headers,
   //   Authorization: `Bearer ${data.token}`,

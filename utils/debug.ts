@@ -1,4 +1,7 @@
+import { env } from "./env";
+
 const debug = (message: string) => {
+  if (env.STAGE === "prod") return;
   try {
     throw new Error();
   } catch (error) {
