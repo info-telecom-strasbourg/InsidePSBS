@@ -21,7 +21,7 @@ import { Body3 } from "./Text";
 type TextInputProps = EntryProps & {
   label?: string;
   error?: string;
-  type?: "text" | "password";
+  type?: "text" | "password" | "email";
 };
 
 type PickerProps = NativePickerProps & {
@@ -42,12 +42,22 @@ export const TextInput = ({
   ...props
 }: TextInputProps) => {
   const { theme } = useTheme();
-  props.maxLength = props.maxLength | 4000000000;
 
-  if (type === "password") {
-    props.autoCapitalize = "none";
-    props.autoCorrect = false;
+  switch (type) {
+    case "email":
+      props.autoComplete = "email";
+      props.inputMode = "email";
+      props.keyboardType = "email-address";
+      props.textContentType = "emailAddress";
+      props.autoCapitalize = "none";
+      break;
+    case "password":
+      props.textContentType = "password";
+      props.autoCapitalize = "none";
+      props.autoCorrect = false;
+      break;
   }
+
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
@@ -67,6 +77,7 @@ export const TextInput = ({
           ]}
           secureTextEntry={type === "password" && !showPassword}
           placeholderTextColor={theme.text_secondary}
+          {...props}
         />
         {type === "password" && (
           <TouchableOpacity

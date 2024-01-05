@@ -1,3 +1,8 @@
+import ROUTES from "constants/routes";
+import { useAuth } from "contexts/authContext";
+import { handleLoginError } from "errors/handleLoginError";
+import { useRouter } from "expo-router";
+import { useState } from "react";
 import { env } from "utils/env";
 import { fetchOrThrow } from "utils/fetchOrThrow";
 import { hashPassword } from "utils/hashPassword";
@@ -50,7 +55,31 @@ const fetcher = async (
   return responseData;
 };
 
-export const login = async (req: requestType) => {
-  const response = await fetcher(`${env.API_URL}/api/login`, req);
-  return response;
+export const useLogin = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string>("");
+  const { setToken } = useAuth();
+  const router = useRouter();
+
+  const login = async (req: requestType) => {
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const response = await fetcher(`${env.API_URL}/api/login`, req);
+      setToken(response.token);
+      router.replace(ROUTES.home);
+      setIsLoading(false);
+      return response;
+    } catch (error) {
+      setIsLoading(false);
+      setError(handleLoginError(error));
+    }
+  };
+
+  return {
+    login,
+    isLoading,
+    error,
+  };
 };

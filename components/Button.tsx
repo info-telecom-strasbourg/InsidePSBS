@@ -5,7 +5,9 @@ import { useTheme } from "contexts/themeContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { ReactNode } from "react";
 import {
+  ActivityIndicator,
   StyleProp,
+  StyleSheet,
   Text,
   TextStyle,
   TouchableOpacity,
@@ -15,9 +17,18 @@ import {
 export type ButtonPropsType = TouchableOpacityProps & {
   text: ReactNode;
   textStyle?: StyleProp<TextStyle>;
+  loading?: boolean;
 };
 
-const Button = ({ text, style, textStyle, ...props }: ButtonPropsType) => {
+const Button = ({
+  text,
+  style,
+  textStyle,
+  loading = false,
+  ...props
+}: ButtonPropsType) => {
+  const textColor = StyleSheet.flatten(textStyle)?.color;
+
   return (
     <TouchableOpacity
       style={[
@@ -25,8 +36,12 @@ const Button = ({ text, style, textStyle, ...props }: ButtonPropsType) => {
           backgroundColor: COLORS.primary,
           padding: 10,
           borderRadius: 20,
+          flexDirection: "row",
+          justifyContent: "center",
+          gap: 15,
         },
         style,
+        props.disabled && { opacity: 0.5 },
       ]}
       {...props}>
       <Text
@@ -41,6 +56,7 @@ const Button = ({ text, style, textStyle, ...props }: ButtonPropsType) => {
         ]}>
         {text}
       </Text>
+      {loading && <ActivityIndicator color={textColor || COLORS.white} />}
     </TouchableOpacity>
   );
 };

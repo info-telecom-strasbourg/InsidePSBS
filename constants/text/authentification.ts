@@ -59,7 +59,7 @@ const authentification = {
       "Veuillez saisir vos informations de connexion.",
   },
   forgot_password: {
-    title: "Mot de passe oublié ?",
+    title: "Réinitialiser",
     description:
       "Pour réinitialiser votre mot de passe, veuillez saisir votre adresse e-mail. Vous recevrez un lien par e-mail pour créer un nouveau mot de passe.",
     submit: "Réinitialiser le mot de passe",

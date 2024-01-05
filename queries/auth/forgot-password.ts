@@ -3,9 +3,7 @@ import { env } from "utils/env";
 import { fetchOrThrow } from "utils/fetchOrThrow";
 import { z } from "zod";
 
-const requestSchema = z.object({
-  email: z.string().email().max(255),
-});
+const requestSchema = z.string().email().max(255);
 
 const responseSchema = z.object({
   message: z.string(),
@@ -46,4 +44,9 @@ export const useForgotPassword = (req: requestType) => {
     error,
     mutate,
   };
+};
+
+export const forgotPassword = async (req: requestType) => {
+  const response = await fetcher(`${env.API_URL}/api/forgot-password`, req);
+  return response;
 };

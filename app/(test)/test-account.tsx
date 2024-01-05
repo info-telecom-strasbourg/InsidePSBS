@@ -4,7 +4,7 @@ import { BackButtonTopbar } from "components/Topbar";
 import ROUTES from "constants/routes";
 import { useAuth } from "contexts/authContext";
 import { useRouter } from "expo-router";
-import { login } from "queries/auth/login";
+import { login, useLogin } from "queries/auth/login";
 import { register } from "queries/auth/register";
 import { errorToast, successToast } from "utils/toast";
 
@@ -42,31 +42,21 @@ const useTestAccount = () => {
       } else throw e;
     }
   };
-
-  const handle_login = async () => {
-    try {
-      const res = await login(accountLogin);
-      successToast(
-        `Vous avez été connecté avec succès : ${JSON.stringify(res)}`,
-      );
-      console.log(res.token);
-      setToken(res.token);
-      router.replace(ROUTES.home);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-  return { handle_register, handle_login };
+  return { handle_register };
 };
 
 const TestAccount = () => {
-  const { handle_register, handle_login } = useTestAccount();
+  const { handle_register } = useTestAccount();
+  const { login } = useLogin();
   const { setToken } = useAuth();
   return (
     <ScreenContainer>
       <BackButtonTopbar rightIcon={<></>}>Test Account</BackButtonTopbar>
       <Button text="create dev account" onPress={handle_register} />
-      <Button text="login with dev account" onPress={handle_login} />
+      <Button
+        text="login with dev account"
+        onPress={() => login(accountLogin)}
+      />
       <Button
         text="setToken"
         onPress={() => {

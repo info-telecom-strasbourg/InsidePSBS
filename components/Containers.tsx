@@ -74,7 +74,7 @@ export const WebContainer = ({
 export const KeyboardAvoidingContainer = ({
   children,
   style,
-}: PropsWithChildren<{ style: StyleProp<ViewStyle> }>) => {
+}: PropsWithChildren<{ style?: StyleProp<ViewStyle> }>) => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
