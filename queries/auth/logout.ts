@@ -1,4 +1,3 @@
-import useSWR from "swr";
 import { env } from "utils/env";
 import { z } from "zod";
 
@@ -21,20 +20,6 @@ const fetcher = async (url: string, token: string): Promise<responseType> => {
   responseSchema.parse(responseData);
 
   return responseData;
-};
-
-export const useLogout = (token: string) => {
-  const { data, error, isLoading, mutate } = useSWR(
-    `${env.API_URL}/api/logout`,
-    (url) => fetcher(url, token),
-  );
-
-  return {
-    message: data?.message,
-    isLoading,
-    error,
-    mutate,
-  };
 };
 
 export const logout = async (token: string) => {

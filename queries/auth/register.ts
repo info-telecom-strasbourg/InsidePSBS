@@ -1,4 +1,3 @@
-import useSWR from "swr";
 import { env } from "utils/env";
 import { fetchOrThrow } from "utils/fetchOrThrow";
 import { hashPassword } from "utils/hashPassword";
@@ -65,21 +64,6 @@ const fetcher = async (
   responseSchema.parse(responseData);
 
   return responseData;
-};
-
-export const useRegister = (req: requestType) => {
-  const { data, error, isLoading, mutate } = useSWR(
-    `${env.API_URL}/api/register`,
-    (url) => fetcher(url, req),
-  );
-
-  return {
-    user: data?.user,
-    token: data?.token,
-    isLoading,
-    error,
-    mutate,
-  };
 };
 
 export const register = async (req: requestType) => {

@@ -1,4 +1,5 @@
 import { PrimaryButton } from "components/Button";
+import { ScreenContainer } from "components/Containers";
 import Separator from "components/Separator";
 import { Body3, Title2 } from "components/Text";
 import COLORS from "constants/colors";
@@ -8,10 +9,9 @@ import CheckBox from "expo-checkbox";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView, View } from "react-native";
-import { ScreenContainer } from "components/Containers";
+import { CguScrollView } from "screens/Cgu/CguScreen";
 
 import { Step4 } from "../../../assets/icons";
-import CGUText from "../../../components/CGU";
 import { useRegister } from "../../../contexts/registerContext";
 import { useTheme } from "../../../contexts/themeContext";
 import toast from "../../../utils/toast";
@@ -74,7 +74,7 @@ const CguScreen = () => {
             {TEXT.authentification.register.cgu}
           </Title2>
           <Separator size={25} vertical />
-          <CGUText />
+          <CguScrollView />
           <Separator size={20} vertical />
           <View style={{ flexDirection: "row" }}>
             <CheckBox

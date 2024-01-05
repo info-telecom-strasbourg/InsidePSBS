@@ -5,39 +5,40 @@ import { useTheme } from "contexts/themeContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { ReactNode } from "react";
 import {
-  GestureResponderEvent,
+  StyleProp,
   Text,
   TextStyle,
   TouchableOpacity,
   TouchableOpacityProps,
-  ViewStyle,
 } from "react-native";
 
-export type ButtonPropsType = {
+export type ButtonPropsType = TouchableOpacityProps & {
   text: ReactNode;
-  onPress?: (event: GestureResponderEvent) => void;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
+  textStyle?: StyleProp<TextStyle>;
 };
 
-const Button = ({ text, onPress, style, textStyle }: ButtonPropsType) => {
+const Button = ({ text, style, textStyle, ...props }: ButtonPropsType) => {
   return (
     <TouchableOpacity
-      style={{
-        backgroundColor: COLORS.primary,
-        padding: 10,
-        borderRadius: 20,
-        ...style,
-      }}
-      onPress={onPress}>
+      style={[
+        {
+          backgroundColor: COLORS.primary,
+          padding: 10,
+          borderRadius: 20,
+        },
+        style,
+      ]}
+      {...props}>
       <Text
-        style={{
-          color: COLORS.white,
-          textAlign: "center",
-          fontFamily: FONTS.OpenSans.bold,
-          fontSize: 20,
-          ...textStyle,
-        }}>
+        style={[
+          {
+            color: COLORS.white,
+            textAlign: "center",
+            fontFamily: FONTS.OpenSans.bold,
+            fontSize: 20,
+          },
+          textStyle,
+        ]}>
         {text}
       </Text>
     </TouchableOpacity>
@@ -45,34 +46,30 @@ const Button = ({ text, onPress, style, textStyle }: ButtonPropsType) => {
 };
 
 export const PrimaryButton = ({
-  text,
-  onPress,
   style,
   textStyle,
+  ...props
 }: ButtonPropsType) => {
   return (
     <Button
-      text={text}
-      onPress={onPress}
-      style={{ backgroundColor: COLORS.primary, ...style }}
-      textStyle={{ color: COLORS.white, ...textStyle }}
+      style={[{ backgroundColor: COLORS.primary }, style]}
+      textStyle={[{ color: COLORS.white }, textStyle]}
+      {...props}
     />
   );
 };
 
 export const SecondaryButton = ({
-  text,
-  onPress,
   style,
   textStyle,
+  ...props
 }: ButtonPropsType) => {
   const { theme } = useTheme();
   return (
     <Button
-      text={text}
-      onPress={onPress}
-      style={{ backgroundColor: theme.box, ...style }}
-      textStyle={{ color: theme.text, ...textStyle }}
+      style={[{ backgroundColor: theme.box }, style]}
+      textStyle={[{ color: theme.text }, textStyle]}
+      {...props}
     />
   );
 };
