@@ -1,0 +1,110 @@
+import COLORS from "constants/colors";
+import ROUTES from "constants/routes";
+import TEXT from "constants/text";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Alert, View } from "react-native";
+import getLayout from "utils/getLayout";
+
+import FouailleWidget from "./FouailleWidget";
+import Widget from "./Widget";
+import { CrousIcon, ImageIcon, PeopleIcon } from "../../../assets/icons";
+
+const WidgetSection = () => {
+  const [{ width }, setLayout] = useState({ width: 0 });
+  const gap = 12;
+  const widgetSize = (size = 1) => (width / 3 - gap) * size + gap * (size - 1);
+  const router = useRouter();
+
+  const mpsPress = () => {
+    Alert.alert(TEXT.common.redirect.title, TEXT.common.redirect.description, [
+      {
+        text: TEXT.common.redirect.cancel,
+      },
+      {
+        text: TEXT.common.redirect.continue,
+        onPress: () =>
+          router.replace("https://nextcloud.its-tps.fr/s/zfFkwR6y5wxt5gW"),
+      },
+    ]);
+  };
+
+  const widgetTable = [
+    [
+      <FouailleWidget width={widgetSize(2)} height={widgetSize()} key={1} />,
+      <Widget
+        width={widgetSize()}
+        height={widgetSize()}
+        backgroundColor={COLORS.dark_green}
+        onPress={() => {
+          router.push(ROUTES.organizations);
+        }}
+        key={2}>
+        <PeopleIcon color={COLORS.light_green} width={70} height={70} />
+      </Widget>,
+    ],
+    [
+      //MPS
+      <Widget
+        width={widgetSize()}
+        height={widgetSize()}
+        backgroundColor={COLORS.white}
+        onPress={mpsPress}
+        key={3}>
+        <ImageIcon width={80} height={80} />
+      </Widget>,
+      // //Laverie
+      // <Widget
+      //   width={widgetSize()}
+      //   height={widgetSize()}
+      //   backgroundColor={COLORS.dark_blue}
+      // >
+      //   <ShirtIcon color={COLORS.light_blue} width={90} height={80} />
+      // </Widget>,
+      //Crous
+      <Widget
+        width={widgetSize()}
+        height={widgetSize()}
+        backgroundColor={COLORS.light_red}
+        onPress={() => {
+          router.push(ROUTES.crousbot);
+        }}
+        key={4}>
+        <CrousIcon color={COLORS.dark_red} width={90} height={80} />
+      </Widget>,
+    ],
+    // [
+    //   //CTS
+    //   <Widget
+    //     width={widgetSize()}
+    //     height={widgetSize()}
+    //     backgroundColor={COLORS.light_red}
+    //     onPress={() => {
+    //       router.push(ROUTES.cts);
+    //     }}
+    //   >
+    //     <CTSIcon color={COLORS.dark_red} width={80} height={80} />
+    //   </Widget>,
+    // ],
+  ];
+
+  return (
+    <View onLayout={(e) => getLayout(e, setLayout)}>
+      {widgetTable.map((row, r_id) => (
+        <View key={r_id}>
+          {r_id > 0 && <View style={{ height: gap }} />}
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            {row.map((widget, w_id) => (
+              <View key={w_id} style={{ flexDirection: "row" }}>
+                {w_id > 0 && <View style={{ width: gap }} />}
+                {widget}
+              </View>
+            ))}
+          </View>
+        </View>
+      ))}
+    </View>
+  );
+};
+
+export default WidgetSection;
