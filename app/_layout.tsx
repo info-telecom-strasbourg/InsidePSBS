@@ -14,6 +14,10 @@ const RootLayout = () => {
     <Provider>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
+          name="(dev)/dev"
+          options={{ animation: "fade_from_bottom" }}
+        />
+        <Stack.Screen
           name="(public)"
           options={{ animation: "fade_from_bottom" }}
         />

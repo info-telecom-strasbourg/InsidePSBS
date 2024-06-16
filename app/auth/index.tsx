@@ -6,6 +6,7 @@ import { Image, View } from "react-native";
 
 const AuthPage = () => {
   const router = useRouter();
+  console.log(process.env.EXPO_PUBLIC_MODE);
   return (
     <PageContainer className="0 flex flex-col justify-between">
       <View className="flex flex-1 flex-col items-center justify-center gap-2">
@@ -32,9 +33,16 @@ const AuthPage = () => {
         >
           J'ai déjà un compte
         </Button>
-        <Link href="/cgu" className="mt-20 text-center text-foreground">
-          Conditions d'utilisation
-        </Link>
+        <View className="mt-20 flex flex-col gap-2">
+          {process.env.EXPO_PUBLIC_MODE === "developer" && (
+            <Link href="/dev" className="text-center text-primary">
+              Dev screen
+            </Link>
+          )}
+          <Link href="/cgu" className="text-center text-foreground">
+            Conditions d'utilisation
+          </Link>
+        </View>
       </View>
     </PageContainer>
   );
