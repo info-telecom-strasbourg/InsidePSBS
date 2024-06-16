@@ -1,0 +1,58 @@
+import { vars } from "nativewind";
+import { colors } from "./colors";
+
+export const globalTheme = {
+  "--purple": colors.purple,
+  "--light-purple": colors.lightPurple,
+  "--orange": colors.orange,
+  "--light-orange": colors.lightOrange,
+  "--green": colors.green,
+  "--light-green": colors.lightGreen,
+  "--blue": colors.blue,
+  "--light-blue": colors.lightBlue,
+  "--red": colors.red,
+  "--light-red": colors.lightRed,
+  "--yellow": colors.yellow,
+  "--light-yellow": colors.lightYellow,
+  "--pink": colors.pink,
+  "--light-pink": colors.lightPink,
+};
+
+export const themes = {
+  light: vars({
+    "--background": colors.light.background,
+    "--foreground": colors.light.foreground,
+    "--popover": colors.light.popover,
+    "--popover-foreground": colors.light.popoverForeground,
+    "--primary": colors.light.primary,
+    "--primary-foreground": colors.light.primaryForeground,
+    "--secondary": colors.light.secondary,
+    "--secondary-foreground": colors.light.secondaryForeground,
+    "--muted": colors.light.muted,
+    "--muted-foreground": colors.light.mutedForeground,
+    "--accent": colors.light.accent,
+    "--accent-foreground": colors.light.accentForeground,
+    "--border": colors.light.border,
+    "--destructive": colors.light.destructive,
+    "--destructive-foreground": colors.light.destructiveForeground,
+    ...globalTheme,
+  }),
+  dark: vars({
+    "--background": colors.dark.background,
+    "--foreground": colors.dark.foreground,
+    "--popover": colors.dark.popover,
+    "--popover-foreground": colors.dark.popoverForeground,
+    "--primary": colors.dark.primary,
+    "--primary-foreground": colors.dark.primaryForeground,
+    "--secondary": colors.dark.secondary,
+    "--secondary-foreground": colors.dark.secondaryForeground,
+    "--muted": colors.dark.muted,
+    "--muted-foreground": colors.dark.mutedForeground,
+    "--accent": colors.dark.accent,
+    "--accent-foreground": colors.dark.accentForeground,
+    "--border": colors.dark.border,
+    "--destructive": colors.dark.destructive,
+    "--destructive-foreground": colors.dark.destructiveForeground,
+    ...globalTheme,
+  }),
+};
