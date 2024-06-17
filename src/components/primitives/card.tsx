@@ -33,7 +33,7 @@ const Card = ({
         <Icon strokeWidth={1.5} size={35} color={color} />
       </View>
       <View className="w-24 items-start justify-center">
-        <Typography size="h4" fontWeight="bold" className="text-foreground">
+        <Typography size="h4" fontWeight="semibold" className="text-foreground">
           {children}
         </Typography>
         {subtitle && (

@@ -23,12 +23,15 @@ export const typographyVariants = cva("text-foreground", {
 export type TypographyProps = PropsWithChildren<
   {
     fontWeight?:
+      | "extralight"
+      | "thin"
       | "light"
       | "regular"
       | "medium"
       | "semibold"
       | "bold"
-      | "extrabold";
+      | "extrabold"
+      | "black";
     fontStyle?: "italic" | "normal";
     fontFamily?: string;
   } & TextProps
@@ -41,7 +44,7 @@ export const Typography = ({
   className,
   fontWeight = "regular",
   fontStyle = "normal",
-  fontFamily = "Roboto",
+  fontFamily = "Inter",
   ...props
 }: TypographyProps) => {
   const font = `${fontFamily}-${fontWeight}${
