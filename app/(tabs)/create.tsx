@@ -1,12 +1,12 @@
 import { Typography } from "@/components/primitives/typography";
 import { View } from "react-native";
 
-const SettingsScreen = () => {
+const create = () => {
   return (
     <View className="flex-1 items-center justify-center bg-background">
-      <Typography size="h1">Settings</Typography>
+      <Typography size="h1">Create</Typography>
     </View>
   );
 };
 
-export default SettingsScreen;
+export default create;

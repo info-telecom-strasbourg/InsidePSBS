@@ -34,6 +34,8 @@ module.exports = {
         "light-yellow": "var(--light-yellow)",
         pink: "var(--pink)",
         "light-pink": "var(--light-pink)",
+        popover: "var(--popover)",
+        "popover-foreground": "var(--popover-foreground)",
       },
     },
   },

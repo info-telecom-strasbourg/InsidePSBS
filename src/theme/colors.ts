@@ -19,7 +19,7 @@ export const colors = {
   dark: {
     background: "hsl(240 10% 3.9%)",
     foreground: "hsl(0 0% 98%)",
-    popover: "hsl(240 10% 3.9%)",
+    popover: "hsl(240 3.7% 15.9%)",
     popoverForeground: "hsl(0 0% 98%)",
     primary: "hsl(25 95% 53%)",
     primaryForeground: "hsl(0 0% 98%)",
@@ -49,3 +49,5 @@ export const colors = {
   lightPink: "hsl(302, 78%, 95%)",
   pink: "hsl(302, 93%, 43%)",
 };
+
+export type ColorType = keyof typeof colors;

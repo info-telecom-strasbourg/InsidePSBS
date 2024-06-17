@@ -14,6 +14,17 @@ export const useFonts = () => {
     "OpenSans-regularItalic": require("../../assets/fonts/open-sans/OpenSans-Italic.ttf"),
     "OpenSans-semibold": require("../../assets/fonts/open-sans/OpenSans-SemiBold.ttf"),
     "OpenSans-semiboldItalic": require("../../assets/fonts/open-sans/OpenSans-SemiBoldItalic.ttf"),
+
+    "Roboto-regular": require("../../assets/fonts/roboto/Roboto-Regular.ttf"),
+    "Roboto-italic": require("../../assets/fonts/roboto/Roboto-Italic.ttf"),
+    "Roboto-bold": require("../../assets/fonts/roboto/Roboto-Bold.ttf"),
+    "Roboto-boldItalic": require("../../assets/fonts/roboto/Roboto-BoldItalic.ttf"),
+    "Roboto-light": require("../../assets/fonts/roboto/Roboto-Light.ttf"),
+    "Roboto-lightItalic": require("../../assets/fonts/roboto/Roboto-LightItalic.ttf"),
+    "Roboto-medium": require("../../assets/fonts/roboto/Roboto-Medium.ttf"),
+    "Roboto-mediumItalic": require("../../assets/fonts/roboto/Roboto-MediumItalic.ttf"),
+    "Roboto-thin": require("../../assets/fonts/roboto/Roboto-Thin.ttf"),
+    "Roboto-thinItalic": require("../../assets/fonts/roboto/Roboto-ThinItalic.ttf"),
   });
 
   useEffect(() => {

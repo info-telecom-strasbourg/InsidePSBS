@@ -2,7 +2,7 @@ import { Typography } from "@/components/primitives/typography";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { useRouter } from "expo-router";
-import { X } from "lucide-react-native";
+import { Bolt, ChevronLeft, X } from "lucide-react-native";
 import { Image, TouchableOpacity, View } from "react-native";
 
 export type HeaderProps = {
@@ -26,8 +26,13 @@ export const Header = ({
           className="size-16"
         />
       )}
+      {leftIcon === "back" && (
+        <TouchableOpacity onPress={() => router.back()} className="p-2">
+          <ChevronLeft size={32} color={colors[theme].foreground} />
+        </TouchableOpacity>
+      )}
       <Typography
-        size="h3"
+        size="h2"
         fontWeight="bold"
         className="flex-1"
         numberOfLines={1}
@@ -37,6 +42,14 @@ export const Header = ({
       {rightIcon === "close" && (
         <TouchableOpacity onPress={() => router.back()} className="p-2">
           <X size={32} color={colors[theme].foreground} />
+        </TouchableOpacity>
+      )}
+      {rightIcon === "settings" && (
+        <TouchableOpacity
+          onPress={() => router.push("/settings")}
+          className="p-2"
+        >
+          <Bolt size={32} color={colors[theme].foreground} />
         </TouchableOpacity>
       )}
     </View>

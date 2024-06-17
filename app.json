@@ -8,7 +8,7 @@
     "scheme": "inside-psbs",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./public/images/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,14 +17,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./public/images/favicon.png"
+      "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       "expo-router",
@@ -42,7 +42,6 @@
             "./assets/fonts/open-sans/OpenSans-Regular.ttf",
             "./assets/fonts/open-sans/OpenSans-SemiBold.ttf",
             "./assets/fonts/open-sans/OpenSans-SemiBoldItalic.ttf"
-
           ]
         }
       ]

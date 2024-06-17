@@ -2,7 +2,13 @@ import { TabIcon } from "@/features/layout/tab-icon";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { Tabs } from "expo-router";
-import { Calendar, Home, Megaphone, Settings } from "lucide-react-native";
+import {
+  Calendar,
+  Home,
+  Megaphone,
+  MessageSquare,
+  Plus,
+} from "lucide-react-native";
 
 const TabsLayout = () => {
   const { theme } = useTheme();
@@ -37,6 +43,15 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
+          name="create"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <TabIcon focused={focused} name="" icon={Plus} />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="announcements"
           options={{
             headerShown: false,
@@ -46,11 +61,11 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="settings"
+          name="messages"
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (
-              <TabIcon focused={focused} name="Paramètres" icon={Settings} />
+              <TabIcon focused={focused} name="Messages" icon={MessageSquare} />
             ),
           }}
         />

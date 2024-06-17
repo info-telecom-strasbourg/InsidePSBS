@@ -7,12 +7,12 @@ import { Text, type TextProps } from "react-native";
 export const typographyVariants = cva("text-foreground", {
   variants: {
     size: {
-      h1: "text-5xl",
-      h2: "text-4xl",
-      h3: "text-3xl",
-      h4: "text-2xl",
-      h5: "text-xl",
-      p: "text-base",
+      h1: "text-4xl",
+      h2: "text-3xl",
+      h3: "text-2xl",
+      h4: "text-xl",
+      h5: "text-base",
+      p: "text-sm",
     },
   },
   defaultVariants: {
@@ -41,7 +41,7 @@ export const Typography = ({
   className,
   fontWeight = "regular",
   fontStyle = "normal",
-  fontFamily = "OpenSans",
+  fontFamily = "Roboto",
   ...props
 }: TypographyProps) => {
   const font = `${fontFamily}-${fontWeight}${
