@@ -11,7 +11,11 @@ export default function RoutePage() {
   return (
     <PageContainer className="flex flex-col gap-4">
       <Header title="Dev" leftIcon="inside-psbs" rightIcon="close" />
-      <Button onPress={() => setToken("zdazduijazd")}>Set token</Button>
+      <Button
+        onPress={() => setToken("87|m7VZi5MWAmtz3gFkKolgqjAWCeJucV90ZOEdzcCx")}
+      >
+        Set token
+      </Button>
       <Button onPress={() => clearToken()} variant="secondary">
         Clear token
       </Button>

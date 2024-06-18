@@ -2,6 +2,8 @@ import Card from "@/components/primitives/card";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
+import { useFetch } from "@/hooks/useFetch";
+import { FouailleSchema, type FouailleData } from "@/schemas/fouaille.schema";
 import { colors } from "@/theme/colors";
 import { useRouter } from "expo-router";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
@@ -9,6 +11,33 @@ import { ScrollView, View } from "react-native";
 
 const HomeScreen = () => {
   const router = useRouter();
+
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille`;
+
+  const fetcher = async (url: string): Promise<FouailleData> => {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.TOKEN}`,
+      },
+    });
+    const data = await res.json();
+    return FouailleSchema.parse(data);
+  };
+
+  const {
+    data,
+    error,
+    isLoading,
+    mutate,
+    isValidating,
+    isRefreshing,
+    handleRefresh,
+  } = useFetch(url, fetcher);
+
+  //console.log(data);
+
   return (
     <PageContainer className="">
       <ScrollView>
@@ -26,7 +55,7 @@ const HomeScreen = () => {
               icon={CreditCard}
               onPress={() => router.push("/fouaille")}
             >
-              10.00€
+              {isLoading ? "Loading..." : data.balance}
             </Card>
             <Card
               icon={Users}
