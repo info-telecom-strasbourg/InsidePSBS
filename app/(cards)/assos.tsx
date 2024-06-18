@@ -47,6 +47,7 @@ const Assos = () => {
         }
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
+          // <Link href={{ pathname: "/[id]", params: item.id }}>
           <TouchableOpacity className="flex-1 flex-row items-center justify-center gap-5 rounded-2xl bg-popover p-3">
             <Image
               source={{ uri: `${item.logo_url}` }}
@@ -62,6 +63,7 @@ const Assos = () => {
             </Typography>
             <ChevronRight size={25} color={colors[theme].foreground} />
           </TouchableOpacity>
+          // </Link>
         )}
       />
     </PageContainer>
