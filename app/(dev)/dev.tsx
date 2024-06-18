@@ -11,17 +11,20 @@ export default function RoutePage() {
   return (
     <PageContainer className="flex flex-col gap-4">
       <Header title="Dev" leftIcon="inside-psbs" rightIcon="close" />
-      <Button
-        onPress={() =>
-          signIn({
-            email: `${process.env.EXPO_PUBLIC_DEV_EMAIL}`,
-            password: `${process.env.EXPO_PUBLIC_DEV_PASSWORD}`,
-          })
-        }
-      >
-        Sign In
-      </Button>
-      <Button onPress={() => signOut()}>Sign Out</Button>
+      {!isAuthenticated ? (
+        <Button
+          onPress={async () =>
+            await signIn({
+              email: `${process.env.EXPO_PUBLIC_DEV_EMAIL}`,
+              password: `${process.env.EXPO_PUBLIC_DEV_PASSWORD}`,
+            })
+          }
+        >
+          Sign In
+        </Button>
+      ) : (
+        <Button onPress={async () => await signOut()}>Sign Out</Button>
+      )}
       <Typography size="h5">Token : {token}</Typography>
       <Typography size="h5">User : {user?.email}</Typography>
       <Typography size="h5">
