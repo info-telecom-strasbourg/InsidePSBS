@@ -44,7 +44,8 @@
             "./assets/fonts/open-sans/OpenSans-SemiBoldItalic.ttf"
           ]
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
