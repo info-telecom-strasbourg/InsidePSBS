@@ -6,6 +6,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { FouailleSchema, type FouailleData } from "@/schemas/fouaille.schema";
 import { colors } from "@/theme/colors";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
 
@@ -33,13 +34,14 @@ const HomeScreen = () => {
   const { data, isLoading } = useFetch(url, fetcher);
 
   return (
-    <PageContainer className="">
+    <PageContainer className="bg-background">
       <ScrollView>
         <Header
           title="InsidePSBS"
           leftIcon="inside-psbs"
           rightIcon="settings"
         />
+        <StatusBar style="auto" />
         <View className="mb-8 flex-col items-center gap-4">
           <View className="flex-1 flex-row gap-4">
             <Card

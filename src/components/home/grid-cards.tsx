@@ -1,11 +1,11 @@
 import { Text, View } from "react-native";
 
-const Assos = () => {
+const GridCards = () => {
   return (
     <View>
-      <Text>Assos</Text>
+      <Text>GridCards</Text>
     </View>
   );
 };
 
-export default Assos;
+export default GridCards;

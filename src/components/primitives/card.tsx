@@ -23,7 +23,7 @@ const Card = ({
 }: CardProps) => {
   return (
     <TouchableOpacity
-      className="flex-1 flex-row items-center justify-between gap-2 rounded-2xl bg-popover p-2"
+      className="flex-1 flex-row items-center justify-between rounded-2xl bg-popover p-3"
       {...props}
     >
       <View
