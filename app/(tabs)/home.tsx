@@ -19,24 +19,18 @@ const HomeScreen = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.TOKEN}`,
+        Authorization: "Bearer 87|m7VZi5MWAmtz3gFkKolgqjAWCeJucV90ZOEdzcCx",
       },
     });
     const data = await res.json();
-    return FouailleSchema.parse(data);
+    const parsedData = FouailleSchema.safeParse(data.data);
+    if (!parsedData.success) {
+      throw new Error(parsedData.error.message);
+    }
+    return data.data;
   };
 
-  const {
-    data,
-    error,
-    isLoading,
-    mutate,
-    isValidating,
-    isRefreshing,
-    handleRefresh,
-  } = useFetch(url, fetcher);
-
-  //console.log(data);
+  const { data, isLoading } = useFetch(url, fetcher);
 
   return (
     <PageContainer className="">
@@ -55,7 +49,7 @@ const HomeScreen = () => {
               icon={CreditCard}
               onPress={() => router.push("/fouaille")}
             >
-              {isLoading ? "Loading..." : data.balance}
+              {isLoading ? "Loading..." : `${data?.balance}€`}
             </Card>
             <Card
               icon={Users}
