@@ -3,7 +3,8 @@ import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 import type { PropsWithChildren } from "react";
 import type { TouchableOpacityProps } from "react-native";
-import { Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
+import { Typography } from "./typography";
 
 export const buttonVariants = cva(
   "flex w-full items-center justify-center rounded-md",
@@ -55,7 +56,9 @@ export const Button = ({
       className={cn(buttonVariants({ variant, size }), className)}
       {...props}
     >
-      <Text className={cn(textButtonVariants({ variant }))}>{children}</Text>
+      <Typography className={cn(textButtonVariants({ variant }))}>
+        {children}
+      </Typography>
     </TouchableOpacity>
   );
 };

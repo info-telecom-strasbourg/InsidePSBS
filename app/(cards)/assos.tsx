@@ -5,10 +5,12 @@ import { useFetch } from "@/hooks/useFetch";
 import { AssosSchema } from "@/schemas/assos.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { useRouter } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import { FlatList, Image, TouchableOpacity } from "react-native";
 
 const Assos = () => {
+  const router = useRouter();
   const { theme } = useTheme();
 
   const url = "https://fouaille.bde-tps.fr/api/organization";
@@ -47,8 +49,11 @@ const Assos = () => {
         }
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          // <Link href={{ pathname: "/[id]", params: item.id }}>
-          <TouchableOpacity className="flex-1 flex-row items-center justify-center gap-5 rounded-2xl bg-popover p-3">
+          <TouchableOpacity
+            onPress={() => router.push(`/(cards)/${item.id}`)}
+            key={item.id}
+            className="flex-1 flex-row items-center justify-center gap-5 rounded-2xl bg-popover p-3"
+          >
             <Image
               source={{ uri: `${item.logo_url}` }}
               resizeMode="contain"
@@ -63,7 +68,6 @@ const Assos = () => {
             </Typography>
             <ChevronRight size={25} color={colors[theme].foreground} />
           </TouchableOpacity>
-          // </Link>
         )}
       />
     </PageContainer>

@@ -13,6 +13,12 @@ export const useFonts = () => {
     "Inter-black": require("../../assets/fonts/inter/Inter-Black.ttf"),
     "Inter-extrabold": require("../../assets/fonts/inter/Inter-ExtraBold.ttf"),
     "Inter-extralight": require("../../assets/fonts/inter/Inter-ExtraLight.ttf"),
+
+    "SpaceGrotesk-regular": require("../../assets/fonts/space-grotesk/SpaceGrotesk-regular.ttf"),
+    "SpaceGrotesk-bold": require("../../assets/fonts/space-grotesk/SpaceGrotesk-bold.ttf"),
+    "SpaceGrotesk-light": require("../../assets/fonts/space-grotesk/SpaceGrotesk-light.ttf"),
+    "SpaceGrotesk-medium": require("../../assets/fonts/space-grotesk/SpaceGrotesk-medium.ttf"),
+    "SpaceGrotesk-semibold": require("../../assets/fonts/space-grotesk/SpaceGrotesk-semibold.ttf"),
   });
 
   useEffect(() => {
