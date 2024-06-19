@@ -9,25 +9,37 @@ import { useRouter } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import { FlatList, Image, TouchableOpacity } from "react-native";
 
+const fetcher = async (url: string) => {
+  const res = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await res.json();
+  const parsedData = AssosSchema.safeParse(data.data);
+  if (!parsedData.success) {
+    throw new Error(parsedData.error.message);
+  }
+  return data.data;
+};
+
+const headComp = () => {
+  return (
+    <Typography
+      size="h1"
+      className="mb-3 text-foreground"
+      fontWeight="semibold"
+    >
+      Associations
+    </Typography>
+  );
+};
+
 const Assos = () => {
-  const router = useRouter();
-  const { theme } = useTheme();
-
   const url = "https://fouaille.bde-tps.fr/api/organization";
+  const { theme } = useTheme();
+  const router = useRouter();
 
-  const fetcher = async () => {
-    const res = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    const parsedData = AssosSchema.safeParse(data.data);
-    if (!parsedData.success) {
-      throw new Error(parsedData.error.message);
-    }
-    return data.data;
-  };
   const { data } = useFetch(url, fetcher);
 
   return (
@@ -36,39 +48,33 @@ const Assos = () => {
       <FlatList
         data={data?.associations}
         numColumns={2}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         columnWrapperClassName="justify-between gap-3 mb-3"
-        ListHeaderComponent={
-          <Typography
-            size="h1"
-            className="mb-3 text-foreground"
-            fontWeight="semibold"
-          >
-            Associations
-          </Typography>
-        }
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => router.push(`/(cards)/${item.id}`)}
-            key={item.id}
-            className="flex-1 flex-row items-center justify-center gap-5 rounded-2xl bg-popover p-3"
-          >
-            <Image
-              source={{ uri: `${item.logo_url}` }}
-              resizeMode="contain"
-              className="size-20 rounded-2xl"
-            />
-            <Typography
-              className="text-foreground"
-              size="h4"
-              fontWeight="medium"
+        ListHeaderComponent={headComp}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => router.push(`/(cards)/${item.id}`)}
+              key={item.id}
+              className="flex-1 flex-row items-center justify-center gap-5 rounded-2xl bg-popover p-3"
             >
-              {item.short_name}
-            </Typography>
-            <ChevronRight size={25} color={colors[theme].foreground} />
-          </TouchableOpacity>
-        )}
+              <Image
+                source={{ uri: `${item.logo_url}` }}
+                resizeMode="contain"
+                className="size-20 rounded-2xl"
+              />
+              <Typography
+                className="text-foreground"
+                size="h4"
+                fontWeight="medium"
+              >
+                {item.short_name}
+              </Typography>
+              <ChevronRight size={25} color={colors[theme].foreground} />
+            </TouchableOpacity>
+          );
+        }}
       />
     </PageContainer>
   );

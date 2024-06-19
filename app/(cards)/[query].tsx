@@ -31,7 +31,11 @@ const Query = () => {
       <Header title={`${data?.short_name}`} leftIcon="back" />
       <View className="flex-1 items-center justify-center">
         <View className="items-center justify-between">
-          <Image source={{ uri: `${data?.logo_url}` }} className="size-52" />
+          <Image
+            source={{ uri: `${data?.logo_url}` }}
+            className="size-52 rounded-full"
+            style={{ resizeMode: "cover" }}
+          />
           <Typography size="h1" className="text-foreground">
             {data?.name}
           </Typography>

@@ -1,6 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
-import { type FouailleData, FouailleSchema } from "@/schemas/fouaille.schema";
+import { FouailleSchema } from "@/schemas/fouaille.schema";
 import { colors } from "@/theme/colors";
 import { useRouter } from "expo-router";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
@@ -13,7 +13,7 @@ const GridCards = () => {
 
   const { token } = useAuth();
 
-  const fetcher = async (url: string): Promise<FouailleData> => {
+  const fetcher = async (url: string) => {
     const res = await fetch(url, {
       method: "GET",
       headers: {
@@ -22,7 +22,7 @@ const GridCards = () => {
       },
     });
     const data = await res.json();
-    const parsedData = FouailleSchema.safeParse(data.data);
+    const parsedData = FouailleSchema.safeParse(data);
     if (!parsedData.success) {
       throw new Error(parsedData.error.message);
     }
