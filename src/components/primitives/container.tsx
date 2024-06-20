@@ -11,7 +11,7 @@ export const PageContainer = ({
 }: PageContainerProps) => {
   return (
     <SafeAreaView className="flex-1 bg-background">
-      <View className={cn("flex-1 px-3 pt-16 pb-4", className)} {...props}>
+      <View className={cn("flex-1 px-3 pt-16", className)} {...props}>
         {children}
       </View>
     </SafeAreaView>

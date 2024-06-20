@@ -41,21 +41,4 @@ export const PostSchema = z.object({
   meta: metaSchema,
 });
 
-const postItemSchema = z.object({
-  id: z.number(),
-  body: z.string(),
-  date: z.string(),
-  color: z.string(),
-  category: z.string(),
-  updated_at: z.string(),
-  author: z.object({
-    is_organization: z.boolean(),
-    id: z.number(),
-    name: z.string(),
-    short_name: z.string().nullable(),
-    logo_url: z.string().optional(),
-  }),
-});
 export type PostData = z.infer<typeof PostSchema>;
-
-export type PostItem = z.infer<typeof postItemSchema>;

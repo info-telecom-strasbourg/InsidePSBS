@@ -3,7 +3,7 @@ import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
 import { useFetch } from "@/hooks/useFetch";
-import type { PostItem } from "@/schemas/post.schema";
+import type { PostData } from "@/schemas/post.schema";
 import { PostSchema } from "@/schemas/post.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
@@ -73,13 +73,16 @@ const Filters = () => {
   );
 };
 
-const OnePost = ({ item }: { item: PostItem }) => {
+const OnePost = ({ item }: { item: PostData["data"][0] }) => {
   const [heartClicked, setHeartClicked] = useState(false);
   const { theme } = useTheme();
   return (
     <View className="justify-between rounded-2xl bg-popover p-4">
       <View className="flex-row items-center justify-start">
-        <Image source={{ uri: item.author.logo_url }} className="size-20" />
+        <Image
+          source={{ uri: item.author.logo_url || undefined }}
+          className="size-20"
+        />
         <View className="ml-2 flex-col">
           <Typography size="h4" fontWeight="semibold">
             {item.author.name}
