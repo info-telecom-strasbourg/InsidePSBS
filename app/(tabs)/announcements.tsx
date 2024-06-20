@@ -81,8 +81,16 @@ const OnePost = ({ item }: { item: PostItem }) => {
       <View className="flex-row items-center justify-start">
         <Image source={{ uri: item.author.logo_url }} className="size-20" />
         <View className="ml-2 flex-col">
-          <Typography size="h4">{item.author.name}</Typography>
-          <Typography size="h5">{item.date}</Typography>
+          <Typography size="h4" fontWeight="semibold">
+            {item.author.name}
+          </Typography>
+          <Typography
+            size="h5"
+            fontWeight="medium"
+            className="text-muted-foreground"
+          >
+            {item.date}
+          </Typography>
         </View>
       </View>
       <Typography size="h5">{item.body}</Typography>
@@ -97,7 +105,7 @@ const OnePost = ({ item }: { item: PostItem }) => {
             strokeWidth={1.5}
             color={heartClicked ? colors.red : colors[theme].foreground}
             size={24}
-            fill={heartClicked ? colors.red : colors[theme].background}
+            fill={heartClicked ? colors.red : colors[theme].popover}
           />
         </TouchableOpacity>
         <TouchableOpacity>
