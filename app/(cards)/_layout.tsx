@@ -1,12 +1,13 @@
 import { Stack } from "expo-router";
-import React from "react";
 
-const AssosLayout = () => {
+const CardsLayout = () => {
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="[query]" options={{ presentation: "modal" }} />
+      <Stack.Screen name="assos" options={{ presentation: "modal" }} />
+      <Stack.Screen name="fouaille" options={{ presentation: "modal" }} />
+      <Stack.Screen name="menu" options={{ presentation: "modal" }} />
     </Stack>
   );
 };
 
-export default AssosLayout;
+export default CardsLayout;

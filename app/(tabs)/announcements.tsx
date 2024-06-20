@@ -8,9 +8,39 @@ import { PostSchema } from "@/schemas/post.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
+import { router } from "expo-router";
 import { Heart, MessageCircle, Search } from "lucide-react-native";
 import { useState } from "react";
-import { FlatList, Image, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+const HeadComp = () => {
+  const { theme } = useTheme();
+
+  const [searchPhrase, setSearchPhrase] = useState("");
+  return (
+    <View>
+      <Header title="Annonces" leftIcon="inside-psbs" rightIcon="settings" />
+      <View className="mb-6 flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-2">
+        <Search strokeWidth={1.5} color={colors[theme].foreground} size={24} />
+        <TextInput
+          value={searchPhrase}
+          onChangeText={(searchPhrase) => setSearchPhrase(searchPhrase)}
+          className="flex-1 rounded-2xl p-2 text-foreground"
+          placeholder="Rechercher des posts"
+          placeholderTextColor={colors[theme].mutedForeground}
+          style={{ fontFamily: "SpaceGrotesk-medium" }}
+        />
+      </View>
+      <Filters />
+    </View>
+  );
+};
 
 const Filters = () => {
   const [selectedId, setSelectedId] = useState(0);
@@ -111,12 +141,15 @@ const OnePost = ({ item }: { item: PostData["data"][0] }) => {
             fill={heartClicked ? colors.red : colors[theme].popover}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/(comments)/[query]");
+          }}
+        >
           <MessageCircle
             strokeWidth={1.5}
             color={colors[theme].foreground}
             size={24}
-            className="mr-2"
           />
         </TouchableOpacity>
       </View>
@@ -143,7 +176,6 @@ const Posts = () => {
     return data.data;
   };
   const { data } = useFetch(url, fetcher);
-  const { theme } = useTheme();
 
   return (
     <FlatList
@@ -151,23 +183,7 @@ const Posts = () => {
       contentContainerClassName="justify-between gap-3"
       showsVerticalScrollIndicator={false}
       renderItem={({ item }) => <OnePost item={item} />}
-      ListHeaderComponent={() => {
-        return (
-          <>
-            <Header
-              title="Annonces"
-              leftIcon="inside-psbs"
-              rightIcon="settings"
-            />
-            <Search
-              strokeWidth={1.5}
-              color={colors[theme].foreground}
-              size={32}
-            />
-            <Filters />
-          </>
-        );
-      }}
+      ListHeaderComponent={HeadComp}
     />
   );
 };

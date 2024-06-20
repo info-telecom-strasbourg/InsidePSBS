@@ -13,6 +13,7 @@ const RootLayout = () => {
   return (
     <Provider>
       <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
         <Stack.Screen
           name="(dev)/dev"
           options={{ animation: "fade_from_bottom" }}
