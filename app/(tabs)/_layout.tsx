@@ -44,7 +44,7 @@ const TabsLayout = () => {
           options={{
             headerShown: false,
             tabBarButton: () => (
-              <TouchableOpacity className="-top-6">
+              <TouchableOpacity className="-top-4">
                 <Svg width={56} height={56} viewBox="0 0 56 56" fill="none">
                   <Rect width={56} height={56} rx={28} fill="url(#a)" />
                   <Path

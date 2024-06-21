@@ -1,18 +1,69 @@
 import { useAuth } from "@/auth/useAuth";
+import { PageLoading } from "@/components/page/loading";
+import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
-import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
+import SinglePost from "@/features/posts/single-post";
 import { useFetch } from "@/hooks/useFetch";
-import { SinglePostSchema } from "@/schemas/single-post.schema";
+import { SinglePostSchema } from "@/schemas/post.schema";
+import { colors } from "@/theme/colors";
+import { useTheme } from "@/theme/theme-context";
 import { useLocalSearchParams } from "expo-router";
-import { Image, ScrollView, View } from "react-native";
+import { PencilLine } from "lucide-react-native";
+import { ScrollView, TextInput, View } from "react-native";
 
-const Post = () => {
+const Comments = () => {
   const local = useLocalSearchParams();
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${local?.id}`;
-  const { token } = useAuth();
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${local.id}/comment`;
+  const { theme } = useTheme();
 
   const fetcher = async () => {
+    const res = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    const parsedData = SinglePostSchema.safeParse(data);
+    if (!parsedData.success) {
+      throw new Error(parsedData.error.message);
+    }
+    return data.data;
+  };
+
+  const { data, isLoading, handleRefresh, isRefreshing } = useFetch(
+    url,
+    fetcher
+  );
+
+  // return !data || isLoading ? (
+  //   <PageLoading />
+  // ) :
+  return (
+    <View className="mb-6 flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-2 pl-4">
+      <PencilLine
+        strokeWidth={1.5}
+        color={colors[theme].mutedForeground}
+        size={24}
+      />
+      <TextInput
+        // value={searchPhrase}
+        // onChangeText={(searchPhrase) => setSearchPhrase(searchPhrase)}
+        className="flex-1 rounded-2xl p-2 text-foreground"
+        placeholder="Écrivez un commentaire"
+        placeholderTextColor={colors[theme].mutedForeground}
+        style={{ fontFamily: "SpaceGrotesk-medium" }}
+      />
+    </View>
+  );
+};
+
+const PostView = () => {
+  const local = useLocalSearchParams();
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${local.id}`;
+  const { token } = useAuth();
+
+  const fetcher = async (url: string) => {
     const res = await fetch(url, {
       headers: {
         "Content-Type": "application/json",
@@ -27,66 +78,23 @@ const Post = () => {
     return data.data;
   };
 
-  const { data } = useFetch(url, fetcher);
-  return (
-    <View className="border-b">
-      <Header title="Posts" leftIcon="back" />
-      <View className="bg flex-1">
-        <View className="flex-1 flex-row items-center justify-start gap-3">
-          <Image
-            source={{ uri: `${data?.author.logo_url}` }}
-            className="size-20 rounded-full"
-            style={{ resizeMode: "cover" }}
-          />
-          <Typography size="h2" className="text-foreground">
-            {data?.author.name}
-          </Typography>
-        </View>
-        <View className="flex-1 items-center">
-          <Typography size="h4" className="">
-            {data?.body}
-          </Typography>
-        </View>
-      </View>
-    </View>
+  const { data, isLoading, isRefreshing, handleRefresh } = useFetch(
+    url,
+    fetcher
   );
-};
 
-const Comments = () => {
-  const local = useLocalSearchParams();
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${local?.id}/comment`;
-
-  const fetcher = async () => {
-    const res = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    const parsedData = SinglePostSchema.safeParse(data);
-    if (!parsedData.success) {
-      throw new Error(parsedData.error.message);
-    }
-    return data.data;
-  };
-
-  const { data } = useFetch(url, fetcher);
-
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Typography size="h5" className="text-center">
-        a
-      </Typography>
-    </View>
-  );
-};
-
-const PostView = () => {
-  return (
+  return !data || isLoading ? (
+    <PageLoading />
+  ) : (
     <PageContainer className="bg-background">
+      <Header title="Tous les Posts" leftIcon="back" />
       <ScrollView>
-        <Post />
-        <Comments />
+        <RefreshView isRefreshing={isRefreshing} handleRefresh={handleRefresh}>
+          <View className="mb-2 border-b-2 border-muted-foreground pb-2">
+            <SinglePost item={data} authorNameSize="h2" bodySize="h4" />
+          </View>
+          <Comments />
+        </RefreshView>
       </ScrollView>
     </PageContainer>
   );

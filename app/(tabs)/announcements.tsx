@@ -2,22 +2,16 @@ import { useAuth } from "@/auth/useAuth";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
+import SinglePost from "@/features/posts/single-post";
 import { useFetch } from "@/hooks/useFetch";
-import type { PostData } from "@/schemas/post.schema";
-import { PostSchema } from "@/schemas/post.schema";
+import { PostsSchema } from "@/schemas/post.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import { router } from "expo-router";
-import { Heart, MessageCircle, Search } from "lucide-react-native";
+import { Search } from "lucide-react-native";
 import { useState } from "react";
-import {
-  FlatList,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, TextInput, TouchableOpacity, View } from "react-native";
 
 const HeadComp = () => {
   const { theme } = useTheme();
@@ -27,7 +21,11 @@ const HeadComp = () => {
     <View>
       <Header title="Annonces" leftIcon="inside-psbs" rightIcon="settings" />
       <View className="mb-6 flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-2 pl-4">
-        <Search strokeWidth={1.5} color={colors[theme].foreground} size={24} />
+        <Search
+          strokeWidth={1.5}
+          color={colors[theme].mutedForeground}
+          size={24}
+        />
         <TextInput
           value={searchPhrase}
           onChangeText={(searchPhrase) => setSearchPhrase(searchPhrase)}
@@ -103,61 +101,8 @@ const Filters = () => {
   );
 };
 
-const OnePost = ({ item }: { item: PostData["data"][0] }) => {
-  const [heartClicked, setHeartClicked] = useState(false);
-  const { theme } = useTheme();
-  return (
-    <TouchableOpacity
-      className="justify-between rounded-2xl bg-popover p-4"
-      onPress={() => router.push(`/post/${item.id}`)}
-    >
-      <View className="flex-row items-center justify-start">
-        <Image
-          source={{ uri: item.author.logo_url || undefined }}
-          className="size-20"
-        />
-        <View className="ml-2 flex-col">
-          <Typography size="h4" fontWeight="semibold">
-            {item.author.name}
-          </Typography>
-          <Typography
-            size="h5"
-            fontWeight="medium"
-            className="text-muted-foreground"
-          >
-            {item.date}
-          </Typography>
-        </View>
-      </View>
-      <Typography size="h5">{item.body}</Typography>
-      <View className="mt-3 flex-row items-center gap-4">
-        <TouchableOpacity
-          className="p-1"
-          onPress={() => {
-            setHeartClicked(!heartClicked);
-          }}
-        >
-          <Heart
-            strokeWidth={1.5}
-            color={heartClicked ? colors.red : colors[theme].foreground}
-            size={24}
-            fill={heartClicked ? colors.red : colors[theme].popover}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <MessageCircle
-            strokeWidth={1.5}
-            color={colors[theme].foreground}
-            size={24}
-          />
-        </TouchableOpacity>
-      </View>
-    </TouchableOpacity>
-  );
-};
-
 const Posts = () => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post?per_page=4&page=1`;
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post?per_page=10&page=1`;
   const { token } = useAuth();
 
   const fetcher = async (url: string) => {
@@ -168,7 +113,7 @@ const Posts = () => {
       },
     });
     const data = await res.json();
-    const parsedData = PostSchema.safeParse(data);
+    const parsedData = PostsSchema.safeParse(data);
     if (!parsedData.success) {
       throw new Error(parsedData.error.message);
     }
@@ -181,7 +126,11 @@ const Posts = () => {
       data={data}
       contentContainerClassName="justify-between gap-3"
       showsVerticalScrollIndicator={false}
-      renderItem={({ item }) => <OnePost item={item} />}
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => router.push(`/post/${item.id}`)}>
+          <SinglePost item={item} interactions />
+        </TouchableOpacity>
+      )}
       ListHeaderComponent={HeadComp}
     />
   );

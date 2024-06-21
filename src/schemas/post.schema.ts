@@ -6,11 +6,11 @@ const authorSchema = z.object({
   id: z.number(),
   name: z.string(),
   short_name: z.string().nullable(),
-  logo_url: z.string().nullable().optional(),
+  logo_url: z.string().url().nullable(),
 });
 
 // Define the schema for a single post
-const postSchema = z.object({
+const onePostSchema = z.object({
   id: z.number(),
   body: z.string(),
   date: z.string(),
@@ -36,9 +36,21 @@ const metaSchema = z.object({
 });
 
 // Define the schema for the API response
-export const PostSchema = z.object({
-  data: z.array(postSchema),
+export const PostsSchema = z.object({
+  data: z.array(onePostSchema),
   meta: metaSchema,
 });
 
-export type PostData = z.infer<typeof PostSchema>;
+export const SinglePostSchema = z.object({
+  data: z.object({
+    body: z.string(),
+    date: z.string(),
+    color: z.string(),
+    category: z.string(),
+    updated_at: z.string(),
+    author: authorSchema,
+  }),
+});
+
+export type PostsData = z.infer<typeof PostsSchema>;
+export type SinglePostData = z.infer<typeof SinglePostSchema>;
