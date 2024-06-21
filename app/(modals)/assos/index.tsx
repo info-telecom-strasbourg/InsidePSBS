@@ -55,7 +55,7 @@ const Assos = () => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => router.push(`/(cards)/${item.id}`)}
+              onPress={() => router.push(`/assos/${item.id}`)}
               key={item.id}
               className="flex-1 flex-row items-center justify-center gap-5 rounded-2xl bg-popover p-3"
             >

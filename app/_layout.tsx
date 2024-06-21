@@ -12,16 +12,13 @@ const RootLayout = () => {
 
   return (
     <Provider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen
-          name="(dev)/dev"
-          options={{ animation: "fade_from_bottom" }}
-        />
-        <Stack.Screen
-          name="(public)"
-          options={{ animation: "fade_from_bottom" }}
-        />
+      <Stack
+        screenOptions={{ headerShown: false, animation: "fade_from_bottom" }}
+      >
+        <Stack.Screen name="index" options={{ animation: "none" }} />
+        <Stack.Screen name="(tabs)" options={{ animation: "ios" }} />
+        <Stack.Screen name="(public)/cgu" />
+        <Stack.Screen name="(dev)/dev" />
       </Stack>
     </Provider>
   );

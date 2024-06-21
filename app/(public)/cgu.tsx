@@ -25,7 +25,11 @@ export default function CguPage() {
   return (
     <PageContainer>
       <Header rightIcon="close" leftIcon="inside-psbs" title="CGU" />
-      <RefreshView handleRefresh={handleRefresh} isRefreshing={isRefreshing}>
+      <RefreshView
+        handleRefresh={handleRefresh}
+        isRefreshing={isRefreshing}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="flex flex-1 items-center justify-center">
           {isLoading && <PageLoading />}
           {error ? (

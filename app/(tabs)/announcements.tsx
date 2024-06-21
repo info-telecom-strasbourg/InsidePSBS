@@ -26,7 +26,7 @@ const HeadComp = () => {
   return (
     <View>
       <Header title="Annonces" leftIcon="inside-psbs" rightIcon="settings" />
-      <View className="mb-6 flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-2">
+      <View className="mb-6 flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-2 pl-4">
         <Search strokeWidth={1.5} color={colors[theme].foreground} size={24} />
         <TextInput
           value={searchPhrase}
@@ -107,7 +107,10 @@ const OnePost = ({ item }: { item: PostData["data"][0] }) => {
   const [heartClicked, setHeartClicked] = useState(false);
   const { theme } = useTheme();
   return (
-    <View className="justify-between rounded-2xl bg-popover p-4">
+    <TouchableOpacity
+      className="justify-between rounded-2xl bg-popover p-4"
+      onPress={() => router.push(`/post/${item.id}`)}
+    >
       <View className="flex-row items-center justify-start">
         <Image
           source={{ uri: item.author.logo_url || undefined }}
@@ -141,11 +144,7 @@ const OnePost = ({ item }: { item: PostData["data"][0] }) => {
             fill={heartClicked ? colors.red : colors[theme].popover}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            router.push("/(comments)/[query]");
-          }}
-        >
+        <TouchableOpacity>
           <MessageCircle
             strokeWidth={1.5}
             color={colors[theme].foreground}
@@ -153,7 +152,7 @@ const OnePost = ({ item }: { item: PostData["data"][0] }) => {
           />
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

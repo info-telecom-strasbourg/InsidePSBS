@@ -5,7 +5,7 @@ import { colors } from "@/theme/colors";
 import { useRouter } from "expo-router";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { View } from "react-native";
-import Card from "../primitives/card";
+import Card from "../../components/primitives/card";
 
 const GridCards = () => {
   const router = useRouter();
