@@ -8,12 +8,12 @@ const organizationSchema = z.object({
 });
 
 // Define the schema for the API response
-export const AssosSchema = z.object({
+export const AssociationSchema = z.object({
   associations: z.array(organizationSchema),
   clubs: z.array(organizationSchema),
 });
 
-export const OneAssoSchema = z.object({
+export const AssociationItemSchema = z.object({
   description: z.string().nullable(),
   discord_link: z.string().url().nullable(),
   email: z.string().email().nullable(),
@@ -26,6 +26,6 @@ export const OneAssoSchema = z.object({
   website_link: z.string().url().nullable(),
 });
 
-export type OneAssoData = z.infer<typeof OneAssoSchema>;
+export type AssociationItem = z.infer<typeof AssociationItemSchema>;
 
-export type AssosData = z.infer<typeof AssosSchema>;
+export type Association = z.infer<typeof AssociationSchema>;
