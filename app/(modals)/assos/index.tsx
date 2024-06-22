@@ -35,7 +35,7 @@ const headComp = () => {
   );
 };
 
-const Assos = () => {
+export default function AssosPage() {
   const url = "https://fouaille.bde-tps.fr/api/organization";
   const { theme } = useTheme();
   const router = useRouter();
@@ -78,6 +78,4 @@ const Assos = () => {
       />
     </PageContainer>
   );
-};
-
-export default Assos;
+}

@@ -6,7 +6,7 @@ import { OneAssoSchema } from "@/schemas/assos.schema";
 import { useLocalSearchParams } from "expo-router";
 import { Image, View } from "react-native";
 
-const Query = () => {
+export default function AssoIdPage() {
   const local = useLocalSearchParams();
 
   const url = `https://fouaille.bde-tps.fr/api/organization/${local?.query}`;
@@ -48,6 +48,4 @@ const Query = () => {
       </View>
     </PageContainer>
   );
-};
-
-export default Query;
+}

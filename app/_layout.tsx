@@ -5,7 +5,7 @@ import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
 
-const RootLayout = () => {
+export default function RootLayout() {
   const { fontsLoaded, error } = useFonts();
 
   if (!fontsLoaded || error) return null;
@@ -28,6 +28,4 @@ const RootLayout = () => {
       </Stack>
     </Provider>
   );
-};
-
-export default RootLayout;
+}

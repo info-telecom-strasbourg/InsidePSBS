@@ -1,11 +1,10 @@
-import { Text, View } from "react-native";
+import { PageContainer } from "@/components/primitives/container";
+import { Header } from "@/features/layout/header";
 
-const Menu = () => {
+export default function MenuPage() {
   return (
-    <View>
-      <Text>Menu</Text>
-    </View>
+    <PageContainer>
+      <Header title="Menu" rightIcon="close" />
+    </PageContainer>
   );
-};
-
-export default Menu;
+}

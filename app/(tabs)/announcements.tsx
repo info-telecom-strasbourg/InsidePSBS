@@ -19,7 +19,7 @@ const HeadComp = () => {
   const [searchPhrase, setSearchPhrase] = useState("");
   return (
     <View>
-      <Header title="Annonces" leftIcon="inside-psbs" rightIcon="settings" />
+      <Header title="Annonces" rightIcon="settings" />
       <View className="mb-6 flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-2 pl-4">
         <Search
           strokeWidth={1.5}
@@ -136,12 +136,10 @@ const Posts = () => {
   );
 };
 
-const AnnouncementsScreen = () => {
+export default function AnnouncementsPage() {
   return (
-    <PageContainer className="bg-background">
+    <PageContainer>
       <Posts />
     </PageContainer>
   );
-};
-
-export default AnnouncementsScreen;
+}

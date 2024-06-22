@@ -1,11 +1,10 @@
-import { Text, View } from "react-native";
+import { PageContainer } from "@/components/primitives/container";
+import { Header } from "@/features/layout/header";
 
-const Profile = () => {
+export default function ProfilePage() {
   return (
-    <View>
-      <Text>Profile</Text>
-    </View>
+    <PageContainer>
+      <Header title="Profile" rightIcon="settings" />
+    </PageContainer>
   );
-};
-
-export default Profile;
+}

@@ -5,7 +5,7 @@ import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
 import { router } from "expo-router";
 
-export default function RoutePage() {
+export default function DevPage() {
   const { token, user, signIn, signOut, isAuthenticated } = useAuth();
 
   return (

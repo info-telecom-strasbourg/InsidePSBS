@@ -7,7 +7,7 @@ import { TouchableOpacity } from "react-native";
 
 import Svg, { Defs, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 
-const TabsLayout = () => {
+export default function TabsLayout() {
   const { theme } = useTheme();
   return (
     <>
@@ -93,6 +93,4 @@ const TabsLayout = () => {
       </Tabs>
     </>
   );
-};
-
-export default TabsLayout;
+}

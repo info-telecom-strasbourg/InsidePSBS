@@ -4,7 +4,7 @@ import GridCards from "@/features/home/grid-cards";
 import { Header } from "@/features/layout/header";
 import { ScrollView, View } from "react-native";
 
-const HomeScreen = () => {
+export default function HomePage() {
   return (
     <PageContainer className="bg-background">
       <ScrollView>
@@ -22,6 +22,4 @@ const HomeScreen = () => {
       </ScrollView>
     </PageContainer>
   );
-};
-
-export default HomeScreen;
+}

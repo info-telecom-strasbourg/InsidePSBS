@@ -1,0 +1,21 @@
+{
+	"React Native Page": {
+	  "prefix": "rnpag",
+	  "description": "Create the base of a react native page",
+	  "scope": "typescriptreact",
+	  "body": [
+		"import { PageContainer } from \"@/components/primitives/container\";",
+		"import { Header } from \"@/features/layout/header\";",
+		"",
+		"export default function ${1:${TM_FILENAME_BASE/([\\w]+)([-_])([\\w])/${1:/capitalize}${3:/capitalize}/g}}Page () {",
+		"\treturn (",
+		"\t\t<PageContainer>",
+		"\t\t\t<Header title=\"$2\" />",
+		"\t\t\t$3",
+		"\t\t</PageContainer>",
+		"\t);",
+		"}",
+	  ],
+	},
+  }
+  

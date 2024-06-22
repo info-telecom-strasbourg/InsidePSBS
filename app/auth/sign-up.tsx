@@ -1,7 +1,10 @@
 import { PageContainer } from "@/components/primitives/container";
+import { Header } from "@/features/layout/header";
 
-const SignUpScreen = () => {
-  return <PageContainer></PageContainer>;
-};
-
-export default SignUpScreen;
+export default function SignUpPage() {
+  return (
+    <PageContainer>
+      <Header title="Créer un compte" rightIcon="close" />
+    </PageContainer>
+  );
+}

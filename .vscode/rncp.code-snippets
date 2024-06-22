@@ -1,0 +1,17 @@
+{
+	"React Native Component with Props": {
+	  "prefix": "rncp",
+	  "description": "Create the base of a react native component with props",
+	  "scope": "typescriptreact",
+	  "body": [
+		"export type ${1:${TM_FILENAME_BASE/([\\w]+)([-_])([\\w])/${1:/capitalize}${3:/capitalize}/g}}Props = {",
+		"\t$2",
+		"}",
+		"",
+		"export const $1 = (props: $1Props) => {",
+		"\treturn $3",
+		"}",
+	  ],
+	},
+  }
+  

@@ -1,11 +1,9 @@
 import { Stack } from "expo-router";
 
-const CardsLayout = () => {
+export default function CardsLayout() {
   return (
     <Stack
       screenOptions={{ headerShown: false, animation: "slide_from_right" }}
     />
   );
-};
-
-export default CardsLayout;
+}

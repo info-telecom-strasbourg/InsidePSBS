@@ -29,7 +29,7 @@ export const Header = ({ rightIcon, title, leftIcon }: HeaderProps) => {
           <ChevronLeft size={32} color={colors[theme].foreground} />
         </TouchableOpacity>
       )}
-      {!leftIcon && <View className="px-2" />}
+      {!leftIcon && <View />}
       <Typography
         size="h2"
         fontWeight="bold"

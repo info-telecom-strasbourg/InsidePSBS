@@ -1,12 +1,10 @@
-import { Typography } from "@/components/primitives/typography";
-import { View } from "react-native";
+import { PageContainer } from "@/components/primitives/container";
+import { Header } from "@/features/layout/header";
 
-const CalendarScreen = () => {
+export default function CalendarPage() {
   return (
-    <View className="flex-1 items-center justify-center bg-background">
-      <Typography size="h1">Calendar</Typography>
-    </View>
+    <PageContainer>
+      <Header title="Calendar" rightIcon="settings" />
+    </PageContainer>
   );
-};
-
-export default CalendarScreen;
+}

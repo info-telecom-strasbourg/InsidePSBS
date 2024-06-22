@@ -5,7 +5,7 @@ import { Typography } from "@/components/primitives/typography";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { Image, View } from "react-native";
 
-const AuthPage = () => {
+export default function AuthPage() {
   const modalRouter = useModalRouter();
   return (
     <PageContainer className="0 flex flex-col justify-between">
@@ -52,6 +52,4 @@ const AuthPage = () => {
       </View>
     </PageContainer>
   );
-};
-
-export default AuthPage;
+}

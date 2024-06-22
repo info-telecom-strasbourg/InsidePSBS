@@ -58,7 +58,7 @@ const Comments = () => {
   );
 };
 
-const PostView = () => {
+export default function PostIdPage() {
   const local = useLocalSearchParams();
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${local.id}`;
   const { token } = useAuth();
@@ -98,6 +98,4 @@ const PostView = () => {
       </ScrollView>
     </PageContainer>
   );
-};
-
-export default PostView;
+}
