@@ -17,7 +17,10 @@ const RootLayout = () => {
           name="(public)/cgu"
           options={{ animation: "fade_from_bottom", presentation: "modal" }}
         />
-        <Stack.Screen name="(dev)/dev" />
+        <Stack.Screen
+          name="(dev)/dev"
+          options={{ animation: "fade_from_bottom", presentation: "modal" }}
+        />
         <Stack.Screen
           name="(modals)"
           options={{ animation: "fade_from_bottom", presentation: "modal" }}

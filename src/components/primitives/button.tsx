@@ -7,13 +7,14 @@ import { TouchableOpacity } from "react-native";
 import { Typography } from "./typography";
 
 export const buttonVariants = cva(
-  "flex w-full items-center justify-center rounded-md",
+  "flex items-center justify-center rounded-md",
   {
     variants: {
       variant: {
-        default: "bg-primary",
-        secondary: "bg-secondary",
-        outline: "border border-border bg-background",
+        default: "w-full bg-primary",
+        secondary: "w-full bg-secondary",
+        outline: "w-full border border-border bg-background",
+        link: "",
       },
       size: {
         default: "px-5 py-3",
@@ -33,6 +34,7 @@ export const textButtonVariants = cva("text-xl font-bold", {
       default: "text-primary-foreground",
       secondary: "text-secondary-foreground",
       outline: "text-foreground",
+      link: "text-base text-primary",
     },
   },
   defaultVariants: {

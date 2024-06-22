@@ -1,14 +1,13 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
+import { useModalRouter } from "@/hooks/useModalRouter";
 import { FouailleSchema } from "@/schemas/fouaille.schema";
 import { colors } from "@/theme/colors";
-import { useRouter } from "expo-router";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { View } from "react-native";
 import Card from "../../components/primitives/card";
 
 const GridCards = () => {
-  const router = useRouter();
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille`;
 
   const { token } = useAuth();
@@ -29,6 +28,7 @@ const GridCards = () => {
     return data.data;
   };
   const { data, isLoading } = useFetch(url, fetcher);
+  const modalRouter = useModalRouter();
 
   return (
     <View className="mb-8 flex-col items-center gap-4">
@@ -38,7 +38,7 @@ const GridCards = () => {
           color="purple"
           backgroundColor={colors.lightPurple}
           icon={CreditCard}
-          onPress={() => router.push("/fouaille")}
+          onPress={() => modalRouter.open("/fouaille")}
         >
           {isLoading ? "Loading..." : `${data?.balance}€`}
         </Card>
@@ -46,7 +46,7 @@ const GridCards = () => {
           icon={Users}
           color="green"
           backgroundColor={colors.lightGreen}
-          onPress={() => router.push("/assos")}
+          onPress={() => modalRouter.open("/assos")}
         >
           Clubs et Assos
         </Card>
@@ -57,7 +57,7 @@ const GridCards = () => {
           icon={CameraIcon}
           backgroundColor={colors.lightOrange}
           onPress={() =>
-            router.replace("https://nextcloud.its-tps.fr/s/zfFkwR6y5wxt5gW")
+            modalRouter.open("https://nextcloud.its-tps.fr/s/zfFkwR6y5wxt5gW")
           }
         >
           Photo
@@ -66,7 +66,7 @@ const GridCards = () => {
           color="red"
           backgroundColor={colors.lightRed}
           icon={Utensils}
-          onPress={() => router.push("/menu")}
+          onPress={() => modalRouter.open("/menu")}
         >
           Menu du RU
         </Card>

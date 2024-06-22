@@ -11,8 +11,8 @@ export const typographyVariants = cva("text-foreground", {
       h2: "text-3xl",
       h3: "text-2xl",
       h4: "text-xl",
-      h5: "text-base",
-      p: "text-sm",
+      h5: "text-lg",
+      p: "text-base",
     },
   },
   defaultVariants: {

@@ -44,7 +44,7 @@ const Assos = () => {
 
   return (
     <PageContainer className="bg-background">
-      <Header title="Clubs et Associations" leftIcon="back" />
+      <Header title="Clubs et Associations" rightIcon="close" />
       <FlatList
         data={data?.associations}
         numColumns={2}

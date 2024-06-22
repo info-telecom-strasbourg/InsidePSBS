@@ -1,7 +1,12 @@
-import { View } from "react-native";
+import { PageContainer } from "@/components/primitives/container";
+import { Header } from "@/features/layout/header";
 
 const Fouaille = () => {
-  return <View></View>;
+  return (
+    <PageContainer>
+      <Header title="Fouaille" rightIcon="close" />
+    </PageContainer>
+  );
 };
 
 export default Fouaille;

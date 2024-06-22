@@ -1,11 +1,11 @@
 export const colors = {
   light: {
-    background: "hsl(60 4% 95%)",
-    foreground: "hsl(20 14% 4%)",
+    background: "hsl(60 4% 95%)", // app background color
+    foreground: "hsl(20 14% 4%)", // app foreground color
     popover: "hsl(0 0% 100%)",
     popoverForeground: "hsl(240 10% 3.9%)",
-    primary: "hsl(25 95% 53%)",
-    primaryForeground: "hsl(60 9% 97%)",
+    primary: "hsl(25 95% 53%)", // primary color used for buttons, links and other elements
+    primaryForeground: "hsl(60 9% 97%)", // text color for primary elements (in buttons)
     secondary: "hsl(0 0% 100%)",
     secondaryForeground: "hsl(24 9% 10%)",
     muted: "hsl(60 4% 95%)",

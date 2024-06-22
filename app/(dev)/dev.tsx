@@ -30,7 +30,7 @@ export default function RoutePage() {
       <Typography size="h5">
         Is authenticated : {isAuthenticated.toString()}
       </Typography>
-      <Button onPress={() => router.push("/home")}>Accéder à l'appli</Button>
+      <Button onPress={() => router.replace("/home")}>Accéder à l'appli</Button>
     </PageContainer>
   );
 }

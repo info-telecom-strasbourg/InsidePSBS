@@ -28,7 +28,7 @@ const Query = () => {
 
   return (
     <PageContainer className="bg-background">
-      <Header title={`${data?.short_name}`} leftIcon="back" />
+      <Header title={`${data?.short_name}`} leftIcon="back" rightIcon="close" />
       <View className="flex-1 items-center justify-center">
         <View className="items-center justify-between">
           <Image
