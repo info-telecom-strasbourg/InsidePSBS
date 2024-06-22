@@ -12,7 +12,11 @@ export const PageContainer = ({
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View
-        className={cn("flex-1 px-3", Platform.OS && "pt-16", className)}
+        className={cn(
+          "flex-1 px-3",
+          Platform.OS === "android" ? "pt-16" : "pt-4",
+          className
+        )}
         {...props}
       >
         {children}
