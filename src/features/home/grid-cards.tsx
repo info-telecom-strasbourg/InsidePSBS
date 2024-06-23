@@ -22,7 +22,7 @@ const fetcher = async (url: string, token: string) => {
   if (!parsedData.success) {
     throw new Error(parsedData.error.message);
   }
-  return data.data;
+  return parsedData.data.data;
 };
 
 export const useCards = () => {

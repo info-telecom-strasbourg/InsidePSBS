@@ -14,6 +14,11 @@ export default function HomePage() {
     isRefreshing,
   } = useCards();
 
+  if (!cardsData || cardsError) {
+    // TODO : Implémenter l'erreur
+    return;
+  }
+
   return (
     <PageContainer className="bg-background">
       <Header title="InsidePSBS" leftIcon="inside-psbs" rightIcon="settings" />
