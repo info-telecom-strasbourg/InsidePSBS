@@ -1,3 +1,4 @@
+import { routes } from "@/constants/routes";
 import { useRouter, useSegments } from "expo-router";
 import {
   createContext,
@@ -28,7 +29,7 @@ export const ModalRouterProvider = ({ children }: ModalRouterProviderProps) => {
   const segments = useSegments();
 
   const open = (route: string) => {
-    const currentRoute = segments[segments.length - 1] || "/";
+    const currentRoute = segments[segments.length - 1] || routes.root;
     setPreviousRoute(currentRoute);
     router.push(route);
   };
@@ -40,7 +41,7 @@ export const ModalRouterProvider = ({ children }: ModalRouterProviderProps) => {
     } else if (router.canGoBack()) {
       router.back();
     } else {
-      router.push("/");
+      router.push(routes.root);
     }
   };
   return (

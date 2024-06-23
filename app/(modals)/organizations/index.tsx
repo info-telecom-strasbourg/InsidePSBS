@@ -1,5 +1,6 @@
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
+import { routes } from "@/constants/routes";
 import { Header } from "@/features/layout/header";
 import { useFetch } from "@/hooks/useFetch";
 import { AssociationSchema } from "@/schemas/assos.schema";
@@ -49,7 +50,7 @@ export default function AssociationsPage() {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => router.push(`/assos/${item.id}`)}
+              onPress={() => router.push(`${routes.organizations}/${item.id}`)}
               key={item.id}
               className="flex-1 flex-row items-center justify-center gap-5 rounded-2xl bg-popover p-3"
             >

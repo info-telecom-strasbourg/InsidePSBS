@@ -2,11 +2,13 @@ import { useAuth } from "@/auth/useAuth";
 import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
+import { routes } from "@/constants/routes";
 import { Header } from "@/features/layout/header";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 
 export default function DevPage() {
   const { token, user, signIn, signOut, isAuthenticated } = useAuth();
+  const router = useRouter();
 
   return (
     <PageContainer className="flex flex-col gap-4">
@@ -30,7 +32,9 @@ export default function DevPage() {
       <Typography size="h5">
         Is authenticated : {isAuthenticated.toString()}
       </Typography>
-      <Button onPress={() => router.replace("/home")}>Accéder à l'appli</Button>
+      <Button onPress={() => router.replace(routes.home)}>
+        Accéder à l'appli
+      </Button>
     </PageContainer>
   );
 }

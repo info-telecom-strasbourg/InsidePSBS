@@ -2,6 +2,7 @@ import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
 import { Link } from "@/components/primitives/link";
 import { Typography } from "@/components/primitives/typography";
+import { routes } from "@/constants/routes";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { Image, View } from "react-native";
 
@@ -24,11 +25,11 @@ export default function AuthPage() {
         </Typography>
       </View>
       <View className="flex flex-col gap-4">
-        <Button onPress={() => modalRouter.open("/auth/sign-up")}>
+        <Button onPress={() => modalRouter.open(routes.sign_up)}>
           Créer un compte
         </Button>
         <Button
-          onPress={() => modalRouter.open("/auth/sign-in")}
+          onPress={() => modalRouter.open(routes.sign_in)}
           variant="secondary"
         >
           J'ai déjà un compte

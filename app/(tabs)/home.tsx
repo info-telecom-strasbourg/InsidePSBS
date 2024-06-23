@@ -1,25 +1,34 @@
+import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
-import GridCards from "@/features/home/grid-cards";
+import { GridCards, useCards } from "@/features/home/grid-cards";
 import { Header } from "@/features/layout/header";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 
 export default function HomePage() {
+  const {
+    data: cardsData,
+    isLoading: cardsIsLoading,
+    error: cardsError,
+    handleRefresh,
+    isRefreshing,
+  } = useCards();
+
   return (
     <PageContainer className="bg-background">
-      <ScrollView>
-        <Header
-          title="InsidePSBS"
-          leftIcon="inside-psbs"
-          rightIcon="settings"
+      <Header title="InsidePSBS" leftIcon="inside-psbs" rightIcon="settings" />
+      <RefreshView handleRefresh={handleRefresh} isRefreshing={isRefreshing}>
+        <GridCards
+          data={cardsData}
+          isLoading={cardsIsLoading}
+          error={cardsError}
         />
-        <GridCards />
         <View>
           <Typography size="h1" fontWeight="bold">
             Actualités
           </Typography>
         </View>
-      </ScrollView>
+      </RefreshView>
     </PageContainer>
   );
 }

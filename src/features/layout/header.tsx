@@ -1,4 +1,5 @@
 import { Typography } from "@/components/primitives/typography";
+import { routes } from "@/constants/routes";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
@@ -45,7 +46,7 @@ export const Header = ({ rightIcon, title, leftIcon }: HeaderProps) => {
       )}
       {rightIcon === "settings" && (
         <TouchableOpacity
-          onPress={() => modalRouter.open("/settings")}
+          onPress={() => modalRouter.open(routes.settings)}
           className="p-2"
         >
           <Bolt size={32} color={colors[theme].foreground} />

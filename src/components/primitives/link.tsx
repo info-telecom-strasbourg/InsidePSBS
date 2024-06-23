@@ -1,3 +1,4 @@
+import { routes } from "@/constants/routes";
 import { cn } from "@/utils/cn";
 import { useRouter } from "expo-router";
 import type { PropsWithChildren } from "react";
@@ -20,7 +21,7 @@ export const Link = ({
   ...props
 }: LinkProps) => {
   const router = useRouter();
-  const handlePress = onPress || (() => router.push(href || "/"));
+  const handlePress = onPress || (() => router.push(href || routes.root));
   return (
     <TouchableOpacity onPress={handlePress}>
       <Typography size="p" {...props} className={cn("text-primary", className)}>

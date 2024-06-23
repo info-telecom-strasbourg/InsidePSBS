@@ -22,7 +22,7 @@ export type SinglePostProps = PropsWithChildren<
   } & ViewProps
 >;
 
-const SinglePost = ({
+const Post = ({
   item,
   interactions,
   className,
@@ -83,4 +83,4 @@ const SinglePost = ({
   );
 };
 
-export default SinglePost;
+export default Post;

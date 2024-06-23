@@ -3,7 +3,7 @@ import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/features/layout/header";
-import SinglePost from "@/features/posts/single-post";
+import Post from "@/features/posts/post";
 import { useFetch } from "@/hooks/useFetch";
 import { SinglePostSchema } from "@/schemas/post.schema";
 import { colors } from "@/theme/colors";
@@ -87,11 +87,11 @@ export default function PostIdPage() {
     <PageLoading />
   ) : (
     <PageContainer className="bg-background">
-      <Header title="Tous les Posts" leftIcon="back" />
+      <Header title="Tous les Posts" rightIcon="close" />
       <ScrollView>
         <RefreshView isRefreshing={isRefreshing} handleRefresh={handleRefresh}>
           <View className="mb-2 border-b-2 border-muted-foreground pb-2">
-            <SinglePost item={data} authorNameSize="h2" bodySize="h4" />
+            <Post item={data} authorNameSize="h2" bodySize="h4" />
           </View>
           <Comments />
         </RefreshView>

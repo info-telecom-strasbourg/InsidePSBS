@@ -1,33 +1,45 @@
 import { useAuth } from "@/auth/useAuth";
+import { routes } from "@/constants/routes";
 import { useFetch } from "@/hooks/useFetch";
 import { useModalRouter } from "@/hooks/useModalRouter";
+import type { FouailleData } from "@/schemas/fouaille.schema";
 import { FouailleSchema } from "@/schemas/fouaille.schema";
 import { colors } from "@/theme/colors";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { View } from "react-native";
 import Card from "../../components/primitives/card";
 
-const GridCards = () => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille`;
+const fetcher = async (url: string, token: string) => {
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  const parsedData = FouailleSchema.safeParse(data);
+  if (!parsedData.success) {
+    throw new Error(parsedData.error.message);
+  }
+  return data.data;
+};
 
+export const useCards = () => {
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille`;
   const { token } = useAuth();
 
-  const fetcher = async (url: string) => {
-    const res = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await res.json();
-    const parsedData = FouailleSchema.safeParse(data);
-    if (!parsedData.success) {
-      throw new Error(parsedData.error.message);
-    }
-    return data.data;
-  };
-  const { data, isLoading } = useFetch(url, fetcher);
+  const res = useFetch(url, (url: string) => fetcher(url, token || ""));
+  return res;
+};
+
+export type GridCardsProps = {
+  data: FouailleData["data"];
+  isLoading: boolean;
+  error: string | null;
+};
+
+export const GridCards = ({ data, isLoading, error }: GridCardsProps) => {
   const modalRouter = useModalRouter();
 
   return (
@@ -38,7 +50,7 @@ const GridCards = () => {
           color="purple"
           backgroundColor={colors.lightPurple}
           icon={CreditCard}
-          onPress={() => modalRouter.open("/fouaille")}
+          onPress={() => modalRouter.open(routes.fouaille)}
         >
           {isLoading ? "Loading..." : `${data?.balance}€`}
         </Card>
@@ -46,7 +58,7 @@ const GridCards = () => {
           icon={Users}
           color="green"
           backgroundColor={colors.lightGreen}
-          onPress={() => modalRouter.open("/assos")}
+          onPress={() => modalRouter.open(routes.organizations)}
         >
           Clubs et Assos
         </Card>
@@ -66,7 +78,7 @@ const GridCards = () => {
           color="red"
           backgroundColor={colors.lightRed}
           icon={Utensils}
-          onPress={() => modalRouter.open("/menu")}
+          onPress={() => modalRouter.open(routes.menu)}
         >
           Menu du RU
         </Card>
@@ -74,5 +86,3 @@ const GridCards = () => {
     </View>
   );
 };
-
-export default GridCards;
