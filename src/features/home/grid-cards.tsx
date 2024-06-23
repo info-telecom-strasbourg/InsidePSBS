@@ -7,7 +7,7 @@ import { FouailleSchema } from "@/schemas/fouaille.schema";
 import { colors } from "@/theme/colors";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { View } from "react-native";
-import Card from "../../components/primitives/card";
+import Card from "./card";
 
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
@@ -42,46 +42,44 @@ export type GridCardsProps = {
 export const GridCards = ({ data, isLoading, error }: GridCardsProps) => {
   const modalRouter = useModalRouter();
 
+  // TODO: Implémenter error
+
   return (
     <View className="mb-8 flex-col items-center gap-4">
       <View className="flex-1 flex-row gap-4">
         <Card
+          title={isLoading ? "Loading..." : `${data?.balance}€`}
           subtitle="Fouaille"
-          color="purple"
           backgroundColor={colors.lightPurple}
+          color={colors.purple}
           icon={CreditCard}
           onPress={() => modalRouter.open(routes.fouaille)}
-        >
-          {isLoading ? "Loading..." : `${data?.balance}€`}
-        </Card>
+        />
         <Card
-          icon={Users}
-          color="green"
+          title="Clubs et Assos"
           backgroundColor={colors.lightGreen}
+          color={colors.green}
+          icon={Users}
           onPress={() => modalRouter.open(routes.organizations)}
-        >
-          Clubs et Assos
-        </Card>
+        />
       </View>
       <View className="flex-1 flex-row gap-4">
         <Card
-          color="orange"
-          icon={CameraIcon}
+          title="Photo"
           backgroundColor={colors.lightOrange}
+          color={colors.orange}
+          icon={CameraIcon}
           onPress={() =>
             modalRouter.open("https://nextcloud.its-tps.fr/s/zfFkwR6y5wxt5gW")
           }
-        >
-          Photo
-        </Card>
+        />
         <Card
-          color="red"
+          title="Menu du RU"
           backgroundColor={colors.lightRed}
+          color={colors.red}
           icon={Utensils}
           onPress={() => modalRouter.open(routes.menu)}
-        >
-          Menu du RU
-        </Card>
+        />
       </View>
     </View>
   );

@@ -1,24 +1,22 @@
 import type { LucideIcon } from "lucide-react-native";
-import { type PropsWithChildren } from "react";
 import type { TouchableOpacityProps } from "react-native";
 import { TouchableOpacity, View } from "react-native";
-import { Typography } from "./typography";
+import { Typography } from "../../components/primitives/typography";
 
-export type CardProps = PropsWithChildren<
-  {
-    subtitle?: string;
-    icon: LucideIcon;
-    color: string;
-    backgroundColor: string;
-  } & TouchableOpacityProps
->;
+export type CardProps = {
+  title: string;
+  subtitle?: string;
+  icon: LucideIcon;
+  color: string;
+  backgroundColor: string;
+} & TouchableOpacityProps;
 
 const Card = ({
+  title,
   subtitle,
   icon: Icon,
   color = "red",
   backgroundColor,
-  children,
   ...props
 }: CardProps) => {
   return (
@@ -34,7 +32,7 @@ const Card = ({
       </View>
       <View className="w-24 items-start justify-center">
         <Typography size="h4" fontWeight="semibold" className="text-foreground">
-          {children}
+          {title}
         </Typography>
         {subtitle && (
           <Typography size="p" className="text-muted-foreground">
