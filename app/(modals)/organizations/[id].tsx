@@ -33,7 +33,7 @@ export default function AssoIdPage() {
     fetcher
   );
 
-  return isLoading ? (
+  return !data || isLoading ? (
     <>
       <Header title="Profil" rightIcon="close" />
       <PageLoading />
@@ -49,7 +49,7 @@ export default function AssoIdPage() {
         <View className="gap-5 p-2">
           <Identity data={data} />
           <Typography size="p" fontWeight="medium" className=" text-foreground">
-            {data?.description}
+            {data.description}
           </Typography>
           <Socials data={data} className="bg-blue" />
           {/* <Members data={data} /> */}

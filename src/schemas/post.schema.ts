@@ -1,13 +1,5 @@
 import { z } from "zod";
-
-// Define the schema for the author
-const authorSchema = z.object({
-  is_organization: z.boolean(),
-  id: z.number(),
-  name: z.string(),
-  short_name: z.string().nullable(),
-  logo_url: z.string().url().nullable(),
-});
+import { AuthorSchema } from "./author.schema";
 
 // Define the schema for a single post
 const onePostSchema = z.object({
@@ -22,7 +14,7 @@ const onePostSchema = z.object({
   medias: z.array(
     z.object({ id: z.number(), url: z.string().url(), type: z.string() })
   ),
-  author: authorSchema,
+  author: AuthorSchema,
 });
 
 // Define the schema for the meta object
@@ -48,7 +40,6 @@ export const PostsSchema = z.object({
 
 export const SinglePostSchema = z.object({
   data: z.object({
-    id: z.number(),
     body: z.string(),
     created_since: z.string(),
     color: z.string(),
@@ -59,7 +50,7 @@ export const SinglePostSchema = z.object({
     medias: z.array(
       z.object({ id: z.number(), url: z.string().url(), type: z.string() })
     ),
-    author: authorSchema,
+    author: AuthorSchema,
   }),
 });
 

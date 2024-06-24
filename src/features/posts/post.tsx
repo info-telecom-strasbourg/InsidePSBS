@@ -1,10 +1,14 @@
+import { useAuth } from "@/auth/useAuth";
+import { PageLoading } from "@/components/page/loading";
 import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
-import type { SinglePostData } from "@/schemas/post.schema";
+import { useFetch } from "@/hooks/useFetch";
+import { SinglePostSchema, type SinglePostData } from "@/schemas/post.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import type { VariantProps } from "class-variance-authority";
+import { useLocalSearchParams } from "expo-router";
 import { Heart, MessageCircle } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import { useState } from "react";
@@ -14,6 +18,8 @@ import { Image, TouchableOpacity, View } from "react-native";
 export type SinglePostProps = PropsWithChildren<
   {
     item: SinglePostData["data"];
+    isLoading: boolean;
+    error: string | null;
     interactions?: boolean;
     className?: string;
     authorNameSize?: VariantProps<typeof typographyVariants>["size"];
@@ -22,9 +28,36 @@ export type SinglePostProps = PropsWithChildren<
   } & ViewProps
 >;
 
-const Post = ({
+const fetcher = async (url: string, token: string) => {
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  const parsedData = SinglePostSchema.safeParse(data);
+  if (!parsedData.success) {
+    throw new Error(parsedData.error.message);
+  }
+  return parsedData.data.data;
+};
+
+export const usePost = () => {
+  const local = useLocalSearchParams();
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${local.id}`;
+  const { token } = useAuth();
+
+  const res = useFetch(url, (url: string) => fetcher(url, token || ""));
+  return res;
+};
+
+export const Post = ({
   item,
+  isLoading,
   interactions,
+  error,
   className,
   authorNameSize = "h4",
   dateSize = "h5",
@@ -32,7 +65,9 @@ const Post = ({
 }: SinglePostProps) => {
   const [heartClicked, setHeartClicked] = useState(false);
   const { theme } = useTheme();
-  return (
+  return !item || isLoading ? (
+    <PageLoading />
+  ) : (
     <View
       className={cn("justify-between rounded-2xl bg-popover p-4", className)}
     >
@@ -82,5 +117,3 @@ const Post = ({
     </View>
   );
 };
-
-export default Post;

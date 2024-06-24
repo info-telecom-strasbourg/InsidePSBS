@@ -37,7 +37,7 @@ export default function AssociationsPage() {
     (url: string) => fetcher(url)
   );
 
-  return isLoading ? (
+  return !data || isLoading ? (
     <>
       <Header title="Clubs et Associations" rightIcon="close" />
       <PageLoading />
@@ -62,7 +62,7 @@ export default function AssociationsPage() {
           >
             Associations
           </Typography>
-          {data?.associations.map((item) => (
+          {data.associations.map((item) => (
             <TouchableOpacity
               onPress={() => router.push(`${routes.organizations}/${item.id}`)}
               key={item.id}
@@ -100,7 +100,7 @@ export default function AssociationsPage() {
           >
             Clubs
           </Typography>
-          {data?.clubs.map((item) => (
+          {data.clubs.map((item) => (
             <TouchableOpacity
               onPress={() => router.push(`${routes.organizations}/${item.id}`)}
               key={item.id}

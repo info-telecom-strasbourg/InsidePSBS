@@ -4,7 +4,7 @@ import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/features/layout/header";
 import { Filters } from "@/features/posts/filters";
-import Post from "@/features/posts/post";
+import { Post } from "@/features/posts/post";
 import { Search } from "@/features/posts/search";
 import { useFetch } from "@/hooks/useFetch";
 import { useModalRouter } from "@/hooks/useModalRouter";
@@ -38,7 +38,7 @@ export default function AnnouncementsPage() {
 
   const modalRouter = useModalRouter();
 
-  return isLoading ? (
+  return !data || isLoading ? (
     <>
       <Header title="Publications" rightIcon="settings" />
       <PageLoading />
@@ -57,12 +57,17 @@ export default function AnnouncementsPage() {
             <Search />
             <Filters />
           </View>
-          {data?.map((item) => (
+          {data.map((item) => (
             <TouchableOpacity
               key={item.id}
               onPress={() => modalRouter.open(`/post/${item.id}`)}
             >
-              <Post item={item} interactions />
+              <Post
+                item={item}
+                interactions
+                isLoading={isLoading}
+                error={error}
+              />
             </TouchableOpacity>
           ))}
         </View>
