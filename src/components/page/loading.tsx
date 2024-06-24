@@ -5,7 +5,7 @@ import { ActivityIndicator, View } from "react-native";
 export const PageLoading = () => {
   const { theme } = useTheme();
   return (
-    <View className="flex size-full items-center justify-center pb-24">
+    <View className="size-full flex-1 items-center justify-center bg-background pb-24">
       <ActivityIndicator size={64} color={colors[theme].foreground} />
     </View>
   );

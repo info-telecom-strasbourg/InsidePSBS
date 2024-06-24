@@ -50,6 +50,7 @@ export default function AssociationsPage() {
         isRefreshing={isRefreshing}
         handleRefresh={handleRefresh}
         showsVerticalScrollIndicator={false}
+        className="p-2"
       >
         <Search />
 
@@ -80,7 +81,7 @@ export default function AssociationsPage() {
                 >
                   {item.short_name}
                 </Typography>
-                <Typography className="text-muted-foreground" size="h5">
+                <Typography className="text-muted-foreground" size="p">
                   {item.name}
                 </Typography>
               </View>

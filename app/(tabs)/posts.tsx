@@ -47,7 +47,11 @@ export default function AnnouncementsPage() {
     <PageContainer>
       <Header title="Publications" rightIcon="settings" />
 
-      <RefreshView handleRefresh={handleRefresh} isRefreshing={isRefreshing}>
+      <RefreshView
+        handleRefresh={handleRefresh}
+        isRefreshing={isRefreshing}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="gap-3">
           <View className="mb-6 gap-5">
             <Search />

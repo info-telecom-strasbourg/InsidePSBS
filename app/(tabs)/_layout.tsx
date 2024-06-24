@@ -19,7 +19,7 @@ export default function TabsLayout() {
           tabBarStyle: {
             backgroundColor: colors[theme].secondary,
             borderTopWidth: 0,
-            paddingTop: 13,
+            paddingTop: 4,
           },
         }}
       >
@@ -47,7 +47,7 @@ export default function TabsLayout() {
             headerShown: false,
             tabBarButton: () => (
               <TouchableOpacity
-                className="-top-8"
+                className="-top-7"
                 onPress={() => {
                   // TODO : Implémenter le modal pour choisir post ou annonce
                   modalRouter.open(routes.create_post);
