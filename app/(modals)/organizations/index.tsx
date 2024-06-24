@@ -1,14 +1,17 @@
+import { PageLoading } from "@/components/page/loading";
+import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
 import { Header } from "@/features/layout/header";
+import { Search } from "@/features/posts/search";
 import { useFetch } from "@/hooks/useFetch";
 import { AssociationSchema } from "@/schemas/assos.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { useRouter } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
-import { FlatList, Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url, {
@@ -21,7 +24,7 @@ const fetcher = async (url: string) => {
   if (!parsedData.success) {
     throw new Error(parsedData.error.message);
   }
-  return data.data;
+  return parsedData.data;
 };
 
 export default function AssociationsPage() {
@@ -29,48 +32,104 @@ export default function AssociationsPage() {
   const { theme } = useTheme();
   const router = useRouter();
 
-  const { data } = useFetch(url, fetcher);
+  const { data, isLoading, error, isRefreshing, handleRefresh } = useFetch(
+    url,
+    (url: string) => fetcher(url)
+  );
 
-  return (
+  return isLoading ? (
+    <>
+      <Header title="Clubs et Associations" rightIcon="close" />
+      <PageLoading />
+    </>
+  ) : (
     <PageContainer className="bg-background">
       <Header title="Clubs et Associations" rightIcon="close" />
-      <Typography
-        size="h3"
-        className="mb-3 text-foreground"
-        fontWeight="semibold"
-      >
-        Associations
-      </Typography>
-      <FlatList
-        data={data?.associations}
-        numColumns={2}
-        keyExtractor={(item) => item.id}
-        columnWrapperClassName="justify-between gap-3 mb-3"
+
+      <RefreshView
+        isRefreshing={isRefreshing}
+        handleRefresh={handleRefresh}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => {
-          return (
+      >
+        <Search />
+
+        <View className="gap-3">
+          <Typography
+            size="h3"
+            className="mt-4 text-foreground"
+            fontWeight="semibold"
+          >
+            Associations
+          </Typography>
+          {data?.associations.map((item) => (
             <TouchableOpacity
               onPress={() => router.push(`${routes.organizations}/${item.id}`)}
               key={item.id}
-              className="flex-1 flex-row items-center justify-center gap-5 rounded-2xl bg-popover p-3"
+              className="flex-1 flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-3"
             >
               <Image
                 source={{ uri: `${item.logo_url}` }}
                 resizeMode="contain"
-                className="size-20 rounded-2xl"
+                className="size-16 rounded-2xl"
               />
-              <Typography
-                className="text-foreground"
-                size="h4"
-                fontWeight="medium"
-              >
-                {item.short_name}
-              </Typography>
-              <ChevronRight size={25} color={colors[theme].foreground} />
+              <View>
+                <Typography
+                  className="text-foreground"
+                  size="h4"
+                  fontWeight="medium"
+                >
+                  {item.short_name}
+                </Typography>
+                <Typography className="text-muted-foreground" size="h5">
+                  {item.name}
+                </Typography>
+              </View>
+
+              <View className="absolute right-3">
+                <ChevronRight size={25} color={colors[theme].foreground} />
+              </View>
             </TouchableOpacity>
-          );
-        }}
-      />
+          ))}
+        </View>
+        <View className="gap-3">
+          <Typography
+            size="h3"
+            className="mt-4 text-foreground"
+            fontWeight="semibold"
+          >
+            Clubs
+          </Typography>
+          {data?.clubs.map((item) => (
+            <TouchableOpacity
+              onPress={() => router.push(`${routes.organizations}/${item.id}`)}
+              key={item.id}
+              className="flex-1 flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-3"
+            >
+              <Image
+                source={{ uri: `${item.logo_url}` }}
+                resizeMode="contain"
+                className="size-16 rounded-2xl"
+              />
+              <View>
+                <Typography
+                  className="text-foreground"
+                  size="h4"
+                  fontWeight="medium"
+                >
+                  {item.short_name}
+                </Typography>
+                <Typography className="text-muted-foreground" size="h5">
+                  {item.name}
+                </Typography>
+              </View>
+
+              <View className="absolute right-3">
+                <ChevronRight size={25} color={colors[theme].foreground} />
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </RefreshView>
     </PageContainer>
   );
 }

@@ -1,3 +1,5 @@
+import { PageLoading } from "@/components/page/loading";
+import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
@@ -17,35 +19,62 @@ const fetcher = async (url: string) => {
   if (!parsedData.success) {
     throw new Error(parsedData.error.message);
   }
-  return data.data;
+  return parsedData.data;
 };
 
 export default function AssoIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const url = `https://fouaille.bde-tps.fr/api/organization/${id}`;
 
-  const { data } = useFetch(url, fetcher);
+  const { data, isLoading, isRefreshing, handleRefresh } = useFetch(
+    url,
+    fetcher
+  );
 
-  return (
+  return isLoading ? (
+    <>
+      <Header title="Profil" rightIcon="close" />
+      <PageLoading />
+    </>
+  ) : (
     <PageContainer>
-      <Header title={`${data?.short_name}`} leftIcon="back" rightIcon="close" />
-      <View className="flex-1 items-center justify-center">
-        <View className="items-center justify-between">
-          <Image
-            source={{ uri: `${data?.logo_url}` }}
-            className="size-52 rounded-full"
-            style={{ resizeMode: "cover" }}
-          />
-          <Typography size="h1" className="text-foreground">
-            {data?.name}
-          </Typography>
+      <Header title="Profil" leftIcon="back" rightIcon="close" />
+      <RefreshView
+        scrollEnabled={false}
+        isRefreshing={isRefreshing}
+        handleRefresh={handleRefresh}
+      >
+        <View className="">
+          <View className="flex-row items-center justify-start gap-4">
+            <Image
+              source={{ uri: `${data?.logo_url}` }}
+              className="size-24 rounded-full"
+              style={{ resizeMode: "cover" }}
+            />
+            <View>
+              <Typography
+                size="h1"
+                className="text-foreground"
+                fontWeight="semibold"
+              >
+                {data?.short_name}
+              </Typography>
+              <Typography size="h3" className="text-muted-foreground">
+                {data?.name}
+              </Typography>
+            </View>
+          </View>
+          <View className="">
+            <Typography
+              size="p"
+              fontWeight="medium"
+              className="text-foreground"
+            >
+              {data?.description}
+            </Typography>
+          </View>
         </View>
-        <View className="items-center justify-center rounded-2xl bg-popover p-5">
-          <Typography size="h4" fontWeight="medium" className="text-foreground">
-            {data?.description}
-          </Typography>
-        </View>
-      </View>
+      </RefreshView>
     </PageContainer>
   );
 }

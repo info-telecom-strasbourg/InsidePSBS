@@ -13,10 +13,15 @@ const authorSchema = z.object({
 const onePostSchema = z.object({
   id: z.number(),
   body: z.string(),
-  date: z.string(),
+  created_since: z.string(),
   color: z.string(),
   category: z.string(),
+  created_at: z.string(),
   updated_at: z.string(),
+  reaction_count: z.number(),
+  medias: z.array(
+    z.object({ id: z.number(), url: z.string().url(), type: z.string() })
+  ),
   author: authorSchema,
 });
 
@@ -43,11 +48,17 @@ export const PostsSchema = z.object({
 
 export const SinglePostSchema = z.object({
   data: z.object({
+    id: z.number(),
     body: z.string(),
-    date: z.string(),
+    created_since: z.string(),
     color: z.string(),
     category: z.string(),
+    created_at: z.string(),
     updated_at: z.string(),
+    reaction_count: z.number(),
+    medias: z.array(
+      z.object({ id: z.number(), url: z.string().url(), type: z.string() })
+    ),
     author: authorSchema,
   }),
 });

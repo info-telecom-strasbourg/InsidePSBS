@@ -50,7 +50,7 @@ const Post = ({
             fontWeight="medium"
             className="text-muted-foreground"
           >
-            {item.date}
+            {item.created_since}
           </Typography>
         </View>
       </View>

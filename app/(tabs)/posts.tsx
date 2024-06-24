@@ -1,4 +1,5 @@
 import { useAuth } from "@/auth/useAuth";
+import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/features/layout/header";
@@ -37,7 +38,12 @@ export default function AnnouncementsPage() {
 
   const modalRouter = useModalRouter();
 
-  return (
+  return isLoading ? (
+    <>
+      <Header title="Publications" rightIcon="settings" />
+      <PageLoading />
+    </>
+  ) : (
     <PageContainer>
       <Header title="Publications" rightIcon="settings" />
 

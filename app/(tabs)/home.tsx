@@ -15,7 +15,7 @@ export default function HomePage() {
   } = useCards();
 
   if (!cardsData || cardsError) {
-    // TODO : Implémenter l'erreur
+    // TODO: Implémenter l'erreur
     return;
   }
 
