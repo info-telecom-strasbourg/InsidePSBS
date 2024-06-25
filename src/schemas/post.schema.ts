@@ -25,7 +25,7 @@ const metaSchema = z.object({
   last_page: z.number(),
   first_page_url: z.string().url(),
   last_page_url: z.string().url(),
-  next_page_url: z.string().url().nullable(),
+  next_page_url: z.string().nullable(),
   prev_page_url: z.string().nullable(),
   path: z.string().url(),
   from: z.number(),
