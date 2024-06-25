@@ -1,18 +1,34 @@
-import { routes } from "@/constants/routes";
 import { PlusButton } from "@/features/layout/plus-button";
+import PublishBottomSheet from "@/features/layout/publish-bottom-sheet";
 import { TabIcon } from "@/features/layout/tab-icon";
-import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
 import { Tabs } from "expo-router";
 import { Calendar, CircleUserIcon, Home, Megaphone } from "lucide-react-native";
+import { useCallback, useMemo, useRef } from "react";
 import { TouchableOpacity } from "react-native";
 
 export default function TabsLayout() {
   const { theme } = useTheme();
-  const modalRouter = useModalRouter();
+
+  // ref
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  // variables
+  const snapPoints = useMemo(() => ["25%"], []);
+
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
   return (
-    <>
+    <BottomSheetModalProvider>
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
@@ -49,8 +65,7 @@ export default function TabsLayout() {
               <TouchableOpacity
                 className="-top-7"
                 onPress={() => {
-                  // TODO : Implémenter le modal pour choisir post ou annonce
-                  modalRouter.open(routes.create_post);
+                  handlePresentModalPress();
                 }}
               >
                 <PlusButton />
@@ -77,6 +92,27 @@ export default function TabsLayout() {
           }}
         />
       </Tabs>
-    </>
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={0}
+        snapPoints={snapPoints}
+        enablePanDownToClose
+        handleIndicatorStyle={{ width: 50 }}
+        backdropComponent={() =>
+          //   <BottomSheetBackdrop
+          //     appearsOnIndex={0}
+          //     disappearsOnIndex={0}
+          //     animatedIndex={0}
+          //     animatedPosition={0}
+          //   />
+          // )}
+          null
+        }
+      >
+        <BottomSheetView className="gap-6 p-4">
+          <PublishBottomSheet />
+        </BottomSheetView>
+      </BottomSheetModal>
+    </BottomSheetModalProvider>
   );
 }

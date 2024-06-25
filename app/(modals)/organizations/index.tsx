@@ -32,10 +32,10 @@ export default function AssociationsPage() {
   );
 
   return !data || isLoading ? (
-    <>
+    <PageContainer>
       <Header title="Clubs et Associations" rightIcon="close" />
       <PageLoading />
-    </>
+    </PageContainer>
   ) : (
     <PageContainer className="bg-background">
       <Header title="Clubs et Associations" rightIcon="close" />
