@@ -98,6 +98,8 @@ export default function TabsLayout() {
         snapPoints={snapPoints}
         enablePanDownToClose
         handleIndicatorStyle={{ width: 50 }}
+        overDragResistanceFactor={1}
+        backgroundStyle={{ backgroundColor: colors[theme].secondary }}
         backdropComponent={() =>
           //   <BottomSheetBackdrop
           //     appearsOnIndex={0}

@@ -9,6 +9,7 @@ import { Search } from "@/features/posts/search";
 import { useFetch } from "@/hooks/useFetch";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { PostsSchema } from "@/schemas/post.schema";
+import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 const fetcher = async (url: string, token: string | null) => {
@@ -27,6 +28,8 @@ const fetcher = async (url: string, token: string | null) => {
 };
 
 export default function AnnouncementsPage() {
+  const [selectedId, setSelectedId] = useState(1);
+
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post?per_page=10&page=1`;
   const { token } = useAuth();
   const { data, isLoading, error, isRefreshing, handleRefresh } = useFetch(
@@ -54,7 +57,7 @@ export default function AnnouncementsPage() {
         <View className="gap-3">
           <View className="mb-6 gap-5">
             <Search />
-            <Filters />
+            <Filters selectedId={selectedId} setSelectedId={setSelectedId} />
           </View>
           {data.map((item) => (
             <TouchableOpacity

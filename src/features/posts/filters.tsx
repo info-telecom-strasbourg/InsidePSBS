@@ -3,7 +3,6 @@ import { Typography } from "@/components/primitives/typography";
 import { useFetch } from "@/hooks/useFetch";
 import { CategoriesSchema } from "@/schemas/categories.schema";
 import { cn } from "@/utils/cn";
-import { useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 
 const fetcher = async (url: string, token: string | null) => {
@@ -23,8 +22,12 @@ const fetcher = async (url: string, token: string | null) => {
 
 // export const postsURL = `${process.env.EXPO_PUBLIC_API_URL}/api/post?category_id=${selectedId}`;
 
-export const Filters = () => {
-  const [selectedId, setSelectedId] = useState(1);
+export type FiltersProps = {
+  selectedId: number;
+  setSelectedId: (id: number) => void;
+};
+
+export const Filters = ({ selectedId, setSelectedId }: FiltersProps) => {
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories`;
 
   const { token } = useAuth();

@@ -10,19 +10,19 @@ const PublishBottomSheet = () => {
     <>
       <TouchableOpacity className="flex-row items-center gap-3">
         <FilePlus size={32} color={colors[theme].foreground} />
-        <Typography size="h3" fontWeight="semibold">
+        <Typography size="h3" fontWeight="semibold" className="text-foreground">
           Publication
         </Typography>
       </TouchableOpacity>
       <TouchableOpacity className="flex-row items-center gap-3">
         <CalendarPlus size={32} color={colors[theme].foreground} />
-        <Typography size="h3" fontWeight="semibold">
+        <Typography size="h3" fontWeight="semibold" className="text-foreground">
           Évènement
         </Typography>
       </TouchableOpacity>
       <TouchableOpacity className="flex-row items-center gap-3">
         <CopyPlus size={32} color={colors[theme].foreground} />
-        <Typography size="h3" fontWeight="semibold">
+        <Typography size="h3" fontWeight="semibold" className="text-foreground">
           Les deux
         </Typography>
       </TouchableOpacity>

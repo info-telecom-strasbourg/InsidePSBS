@@ -18,7 +18,7 @@ export const Header = ({ rightIcon, title, leftIcon }: HeaderProps) => {
   const router = useRouter();
   const modalRouter = useModalRouter();
   return (
-    <View className="mb-4 flex min-h-16 flex-row items-center gap-5">
+    <View className="mb-4 flex flex-row items-center gap-5">
       {leftIcon === "inside-psbs" && (
         <Image
           source={require("assets/images/favicon.png")}

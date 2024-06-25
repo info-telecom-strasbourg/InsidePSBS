@@ -39,13 +39,16 @@ export default function AssociationsPage() {
   ) : (
     <PageContainer className="bg-background">
       <Header title="Clubs et Associations" rightIcon="close" />
+      <View className="pb-3">
+        <Search />
+      </View>
+
       <RefreshView
         isRefreshing={isRefreshing}
         handleRefresh={handleRefresh}
         showsVerticalScrollIndicator={false}
         className="p-2"
       >
-        <Search />
         <View className="gap-3">
           <Typography
             size="h3"
