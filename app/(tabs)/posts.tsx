@@ -46,7 +46,6 @@ export default function AnnouncementsPage() {
   ) : (
     <PageContainer>
       <Header title="Publications" rightIcon="settings" />
-
       <RefreshView
         handleRefresh={handleRefresh}
         isRefreshing={isRefreshing}

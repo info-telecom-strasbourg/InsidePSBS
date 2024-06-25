@@ -1,20 +1,34 @@
+import { useAuth } from "@/auth/useAuth";
 import { Typography } from "@/components/primitives/typography";
+import { useFetch } from "@/hooks/useFetch";
+import { CategoriesSchema } from "@/schemas/categories.schema";
 import { cn } from "@/utils/cn";
 import { useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 
-const filters = [
-  { id: 0, name: "Tout" },
-  { id: 1, name: "Admis 2023" },
-  { id: 2, name: "Admis 2024" },
-  { id: 3, name: "Neurchi" },
-  { id: 4, name: "Boîte tactique" },
-  { id: 5, name: "Objets Perdus" },
-  { id: 6, name: "Clubs et Assos" },
-];
+const fetcher = async (url: string, token: string | null) => {
+  const res = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  const parsedData = CategoriesSchema.safeParse(data);
+  if (!parsedData.success) {
+    throw new Error(parsedData.error.message);
+  }
+  return parsedData.data.data;
+};
+
+// export const postsURL = `${process.env.EXPO_PUBLIC_API_URL}/api/post?category_id=${selectedId}`;
 
 export const Filters = () => {
-  const [selectedId, setSelectedId] = useState(0);
+  const [selectedId, setSelectedId] = useState(1);
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories`;
+
+  const { token } = useAuth();
+  const { data: filters } = useFetch(url, (url: string) => fetcher(url, token));
 
   return (
     <View className="flex-row items-center truncate rounded-full bg-popover">
@@ -30,7 +44,9 @@ export const Filters = () => {
               selectedId === item.id ? `bg-primary` : `bg-popover`,
               "mr-3 rounded-full p-2 pl-4 pr-4"
             )}
-            onPress={() => setSelectedId(item.id)}
+            onPress={() => {
+              setSelectedId(item.id);
+            }}
           >
             <Typography
               size="h5"
