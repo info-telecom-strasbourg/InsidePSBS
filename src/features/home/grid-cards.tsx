@@ -3,7 +3,7 @@ import { routes } from "@/constants/routes";
 import { useFetch } from "@/hooks/useFetch";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import type { FouailleData } from "@/schemas/fouaille.schema";
-import { FouailleSchema } from "@/schemas/fouaille.schema";
+import { FouailleBalanceSchema } from "@/schemas/fouaille.schema";
 import { colors } from "@/theme/colors";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { View } from "react-native";
@@ -18,7 +18,7 @@ const fetcher = async (url: string, token: string) => {
     },
   });
   const data = await res.json();
-  const parsedData = FouailleSchema.safeParse(data);
+  const parsedData = FouailleBalanceSchema.safeParse(data);
   if (!parsedData.success) {
     throw new Error(parsedData.error.message);
   }
@@ -26,7 +26,7 @@ const fetcher = async (url: string, token: string) => {
 };
 
 export const useCards = () => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille`;
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille/balance`;
   const { token } = useAuth();
 
   const res = useFetch(url, (url: string) => fetcher(url, token || ""));

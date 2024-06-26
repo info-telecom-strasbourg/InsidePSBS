@@ -9,10 +9,9 @@ import { useFetchInfinite } from "@/hooks/useFetchInfinite";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { PostsSchema } from "@/schemas/post.schema";
 import { useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
-import { FlatList, RefreshControl } from "react-native-gesture-handler";
+import { FlatList, RefreshControl, TouchableOpacity, View } from "react-native";
 
-const fetcher = async (url: string, token: string | null) => {
+const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -30,7 +29,7 @@ const fetcher = async (url: string, token: string | null) => {
 const getKey = (pageIndex: number, selectedId: number) => {
   return `${
     process.env.EXPO_PUBLIC_API_URL
-  }/api/post?category_id=${selectedId}&per_page=4&page=${pageIndex + 1}`;
+  }/api/post?category_id=${selectedId}&per_page=2&page=${pageIndex + 1}`;
 };
 
 export default function AnnouncementsPage() {
@@ -40,57 +39,59 @@ export default function AnnouncementsPage() {
   const { data, isLoading, error, size, setSize, isRefreshing, handleRefresh } =
     useFetchInfinite(
       (pageIndex) => getKey(pageIndex, selectedId),
-      (url) => fetcher(url, token)
+      (url) => fetcher(url, token || "")
     );
 
-  // TODO: Implémenter les isLoading et les erreurs
+  // TODO: Implémenter les erreurs
 
   const modalRouter = useModalRouter();
 
   return (
     <PageContainer>
-      <Header title="Publications" rightIcon="settings" />
+      <Header
+        title="Publications"
+        rightIcon="settings"
+        leftIcon="inside-psbs"
+      />
+      <View className="mb-4 gap-5">
+        <Search />
+        <Filters selectedId={selectedId} setSelectedId={setSelectedId} />
+      </View>
       {!data || isLoading ? (
         <PageLoading />
       ) : (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View className="gap-3">
-            <View className="mb-4 gap-5">
-              <Search />
-              <Filters selectedId={selectedId} setSelectedId={setSelectedId} />
-            </View>
-            <FlatList
-              className="gap-3"
-              data={data}
-              scrollEnabled={false}
-              refreshControl={
-                <RefreshControl
-                  refreshing={isRefreshing}
-                  onRefresh={handleRefresh}
-                />
-              }
-              onEndReached={() => setSize(size + 1)}
-              onEndReachedThreshold={0.8}
-              renderItem={({ item }) => (
-                <>
-                  {item.map((item) => (
-                    <TouchableOpacity
-                      key={item.id}
-                      onPress={() => modalRouter.open(`/post/${item.id}`)}
-                    >
-                      <Post
-                        item={item}
-                        interactions
-                        isLoading={isLoading}
-                        error={error}
-                      />
-                    </TouchableOpacity>
-                  ))}
-                </>
-              )}
-            />
-          </View>
-        </ScrollView>
+        <>
+          <FlatList
+            data={data}
+            contentContainerClassName="gap-4"
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={isRefreshing}
+                onRefresh={handleRefresh}
+              />
+            }
+            onEndReached={() => setSize(size + 1)}
+            // onEndReachedThreshold={0.8}
+            renderItem={({ item }) => (
+              <View className="gap-4">
+                {item.map((item) => (
+                  <TouchableOpacity
+                    key={item.id}
+                    onPress={() => modalRouter.open(`/post/${item.id}`)}
+                  >
+                    <Post
+                      item={item}
+                      interactions
+                      isLoading={isLoading}
+                      error={error}
+                    />
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
+          />
+        </>
       )}
     </PageContainer>
   );

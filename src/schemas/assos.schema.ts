@@ -2,15 +2,17 @@ import { z } from "zod";
 
 const organizationSchema = z.object({
   id: z.number(),
-  logo_url: z.string().url(),
-  name: z.string(),
   short_name: z.string().nullable(),
+  name: z.string(),
+  logo_url: z.string().url(),
 });
 
 // Define the schema for the API response
 export const AssociationSchema = z.object({
-  associations: z.array(organizationSchema),
-  clubs: z.array(organizationSchema),
+  data: z.object({
+    associations: z.array(organizationSchema),
+    clubs: z.array(organizationSchema),
+  }),
 });
 
 export const AssociationItemSchema = z.object({

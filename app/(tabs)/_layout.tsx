@@ -11,7 +11,7 @@ import {
 import { Tabs } from "expo-router";
 import { Calendar, CircleUserIcon, Home, Megaphone } from "lucide-react-native";
 import { useCallback, useMemo, useRef } from "react";
-import { TouchableOpacity } from "react-native";
+import { Pressable, TouchableOpacity } from "react-native";
 
 export default function TabsLayout() {
   const { theme } = useTheme();
@@ -100,16 +100,12 @@ export default function TabsLayout() {
         handleIndicatorStyle={{ width: 50 }}
         overDragResistanceFactor={1}
         backgroundStyle={{ backgroundColor: colors[theme].secondary }}
-        backdropComponent={() =>
-          //   <BottomSheetBackdrop
-          //     appearsOnIndex={0}
-          //     disappearsOnIndex={0}
-          //     animatedIndex={0}
-          //     animatedPosition={0}
-          //   />
-          // )}
-          null
-        }
+        backdropComponent={() => (
+          <Pressable
+            className="absolute size-full bg-popover opacity-60"
+            onPress={() => bottomSheetModalRef.current?.dismiss()}
+          ></Pressable>
+        )}
       >
         <BottomSheetView className="gap-6 p-4">
           <PublishBottomSheet />
