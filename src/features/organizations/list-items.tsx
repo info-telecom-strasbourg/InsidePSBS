@@ -1,6 +1,6 @@
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
-import type { Association } from "@/schemas/assos.schema";
+import type { OrganizationData } from "@/schemas/assos.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { router } from "expo-router";
@@ -10,7 +10,9 @@ import type { TouchableOpacityProps } from "react-native";
 import { Image, TouchableOpacity, View } from "react-native";
 
 export type ListItemsProps = PropsWithChildren<{
-  item: Association["associations"][0];
+  item:
+    | OrganizationData["data"]["associations"][0]
+    | OrganizationData["data"]["clubs"][0];
 }> &
   TouchableOpacityProps;
 
