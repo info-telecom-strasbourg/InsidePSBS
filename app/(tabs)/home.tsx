@@ -1,3 +1,4 @@
+import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
@@ -14,20 +15,24 @@ export default function HomePage() {
     isRefreshing,
   } = useCards();
 
-  if (!cardsData || cardsError) {
-    // TODO: Implémenter l'erreur
-    return;
-  }
+  // if (!cardsData || cardsError) {
+  //   // TODO: Implémenter l'erreur
+  //   return;
+  // }
 
   return (
     <PageContainer className="bg-background">
       <Header title="InsidePSBS" leftIcon="inside-psbs" rightIcon="settings" />
       <RefreshView handleRefresh={handleRefresh} isRefreshing={isRefreshing}>
-        <GridCards
-          data={cardsData}
-          isLoading={cardsIsLoading}
-          error={cardsError}
-        />
+        {!cardsData || cardsIsLoading ? (
+          <PageLoading />
+        ) : (
+          <GridCards
+            data={cardsData}
+            isLoading={cardsIsLoading}
+            error={cardsError}
+          />
+        )}
         <View>
           <Typography size="h1" fontWeight="bold">
             Actualités

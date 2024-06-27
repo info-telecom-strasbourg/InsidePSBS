@@ -2,7 +2,7 @@ import { useAuth } from "@/auth/useAuth";
 import { routes } from "@/constants/routes";
 import { useFetch } from "@/hooks/useFetch";
 import { useModalRouter } from "@/hooks/useModalRouter";
-import type { FouailleData } from "@/schemas/fouaille.schema";
+import type { FouailleBalanceData } from "@/schemas/fouaille.schema";
 import { FouailleBalanceSchema } from "@/schemas/fouaille.schema";
 import { colors } from "@/theme/colors";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
@@ -20,9 +20,11 @@ const fetcher = async (url: string, token: string) => {
   const data = await res.json();
   const parsedData = FouailleBalanceSchema.safeParse(data);
   if (!parsedData.success) {
-    throw new Error(parsedData.error.message);
+    parsedData.error.issues.map((issue) => {
+      console.error(`${issue.message} -- ON -- ${issue.path}`);
+    });
   }
-  return parsedData.data.data;
+  return parsedData.data;
 };
 
 export const useCards = () => {
@@ -34,7 +36,7 @@ export const useCards = () => {
 };
 
 export type GridCardsProps = {
-  data: FouailleData["data"];
+  data: FouailleBalanceData;
   isLoading: boolean;
   error: string | null;
 };
@@ -48,7 +50,7 @@ export const GridCards = ({ data, isLoading, error }: GridCardsProps) => {
     <View className="mb-8 flex-col items-center gap-4">
       <View className="flex-1 flex-row gap-4">
         <Card
-          title={isLoading ? "Loading..." : `${data?.balance}€`}
+          title={isLoading ? "Loading..." : `${data.data.balance}€`}
           subtitle="Fouaille"
           backgroundColor={colors.lightPurple}
           color={colors.purple}

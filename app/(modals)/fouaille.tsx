@@ -21,7 +21,9 @@ const fetcher = async (url: string, token: string) => {
   const data = await res.json();
   const parsedData = FouailleSchema.safeParse(data);
   if (!parsedData.success) {
-    throw new Error(parsedData.error.message);
+    parsedData.error.issues.map((issue) => {
+      console.error(`${issue.message} -- ON -- ${issue.path}`);
+    });
   }
   return parsedData.data;
 };

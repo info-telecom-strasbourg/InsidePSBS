@@ -7,7 +7,8 @@ import { Header } from "@/features/layout/header";
 import ListItems from "@/features/organizations/list-items";
 import { Search } from "@/features/posts/search";
 import { useFetch } from "@/hooks/useFetch";
-import { AssociationSchema } from "@/schemas/assos.schema";
+import { OrganizationSchema } from "@/schemas/assos.schema";
+import { useState } from "react";
 import { View } from "react-native";
 
 const fetcher = async (url: string, token: string | null) => {
@@ -18,15 +19,18 @@ const fetcher = async (url: string, token: string | null) => {
     },
   });
   const data = await res.json();
-  const parsedData = AssociationSchema.safeParse(data);
+  const parsedData = OrganizationSchema.safeParse(data);
   if (!parsedData.success) {
-    throw new Error(parsedData.error.message);
+    parsedData.error.issues.map((issue) => {
+      console.error(`${issue.message} -- ON -- ${issue.path}`);
+    });
   }
-  return parsedData.data.data;
+  return parsedData.data?.data;
 };
 
 export default function AssociationsPage() {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/organization`;
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/organization?search=${searchPhrase}`;
   const { token } = useAuth();
 
   const { data, isLoading, error, isRefreshing, handleRefresh } = useFetch(
@@ -34,48 +38,48 @@ export default function AssociationsPage() {
     (url: string) => fetcher(url, token || "")
   );
 
-  return !data || isLoading ? (
-    <PageContainer>
-      <Header title="Clubs et Associations" rightIcon="close" />
-      <PageLoading />
-    </PageContainer>
-  ) : (
+  return (
     <PageContainer className="bg-background">
       <Header title="Clubs et Associations" rightIcon="close" />
       <View className="pb-3">
-        <Search />
+        <Search searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
       </View>
-
       <RefreshView
         isRefreshing={isRefreshing}
         handleRefresh={handleRefresh}
         showsVerticalScrollIndicator={false}
         className="p-2"
       >
-        <View className="gap-3">
-          <Typography
-            size="h3"
-            className="mt-4 text-foreground"
-            fontWeight="semibold"
-          >
-            Associations
-          </Typography>
-          {data.associations.map((item) => (
-            <ListItems item={item} key={item.id} />
-          ))}
-        </View>
-        <View className="gap-3">
-          <Typography
-            size="h3"
-            className="mt-4 text-foreground"
-            fontWeight="semibold"
-          >
-            Clubs
-          </Typography>
-          {data.clubs.map((item) => (
-            <ListItems item={item} key={item.id} />
-          ))}
-        </View>
+        {!data || isLoading ? (
+          <PageLoading />
+        ) : (
+          <>
+            <View className="gap-3">
+              <Typography
+                size="h3"
+                className="mt-4 text-foreground"
+                fontWeight="semibold"
+              >
+                Associations
+              </Typography>
+              {data.associations.map((item) => (
+                <ListItems item={item} key={item.id} />
+              ))}
+            </View>
+            <View className="gap-3">
+              <Typography
+                size="h3"
+                className="mt-4 text-foreground"
+                fontWeight="semibold"
+              >
+                Clubs
+              </Typography>
+              {data.clubs.map((item) => (
+                <ListItems item={item} key={item.id} />
+              ))}
+            </View>
+          </>
+        )}
       </RefreshView>
     </PageContainer>
   );

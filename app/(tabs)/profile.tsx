@@ -16,10 +16,11 @@ const fetcher = async (url: string, token: string | null) => {
     },
   });
   const data = await res.json();
-  // console.log(data);
   const parsedData = ItsMeUserSchema.safeParse(data);
   if (!parsedData.success) {
-    throw new Error(parsedData.error.message);
+    parsedData.error.issues.map((issue) => {
+      console.error(`${issue.message} -- ON -- ${issue.path}`);
+    });
   }
   return parsedData.data;
 };

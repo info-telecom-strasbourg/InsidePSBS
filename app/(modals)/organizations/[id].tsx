@@ -1,3 +1,4 @@
+import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
@@ -6,55 +7,63 @@ import { Header } from "@/features/layout/header";
 import { Identity } from "@/features/organizations/identity";
 import { Socials } from "@/features/organizations/socials";
 import { useFetch } from "@/hooks/useFetch";
-import { AssociationItemSchema } from "@/schemas/assos.schema";
+import { ShowOrganizationItemSchema } from "@/schemas/assos.schema";
 import { useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 
-const fetcher = async (url: string) => {
+const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
   });
   const data = await res.json();
-  const parsedData = AssociationItemSchema.safeParse(data.data);
+  // console.log(data);
+  const parsedData = ShowOrganizationItemSchema.safeParse(data);
   if (!parsedData.success) {
-    throw new Error(parsedData.error.message);
+    parsedData.error.issues.map((issue) => {
+      console.error(`${issue.message} -- ON -- ${issue.path}`);
+    });
   }
   return parsedData.data;
 };
 
 export default function AssoIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const url = `https://fouaille.bde-tps.fr/api/organization/${id}`;
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/organization/${id}`;
+  const { token } = useAuth();
 
   const { data, isLoading, isRefreshing, handleRefresh } = useFetch(
     url,
-    fetcher
+    (url: string) => fetcher(url, token || "")
   );
 
-  return !data || isLoading ? (
-    <>
-      <Header title="Profil" rightIcon="close" />
-      <PageLoading />
-    </>
-  ) : (
+  return (
     <PageContainer>
       <Header title="Profil" leftIcon="back" rightIcon="close" />
-      <RefreshView
-        scrollEnabled={false}
-        isRefreshing={isRefreshing}
-        handleRefresh={handleRefresh}
-      >
-        <View className="gap-5 p-2">
-          <Identity data={data} />
-          <Typography size="p" fontWeight="medium" className=" text-foreground">
-            {data.description}
-          </Typography>
-          <Socials data={data} className="bg-blue" />
-          {/* <Members data={data} /> */}
-        </View>
-      </RefreshView>
+      {!data || isLoading ? (
+        <PageLoading />
+      ) : (
+        <RefreshView
+          scrollEnabled={false}
+          isRefreshing={isRefreshing}
+          handleRefresh={handleRefresh}
+        >
+          <View className="gap-5 p-2">
+            <Identity data={data.organization} />
+            <Typography
+              size="p"
+              fontWeight="medium"
+              className=" text-foreground"
+            >
+              {data.organization.description}
+            </Typography>
+            <Socials data={data} className="bg-blue" />
+            {/* <Members data={data} /> */}
+          </View>
+        </RefreshView>
+      )}
     </PageContainer>
   );
 }

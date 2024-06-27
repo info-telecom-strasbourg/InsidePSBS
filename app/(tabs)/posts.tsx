@@ -26,19 +26,26 @@ const fetcher = async (url: string, token: string) => {
   return parsedData.data.data;
 };
 
-const getKey = (pageIndex: number, selectedId: number) => {
+const getKey = (
+  pageIndex: number,
+  selectedId: number,
+  searchPhrase: string
+) => {
   return `${
     process.env.EXPO_PUBLIC_API_URL
-  }/api/post?category_id=${selectedId}&per_page=2&page=${pageIndex + 1}`;
+  }/api/post?category_id=${selectedId}&search=${searchPhrase}&per_page=10&page=${
+    pageIndex + 1
+  }`;
 };
 
 export default function AnnouncementsPage() {
   const { token } = useAuth();
   const [selectedId, setSelectedId] = useState(1);
+  const [searchPhrase, setSearchPhrase] = useState("");
 
   const { data, isLoading, error, size, setSize, isRefreshing, handleRefresh } =
     useFetchInfinite(
-      (pageIndex) => getKey(pageIndex, selectedId),
+      (pageIndex) => getKey(pageIndex, selectedId, searchPhrase),
       (url) => fetcher(url, token || "")
     );
 
@@ -54,7 +61,7 @@ export default function AnnouncementsPage() {
         leftIcon="inside-psbs"
       />
       <View className="mb-4 gap-5">
-        <Search />
+        <Search searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
         <Filters selectedId={selectedId} setSelectedId={setSelectedId} />
       </View>
       {!data || isLoading ? (
@@ -65,6 +72,7 @@ export default function AnnouncementsPage() {
             data={data}
             contentContainerClassName="gap-4"
             showsVerticalScrollIndicator={false}
+            ListFooterComponentClassName="mb-4"
             refreshControl={
               <RefreshControl
                 refreshing={isRefreshing}
@@ -72,7 +80,7 @@ export default function AnnouncementsPage() {
               />
             }
             onEndReached={() => setSize(size + 1)}
-            // onEndReachedThreshold={0.8}
+            onEndReachedThreshold={0.4}
             renderItem={({ item }) => (
               <View className="gap-4">
                 {item.map((item) => (

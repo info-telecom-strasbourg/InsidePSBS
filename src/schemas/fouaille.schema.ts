@@ -15,7 +15,7 @@ export const FouailleSchema = z.object({
           product: z.object({
             name: z.string(),
             title: z.string(),
-            unit_price: z.number(),
+            unit_price: z.string(),
             color: z.string(),
           }),
         })

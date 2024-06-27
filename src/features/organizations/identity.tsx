@@ -1,12 +1,12 @@
 import { Typography } from "@/components/primitives/typography";
-import type { AssociationItem } from "@/schemas/assos.schema";
+import type { ShowOrganizationItemData } from "@/schemas/assos.schema";
 import type { PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { Image, View } from "react-native";
 
 export type IdentityProps = PropsWithChildren<
   {
-    data: AssociationItem | undefined;
+    data: ShowOrganizationItemData["organization"] | undefined;
   } & ViewProps
 >;
 

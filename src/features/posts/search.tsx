@@ -1,12 +1,15 @@
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { SearchIcon } from "lucide-react-native";
-import { useState } from "react";
 import { TextInput, View } from "react-native";
 
-export const Search = () => {
+export type SearchProps = {
+  searchPhrase: string;
+  setSearchPhrase: (searchPhrase: string) => void;
+};
+
+export const Search = ({ searchPhrase, setSearchPhrase }: SearchProps) => {
   const { theme } = useTheme();
-  const [searchPhrase, setSearchPhrase] = useState("");
 
   return (
     <View className="flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-2 pl-4">
