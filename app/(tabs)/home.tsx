@@ -2,8 +2,9 @@ import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
-import { GridCards, useCards } from "@/features/home/grid-cards";
+import { GridCards } from "@/features/home/grid-cards";
 import { Header } from "@/features/layout/header";
+import { useCards } from "@/queries/home/cards.query";
 import { View } from "react-native";
 
 export default function HomePage() {

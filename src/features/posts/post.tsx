@@ -1,14 +1,11 @@
-import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
 import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
-import { useFetch } from "@/hooks/useFetch";
-import { SinglePostSchema, type SinglePostData } from "@/schemas/post.schema";
+import { type SinglePostData } from "@/schemas/posts/post.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import type { VariantProps } from "class-variance-authority";
-import { useLocalSearchParams } from "expo-router";
 import { Heart, MessageCircle } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import { useState } from "react";
@@ -27,31 +24,6 @@ export type SinglePostProps = PropsWithChildren<
     bodySize?: VariantProps<typeof typographyVariants>["size"];
   } & ViewProps
 >;
-
-const fetcher = async (url: string, token: string) => {
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  const parsedData = SinglePostSchema.safeParse(data);
-  if (!parsedData.success) {
-    throw new Error(parsedData.error.message);
-  }
-  return parsedData.data.data;
-};
-
-export const usePost = () => {
-  const local = useLocalSearchParams();
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${local.id}`;
-  const { token } = useAuth();
-
-  const res = useFetch(url, (url: string) => fetcher(url, token || ""));
-  return res;
-};
 
 export const Post = ({
   item,
@@ -104,6 +76,12 @@ export const Post = ({
               size={24}
               fill={heartClicked ? colors.red : colors[theme].popover}
             />
+            <Typography
+              size="p"
+              className={heartClicked ? "text-red" : "text-foreground"}
+            >
+              {item.reaction_count}
+            </Typography>
           </TouchableOpacity>
           <TouchableOpacity>
             <MessageCircle

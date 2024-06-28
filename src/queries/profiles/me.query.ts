@@ -1,8 +1,8 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
-import { FouailleBalanceSchema } from "@/schemas/fouaille/balance.schema";
+import { ItsMeUserSchema } from "@/schemas/profile/user.schema";
 
-export const balanceFetcher = async (url: string, token: string) => {
+const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -10,19 +10,20 @@ export const balanceFetcher = async (url: string, token: string) => {
     },
   });
   const data = await res.json();
-  const parsedData = FouailleBalanceSchema.safeParse(data);
+  const parsedData = ItsMeUserSchema.safeParse(data);
   if (!parsedData.success) {
     parsedData.error.issues.map((issue) => {
       console.error(`${issue.message} -- ON -- ${issue.path}`);
     });
   }
-  return parsedData.data?.data;
+
+  return parsedData.data!;
 };
 
-export const useBalance = () => {
+export const useMe = () => {
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille/balance`;
   const { token } = useAuth();
 
-  const res = useFetch(url, (url: string) => balanceFetcher(url, token || ""));
+  const res = useFetch(url, (url: string) => fetcher(url, token || ""));
   return res;
 };

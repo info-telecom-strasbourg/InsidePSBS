@@ -2,7 +2,8 @@ import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/features/layout/header";
 import { Comments, useComments } from "@/features/posts/comments";
-import { Post, usePost } from "@/features/posts/post";
+import { Post } from "@/features/posts/post";
+import { useOnePost } from "@/queries/posts/one-post.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { PencilLine } from "lucide-react-native";
@@ -17,7 +18,7 @@ export default function PostIdPage() {
     error: postError,
     handleRefresh,
     isRefreshing,
-  } = usePost();
+  } = useOnePost();
 
   const {
     data: commentsData,

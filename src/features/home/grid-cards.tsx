@@ -1,42 +1,13 @@
-import { useAuth } from "@/auth/useAuth";
 import { routes } from "@/constants/routes";
-import { useFetch } from "@/hooks/useFetch";
 import { useModalRouter } from "@/hooks/useModalRouter";
-import type { FouailleBalanceData } from "@/schemas/fouaille/fouaille.schema";
-import { FouailleBalanceSchema } from "@/schemas/fouaille/fouaille.schema";
+import type { FouailleBalanceData } from "@/schemas/fouaille/balance.schema";
 import { colors } from "@/theme/colors";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { View } from "react-native";
 import Card from "./card";
 
-const fetcher = async (url: string, token: string) => {
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  const parsedData = FouailleBalanceSchema.safeParse(data);
-  if (!parsedData.success) {
-    parsedData.error.issues.map((issue) => {
-      console.error(`${issue.message} -- ON -- ${issue.path}`);
-    });
-  }
-  return parsedData.data;
-};
-
-export const useCards = () => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille/balance`;
-  const { token } = useAuth();
-
-  const res = useFetch(url, (url: string) => fetcher(url, token || ""));
-  return res;
-};
-
 export type GridCardsProps = {
-  data: FouailleBalanceData;
+  data: FouailleBalanceData["data"];
   isLoading: boolean;
   error: string | null;
 };
@@ -50,7 +21,7 @@ export const GridCards = ({ data, isLoading, error }: GridCardsProps) => {
     <View className="mb-8 flex-col items-center gap-4">
       <View className="flex-1 flex-row gap-4">
         <Card
-          title={isLoading ? "Loading..." : `${data.data.balance}€`}
+          title={isLoading ? "Loading..." : `${data.balance}€`}
           subtitle="Fouaille"
           backgroundColor={colors.lightPurple}
           color={colors.purple}

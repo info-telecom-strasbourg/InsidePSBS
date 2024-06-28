@@ -1,14 +1,14 @@
-import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
 import Hero from "@/features/profile/hero";
+import { useMe } from "@/queries/profiles/me.query";
 import { TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
-  const { token } = useAuth();
+  const { data, isLoading, error, handleRefresh, isRefreshing } = useMe();
 
   return (
     <PageContainer>
@@ -26,9 +26,9 @@ export default function ProfilePage() {
               </TouchableOpacity>
             </View>
             <Hero
-              avatar={data[0]?.data.avatar_url}
-              title={`${data[0]?.data.first_name} ${data[0]?.data.last_name}`}
-              subtitle={data[0]?.data.user_name}
+              avatar={data.data.avatar_url}
+              title={`${data.data.first_name} ${data.data.last_name}`}
+              subtitle={data.data.user_name}
             />
           </View>
         </RefreshView>

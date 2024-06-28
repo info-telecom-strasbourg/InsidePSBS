@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AuthorSchema } from "./author.schema";
+import { AuthorSchema } from "../author.schema";
 
 // Define the schema for a single post
 const onePostSchema = z.object({
