@@ -72,7 +72,6 @@ export default function AnnouncementsPage() {
             data={data}
             contentContainerClassName="gap-4"
             showsVerticalScrollIndicator={false}
-            ListFooterComponentClassName="mb-4"
             refreshControl={
               <RefreshControl
                 refreshing={isRefreshing}

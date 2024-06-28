@@ -1,37 +1,9 @@
-import { useAuth } from "@/auth/useAuth";
 import { Typography } from "@/components/primitives/typography";
-import { useFetch } from "@/hooks/useFetch";
-import type { FouailleBalanceData } from "@/schemas/fouaille.schema";
-import { FouailleBalanceSchema } from "@/schemas/fouaille.schema";
+import type { FouailleBalanceData } from "@/schemas/fouaille/balance.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { Nfc } from "lucide-react-native";
 import { View } from "react-native";
-
-const fetcher = async (url: string, token: string) => {
-  const res = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  const parsedData = FouailleBalanceSchema.safeParse(data);
-  if (!parsedData.success) {
-    parsedData.error.issues.map((issue) => {
-      console.error(`${issue.message} -- ON -- ${issue.path}`);
-    });
-  }
-  return parsedData.data?.data;
-};
-
-export const useBalance = () => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille/balance`;
-  const { token } = useAuth();
-
-  const res = useFetch(url, (url: string) => fetcher(url, token || ""));
-  return res;
-};
 
 const Balance = ({ data }: { data: FouailleBalanceData["data"] }) => {
   const { theme } = useTheme();
