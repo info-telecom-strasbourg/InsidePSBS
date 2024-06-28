@@ -38,7 +38,12 @@ export const FouailleSchema = z.object({
 });
 
 export const FouailleBalanceSchema = z.object({
-  data: z.object({ balance: z.string() }),
+  data: z.object({
+    balance: z.string(),
+    first_name: z.string(),
+    last_name: z.string(),
+    user_name: z.string(),
+  }),
 });
 
 export type FouailleData = z.infer<typeof FouailleSchema>;
