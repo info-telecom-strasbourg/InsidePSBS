@@ -1,8 +1,25 @@
+import Animated, {
+  type SharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated";
 import Svg, { Defs, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 
-export const PlusButton = () => {
+const AnimatedSvg = Animated.createAnimatedComponent(Svg);
+
+export const PlusButton = ({ rotation }: { rotation: SharedValue<number> }) => {
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ rotate: withSpring(`${rotation.value}deg`) }],
+  }));
+
   return (
-    <Svg width={56} height={56} viewBox="0 0 56 56" fill="none">
+    <AnimatedSvg
+      width={56}
+      height={56}
+      viewBox="0 0 56 56"
+      fill="none"
+      style={animatedStyles}
+    >
       <Rect width={56} height={56} rx={28} fill="url(#a)" />
       <Path
         d="M16.333 28h23.334M28 16.333v23.333"
@@ -24,6 +41,6 @@ export const PlusButton = () => {
           <Stop offset={1} stopColor="#F78115" />
         </LinearGradient>
       </Defs>
-    </Svg>
+    </AnimatedSvg>
   );
 };
