@@ -1,7 +1,7 @@
 import { useAuth } from "@/auth/useAuth";
 import { Typography } from "@/components/primitives/typography";
 import { useFetch } from "@/hooks/useFetch";
-import { CategoriesSchema } from "@/schemas/categories.schema";
+import { CategoriesSchema } from "@/schemas/posts/categories.schema";
 import { cn } from "@/utils/cn";
 import { FlatList, TouchableOpacity, View } from "react-native";
 

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AuthorSchema } from "./author.schema";
+import { AuthorSchema } from "../author.schema";
 
 const RootSchema = z.object({
   id: z.number(),

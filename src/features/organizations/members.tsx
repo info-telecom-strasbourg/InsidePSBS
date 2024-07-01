@@ -1,13 +1,11 @@
-import { Typography } from "@/components/primitives/typography";
-import type { ShowOrganizationItemData } from "@/schemas/assos.schema";
+import type { ShowOrganizationData } from "@/schemas/organizations/organization-profile.schema";
 import { Image, View } from "react-native";
 
-type MembersProps = { data: ShowOrganizationItemData["members"] };
+type MembersProps = { data: ShowOrganizationData["members"] };
 
 const Members = ({ data }: MembersProps) => {
   return (
     <View>
-      <Typography>Membres</Typography>
       <View className="flex-row gap-3">
         {data.map((member, id) => (
           <Image

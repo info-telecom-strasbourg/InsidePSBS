@@ -26,11 +26,13 @@ export default function ProfilePage() {
               </TouchableOpacity>
             </View>
             <Hero
-              avatar={data.data.avatar_url}
-              title={`${data.data.first_name} ${data.data.last_name}`}
-              subtitle={data.data.user_name}
+              avatar={data.avatar_url}
+              title={`${data.first_name} ${data.last_name}`}
+              subtitle={data.user_name}
             />
+            <Typography size="h2">Publications</Typography>
           </View>
+          {/* <FlatList data={}/> */}
         </RefreshView>
       )}
     </PageContainer>

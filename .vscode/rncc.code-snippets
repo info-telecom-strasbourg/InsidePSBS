@@ -1,19 +1,18 @@
 {
-	"React Native Component with Children": {
-	  "prefix": "rncc",
-	  "description": "Create the base of a react native component with props",
-	  "scope": "typescriptreact",
-	  "body": [
-		"import { PropsWithChildren } from \"react\";",
-		"",
-		"export type ${1:${TM_FILENAME_BASE/([\\w]+)([-_])([\\w])/${1:/capitalize}${3:/capitalize}/g}}Props = PropsWithChildren<{",
-		"\t$2",
-		"}>",
-		"",
-		"export const $1 = (props: $1Props) => {",
-		"\treturn $3",
-		"}",
-	  ],
-	},
+  "React Native Component with Children": {
+    "prefix": "rncc",
+    "description": "Create the base of a react native component with children",
+    "scope": "typescriptreact",
+    "body": [
+      "import { PropsWithChildren } from \"react\";",
+      "",
+      "export type ${1:${TM_FILENAME_BASE/([\\w]+)([-_])([\\w])/${1:/capitalize}${3:/capitalize}/g}}Props = PropsWithChildren<{",
+      "\t$2",
+      "}>",
+      "",
+      "export const $1 = (props: $1Props) => {",
+      "\treturn $3",
+      "}"
+    ]
   }
-  
+}

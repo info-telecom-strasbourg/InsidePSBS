@@ -8,7 +8,7 @@ import { View } from "react-native";
 const Balance = ({ data }: { data: FouailleBalanceData["data"] }) => {
   const { theme } = useTheme();
   return (
-    <View className="m-4 flex-1 flex-row items-center justify-between rounded-2xl border border-muted-foreground bg-popover p-10">
+    <View className="mx-2 flex-1 flex-row items-center justify-between rounded-2xl border border-muted-foreground bg-popover p-8">
       <View className="flex-1 gap-4">
         <Typography size="h4" className="text-muted-foreground">
           Carte Fouaille

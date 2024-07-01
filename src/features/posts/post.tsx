@@ -14,7 +14,7 @@ import { Image, TouchableOpacity, View } from "react-native";
 
 export type SinglePostProps = PropsWithChildren<
   {
-    item: SinglePostData["data"];
+    item: SinglePostData;
     isLoading: boolean;
     error: string | null;
     interactions?: boolean;
@@ -57,7 +57,7 @@ export const Post = ({
             fontWeight="medium"
             className="text-muted-foreground"
           >
-            {item.created_since}
+            {item.uploaded_since}
           </Typography>
         </View>
       </View>
@@ -70,18 +70,20 @@ export const Post = ({
               setHeartClicked(!heartClicked);
             }}
           >
-            <Heart
-              strokeWidth={1.5}
-              color={heartClicked ? colors.red : colors[theme].foreground}
-              size={24}
-              fill={heartClicked ? colors.red : colors[theme].popover}
-            />
-            <Typography
-              size="p"
-              className={heartClicked ? "text-red" : "text-foreground"}
-            >
-              {item.reaction_count}
-            </Typography>
+            <View className="flex-row items-center">
+              <Heart
+                strokeWidth={1.5}
+                color={heartClicked ? colors.red : colors[theme].foreground}
+                size={24}
+                fill={heartClicked ? colors.red : colors[theme].popover}
+              />
+              <Typography
+                size="p"
+                className={heartClicked ? "text-red" : "text-foreground"}
+              >
+                {item.reaction_count}
+              </Typography>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity>
             <MessageCircle

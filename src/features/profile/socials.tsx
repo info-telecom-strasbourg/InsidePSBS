@@ -1,5 +1,5 @@
 import { useModalRouter } from "@/hooks/useModalRouter";
-import type { AssociationItem } from "@/schemas/assos.schema";
+import type { ShowOrganizationData } from "@/schemas/organizations/organization-profile.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { Facebook, Globe, Instagram, Mail } from "lucide-react-native";
@@ -9,7 +9,7 @@ import { TouchableOpacity, View } from "react-native";
 
 export type SocialsProps = PropsWithChildren<
   {
-    data: AssociationItem | undefined;
+    data: ShowOrganizationData["organization"] | undefined;
   } & ViewProps
 >;
 

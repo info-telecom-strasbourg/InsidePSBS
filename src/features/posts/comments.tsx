@@ -1,8 +1,8 @@
 import { useAuth } from "@/auth/useAuth";
 import { Typography } from "@/components/primitives/typography";
 import { useFetch } from "@/hooks/useFetch";
-import type { CommentsData } from "@/schemas/comments.schema";
-import { CommentsSchema } from "@/schemas/comments.schema";
+import type { CommentsData } from "@/schemas/posts/comments.schema";
+import { CommentsSchema } from "@/schemas/posts/comments.schema";
 import { useLocalSearchParams } from "expo-router";
 import type { PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";

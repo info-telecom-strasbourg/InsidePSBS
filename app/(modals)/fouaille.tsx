@@ -30,20 +30,20 @@ export default function FouaillePage() {
     <PageContainer>
       <Header title="Fouaille" rightIcon="close" />
       <RefreshView isRefreshing={isRefreshing} handleRefresh={handleRefresh}>
-        {!balanceData || balanceIsLoading ? (
+        {!balanceData || balanceIsLoading || !ordersData || ordersIsLoading ? (
           <PageLoading />
         ) : (
-          <View className="items-center justify-center">
-            <Balance data={balanceData} />
-          </View>
-        )}
-        <Typography size="h3">Publications</Typography>
-        {!ordersData || ordersIsLoading ? (
-          <PageLoading />
-        ) : (
-          <View>
-            <Orders data={ordersData} size={size} setSize={setSize} />
-          </View>
+          <>
+            <View className="items-center justify-center">
+              <Balance data={balanceData} />
+            </View>
+            <Typography size="h3" className="my-3">
+              Commandes
+            </Typography>
+            <View>
+              <Orders data={ordersData} size={size} setSize={setSize} />
+            </View>
+          </>
         )}
       </RefreshView>
     </PageContainer>

@@ -1,4 +1,3 @@
-import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
@@ -6,37 +5,15 @@ import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
 import ListItems from "@/features/organizations/list-items";
 import { Search } from "@/features/posts/search";
-import { useFetch } from "@/hooks/useFetch";
-import { OrganizationSchema } from "@/schemas/assos.schema";
+import { useIndexOrganizations } from "@/queries/organizations/organizations.query";
 import { useState } from "react";
 import { View } from "react-native";
 
-const fetcher = async (url: string, token: string | null) => {
-  const res = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  const parsedData = OrganizationSchema.safeParse(data);
-  if (!parsedData.success) {
-    parsedData.error.issues.map((issue) => {
-      console.error(`${issue.message} -- ON -- ${issue.path}`);
-    });
-  }
-  return parsedData.data?.data;
-};
-
 export default function AssociationsPage() {
   const [searchPhrase, setSearchPhrase] = useState("");
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/organization?search=${searchPhrase}`;
-  const { token } = useAuth();
 
-  const { data, isLoading, error, isRefreshing, handleRefresh } = useFetch(
-    url,
-    (url: string) => fetcher(url, token || "")
-  );
+  const { data, isLoading, error, isRefreshing, handleRefresh } =
+    useIndexOrganizations(searchPhrase);
 
   return (
     <PageContainer className="bg-background">

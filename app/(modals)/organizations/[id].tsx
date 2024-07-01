@@ -1,46 +1,36 @@
-import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
+import Members from "@/features/organizations/members";
+import { Post } from "@/features/posts/post";
+import Hero from "@/features/profile/hero";
 import { Socials } from "@/features/profile/socials";
-import { useFetch } from "@/hooks/useFetch";
-import { ShowOrganizationItemSchema } from "@/schemas/assos.schema";
+import { useModalRouter } from "@/hooks/useModalRouter";
+import { useShowOrganization } from "@/queries/organizations/organization-profile.query";
+import { useShowOrganizationPosts } from "@/queries/organizations/organizations-posts.query";
 import { useLocalSearchParams } from "expo-router";
-import { View } from "react-native";
-
-const fetcher = async (url: string, token: string) => {
-  const res = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  const parsedData = ShowOrganizationItemSchema.safeParse(data);
-  if (!parsedData.success) {
-    parsedData.error.issues.map((issue) => {
-      console.error(`${issue.message} -- ON -- ${issue.path}`);
-    });
-  }
-  return parsedData.data;
-};
+import { FlatList, TouchableOpacity, View } from "react-native";
 
 export default function AssoIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/organization/${id}`;
-  const { token } = useAuth();
 
-  const { data, isLoading, isRefreshing, handleRefresh } = useFetch(
-    url,
-    (url: string) => fetcher(url, token || "")
-  );
+  const { data, isLoading, isRefreshing, handleRefresh } =
+    useShowOrganization(id);
+
+  const {
+    data: posts,
+    isLoading: postsAreLoading,
+    error: postsError,
+  } = useShowOrganizationPosts(id);
+
+  const modalRouter = useModalRouter();
 
   return (
     <PageContainer>
       <Header title="Profil" leftIcon="back" rightIcon="close" />
-      {!data || isLoading ? (
+      {!data || isLoading || !posts || postsAreLoading ? (
         <PageLoading />
       ) : (
         <RefreshView
@@ -48,16 +38,40 @@ export default function AssoIdPage() {
           isRefreshing={isRefreshing}
           handleRefresh={handleRefresh}
         >
-          <View className="gap-5 p-2">
-            <Typography
-              size="p"
-              fontWeight="medium"
-              className=" text-foreground"
-            >
-              {data.organization.description}
+          <View className="gap-4">
+            <Hero
+              avatar={data.organization.logo_url}
+              title={data.organization.short_name}
+              subtitle={data.organization.name}
+            />
+            <Socials data={data.organization} />
+            <Typography size="h2" fontWeight="medium" className="mt-5">
+              Membres
             </Typography>
-            <Socials data={data} className="bg-blue" />
-            {/* <Members data={data} /> */}
+            <Members data={data.members} />
+            <Typography size="h2" fontWeight="medium">
+              Publications
+            </Typography>
+            <FlatList
+              data={posts}
+              renderItem={({ item }) => (
+                <View className="gap-4">
+                  {item?.map((item) => (
+                    <TouchableOpacity
+                      key={item.id}
+                      onPress={() => modalRouter.open(`/post/${item.id}`)}
+                    >
+                      <Post
+                        item={item}
+                        interactions
+                        isLoading={isLoading}
+                        error={postsError}
+                      />
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+            />
           </View>
         </RefreshView>
       )}

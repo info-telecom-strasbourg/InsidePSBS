@@ -1,6 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetchInfinite } from "@/hooks/useFetchInfinite";
-import { OrdersSchema } from "@/schemas/fouaille/orders.schema";
+import { PostsSchema } from "@/schemas/posts/post.schema";
 
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
@@ -10,27 +10,26 @@ const fetcher = async (url: string, token: string) => {
     },
   });
   const data = await res.json();
-  const parsedData = OrdersSchema.safeParse(data);
+  const parsedData = PostsSchema.safeParse(data);
   if (!parsedData.success) {
     parsedData.error.issues.map((issue) => {
       console.error(`${issue.message} -- ON -- ${issue.path}`);
     });
   }
-
-  return parsedData.data?.data.orders;
+  return parsedData.data?.data;
 };
 
-const getKey = (pageIndex: number) => {
-  return `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille?page=${
+const getKey = (pageIndex: number, id: string | undefined) => {
+  return `${process.env.EXPO_PUBLIC_API_URL}/api/post?asso_id=${id}&page=${
     pageIndex + 1
   }`;
 };
 
-export const useOrders = () => {
+export const useShowOrganizationPosts = (id: string | undefined) => {
   const { token } = useAuth();
 
   const res = useFetchInfinite(
-    (pageIndex) => getKey(pageIndex),
+    (pageIndex) => getKey(pageIndex, id),
     (url) => fetcher(url, token || "")
   );
   return res;
