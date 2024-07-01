@@ -10,9 +10,8 @@ export const OrdersSchema = z.object({
         product: z
           .object({
             name: z.string(),
-            title: z.string(),
+            type: z.string(),
             unit_price: z.string(),
-            color: z.string(),
           })
           .nullable(),
       })

@@ -70,7 +70,7 @@ export const Post = ({
               setHeartClicked(!heartClicked);
             }}
           >
-            <View className="flex-row items-center">
+            <View className="flex-row items-center gap-2">
               <Heart
                 strokeWidth={1.5}
                 color={heartClicked ? colors.red : colors[theme].foreground}

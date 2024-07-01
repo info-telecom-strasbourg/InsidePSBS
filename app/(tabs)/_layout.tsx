@@ -4,40 +4,40 @@ import { TabIcon } from "@/features/layout/tab-icon";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import {
+  BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { Tabs } from "expo-router";
 import { Calendar, CircleUserIcon, Home, Megaphone } from "lucide-react-native";
-import { useMemo, useRef, useState } from "react";
-import { Pressable, TouchableOpacity } from "react-native";
-import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
-
-const AnimatedBackdrop = Animated.createAnimatedComponent(Pressable);
+import { useRef, useState } from "react";
+import { TouchableOpacity } from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 
 export default function TabsLayout() {
   const { theme } = useTheme();
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const animatedIndex = useSharedValue<number>(0);
+  const animatedPosition = useSharedValue<number>(0);
 
   const rotation = useSharedValue<number>(0);
-  const opacity = useSharedValue<number>(30);
 
-  const snapPoints = useMemo(() => ["30%"], []);
+  // BottomSheet Modal
+
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   if (isModalOpened) {
     bottomSheetRef.current?.present();
     rotation.value = 45;
-    opacity.value = withTiming(opacity.value + 0.5);
   } else {
-    bottomSheetRef.current?.close();
+    bottomSheetRef.current?.dismiss();
     rotation.value = 0;
-    opacity.value = withTiming(opacity.value - 0.5);
   }
 
   const toggleModal = () =>
     isModalOpened ? setIsModalOpened(false) : setIsModalOpened(true);
+
   return (
     <>
       <BottomSheetModalProvider>
@@ -114,21 +114,39 @@ export default function TabsLayout() {
           />
         </Tabs>
         <BottomSheetModal
-          style={{ zIndex: -100 }}
+          style={{
+            zIndex: -100,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 5,
+            },
+            shadowOpacity: 0.34,
+            shadowRadius: 6.27,
+            elevation: 10,
+          }}
           ref={bottomSheetRef}
-          index={0}
-          snapPoints={snapPoints}
+          snapPoints={["30%"]}
           enablePanDownToClose
-          handleIndicatorStyle={{ width: 50 }}
+          enableDismissOnClose
+          animatedIndex={animatedIndex}
+          animatedPosition={animatedPosition}
           overDragResistanceFactor={1}
           onChange={(e) => setIsModalOpened(e === 0)}
           backgroundStyle={{ backgroundColor: colors[theme].secondary }}
           backdropComponent={() => (
-            <AnimatedBackdrop
-              className="absolute size-full bg-black"
-              style={{ opacity }}
-              onPress={() => setIsModalOpened(false)}
-            ></AnimatedBackdrop>
+            <BottomSheetBackdrop
+              pressBehavior={"close"}
+              animatedIndex={animatedIndex}
+              animatedPosition={animatedPosition}
+              style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+              }}
+              appearsOnIndex={0}
+              disappearsOnIndex={-1}
+            ></BottomSheetBackdrop>
           )}
         >
           <BottomSheetView className="gap-6 p-4">

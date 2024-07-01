@@ -9,7 +9,11 @@ const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 export const PlusButton = ({ rotation }: { rotation: SharedValue<number> }) => {
   const animatedStyles = useAnimatedStyle(() => ({
-    transform: [{ rotate: withSpring(`${rotation.value}deg`) }],
+    transform: [
+      {
+        rotate: withSpring(`${rotation.value}deg`),
+      },
+    ],
   }));
 
   return (

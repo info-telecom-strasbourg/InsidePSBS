@@ -7,6 +7,7 @@ const onePostSchema = z.object({
   id: z.number(),
   body: z.string(),
   uploaded_since: z.string(),
+  uploaded_at: z.string(),
   color: z.string(),
   category: z.string(),
   created_at: z.string(),

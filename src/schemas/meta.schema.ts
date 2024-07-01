@@ -10,6 +10,6 @@ export const MetaSchema = z.object({
   next_page_url: z.string().nullable(),
   prev_page_url: z.string().nullable(),
   path: z.string().url(),
-  from: z.number(),
-  to: z.number(),
+  from: z.number().nullable(),
+  to: z.number().nullable(),
 });
