@@ -10,13 +10,12 @@ import { useOnePost } from "@/queries/posts/one-post.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { useLocalSearchParams } from "expo-router";
-import { PencilLine } from "lucide-react-native";
-import { TextInput, View } from "react-native";
+import { ArrowUp, PencilLine } from "lucide-react-native";
+import { KeyboardAvoidingView, TextInput, View } from "react-native";
 
 export default function PostIdPage() {
-  const { theme } = useTheme();
-
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { theme } = useTheme();
 
   const {
     data: postData,
@@ -30,6 +29,8 @@ export default function PostIdPage() {
     data: commentsData,
     isLoading: commentsAreLoading,
     error: commentsError,
+    size,
+    setSize,
   } = useComments(id);
 
   return (
@@ -38,42 +39,48 @@ export default function PostIdPage() {
       {!postData || postIsLoading || commentsAreLoading ? (
         <PageLoading />
       ) : (
-        <RefreshView isRefreshing={isRefreshing} handleRefresh={handleRefresh}>
-          <View className="mb-2 border-b-2 border-muted-foreground pb-2">
-            <Post
-              item={postData}
-              authorNameSize="h3"
-              bodySize="p"
-              isLoading={postIsLoading}
-              error={postError}
+        <>
+          <RefreshView
+            isRefreshing={isRefreshing}
+            handleRefresh={handleRefresh}
+            showsVerticalScrollIndicator={false}
+          >
+            <View className="mb-4 ">
+              <Post
+                item={postData}
+                authorNameSize="h3"
+                bodySize="p"
+                isLoading={postIsLoading}
+                error={postError}
+              />
+            </View>
+            {commentsData ? (
+              <Comments data={commentsData} size={size} setSize={setSize} />
+            ) : (
+              <View className="items-center justify-center">
+                <Typography size="h5">Pas de commentaires</Typography>
+              </View>
+            )}
+          </RefreshView>
+          <KeyboardAvoidingView className="my-2 flex-row items-center gap-3 rounded-full bg-popover p-2 pl-4">
+            <PencilLine
+              strokeWidth={1.5}
+              color={colors[theme].mutedForeground}
+              size={24}
             />
-          </View>
-          <View>
-            {/* TODO: Implémenter l'avatar de l'utilisateur à côté du champ de commentaire */}
-            <View className="mb-4 flex-row items-center gap-3 rounded-2xl bg-popover p-2">
-              <PencilLine
-                strokeWidth={1.5}
-                color={colors[theme].mutedForeground}
-                size={24}
-              />
-              <TextInput
-                // value={searchPhrase}
-                // onChangeText={(searchPhrase) => setSearchPhrase(searchPhrase)}
-                className="flex-1 rounded-2xl p-2 text-foreground"
-                placeholder="Écrivez un commentaire"
-                placeholderTextColor={colors[theme].mutedForeground}
-                style={{ fontFamily: "SpaceGrotesk-medium" }}
-              />
+            <TextInput
+              // value={searchPhrase}
+              // onChangeText={(searchPhrase) => setSearchPhrase(searchPhrase)}
+              className="flex-1 rounded-2xl p-2 text-foreground"
+              placeholder="Écrivez un commentaire"
+              placeholderTextColor={colors[theme].mutedForeground}
+              style={{ fontFamily: "SpaceGrotesk-medium" }}
+            />
+            <View className="mr-2 rounded-full bg-orange p-2">
+              <ArrowUp strokeWidth={2} color={"white"} size={24} />
             </View>
-          </View>
-          {commentsData ? (
-            <Comments data={commentsData} />
-          ) : (
-            <View className="justify-center">
-              <Typography size="h5">Pas de commentaires</Typography>
-            </View>
-          )}
-        </RefreshView>
+          </KeyboardAvoidingView>
+        </>
       )}
     </PageContainer>
   );

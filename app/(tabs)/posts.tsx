@@ -18,8 +18,6 @@ export default function AnnouncementsPage() {
 
   const modalRouter = useModalRouter();
 
-  // TODO: Implémenter les erreurs
-
   return (
     <PageContainer>
       <Header

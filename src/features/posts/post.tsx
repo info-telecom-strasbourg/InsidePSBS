@@ -1,6 +1,7 @@
 import { PageLoading } from "@/components/page/loading";
 import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
+import { useModalRouter } from "@/hooks/useModalRouter";
 import { type SinglePostData } from "@/schemas/posts/post.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
@@ -14,7 +15,7 @@ import { Image, TouchableOpacity, View } from "react-native";
 
 export type SinglePostProps = PropsWithChildren<
   {
-    item: SinglePostData["data"];
+    item: SinglePostData["data"] | undefined;
     isLoading: boolean;
     error?: string | null;
     interactions?: boolean;
@@ -37,6 +38,8 @@ export const Post = ({
 }: SinglePostProps) => {
   const [heartClicked, setHeartClicked] = useState(false);
   const { theme } = useTheme();
+  const modalRouter = useModalRouter();
+
   return !item || isLoading ? (
     <PageLoading />
   ) : (
@@ -44,10 +47,19 @@ export const Post = ({
       className={cn("justify-between rounded-2xl bg-popover p-4", className)}
     >
       <View className="flex-row items-center justify-start">
-        <Image
-          source={{ uri: item.author.logo_url || undefined }}
-          className="size-20"
-        />
+        <TouchableOpacity
+          onPress={() =>
+            item.author.is_organization
+              ? modalRouter.open(`/organizations/${item.author.id}`)
+              : modalRouter.open(`/user/${item.author.id}`)
+          }
+        >
+          <Image
+            source={{ uri: item.author.logo_url || undefined }}
+            className="size-20"
+          />
+        </TouchableOpacity>
+
         <View className="ml-2 flex-col">
           <Typography size={authorNameSize} fontWeight="semibold">
             {item.author.name}
