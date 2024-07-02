@@ -14,9 +14,9 @@ import { Image, TouchableOpacity, View } from "react-native";
 
 export type SinglePostProps = PropsWithChildren<
   {
-    item: SinglePostData;
+    item: SinglePostData["data"];
     isLoading: boolean;
-    error: string | null;
+    error?: string | null;
     interactions?: boolean;
     className?: string;
     authorNameSize?: VariantProps<typeof typographyVariants>["size"];

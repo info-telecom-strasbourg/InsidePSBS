@@ -1,16 +1,22 @@
+import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
+import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
-import { Comments, useComments } from "@/features/posts/comments";
+import { Comments } from "@/features/posts/comments";
 import { Post } from "@/features/posts/post";
+import { useComments } from "@/queries/posts/comments.query";
 import { useOnePost } from "@/queries/posts/one-post.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { useLocalSearchParams } from "expo-router";
 import { PencilLine } from "lucide-react-native";
-import { ScrollView, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 
 export default function PostIdPage() {
   const { theme } = useTheme();
+
+  const { id } = useLocalSearchParams<{ id: string }>();
 
   const {
     data: postData,
@@ -18,27 +24,20 @@ export default function PostIdPage() {
     error: postError,
     handleRefresh,
     isRefreshing,
-  } = useOnePost();
+  } = useOnePost(id);
 
   const {
     data: commentsData,
     isLoading: commentsAreLoading,
     error: commentsError,
-  } = useComments();
-
-  if (!postData || postError) {
-    // TODO: Implémenter l'erreur
-    return;
-  }
-  if (!commentsData || commentsError) {
-    // TODO: Implémenter l'erreur
-    return;
-  }
+  } = useComments(id);
 
   return (
     <PageContainer>
       <Header title="Tous les Posts" rightIcon="close" />
-      <ScrollView>
+      {!postData || postIsLoading || commentsAreLoading ? (
+        <PageLoading />
+      ) : (
         <RefreshView isRefreshing={isRefreshing} handleRefresh={handleRefresh}>
           <View className="mb-2 border-b-2 border-muted-foreground pb-2">
             <Post
@@ -67,13 +66,15 @@ export default function PostIdPage() {
               />
             </View>
           </View>
-          <Comments
-            data={commentsData}
-            isLoading={commentsAreLoading}
-            error={commentsError}
-          />
+          {commentsData ? (
+            <Comments data={commentsData} />
+          ) : (
+            <View className="justify-center">
+              <Typography size="h5">Pas de commentaires</Typography>
+            </View>
+          )}
         </RefreshView>
-      </ScrollView>
+      )}
     </PageContainer>
   );
 }

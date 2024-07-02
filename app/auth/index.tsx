@@ -44,7 +44,7 @@ export default function AuthPage() {
             </Link>
           )}
           <Link
-            onPress={() => modalRouter.open("dev")}
+            onPress={() => modalRouter.open("cgu")}
             className="text-center text-foreground"
           >
             Conditions d'utilisation

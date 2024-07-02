@@ -26,19 +26,21 @@ export const PostsSchema = z.object({
 });
 
 export const SinglePostSchema = z.object({
-  id: z.number(),
-  body: z.string(),
-  uploaded_since: z.string(),
-  color: z.string(),
-  category: z.string(),
-  created_at: z.string(),
-  updated_at: z.string(),
-  reaction_count: z.number(),
-  comment_count: z.number(),
-  medias: z.array(
-    z.object({ id: z.number(), url: z.string().url(), type: z.string() })
-  ),
-  author: AuthorSchema,
+  data: z.object({
+    body: z.string(),
+    uploaded_since: z.string(),
+    uploaded_at: z.string(),
+    color: z.string(),
+    category: z.string(),
+    created_at: z.string(),
+    updated_at: z.string(),
+    reaction_count: z.number(),
+    // comment_count: z.number(),
+    medias: z.array(
+      z.object({ id: z.number(), url: z.string().url(), type: z.string() })
+    ),
+    author: AuthorSchema,
+  }),
 });
 
 export type PostsData = z.infer<typeof PostsSchema>;
