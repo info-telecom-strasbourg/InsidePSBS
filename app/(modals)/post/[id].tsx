@@ -76,8 +76,12 @@ export default function PostIdPage() {
               placeholderTextColor={colors[theme].mutedForeground}
               style={{ fontFamily: "SpaceGrotesk-medium" }}
             />
-            <View className="mr-2 rounded-full bg-orange p-2">
-              <ArrowUp strokeWidth={2} color={"white"} size={24} />
+            <View className="mr-2 rounded-full bg-primary p-2">
+              <ArrowUp
+                strokeWidth={2}
+                color={colors[theme].primaryForeground}
+                size={24}
+              />
             </View>
           </KeyboardAvoidingView>
         </>

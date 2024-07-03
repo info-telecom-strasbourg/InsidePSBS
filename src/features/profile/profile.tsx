@@ -25,6 +25,7 @@ type ProfileProps = {
 
 const Profile = (props: ProfileProps) => {
   const modalRouter = useModalRouter();
+
   return (
     <FlatList
       data={props.posts}
@@ -45,6 +46,7 @@ const Profile = (props: ProfileProps) => {
                 item={item}
                 interactions
                 isLoading={props.postsAreLoading}
+                postId={item.id}
               />
             </TouchableOpacity>
           ))}

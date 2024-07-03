@@ -37,17 +37,25 @@ export default function AnnouncementsPage() {
             data={data}
             contentContainerClassName="gap-4"
             showsVerticalScrollIndicator={false}
+            debug={true}
             refreshControl={
               <RefreshControl
                 refreshing={isRefreshing}
                 onRefresh={handleRefresh}
               />
             }
-            onEndReached={() => setSize(size + 1)}
-            onEndReachedThreshold={0.4}
+            onEndReached={() => {
+              const length = data.length - 1;
+              if (
+                data[length]?.meta.last_page &&
+                data[length].meta.last_page >= size
+              )
+                setSize(size + 1);
+            }}
+            onEndReachedThreshold={3}
             renderItem={({ item }) => (
               <View className="gap-4">
-                {item?.map((item) => (
+                {item?.data.map((item) => (
                   <TouchableOpacity
                     key={item.id}
                     onPress={() => modalRouter.open(`/post/${item.id}`)}

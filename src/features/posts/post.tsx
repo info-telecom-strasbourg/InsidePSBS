@@ -20,6 +20,7 @@ export type SinglePostProps = PropsWithChildren<
     error?: string | null;
     interactions?: boolean;
     className?: string;
+    // postId: number;
     authorNameSize?: VariantProps<typeof typographyVariants>["size"];
     dateSize?: VariantProps<typeof typographyVariants>["size"];
     bodySize?: VariantProps<typeof typographyVariants>["size"];
@@ -32,6 +33,7 @@ export const Post = ({
   interactions,
   error,
   className,
+  // postId,
   authorNameSize = "h4",
   dateSize = "h5",
   bodySize = "h5",
@@ -80,6 +82,7 @@ export const Post = ({
             className="p-1"
             onPress={() => {
               setHeartClicked(!heartClicked);
+              // usePostReaction(postId);
             }}
           >
             <View className="flex-row items-center gap-2">
