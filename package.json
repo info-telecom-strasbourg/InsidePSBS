@@ -5,8 +5,8 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "pnpm eslint ."
@@ -50,8 +50,8 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "@expo/cli": "^0.18.21",
     "@babel/core": "^7.24.7",
+    "@expo/cli": "^0.18.21",
     "@types/jest": "^29.5.12",
     "@types/react": "~18.2.79",
     "@types/react-test-renderer": "^18.3.0",
@@ -61,7 +61,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "eslint-plugin-tailwindcss": "^3.17.4",
-    "globals": "^15.7.0",
+    "globals": "^15.8.0",
     "jest-expo": "~51.0.3",
     "react-test-renderer": "18.2.0",
     "typescript": "~5.3.3",
