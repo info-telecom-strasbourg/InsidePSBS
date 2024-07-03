@@ -1,11 +1,15 @@
+import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
 import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { type SinglePostData } from "@/schemas/posts/post.schema";
+import type { AddReactionOnPostData } from "@/schemas/posts/reactions/add-reaction.schema";
+import { AddReactionOnPostSchema } from "@/schemas/posts/reactions/add-reaction.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
+import { postQuery } from "@/utils/post-query";
 import type { VariantProps } from "class-variance-authority";
 import { Heart, MessageCircle } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
@@ -19,10 +23,11 @@ export type SinglePostProps = PropsWithChildren<
     error?: string | null;
     interactions?: boolean;
     className?: string;
-    // postId: number;
+    postId: number;
     authorNameSize?: VariantProps<typeof typographyVariants>["size"];
     dateSize?: VariantProps<typeof typographyVariants>["size"];
     bodySize?: VariantProps<typeof typographyVariants>["size"];
+    handleRefresh: () => void;
   } & ViewProps
 >;
 
@@ -41,13 +46,15 @@ export const Post = ({
   interactions,
   error,
   className,
-  // postId,
+  postId,
   authorNameSize = "h4",
   dateSize = "h5",
   bodySize = "h5",
+  handleRefresh,
 }: SinglePostProps) => {
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
+  const { token } = useAuth();
 
   const reaction = item?.has_reacted as keyof typeof reactions | undefined;
 
@@ -87,8 +94,15 @@ export const Post = ({
       <View className="mt-3 flex-row items-center gap-4">
         <TouchableOpacity
           className="p-1"
-          onPress={() => {
-            // usePostReaction(postId);
+          onPress={async () => {
+            const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/reaction`;
+            await postQuery<AddReactionOnPostData>(
+              url,
+              token,
+              { reaction_type_id: 3, post_id: postId },
+              AddReactionOnPostSchema
+            );
+            handleRefresh();
           }}
         >
           <View className="flex-row items-center gap-2">

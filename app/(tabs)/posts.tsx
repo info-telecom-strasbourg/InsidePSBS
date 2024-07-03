@@ -72,6 +72,8 @@ export default function AnnouncementsPage() {
                       interactions
                       isLoading={isLoading}
                       error={error}
+                      postId={item.id}
+                      handleRefresh={handleRefresh}
                     />
                   </TouchableOpacity>
                 ))}
