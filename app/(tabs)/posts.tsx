@@ -5,6 +5,7 @@ import { Filters } from "@/features/posts/filters";
 import { Post } from "@/features/posts/post";
 import { Search } from "@/features/posts/search";
 import { useModalRouter } from "@/hooks/useModalRouter";
+import { useFilters } from "@/queries/posts/filters.query";
 import { usePosts } from "@/queries/posts/posts.query";
 import { useState } from "react";
 import { FlatList, RefreshControl, TouchableOpacity, View } from "react-native";
@@ -15,6 +16,8 @@ export default function AnnouncementsPage() {
 
   const { data, isLoading, error, size, setSize, isRefreshing, handleRefresh } =
     usePosts(selectedId, searchPhrase);
+
+  const { data: filters } = useFilters();
 
   const modalRouter = useModalRouter();
 
@@ -27,7 +30,11 @@ export default function AnnouncementsPage() {
       />
       <View className="mb-4 gap-5">
         <Search searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
-        <Filters selectedId={selectedId} setSelectedId={setSelectedId} />
+        <Filters
+          data={filters}
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
+        />
       </View>
       {!data || isLoading ? (
         <PageLoading />

@@ -9,6 +9,8 @@ const RootSchema = z.object({
   parent_comment_id: z.number().nullable(),
   body: z.string(),
   created_at: z.string(),
+  reaction_count: z.number(),
+  has_reacted: z.string().nullable(),
   updated_at: z.string(),
   author: AuthorSchema,
 });

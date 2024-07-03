@@ -54,7 +54,7 @@ export default function PostIdPage() {
                 error={postError}
               />
             </View>
-            {commentsData ? (
+            {postData.reaction_count !== 0 ? (
               <Comments data={commentsData} size={size} setSize={setSize} />
             ) : (
               <View className="items-center justify-center">

@@ -13,6 +13,7 @@ const onePostSchema = z.object({
   created_at: z.string(),
   updated_at: z.string(),
   reaction_count: z.number(),
+  has_reacted: z.string().nullable(),
   comment_count: z.number(),
   medias: z.array(
     z.object({ id: z.number(), url: z.string().url(), type: z.string() })
@@ -35,7 +36,9 @@ export const SinglePostSchema = z.object({
     created_at: z.string(),
     updated_at: z.string(),
     reaction_count: z.number(),
-    // comment_count: z.number(),
+    has_reacted: z.string().nullable(),
+    comment_count: z.number(),
+
     medias: z.array(
       z.object({ id: z.number(), url: z.string().url(), type: z.string() })
     ),

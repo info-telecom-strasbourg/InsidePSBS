@@ -15,12 +15,11 @@ export const Comments = ({ data, size, setSize }: CommentsProps) => {
       data={data?.filter((item) => item !== null) || []}
       contentContainerClassName="gap-4"
       scrollEnabled={false}
-      className="bg-red"
       showsVerticalScrollIndicator={false}
       onEndReached={() => setSize(size + 1)}
       onEndReachedThreshold={0.4}
       renderItem={({ item }) => (
-        <View className="gap-4 bg-green">
+        <View className="gap-4">
           {item?.map((item) => (
             <View key={item.id} className="flex-row gap-3">
               <View>

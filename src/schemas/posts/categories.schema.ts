@@ -8,3 +8,5 @@ export const CategoriesSchema = z.object({
     })
   ),
 });
+
+export type CategoriesData = z.infer<typeof CategoriesSchema>;

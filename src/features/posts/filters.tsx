@@ -1,42 +1,19 @@
-import { useAuth } from "@/auth/useAuth";
 import { Typography } from "@/components/primitives/typography";
-import { useFetch } from "@/hooks/useFetch";
-import { CategoriesSchema } from "@/schemas/posts/categories.schema";
+import type { CategoriesData } from "@/schemas/posts/categories.schema";
 import { cn } from "@/utils/cn";
 import { FlatList, TouchableOpacity, View } from "react-native";
 
-const fetcher = async (url: string, token: string | null) => {
-  const res = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  const parsedData = CategoriesSchema.safeParse(data);
-  if (!parsedData.success) {
-    throw new Error(parsedData.error.message);
-  }
-  return parsedData.data.data;
-};
-
-// export const postsURL = `${process.env.EXPO_PUBLIC_API_URL}/api/post?category_id=${selectedId}`;
-
 export type FiltersProps = {
+  data: CategoriesData["data"] | undefined;
   selectedId: number;
   setSelectedId: (id: number) => void;
 };
 
-export const Filters = ({ selectedId, setSelectedId }: FiltersProps) => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories`;
-
-  const { token } = useAuth();
-  const { data: filters } = useFetch(url, (url: string) => fetcher(url, token));
-
+export const Filters = ({ data, selectedId, setSelectedId }: FiltersProps) => {
   return (
     <View className="flex-row items-center truncate rounded-full bg-popover">
       <FlatList
-        data={filters}
+        data={data}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         className="rounded-full bg-popover p-1"

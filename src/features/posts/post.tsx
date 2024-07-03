@@ -9,7 +9,6 @@ import { cn } from "@/utils/cn";
 import type { VariantProps } from "class-variance-authority";
 import { Heart, MessageCircle } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
-import { useState } from "react";
 import type { ViewProps } from "react-native";
 import { Image, TouchableOpacity, View } from "react-native";
 
@@ -27,6 +26,15 @@ export type SinglePostProps = PropsWithChildren<
   } & ViewProps
 >;
 
+const reactions = {
+  like: "👍",
+  dislike: "👎",
+  love: "❤️",
+  laugh: "😂",
+  cry: "😭",
+  angry: "🤬",
+};
+
 export const Post = ({
   item,
   isLoading,
@@ -38,9 +46,10 @@ export const Post = ({
   dateSize = "h5",
   bodySize = "h5",
 }: SinglePostProps) => {
-  const [heartClicked, setHeartClicked] = useState(false);
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
+
+  const reaction = item?.has_reacted as keyof typeof reactions | undefined;
 
   return !item || isLoading ? (
     <PageLoading />
@@ -61,7 +70,6 @@ export const Post = ({
             className="size-20"
           />
         </TouchableOpacity>
-
         <View className="ml-2 flex-col">
           <Typography size={authorNameSize} fontWeight="semibold">
             {item.author.name}
@@ -76,39 +84,37 @@ export const Post = ({
         </View>
       </View>
       <Typography size={bodySize}>{item.body}</Typography>
-      {interactions && (
-        <View className="mt-3 flex-row items-center gap-4">
-          <TouchableOpacity
-            className="p-1"
-            onPress={() => {
-              setHeartClicked(!heartClicked);
-              // usePostReaction(postId);
-            }}
-          >
-            <View className="flex-row items-center gap-2">
+      <View className="mt-3 flex-row items-center gap-4">
+        <TouchableOpacity
+          className="p-1"
+          onPress={() => {
+            // usePostReaction(postId);
+          }}
+        >
+          <View className="flex-row items-center gap-2">
+            {reaction ? (
+              <Typography size="h1">{reactions[reaction]}</Typography>
+            ) : (
               <Heart
                 strokeWidth={1.5}
-                color={heartClicked ? colors.red : colors[theme].foreground}
-                size={24}
-                fill={heartClicked ? colors.red : colors[theme].popover}
+                size={30}
+                color={colors[theme].foreground}
               />
-              <Typography
-                size="p"
-                className={heartClicked ? "text-red" : "text-foreground"}
-              >
-                {item.reaction_count}
-              </Typography>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
+            )}
+            <Typography size="p">{item.reaction_count}</Typography>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <View className="flex-row items-center gap-2">
             <MessageCircle
               strokeWidth={1.5}
               color={colors[theme].foreground}
-              size={24}
+              size={30}
             />
-          </TouchableOpacity>
-        </View>
-      )}
+            <Typography size="p">{item.comment_count}</Typography>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
