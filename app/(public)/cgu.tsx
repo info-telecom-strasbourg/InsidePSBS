@@ -4,23 +4,11 @@ import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
-import { useFetch } from "@/hooks/useFetch";
-import { CguSchema, type CguData } from "@/schemas/cgu.schema";
+import { useCGU } from "@/queries/cgu.query";
 import { View } from "react-native";
 
-const fetcher = async (url: string): Promise<CguData> => {
-  const res = await fetch(url);
-  const data = await res.json();
-  return CguSchema.parse(data);
-};
-
-const url = `${process.env.EXPO_PUBLIC_API_URL}/api/cgu`;
-
 export default function CguPage() {
-  const { data, error, isLoading, handleRefresh, isRefreshing } = useFetch(
-    url,
-    fetcher
-  );
+  const { data, error, isLoading, handleRefresh, isRefreshing } = useCGU();
 
   return (
     <PageContainer>

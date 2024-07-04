@@ -15,7 +15,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/cli": "^0.18.21",
+    "@expo/cli": "^0.18.22",
     "@expo/vector-icons": "^14.0.2",
     "@gorhom/bottom-sheet": "^4.6.3",
     "@react-native-async-storage/async-storage": "^1.23.1",
@@ -23,7 +23,7 @@
     "@react-navigation/stack": "^6.4.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "expo": "^51.0.17",
+    "expo": "^51.0.18",
     "expo-constants": "~16.0.2",
     "expo-font": "~12.0.7",
     "expo-linking": "~6.3.1",
@@ -31,7 +31,7 @@
     "expo-secure-store": "~13.0.2",
     "expo-splash-screen": "~0.27.5",
     "expo-status-bar": "~1.12.1",
-    "expo-system-ui": "~3.0.6",
+    "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
     "lucide-react-native": "^0.378.0",
     "nativewind": "^4.0.36",
