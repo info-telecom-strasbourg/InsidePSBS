@@ -46,6 +46,7 @@ const InfiniteScrollList = () => {
       <FlashList
         data={items}
         keyExtractor={(item) => item?.id.toString() || ""}
+        // StickyHeaderComponent={}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => modalRouter.open(`/post/${item?.id}`)}

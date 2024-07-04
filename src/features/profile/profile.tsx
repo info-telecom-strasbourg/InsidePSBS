@@ -44,7 +44,6 @@ const Profile = (props: ProfileProps) => {
             >
               <Post
                 item={item}
-                interactions
                 isLoading={props.postsAreLoading}
                 postId={item.id}
               />

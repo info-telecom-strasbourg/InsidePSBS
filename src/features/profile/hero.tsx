@@ -10,7 +10,11 @@ type HeroProps = {
 const Hero = ({ avatar, title, subtitle }: HeroProps) => {
   return (
     <View className="flex-row items-center gap-4">
-      <Image source={{ uri: avatar || undefined }} className="size-24" />
+      <Image
+        source={{ uri: avatar || undefined }}
+        className="size-24"
+        style={{ borderRadius: 100000 }}
+      />
       <View className="justify-center gap-1">
         <Typography size="h2" fontWeight="semibold">
           {title}

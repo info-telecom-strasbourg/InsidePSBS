@@ -56,7 +56,7 @@ export const Post = ({
     <PageLoading />
   ) : (
     <View
-      className={cn("justify-between rounded-2xl bg-popover p-4", className)}
+      className={cn("justify-between rounded-2xl bg-popover p-4 ", className)}
     >
       <View className="flex-row items-center justify-start">
         <TouchableOpacity
@@ -87,21 +87,21 @@ export const Post = ({
       <Typography size={bodySize}>{item.body}</Typography>
       <View className="mt-3 flex-row items-center gap-4">
         <TouchableOpacity
-          className="p-1"
-          // onPress={async () => {
-          //   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/reaction`;
-          //   await postQuery<AddReactionOnPostData>(
-          //     url,
-          //     token,
-          //     { reaction_type_id: 3, post_id: postId },
-          //     AddReactionOnPostSchema
-          //   );
-          //   handleRefresh();
-          // }}
+        // onLongPress={() => {}}
+        // onPress={async () => {
+        //   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/reaction`;
+        //   await postQuery<AddReactionOnPostData>(
+        //     url,
+        //     token,
+        //     { reaction_type_id: 3, post_id: postId },
+        //     AddReactionOnPostSchema
+        //   );
+        //   handleRefresh();
+        // }}
         >
           <View className="flex-row items-center gap-2">
             {reaction ? (
-              <Typography size="h1">{reactions[reaction]}</Typography>
+              <Typography size="h2">{reactions[reaction]}</Typography>
             ) : (
               <Heart
                 strokeWidth={1.5}
