@@ -2,6 +2,7 @@ import { Typography } from "@/components/primitives/typography";
 import type { CategoriesData } from "@/schemas/posts/categories.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { cn } from "@/utils/cn";
 import {
   Bed,
   BookCheck,
@@ -45,24 +46,32 @@ export const Filters = ({ data, selectedId, setSelectedId }: FiltersProps) => {
               setSelectedId(item.id);
             }}
           >
-            <View className="text-foregound">
-              <View className="items-center rounded-2xl bg-popover p-3">
+            <View className="h-32 w-20 items-center">
+              <View
+                className="size-20 items-center justify-center rounded-2xl"
+                style={{
+                  backgroundColor:
+                    selectedId === item.id
+                      ? categories[index].color
+                      : colors[theme].popover,
+                }}
+              >
                 <Icon
                   size={24}
                   color={
-                    selectedId === item.id
-                      ? colors[theme].foreground
-                      : categories[index].color
+                    selectedId === item.id ? "white" : categories[index].color
                   }
                 />
               </View>
-              <View className="truncate">
+              <View className="flex-1 justify-center">
                 <Typography
-                  className={
+                  className={cn(
                     selectedId === item.id
                       ? `text-${categories[index].color}`
-                      : "text-foreground"
-                  }
+                      : "text-foreground",
+                    "text-center text-wrap"
+                  )}
+                  fontWeight="medium"
                 >
                   {item.name}
                 </Typography>

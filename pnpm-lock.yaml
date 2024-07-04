@@ -1406,8 +1406,8 @@ packages:
       react-native-safe-area-context: '>= 3.0.0'
       react-native-screens: '>= 3.0.0'
 
-  '@remix-run/node@2.10.1':
-    resolution: {integrity: sha512-kuKh9bbivrAEbsiYNlm3x03O1Jpgi+Ux8zR2cig5U2DIbG43ylgX9vQiLp2ZNhQ0xoJ0C241x7d7DpdPfyrgEA==}
+  '@remix-run/node@2.10.2':
+    resolution: {integrity: sha512-Ni4yMQCf6avK2fz91/luuS3wnHzqtbxsdc19es1gAWEnUKfeCwqq5v1R0kzNwrXyh5NYCRhxaegzVH3tGsdYFg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       typescript: ^5.1.0
@@ -1419,8 +1419,8 @@ packages:
     resolution: {integrity: sha512-mCOMec4BKd6BRGBZeSnGiIgwsbLGp3yhVqAD8H+PxiRNEHgDpZb8J1TnrSDlg97t0ySKMQJTHCWBCmBpSmkF6Q==}
     engines: {node: '>=14.0.0'}
 
-  '@remix-run/server-runtime@2.10.1':
-    resolution: {integrity: sha512-jINOmovnwPdllhOm2PU0iTDP9MXwKLit9Ifq3EWjdqs+Bu1zwA3TTRDRX6x9V0OGpM3wiByd80zEmHZ5sZy7hQ==}
+  '@remix-run/server-runtime@2.10.2':
+    resolution: {integrity: sha512-c6CzKw4WBP4FkPnz63ua7g73/P1v34Uho2C44SZZf8IOVCGzEM9liLq6slDivn0m/UbyQnXThdXmsVjFcobmZg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       typescript: ^5.1.0
@@ -4519,8 +4519,8 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  react-devtools-core@5.3.0:
-    resolution: {integrity: sha512-IG3T+azv48Oc5VLdHR4XdBNKNZIUOKRtx0sJMRvb++Zom/uqtx73j6u37JCsIBNIaq6vA7RPH5Bbcf/Wj53KXA==}
+  react-devtools-core@5.3.1:
+    resolution: {integrity: sha512-7FSb9meX0btdBQLwdFOwt6bGqvRPabmVMMslv8fgoSPqXyuGpgQe36kx8gR86XPw7aV1yVouTp6fyZ0EH+NfUw==}
 
   react-dom@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
@@ -7024,7 +7024,7 @@ snapshots:
 
   '@expo/server@0.4.3(typescript@5.3.3)':
     dependencies:
-      '@remix-run/node': 2.10.1(typescript@5.3.3)
+      '@remix-run/node': 2.10.2(typescript@5.3.3)
       abort-controller: 3.0.0
       debug: 4.3.5
       source-map-support: 0.5.21
@@ -7789,9 +7789,9 @@ snapshots:
       react-native-screens: 3.31.1(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
       warn-once: 0.1.1
 
-  '@remix-run/node@2.10.1(typescript@5.3.3)':
+  '@remix-run/node@2.10.2(typescript@5.3.3)':
     dependencies:
-      '@remix-run/server-runtime': 2.10.1(typescript@5.3.3)
+      '@remix-run/server-runtime': 2.10.2(typescript@5.3.3)
       '@remix-run/web-fetch': 4.4.2
       '@web3-storage/multipart-parser': 1.0.0
       cookie-signature: 1.2.1
@@ -7803,7 +7803,7 @@ snapshots:
 
   '@remix-run/router@1.17.1': {}
 
-  '@remix-run/server-runtime@2.10.1(typescript@5.3.3)':
+  '@remix-run/server-runtime@2.10.2(typescript@5.3.3)':
     dependencies:
       '@remix-run/router': 1.17.1
       '@types/cookie': 0.6.0
@@ -11509,7 +11509,7 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-devtools-core@5.3.0:
+  react-devtools-core@5.3.1:
     dependencies:
       shell-quote: 1.8.1
       ws: 7.5.10
@@ -11651,7 +11651,7 @@ snapshots:
       pretty-format: 26.6.2
       promise: 8.3.0
       react: 18.2.0
-      react-devtools-core: 5.3.0
+      react-devtools-core: 5.3.1
       react-refresh: 0.14.2
       react-shallow-renderer: 16.15.0(react@18.2.0)
       regenerator-runtime: 0.13.11
