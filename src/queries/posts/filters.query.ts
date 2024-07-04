@@ -1,20 +1,26 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
 import { CategoriesSchema } from "@/schemas/posts/categories.schema";
+import { z } from "zod";
 
 const fetcher = async (url: string, token: string | null) => {
-  const res = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  const parsedData = CategoriesSchema.safeParse(data);
-  if (!parsedData.success) {
-    throw new Error(parsedData.error.message);
+  try {
+    const res = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    const parsedData = CategoriesSchema.safeParse(data);
+    return parsedData.data?.data;
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      error.issues.map((e) => ({ path: e.path, message: e.message }));
+      console.error(error);
+    }
+    console.error(error);
   }
-  return parsedData.data.data;
 };
 
 export const useFilters = () => {

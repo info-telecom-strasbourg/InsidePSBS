@@ -1,6 +1,15 @@
 import { Typography } from "@/components/primitives/typography";
 import type { CategoriesData } from "@/schemas/posts/categories.schema";
-import { cn } from "@/utils/cn";
+import { colors } from "@/theme/colors";
+import { useTheme } from "@/theme/theme-context";
+import {
+  Bed,
+  BookCheck,
+  Building,
+  Key,
+  Smile,
+  Star,
+} from "lucide-react-native";
 import { FlatList, TouchableOpacity, View } from "react-native";
 
 export type FiltersProps = {
@@ -9,36 +18,59 @@ export type FiltersProps = {
   setSelectedId: (id: number) => void;
 };
 
+const categories = [
+  { color: "#9208D2", icon: Star },
+  { color: "#0865D2", icon: BookCheck },
+  { color: "#0865D2", icon: BookCheck },
+  { color: "#D27508", icon: Smile },
+  { color: "#D22C08", icon: Bed },
+  { color: "#08D241", icon: Key },
+  { color: "#D2BE08", icon: Building },
+];
+
 export const Filters = ({ data, selectedId, setSelectedId }: FiltersProps) => {
+  const { theme } = useTheme();
   return (
-    <View className="flex-row items-center truncate rounded-full bg-popover">
-      <FlatList
-        data={data}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        className="rounded-full bg-popover p-1"
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
+    <FlatList
+      data={data}
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+      contentContainerClassName="gap-3"
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item, index }) => {
+        const Icon = categories[index].icon;
+        return (
           <TouchableOpacity
-            className={cn(
-              selectedId === item.id ? `bg-primary` : `bg-popover`,
-              "mr-3 rounded-full p-2 pl-4 pr-4"
-            )}
             onPress={() => {
               setSelectedId(item.id);
             }}
           >
-            <Typography
-              size="h5"
-              className={
-                selectedId === item.id ? `text-white` : `text-foreground`
-              }
-            >
-              {item.name}
-            </Typography>
+            <View className="text-foregound">
+              <View className="items-center rounded-2xl bg-popover p-3">
+                <Icon
+                  size={24}
+                  color={
+                    selectedId === item.id
+                      ? colors[theme].foreground
+                      : categories[index].color
+                  }
+                />
+              </View>
+              <View className="truncate">
+                <Typography
+                  className={
+                    selectedId === item.id
+                      ? `text-${categories[index].color}`
+                      : "text-foreground"
+                  }
+                >
+                  {item.name}
+                </Typography>
+              </View>
+            </View>
           </TouchableOpacity>
-        )}
-      />
-    </View>
+        );
+      }}
+    />
   );
 };
