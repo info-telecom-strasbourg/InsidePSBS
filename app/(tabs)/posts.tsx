@@ -6,14 +6,10 @@ import { Search } from "@/features/posts/search";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { useFilters } from "@/queries/posts/filters.query";
 import { usePosts } from "@/queries/posts/posts.query";
+import { FlashList } from "@shopify/flash-list";
 
 import { useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 const InfiniteScrollList = () => {
   const [selectedId, setSelectedId] = useState(1);
@@ -47,13 +43,13 @@ const InfiniteScrollList = () => {
           setSelectedId={setSelectedId}
         />
       </View>
-      <FlatList
+      <FlashList
         data={items}
         keyExtractor={(item) => item?.id.toString() || ""}
-        contentContainerClassName="gap-4"
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => modalRouter.open(`/post/${item?.id}`)}
+            className="mb-4"
           >
             <Post
               item={item}
@@ -64,11 +60,12 @@ const InfiniteScrollList = () => {
           </TouchableOpacity>
         )}
         onEndReached={loadMore}
-        onEndReachedThreshold={0.6}
-        ListFooterComponent={() => (isLoading ? <ActivityIndicator /> : null)}
-        initialNumToRender={10} // Adjust as needed
-        maxToRenderPerBatch={100} // Adjust as needed
-        windowSize={21} // Adjust as needed
+        onEndReachedThreshold={5}
+        // ListFooterComponent={() => (isLoading ? <ActivityIndicator /> : null)}
+        estimatedItemSize={100}
+        // initialNumToRender={10} // Adjust as needed
+        // maxToRenderPerBatch={100} // Adjust as needed
+        // windowSize={21} // Adjust as needed
       />
     </PageContainer>
   );
