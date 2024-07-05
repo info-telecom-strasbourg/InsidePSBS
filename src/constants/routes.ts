@@ -5,6 +5,7 @@ export const routes = {
   organizations: "/organizations",
   create_post: "/create/post",
   create_event: "/create/event",
+  create_both: "/create/both",
   auth: "/auth",
   sign_in: "/auth/sign-in",
   sign_up: "/auth/sign-up",

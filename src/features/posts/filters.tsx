@@ -46,9 +46,9 @@ export const Filters = ({ data, selectedId, setSelectedId }: FiltersProps) => {
               setSelectedId(item.id);
             }}
           >
-            <View className="h-32 w-20 items-center gap-1">
+            <View className="h-28 w-16 items-center gap-1">
               <View
-                className="size-20 items-center justify-center rounded-2xl"
+                className="size-16 items-center justify-center rounded-2xl"
                 style={{
                   backgroundColor:
                     selectedId === item.id
@@ -57,7 +57,7 @@ export const Filters = ({ data, selectedId, setSelectedId }: FiltersProps) => {
                 }}
               >
                 <Icon
-                  size={24}
+                  size={32}
                   color={
                     selectedId === item.id ? "white" : categories[index].color
                   }
@@ -65,6 +65,7 @@ export const Filters = ({ data, selectedId, setSelectedId }: FiltersProps) => {
               </View>
               <View className="flex-1 justify-center">
                 <Typography
+                  size="sm"
                   className={cn(
                     selectedId === item.id
                       ? `text-${categories[index].color}`
