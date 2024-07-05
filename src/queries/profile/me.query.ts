@@ -17,7 +17,7 @@ const fetcher = async (url: string, token: string) => {
     });
   }
 
-  return parsedData.data?.data;
+  return parsedData.data;
 };
 
 export const useMe = () => {

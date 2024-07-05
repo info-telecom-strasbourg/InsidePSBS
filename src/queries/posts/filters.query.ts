@@ -24,7 +24,7 @@ const fetcher = async (url: string, token: string | null) => {
 };
 
 export const useFilters = () => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories`;
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories?is_shown=1`;
   const { token } = useAuth();
 
   const res = useFetch(url, (url: string) => fetcher(url, token || ""));

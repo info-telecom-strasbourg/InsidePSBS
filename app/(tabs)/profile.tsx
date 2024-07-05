@@ -14,7 +14,7 @@ export default function ProfilePage() {
     error: postsError,
     size,
     setSize,
-  } = useShowUserPosts(data?.id.toString() || "");
+  } = useShowUserPosts(data?.data.id.toString() || "");
 
   return (
     <PageContainer>
@@ -23,15 +23,15 @@ export default function ProfilePage() {
         <PageLoading />
       ) : (
         <Profile
-          avatar={data.avatar_url || undefined}
+          avatar={data.data.avatar_url || undefined}
           handleRefresh={handleRefresh}
           isRefreshing={isRefreshing}
           posts={posts}
           postsAreLoading={postsAreLoading}
           setSize={setSize}
           size={size}
-          subtitle={data.user_name}
-          title={`${data.first_name} ${data.last_name}`}
+          subtitle={data.data.user_name}
+          title={`${data.data.first_name} ${data.data.last_name}`}
         />
       )}
     </PageContainer>

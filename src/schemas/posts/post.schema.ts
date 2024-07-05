@@ -9,7 +9,11 @@ const onePostSchema = z.object({
   uploaded_since: z.string(),
   uploaded_at: z.string(),
   color: z.string(),
-  category: z.string(),
+  categories: z.array(
+    z.object({
+      name: z.string(),
+    })
+  ),
   created_at: z.string(),
   updated_at: z.string(),
   reaction_count: z.number(),
@@ -28,17 +32,21 @@ export const PostsSchema = z.object({
 
 export const SinglePostSchema = z.object({
   data: z.object({
+    id: z.number(),
     body: z.string(),
     uploaded_since: z.string(),
     uploaded_at: z.string(),
     color: z.string(),
-    category: z.string(),
+    categories: z.array(
+      z.object({
+        name: z.string(),
+      })
+    ),
     created_at: z.string(),
     updated_at: z.string(),
     reaction_count: z.number(),
     has_reacted: z.string().nullable(),
     comment_count: z.number(),
-
     medias: z.array(
       z.object({ id: z.number(), url: z.string().url(), type: z.string() })
     ),
