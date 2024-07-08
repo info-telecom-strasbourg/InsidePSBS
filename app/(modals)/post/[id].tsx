@@ -52,7 +52,6 @@ export default function PostIdPage() {
                 postId={postData.id}
                 bodySize="p"
                 isLoading={postIsLoading}
-                error={postError}
               />
             </View>
             {postData.reaction_count !== 0 ? (
