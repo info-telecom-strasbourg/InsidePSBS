@@ -52,12 +52,7 @@ const InfiniteScrollList = () => {
             onPress={() => modalRouter.open(`/post/${item?.id}`)}
             className="mb-4"
           >
-            <Post
-              item={item}
-              isLoading={isLoading}
-              error={error}
-              postId={item?.id}
-            />
+            <Post item={item} isLoading={isLoading} postId={item?.id} />
           </TouchableOpacity>
         )}
         onEndReached={loadMore}

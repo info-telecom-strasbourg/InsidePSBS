@@ -49,6 +49,7 @@ export default function PostIdPage() {
               <Post
                 item={postData}
                 authorNameSize="h3"
+                postId={postData.id}
                 bodySize="p"
                 isLoading={postIsLoading}
                 error={postError}
