@@ -1,8 +1,10 @@
+import InfiniteFlashList from "@/components/primitives/infinite-flashlist";
 import { Typography } from "@/components/primitives/typography";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import type { ShowOrganizationData } from "@/schemas/organizations/organization-profile.schema";
 import type { PostsData } from "@/schemas/posts/post.schema";
-import { FlatList, RefreshControl, TouchableOpacity, View } from "react-native";
+import type { ListRenderItem } from "@shopify/flash-list";
+import { RefreshControl, TouchableOpacity, View } from "react-native";
 import Members from "../organizations/members";
 import { Post } from "../posts/post";
 import Hero from "./hero";
@@ -26,8 +28,48 @@ type ProfileProps = {
 const Profile = (props: ProfileProps) => {
   const modalRouter = useModalRouter();
 
+  const renderOrganizationPosts: ListRenderItem<
+    PostsData["data"] | undefined
+  > = ({ item }) => (
+    <View className="gap-4">
+      {item?.map((item) => (
+        <TouchableOpacity
+          key={item.id}
+          onPress={() => modalRouter.open(`/post/${item.id}`)}
+        >
+          <Post
+            item={item}
+            isLoading={props.postsAreLoading}
+            postId={item.id}
+          />
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+
+  const headerComp = () => (
+    <>
+      <Hero
+        avatar={props.avatar}
+        title={props.title}
+        subtitle={props.subtitle}
+      />
+      {props.socials ? <Socials data={props.socials} /> : null}
+      {props.members ? (
+        <>
+          <Typography size="h2" fontWeight="medium" className="mt-5">
+            Membres
+          </Typography>
+          <Members data={props.members} />
+        </>
+      ) : null}
+      <Typography size="h2" fontWeight="medium">
+        Publications
+      </Typography>
+    </>
+  );
   return (
-    <FlatList
+    <InfiniteFlashList<PostsData["data"] | undefined>
       data={props.posts}
       refreshControl={
         <RefreshControl
@@ -35,47 +77,12 @@ const Profile = (props: ProfileProps) => {
           onRefresh={props.handleRefresh}
         />
       }
-      renderItem={({ item }) => (
-        <View className="gap-4">
-          {item?.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              onPress={() => modalRouter.open(`/post/${item.id}`)}
-            >
-              <Post
-                item={item}
-                isLoading={props.postsAreLoading}
-                postId={item.id}
-              />
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
-      showsVerticalScrollIndicator={false}
-      onEndReached={() => props.setSize(props.size + 1)}
-      onEndReachedThreshold={0.4}
-      ListHeaderComponentClassName="gap-3"
-      ListHeaderComponent={() => (
-        <>
-          <Hero
-            avatar={props.avatar}
-            title={props.title}
-            subtitle={props.subtitle}
-          />
-          {props.socials ? <Socials data={props.socials} /> : null}
-          {props.members ? (
-            <>
-              <Typography size="h2" fontWeight="medium" className="mt-5">
-                Membres
-              </Typography>
-              <Members data={props.members} />
-            </>
-          ) : null}
-          <Typography size="h2" fontWeight="medium">
-            Publications
-          </Typography>
-        </>
-      )}
+      renderItem={renderOrganizationPosts}
+      ListHeaderComponentStyle={{ gap: 3 }}
+      ListHeaderComponent={headerComp}
+      size={props.size}
+      setSize={props.setSize}
+      estimatedItemSize={100}
     />
   );
 };
