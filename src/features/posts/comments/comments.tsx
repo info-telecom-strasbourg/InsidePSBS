@@ -15,7 +15,7 @@ export const Comments = ({ data, size, setSize }: CommentsProps) => {
   const renderComments: ListRenderItem<CommentsData["data"] | undefined> = ({
     item,
   }) => (
-    <View className="mb-4 gap-4">
+    <>
       {item?.map((item) => (
         <View key={item.id} className="flex-row gap-3">
           <View>
@@ -33,7 +33,7 @@ export const Comments = ({ data, size, setSize }: CommentsProps) => {
           </View>
         </View>
       ))}
-    </View>
+    </>
   );
   return (
     <InfiniteFlashList<CommentsData["data"] | undefined>

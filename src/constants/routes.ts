@@ -3,7 +3,7 @@ export const routes = {
   home: "/home",
   dev: "/dev",
   organizations: "/organizations",
-  create_post: "/create/post",
+  create_post: "/create/post2",
   create_event: "/create/event",
   create_both: "/create/both",
   auth: "/auth",

@@ -63,7 +63,7 @@ const InfiniteScrollList = () => {
         data={items}
         size={size}
         setSize={setSize}
-        ListHeaderComponent={<HeaderComponent />}
+        ListHeaderComponent={HeaderComponent}
         renderItem={renderPosts}
         estimatedItemSize={350}
         estimatedListSize={{ height: 1000, width: 250 }}

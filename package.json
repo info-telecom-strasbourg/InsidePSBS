@@ -16,6 +16,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@10play/tentap-editor": "^0.5.11",
     "@expo/cli": "^0.18.22",
     "@expo/vector-icons": "^14.0.2",
     "@gorhom/bottom-sheet": "^4.6.3",
@@ -46,6 +47,7 @@
     "react-native-screens": "3.31.1",
     "react-native-svg": "15.2.0",
     "react-native-web": "~0.19.12",
+    "react-native-webview": "13.8.6",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.4.0",
     "tailwindcss": "^3.4.4",

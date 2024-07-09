@@ -8,7 +8,7 @@ export const ItsMeUserSchema = z.object({
     user_name: z.string(),
     description: z.string().nullable(),
     email: z.string().email(),
-    phone: z.string(),
+    phone: z.string().nullable(),
     bde_id: z.number(),
     avatar_url: z.string().url(),
     promotion_year: z.string(),

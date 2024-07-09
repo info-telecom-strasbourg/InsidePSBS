@@ -41,8 +41,7 @@ export const useComments = (id: string | undefined) => {
 
   const res = useFetchInfinite<CommentsData["data"]>(
     (pageIndex, previousPageData) => getKey(pageIndex, previousPageData, id),
-    (url) => fetcher(url, token || ""),
-    { initialSize: 2 }
+    (url) => fetcher(url, token || "")
   );
   return res;
 };
