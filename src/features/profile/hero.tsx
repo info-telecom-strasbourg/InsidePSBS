@@ -15,7 +15,7 @@ const Hero = ({ avatar, title, subtitle }: HeroProps) => {
         className="size-24"
         style={{ borderRadius: 100000 }}
       />
-      <View className="justify-center gap-1">
+      <View className="justify-center gap-1 text-wrap">
         <Typography size="h2" fontWeight="semibold">
           {title}
         </Typography>

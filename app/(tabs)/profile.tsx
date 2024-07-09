@@ -6,15 +6,14 @@ import { useMe } from "@/queries/profile/me.query";
 import { useShowUserPosts } from "@/queries/user/user-posts.query";
 
 export default function ProfilePage() {
-  const { data, isLoading, error, handleRefresh, isRefreshing } = useMe();
+  const { data, isLoading, handleRefresh, isRefreshing } = useMe();
 
   const {
     data: posts,
     isLoading: postsAreLoading,
-    error: postsError,
     size,
     setSize,
-  } = useShowUserPosts(data?.data.id.toString() || "");
+  } = useShowUserPosts(data?.data.id.toString());
 
   return (
     <PageContainer>

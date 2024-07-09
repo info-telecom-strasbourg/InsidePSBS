@@ -47,8 +47,8 @@ const Profile = (props: ProfileProps) => {
     </View>
   );
 
-  const headerComp = () => (
-    <>
+  const HeaderComp = () => (
+    <View className="mb-4 gap-4">
       <Hero
         avatar={props.avatar}
         title={props.title}
@@ -66,24 +66,31 @@ const Profile = (props: ProfileProps) => {
       <Typography size="h2" fontWeight="medium">
         Publications
       </Typography>
-    </>
+    </View>
   );
   return (
-    <InfiniteFlashList<PostsData["data"] | undefined>
-      data={props.posts}
-      refreshControl={
-        <RefreshControl
-          refreshing={props.isRefreshing}
-          onRefresh={props.handleRefresh}
+    <>
+      <HeaderComp />
+      {props.posts?.length === 0 ? (
+        <InfiniteFlashList<PostsData["data"] | undefined>
+          data={props.posts}
+          refreshControl={
+            <RefreshControl
+              refreshing={props.isRefreshing}
+              onRefresh={props.handleRefresh}
+            />
+          }
+          renderItem={renderOrganizationPosts}
+          size={props.size}
+          setSize={props.setSize}
+          estimatedItemSize={100}
         />
-      }
-      renderItem={renderOrganizationPosts}
-      ListHeaderComponentStyle={{ gap: 3 }}
-      ListHeaderComponent={headerComp}
-      size={props.size}
-      setSize={props.setSize}
-      estimatedItemSize={100}
-    />
+      ) : (
+        <Typography size="h3" className="text-center">
+          Cet utilisateur n'a pas de publications
+        </Typography>
+      )}
+    </>
   );
 };
 

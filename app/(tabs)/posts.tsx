@@ -17,8 +17,7 @@ const InfiniteScrollList = () => {
   const [selectedId, setSelectedId] = useState(1);
   const [searchPhrase, setSearchPhrase] = useState("");
 
-  const { data, isLoading, size, setSize, isRefreshing, handleRefresh } =
-    usePosts(selectedId, searchPhrase);
+  const { data, isLoading, size, setSize } = usePosts(selectedId, searchPhrase);
 
   const { data: filters } = useFilters();
 

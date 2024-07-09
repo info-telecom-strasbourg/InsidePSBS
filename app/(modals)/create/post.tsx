@@ -114,7 +114,8 @@ export default function CreatePostPage() {
               >
                 <Image
                   source={{ uri: data?.data.avatar_url }}
-                  className="size-16"
+                  className="size-16 rounded-full"
+                  resizeMode="contain"
                 />
                 <Typography size="h4" fontWeight="medium">
                   {data?.data.first_name} {data?.data.last_name}

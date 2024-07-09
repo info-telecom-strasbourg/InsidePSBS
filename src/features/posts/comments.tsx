@@ -15,7 +15,7 @@ export const Comments = ({ data, size, setSize }: CommentsProps) => {
   const renderComments: ListRenderItem<CommentsData["data"] | undefined> = ({
     item,
   }) => (
-    <View className="gap-4">
+    <View className="mb-4 gap-4">
       {item?.map((item) => (
         <View key={item.id} className="flex-row gap-3">
           <View>
@@ -41,6 +41,7 @@ export const Comments = ({ data, size, setSize }: CommentsProps) => {
       renderItem={renderComments}
       size={size}
       setSize={setSize}
+      estimatedItemSize={100}
     />
   );
 };

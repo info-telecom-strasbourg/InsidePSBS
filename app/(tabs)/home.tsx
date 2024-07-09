@@ -4,12 +4,15 @@ import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { GridCards } from "@/features/home/grid-cards";
 import { Header } from "@/features/layout/header";
+import { useModalRouter } from "@/hooks/useModalRouter";
 import { useEvents } from "@/queries/events/event.query";
 import { useCards } from "@/queries/home/cards.query";
 import type { EventsData } from "@/schemas/events/event.schema";
-import type { ListRenderItem } from "@shopify/flash-list";
-import { FlashList } from "@shopify/flash-list";
-import { Image, View } from "react-native";
+import { colors } from "@/theme/colors";
+import { useTheme } from "@/theme/theme-context";
+
+import { Clock, MapPin } from "lucide-react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 type EventItem = EventsData["data"][0];
 
@@ -24,29 +27,66 @@ export default function HomePage() {
 
   const { data: eventsData } = useEvents();
 
-  const renderEvents: ListRenderItem<EventItem> = ({ item }) => {
-    return (
-      <View className="rounded-2xl bg-popover p-4">
-        <View className="flex-row justify-between">
-          <View className="gap-4">
-            <Image
-              source={{ uri: item.author.logo_url || undefined }}
-              className="size-16"
-            />
-            <Typography size="h3">{item.author.name}</Typography>
-          </View>
-          <Typography size="h4" className="rounded-full bg-blue p-4">
-            Samedi
-          </Typography>
-        </View>
-        <View className="gap-3">
-          <Typography size="h2" fontWeight="bold" className="text-blue">
-            {item.title}
-          </Typography>
-        </View>
+  const modalRouter = useModalRouter();
+  const { theme } = useTheme();
 
-        <Typography>{item.title}</Typography>
-        <Typography>{item.description}</Typography>
+  const renderEvents = (item: EventItem) => {
+    return (
+      <View key={item.id} className="flex-row gap-3 rounded-2xl bg-popover p-4">
+        <View
+          className="w-1 rounded-full"
+          style={{ backgroundColor: item.color }}
+        ></View>
+        <View>
+          <View className="w-full flex-row items-center justify-between pr-6">
+            <View className="flex-row items-center gap-3">
+              <TouchableOpacity
+                onPress={() =>
+                  modalRouter.open(`/organizations/${item.author.id}`)
+                }
+              >
+                <Image
+                  source={{ uri: item.author.logo_url || undefined }}
+                  className="size-16"
+                />
+              </TouchableOpacity>
+              <Typography size="h5" fontWeight="semibold">
+                {item.author.short_name}
+              </Typography>
+            </View>
+            <Typography
+              size="p"
+              className="rounded-full p-2 text-white"
+              style={{
+                backgroundColor: item.color,
+                fontFamily: "SpaceGrotesk-semibold",
+              }}
+            >
+              Samedi
+            </Typography>
+          </View>
+          <View className="gap-3">
+            <Text
+              style={{
+                color: item.color,
+                fontFamily: "SpaceGrotesk-semibold",
+                fontSize: 22,
+              }}
+            >
+              {item.title}
+            </Text>
+            <View className="flex-row items-center gap-2">
+              <Clock color={colors[theme].foreground} size={24} />
+              <Typography>
+                {item.start_at} - {item.end_at}
+              </Typography>
+            </View>
+            <View className="flex-row items-center gap-2">
+              <MapPin color={colors[theme].foreground} size={24} />
+              <Typography>{item.location}</Typography>
+            </View>
+          </View>
+        </View>
       </View>
     );
   };
@@ -54,7 +94,12 @@ export default function HomePage() {
   return (
     <PageContainer className="bg-background">
       <Header title="InsidePSBS" leftIcon="inside-psbs" rightIcon="settings" />
-      <RefreshView handleRefresh={handleRefresh} isRefreshing={isRefreshing}>
+      <RefreshView
+        className="flex-1"
+        handleRefresh={handleRefresh}
+        isRefreshing={isRefreshing}
+        showsVerticalScrollIndicator={false}
+      >
         {!cardsData || cardsIsLoading ? (
           <PageLoading />
         ) : (
@@ -64,15 +109,13 @@ export default function HomePage() {
             error={cardsError}
           />
         )}
-        <Typography size="h1" fontWeight="bold">
+        <Typography size="h1" fontWeight="bold" className="mb-3">
           Evènements à venir
         </Typography>
+        <View className="gap-4">
+          {eventsData?.map((item) => renderEvents(item))}
+        </View>
       </RefreshView>
-      <FlashList
-        data={eventsData}
-        renderItem={renderEvents}
-        estimatedItemSize={100}
-      />
     </PageContainer>
   );
 }
