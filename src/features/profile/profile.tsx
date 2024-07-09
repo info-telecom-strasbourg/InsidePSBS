@@ -72,6 +72,10 @@ const Profile = (props: ProfileProps) => {
     <>
       <HeaderComp />
       {props.posts?.length === 0 ? (
+        <Typography size="h3" className="text-center">
+          Cet utilisateur n'a pas de publications
+        </Typography>
+      ) : (
         <InfiniteFlashList<PostsData["data"] | undefined>
           data={props.posts}
           refreshControl={
@@ -85,10 +89,6 @@ const Profile = (props: ProfileProps) => {
           setSize={props.setSize}
           estimatedItemSize={100}
         />
-      ) : (
-        <Typography size="h3" className="text-center">
-          Cet utilisateur n'a pas de publications
-        </Typography>
       )}
     </>
   );

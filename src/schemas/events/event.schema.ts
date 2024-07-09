@@ -4,6 +4,7 @@ import { MetaSchema } from "../meta.schema";
 
 const schema = z.object({
   id: z.number(),
+  post_id: z.number().nullable(),
   title: z.string(),
   description: z.string().nullable(),
   start_at: z.string(),

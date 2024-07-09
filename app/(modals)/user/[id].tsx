@@ -15,7 +15,6 @@ const UserPage = () => {
   const {
     data: posts,
     isLoading: postsAreLoading,
-    error: postsError,
     size,
     setSize,
   } = useShowUserPosts(id);

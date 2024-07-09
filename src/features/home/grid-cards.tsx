@@ -2,20 +2,43 @@ import { routes } from "@/constants/routes";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import type { FouailleBalanceData } from "@/schemas/fouaille/balance.schema";
 import { colors } from "@/theme/colors";
+import { useTheme } from "@/theme/theme-context";
+import type BottomSheet from "@gorhom/bottom-sheet";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
-import { View } from "react-native";
+import { useRef } from "react";
+import { Alert, View } from "react-native";
 import Card from "./card";
 
 export type GridCardsProps = {
   data: FouailleBalanceData["data"];
   isLoading: boolean;
-  error: string | null;
 };
 
-export const GridCards = ({ data, isLoading, error }: GridCardsProps) => {
+export const GridCards = ({ data, isLoading }: GridCardsProps) => {
   const modalRouter = useModalRouter();
 
-  // TODO: Implémenter error
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const { theme } = useTheme();
+
+  const alertMPS = () => {
+    Alert.alert(
+      "Vous allez quitter l'application InsidePSBS.",
+      "Voulez-vous continuer ?",
+
+      [
+        {
+          text: "Non",
+          style: "destructive",
+        },
+        {
+          text: "Oui",
+          onPress: () =>
+            modalRouter.open("https://nextcloud.its-tps.fr/s/zfFkwR6y5wxt5gW"),
+        },
+      ],
+      { cancelable: true }
+    );
+  };
 
   return (
     <View className="mb-8 flex-col items-center gap-4">
@@ -42,9 +65,7 @@ export const GridCards = ({ data, isLoading, error }: GridCardsProps) => {
           backgroundColor={colors.lightOrange}
           color={colors.orange}
           icon={CameraIcon}
-          onPress={() =>
-            modalRouter.open("https://nextcloud.its-tps.fr/s/zfFkwR6y5wxt5gW")
-          }
+          onPress={alertMPS}
         />
         <Card
           title="Menu du RU"

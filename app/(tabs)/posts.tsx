@@ -12,12 +12,14 @@ import type { ListRenderItem } from "@shopify/flash-list";
 
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
+import { RefreshControl } from "react-native-gesture-handler";
 
 const InfiniteScrollList = () => {
   const [selectedId, setSelectedId] = useState(1);
   const [searchPhrase, setSearchPhrase] = useState("");
 
-  const { data, isLoading, size, setSize } = usePosts(selectedId, searchPhrase);
+  const { data, isLoading, size, setSize, isRefreshing, handleRefresh } =
+    usePosts(selectedId, searchPhrase);
 
   const { data: filters } = useFilters();
 
@@ -35,6 +37,17 @@ const InfiniteScrollList = () => {
       <Post item={item} isLoading={isLoading} postId={item?.id} />
     </TouchableOpacity>
   );
+  const HeaderComponent = () => {
+    return (
+      <View className="mb-4 gap-5">
+        <Filters
+          data={filters}
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
+        />
+      </View>
+    );
+  };
 
   return (
     <PageContainer>
@@ -43,20 +56,20 @@ const InfiniteScrollList = () => {
         rightIcon="settings"
         leftIcon="inside-psbs"
       />
-      <View className="mb-4 gap-5">
+      <View className="mb-4">
         <Search searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
-        <Filters
-          data={filters}
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-        />
       </View>
       <InfiniteFlashList<PostsData["data"][0] | undefined>
         data={items}
         size={size}
         setSize={setSize}
+        ListHeaderComponent={<HeaderComponent />}
         renderItem={renderPosts}
-        estimatedItemSize={300}
+        estimatedItemSize={350}
+        estimatedListSize={{ height: 1000, width: 250 }}
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+        }
       />
     </PageContainer>
   );

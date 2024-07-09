@@ -11,7 +11,7 @@ import type { EventsData } from "@/schemas/events/event.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 
-import { Clock, MapPin } from "lucide-react-native";
+import { Clock, Forward, MapPin } from "lucide-react-native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 type EventItem = EventsData["data"][0];
@@ -34,7 +34,7 @@ export default function HomePage() {
     return (
       <View key={item.id} className="flex-row gap-3 rounded-2xl bg-popover p-4">
         <View
-          className="w-1 rounded-full"
+          className="w-2 rounded-full"
           style={{ backgroundColor: item.color }}
         ></View>
         <View>
@@ -81,9 +81,19 @@ export default function HomePage() {
                 {item.start_at} - {item.end_at}
               </Typography>
             </View>
-            <View className="flex-row items-center gap-2">
-              <MapPin color={colors[theme].foreground} size={24} />
-              <Typography>{item.location}</Typography>
+            <View className="w-full flex-row items-center justify-between">
+              <View className="flex-row gap-2">
+                <MapPin color={colors[theme].foreground} size={24} />
+                <Typography>{item.location}</Typography>
+              </View>
+              {item.post_id ? (
+                <TouchableOpacity
+                  className="mr-6"
+                  onPress={() => modalRouter.open(`/post/${item.post_id}`)}
+                >
+                  <Forward color={colors[theme].foreground} size={24} />
+                </TouchableOpacity>
+              ) : null}
             </View>
           </View>
         </View>
@@ -103,16 +113,12 @@ export default function HomePage() {
         {!cardsData || cardsIsLoading ? (
           <PageLoading />
         ) : (
-          <GridCards
-            data={cardsData}
-            isLoading={cardsIsLoading}
-            error={cardsError}
-          />
+          <GridCards data={cardsData} isLoading={cardsIsLoading} />
         )}
         <Typography size="h1" fontWeight="bold" className="mb-3">
           Evènements à venir
         </Typography>
-        <View className="gap-4">
+        <View className="mb-4 gap-4">
           {eventsData?.map((item) => renderEvents(item))}
         </View>
       </RefreshView>
