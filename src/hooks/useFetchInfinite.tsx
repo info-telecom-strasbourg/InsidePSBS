@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useSWRInfinite from "swr/infinite";
 
-export type Fetcher<T> = (url: string) => Promise<T | undefined>;
+export type Fetcher<T> = (url: string, token: string) => Promise<T | undefined>;
 export type GetKey<T> = (
   pageIndex: number,
   previousPageData: T

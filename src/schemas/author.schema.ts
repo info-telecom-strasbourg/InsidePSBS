@@ -6,5 +6,5 @@ export const AuthorSchema = z.object({
   name: z.string(),
   user_name: z.string(),
   short_name: z.string().nullable(),
-  logo_url: z.string().url().nullable(),
+  logo_url: z.string().url(),
 });

@@ -10,6 +10,7 @@ import { useCards } from "@/queries/home/cards.query";
 import type { EventsData } from "@/schemas/events/event.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { capitalize } from "@/utils/capitalize";
 
 import { Clock, Forward, MapPin } from "lucide-react-native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -34,7 +35,7 @@ export default function HomePage() {
     return (
       <View key={item.id} className="flex-row gap-3 rounded-2xl bg-popover p-4">
         <View
-          className="w-2 rounded-full"
+          className="w-1 rounded-full"
           style={{ backgroundColor: item.color }}
         ></View>
         <View>
@@ -47,7 +48,7 @@ export default function HomePage() {
               >
                 <Image
                   source={{ uri: item.author.logo_url || undefined }}
-                  className="size-16"
+                  className="size-12"
                 />
               </TouchableOpacity>
               <Typography size="h5" fontWeight="semibold">
@@ -56,13 +57,13 @@ export default function HomePage() {
             </View>
             <Typography
               size="p"
-              className="rounded-full p-2 text-white"
+              className="rounded-full px-3 py-1 text-white"
               style={{
                 backgroundColor: item.color,
                 fontFamily: "SpaceGrotesk-semibold",
               }}
             >
-              Samedi
+              {capitalize(item.date_format.date)}
             </Typography>
           </View>
           <View className="gap-3">
@@ -78,11 +79,12 @@ export default function HomePage() {
             <View className="flex-row items-center gap-2">
               <Clock color={colors[theme].foreground} size={24} />
               <Typography>
-                {item.start_at} - {item.end_at}
+                {item.date_format.start_at_simplified} -{" "}
+                {item.date_format.end_at_simplified}
               </Typography>
             </View>
             <View className="w-full flex-row items-center justify-between">
-              <View className="flex-row gap-2">
+              <View className="flex-row items-center gap-2">
                 <MapPin color={colors[theme].foreground} size={24} />
                 <Typography>{item.location}</Typography>
               </View>

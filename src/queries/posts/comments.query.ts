@@ -30,18 +30,18 @@ const getKey = (
   id: string | undefined
 ) => {
   if (previousPageData && !previousPageData.length) return null;
-
   return `${process.env.EXPO_PUBLIC_API_URL}/api/post/${id}/comment?page=${
     pageIndex + 1
-  }`;
+  }&per_page=3`;
 };
 
 export const useComments = (id: string | undefined) => {
   const { token } = useAuth();
-
+  console.log("useFetchInfinite start");
   const res = useFetchInfinite<CommentsData["data"]>(
     (pageIndex, previousPageData) => getKey(pageIndex, previousPageData, id),
     (url) => fetcher(url, token || "")
   );
+  console.log("useFetchInfinite end");
   return res;
 };

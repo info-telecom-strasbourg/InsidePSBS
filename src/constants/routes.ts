@@ -13,4 +13,5 @@ export const routes = {
   fouaille: "/fouaille",
   menu: "/menu",
   settings: "/settings",
+  mps: "https://nextcloud.its-tps.fr/s/zfFkwR6y5wxt5gW",
 };

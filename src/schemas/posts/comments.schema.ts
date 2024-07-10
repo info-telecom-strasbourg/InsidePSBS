@@ -8,14 +8,20 @@ const RootSchema = z.object({
   created_since: z.string(),
   parent_comment_id: z.number().nullable(),
   body: z.string(),
+  children_count: z.number(),
   created_at: z.string(),
   updated_at: z.string(),
   reaction_count: z.number(),
-  has_reacted: z.string().nullable(),
+  reaction: z
+    .object({
+      id: z.number(),
+      icon: z.string(),
+    })
+    .nullable(),
   author: AuthorSchema,
 });
 
-const MetaSchema = z.object({
+const metaSchema = z.object({
   total: z.number(),
   total_same_parent_id: z.number(),
   per_page: z.number(),
@@ -33,7 +39,7 @@ const MetaSchema = z.object({
 
 export const CommentsSchema = z.object({
   data: z.array(RootSchema),
-  meta: MetaSchema,
+  meta: metaSchema,
 });
 
 export type CommentsData = z.infer<typeof CommentsSchema>;

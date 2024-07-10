@@ -1,9 +1,8 @@
-import InfiniteFlashList from "@/components/primitives/infinite-flashlist";
 import { Typography } from "@/components/primitives/typography";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import type { ShowOrganizationData } from "@/schemas/organizations/organization-profile.schema";
 import type { PostsData } from "@/schemas/posts/post.schema";
-import type { ListRenderItem } from "@shopify/flash-list";
+import { FlashList, type ListRenderItem } from "@shopify/flash-list";
 import { RefreshControl, TouchableOpacity, View } from "react-native";
 import Members from "../organizations/members";
 import { Post } from "../posts/post";
@@ -76,7 +75,7 @@ const Profile = (props: ProfileProps) => {
           Cet utilisateur n'a pas de publications
         </Typography>
       ) : (
-        <InfiniteFlashList<PostsData["data"] | undefined>
+        <FlashList<PostsData["data"] | undefined>
           data={props.posts}
           refreshControl={
             <RefreshControl
@@ -85,8 +84,6 @@ const Profile = (props: ProfileProps) => {
             />
           }
           renderItem={renderOrganizationPosts}
-          size={props.size}
-          setSize={props.setSize}
           estimatedItemSize={100}
         />
       )}

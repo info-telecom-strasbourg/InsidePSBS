@@ -5,6 +5,7 @@ import { MetaSchema } from "../meta.schema";
 // Define the schema for a single post
 const onePostSchema = z.object({
   id: z.number(),
+  event_id: z.number().nullable(),
   body: z.string(),
   uploaded_since: z.string(),
   uploaded_at: z.string(),

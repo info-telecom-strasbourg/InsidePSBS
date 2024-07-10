@@ -1,5 +1,4 @@
 import { PageContainer } from "@/components/primitives/container";
-import InfiniteFlashList from "@/components/primitives/infinite-flashlist";
 import { Header } from "@/features/layout/header";
 import { Filters } from "@/features/posts/filters";
 import { Post } from "@/features/posts/post";
@@ -8,7 +7,7 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { useFilters } from "@/queries/posts/filters.query";
 import { usePosts } from "@/queries/posts/posts.query";
 import type { PostsData } from "@/schemas/posts/post.schema";
-import type { ListRenderItem } from "@shopify/flash-list";
+import { FlashList, type ListRenderItem } from "@shopify/flash-list";
 
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
@@ -26,6 +25,10 @@ const InfiniteScrollList = () => {
   const modalRouter = useModalRouter();
 
   const items = data ? data.flat() : [];
+
+  const loadMore = () => {
+    setSize(size + 1);
+  };
 
   const renderPosts: ListRenderItem<PostsData["data"][0] | undefined> = ({
     item,
@@ -59,12 +62,13 @@ const InfiniteScrollList = () => {
       <View className="mb-4">
         <Search searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
       </View>
-      <InfiniteFlashList<PostsData["data"][0] | undefined>
+      <FlashList<PostsData["data"][0] | undefined>
         data={items}
-        size={size}
-        setSize={setSize}
         ListHeaderComponent={HeaderComponent}
+        onEndReached={loadMore}
+        onEndReachedThreshold={5}
         renderItem={renderPosts}
+        showsVerticalScrollIndicator={false}
         estimatedItemSize={350}
         estimatedListSize={{ height: 1000, width: 250 }}
         refreshControl={
