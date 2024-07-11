@@ -12,6 +12,7 @@ const fetcher = async (url: string, token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
+
     const data = await res.json();
     const parsedData = CommentsSchema.safeParse(data);
     return parsedData.data?.data;
@@ -37,11 +38,11 @@ const getKey = (
 
 export const useComments = (id: string | undefined) => {
   const { token } = useAuth();
-  console.log("useFetchInfinite start");
+  // console.log("useFetchInfinite start");
   const res = useFetchInfinite<CommentsData["data"]>(
     (pageIndex, previousPageData) => getKey(pageIndex, previousPageData, id),
     (url) => fetcher(url, token || "")
   );
-  console.log("useFetchInfinite end");
+  // console.log("useFetchInfinite end");
   return res;
 };

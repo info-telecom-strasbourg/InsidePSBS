@@ -130,7 +130,7 @@ const CreatePostPage = () => {
           )}
           <TouchableOpacity
             onPress={async () => {
-              const post = await editor.getText();
+              const post = await editor.getJSON();
               if (!post) setModalOpen(true);
               else {
                 Keyboard.dismiss();
@@ -166,7 +166,7 @@ const CreatePostPage = () => {
           elevation: 3,
         }}
         ref={optionsBottomSheet}
-        snapPoints={["60%"]}
+        snapPoints={["70%"]}
         enablePanDownToClose
         enableDismissOnClose
         overDragResistanceFactor={1}
@@ -190,7 +190,7 @@ const CreatePostPage = () => {
           <Typography size="h1" fontWeight="bold">
             Catégories
           </Typography>
-          <View className="flex-row gap-4">
+          <View className="flex-row flex-wrap gap-4">
             {!filters || filtersAreLoading ? (
               <PageLoading />
             ) : (
@@ -201,9 +201,10 @@ const CreatePostPage = () => {
                     className="rounded-full px-4 py-1"
                     style={{
                       borderColor: item.color,
+                      borderWidth: 1,
                     }}
                   >
-                    <Typography size="h5">
+                    <Typography size="p">
                       {item.emoji} {item.name}
                     </Typography>
                   </View>
