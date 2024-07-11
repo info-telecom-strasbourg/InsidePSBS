@@ -21,7 +21,6 @@ export default function HomePage() {
   const {
     data: cardsData,
     isLoading: cardsIsLoading,
-    error: cardsError,
     handleRefresh,
     isRefreshing,
   } = useCards();

@@ -24,7 +24,7 @@ const fetcher = async (url: string, token: string) => {
 };
 
 export const useEvents = () => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/event?per_page=10`;
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/event?per_page=5`;
   const { token } = useAuth();
 
   const res = useFetch(url, (url: string) => fetcher(url, token || ""));

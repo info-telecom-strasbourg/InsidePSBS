@@ -69,7 +69,7 @@ export const Filters = ({ data, selectedId, setSelectedId }: FiltersProps) => {
                   className={cn(
                     selectedId === item.id
                       ? `text-${categories[index].color}`
-                      : "text-",
+                      : null,
                     "text-center text-wrap"
                   )}
                   style={{
