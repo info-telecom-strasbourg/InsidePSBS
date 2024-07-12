@@ -1,5 +1,5 @@
 import { useModalRouter } from "@/hooks/useModalRouter";
-import type { ShowOrganizationData } from "@/schemas/organizations/organization-profile.schema";
+import type { ShowOrganizationData } from "@/schemas/GET/organizations/organization-profile.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { Facebook, Globe, Instagram, Mail } from "lucide-react-native";

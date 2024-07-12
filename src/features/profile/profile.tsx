@@ -1,7 +1,7 @@
 import { Typography } from "@/components/primitives/typography";
 import { useModalRouter } from "@/hooks/useModalRouter";
-import type { ShowOrganizationData } from "@/schemas/organizations/organization-profile.schema";
-import type { PostsData } from "@/schemas/posts/post.schema";
+import type { ShowOrganizationData } from "@/schemas/GET/organizations/organization-profile.schema";
+import type { PostsData } from "@/schemas/GET/posts/post.schema";
 import { FlashList, type ListRenderItem } from "@shopify/flash-list";
 import { RefreshControl, TouchableOpacity, View } from "react-native";
 import Members from "../organizations/members";

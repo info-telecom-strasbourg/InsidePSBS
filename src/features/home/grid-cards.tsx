@@ -2,7 +2,7 @@ import CustomModal from "@/components/primitives/custom-modal";
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
 import { useModalRouter } from "@/hooks/useModalRouter";
-import type { FouailleBalanceData } from "@/schemas/fouaille/balance.schema";
+import type { FouailleBalanceData } from "@/schemas/GET/fouaille/balance.schema";
 import { colors } from "@/theme/colors";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { useState } from "react";

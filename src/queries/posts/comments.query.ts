@@ -1,7 +1,7 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetchInfinite } from "@/hooks/useFetchInfinite";
-import type { CommentsData } from "@/schemas/posts/comments.schema";
-import { CommentsSchema } from "@/schemas/posts/comments.schema";
+import type { CommentsData } from "@/schemas/GET/posts/comments.schema";
+import { CommentsSchema } from "@/schemas/GET/posts/comments.schema";
 import { z } from "zod";
 
 const fetcher = async (url: string, token: string) => {

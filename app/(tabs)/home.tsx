@@ -1,23 +1,107 @@
+import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { GridCards } from "@/features/home/grid-cards";
 import { Header } from "@/features/layout/header";
+import { Post } from "@/features/posts/post";
+import { useFetch } from "@/hooks/useFetch";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { useEvents } from "@/queries/events/event.query";
 import { useCards } from "@/queries/home/cards.query";
-import type { EventsData } from "@/schemas/events/event.schema";
+import { postsFetcher } from "@/queries/posts/posts.query";
+import type { EventsData } from "@/schemas/GET/events/event.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { capitalize } from "@/utils/capitalize";
 
-import { Clock, Forward, MapPin } from "lucide-react-native";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { ChevronDown, Clock, Forward, MapPin } from "lucide-react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 type EventItem = EventsData["data"][0];
 
+const Event = ({ item }: { item: EventItem }) => {
+  const modalRouter = useModalRouter();
+  const { theme } = useTheme();
+
+  return (
+    <View
+      className="mb-6 mr-4 flex-row gap-3 rounded-2xl bg-popover p-3"
+      style={{ width: 340 }}
+    >
+      <View
+        className="w-1 rounded-full"
+        style={{ backgroundColor: item.color }}
+      ></View>
+      <View>
+        <View className="w-full flex-row items-center justify-between gap-4 pr-6">
+          <View className="flex-row items-center gap-3">
+            <TouchableOpacity
+              onPress={() =>
+                modalRouter.open(`/organizations/${item.author.id}`)
+              }
+            >
+              <Image
+                source={{ uri: item.author.logo_url || undefined }}
+                className="size-14"
+              />
+            </TouchableOpacity>
+            <Typography size="h5" fontWeight="semibold">
+              {item.author.short_name}
+            </Typography>
+          </View>
+          <Typography
+            size="p"
+            className="rounded-full px-3 py-1 text-white"
+            style={{
+              backgroundColor: item.color,
+              fontFamily: "SpaceGrotesk-semibold",
+            }}
+          >
+            {capitalize(item.date_format.date)}
+          </Typography>
+        </View>
+        <View className="gap-3">
+          <Text
+            style={{
+              color: item.color,
+              fontFamily: "SpaceGrotesk-semibold",
+              fontSize: 22,
+            }}
+          >
+            {item.title}
+          </Text>
+          <View className="flex-row items-center gap-2">
+            <Clock color={colors[theme].foreground} size={24} />
+            <Typography>
+              {item.date_format.start_at_simplified} -{" "}
+              {item.date_format.end_at_simplified}
+            </Typography>
+          </View>
+          <View className="w-full flex-row items-center justify-between">
+            <View className="flex-row items-center gap-2">
+              <MapPin color={colors[theme].foreground} size={24} />
+              <Typography>{item.location}</Typography>
+            </View>
+            {item.post_id ? (
+              <TouchableOpacity
+                className="mr-6"
+                onPress={() => modalRouter.open(`/post/${item.post_id}`)}
+              >
+                <Forward color={colors[theme].foreground} size={24} />
+              </TouchableOpacity>
+            ) : null}
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+};
+
 export default function HomePage() {
+  const { theme } = useTheme();
+  const { token } = useAuth();
   const {
     data: cardsData,
     isLoading: cardsIsLoading,
@@ -27,80 +111,11 @@ export default function HomePage() {
 
   const { data: eventsData } = useEvents();
 
-  const modalRouter = useModalRouter();
-  const { theme } = useTheme();
-
-  const renderEvents = (item: EventItem) => {
-    return (
-      <View key={item.id} className="flex-row gap-3 rounded-2xl bg-popover p-4">
-        <View
-          className="w-1 rounded-full"
-          style={{ backgroundColor: item.color }}
-        ></View>
-        <View>
-          <View className="w-full flex-row items-center justify-between pr-6">
-            <View className="flex-row items-center gap-3">
-              <TouchableOpacity
-                onPress={() =>
-                  modalRouter.open(`/organizations/${item.author.id}`)
-                }
-              >
-                <Image
-                  source={{ uri: item.author.logo_url || undefined }}
-                  className="size-12"
-                />
-              </TouchableOpacity>
-              <Typography size="h5" fontWeight="semibold">
-                {item.author.short_name}
-              </Typography>
-            </View>
-            <Typography
-              size="p"
-              className="rounded-full px-3 py-1 text-white"
-              style={{
-                backgroundColor: item.color,
-                fontFamily: "SpaceGrotesk-semibold",
-              }}
-            >
-              {capitalize(item.date_format.date)}
-            </Typography>
-          </View>
-          <View className="gap-3">
-            <Text
-              style={{
-                color: item.color,
-                fontFamily: "SpaceGrotesk-semibold",
-                fontSize: 22,
-              }}
-            >
-              {item.title}
-            </Text>
-            <View className="flex-row items-center gap-2">
-              <Clock color={colors[theme].foreground} size={24} />
-              <Typography>
-                {item.date_format.start_at_simplified} -{" "}
-                {item.date_format.end_at_simplified}
-              </Typography>
-            </View>
-            <View className="w-full flex-row items-center justify-between">
-              <View className="flex-row items-center gap-2">
-                <MapPin color={colors[theme].foreground} size={24} />
-                <Typography>{item.location}</Typography>
-              </View>
-              {item.post_id ? (
-                <TouchableOpacity
-                  className="mr-6"
-                  onPress={() => modalRouter.open(`/post/${item.post_id}`)}
-                >
-                  <Forward color={colors[theme].foreground} size={24} />
-                </TouchableOpacity>
-              ) : null}
-            </View>
-          </View>
-        </View>
-      </View>
-    );
-  };
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post?per_page=3`;
+  const { data: news, isLoading: postIsLoading } = useFetch(
+    url,
+    (url: string) => postsFetcher(url, token || "")
+  );
 
   return (
     <PageContainer className="bg-background">
@@ -116,11 +131,29 @@ export default function HomePage() {
         ) : (
           <GridCards data={cardsData} isLoading={cardsIsLoading} />
         )}
-        <Typography size="h1" fontWeight="bold" className="mb-3">
-          Evènements à venir
+        <TouchableOpacity className="mb-4 flex-row items-center gap-4">
+          <Typography size="h1" fontWeight="bold">
+            Évènements à venir
+          </Typography>
+          <ChevronDown size={24} color={colors[theme].foreground} />
+        </TouchableOpacity>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {eventsData?.map((item, index) => (
+            <Event item={item} key={index} />
+          ))}
+        </ScrollView>
+        <Typography size="h1" fontWeight="bold" className="mb-4">
+          Actualités
         </Typography>
         <View className="mb-4 gap-4">
-          {eventsData?.map((item) => renderEvents(item))}
+          {news?.map((item, index) => (
+            <Post
+              item={item}
+              key={index}
+              isLoading={postIsLoading}
+              postId={item.id}
+            />
+          ))}
         </View>
       </RefreshView>
     </PageContainer>

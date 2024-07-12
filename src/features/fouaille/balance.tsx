@@ -1,5 +1,5 @@
 import { Typography } from "@/components/primitives/typography";
-import type { FouailleBalanceData } from "@/schemas/fouaille/balance.schema";
+import type { FouailleBalanceData } from "@/schemas/GET/fouaille/balance.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { Nfc } from "lucide-react-native";

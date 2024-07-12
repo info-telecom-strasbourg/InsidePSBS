@@ -1,5 +1,5 @@
 import { useFetch } from "@/hooks/useFetch";
-import { CguSchema } from "@/schemas/cgu.schema";
+import { CguSchema } from "@/schemas/GET/cgu.schema";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url, {

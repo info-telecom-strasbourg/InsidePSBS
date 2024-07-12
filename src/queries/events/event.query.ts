@@ -1,6 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
-import { EventSchema } from "@/schemas/events/event.schema";
+import { EventSchema } from "@/schemas/GET/events/event.schema";
 import { z } from "zod";
 
 const fetcher = async (url: string, token: string) => {
@@ -24,7 +24,7 @@ const fetcher = async (url: string, token: string) => {
 };
 
 export const useEvents = () => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/event?per_page=5`;
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/event?per_page=3`;
   const { token } = useAuth();
 
   const res = useFetch(url, (url: string) => fetcher(url, token || ""));

@@ -1,3 +1,4 @@
+import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
 import { PageContainer } from "@/components/primitives/container";
 import CustomModal from "@/components/primitives/custom-modal";
@@ -5,9 +6,13 @@ import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
 import { useFilters } from "@/queries/posts/filters.query";
 import { useMe } from "@/queries/profile/me.query";
+import type { CategoriesData } from "@/schemas/GET/posts/categories.schema";
+import type { StorePostData } from "@/schemas/POST/post/store-post.schema";
+import { StorePostSchema } from "@/schemas/POST/post/store-post.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { SpaceGroteskFont } from "@/utils/custom-font";
+import { postQuery } from "@/utils/post-query";
 import {
   CoreBridge,
   PlaceholderBridge,
@@ -34,8 +39,62 @@ import {
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
+const CategoryItem = ({
+  item,
+  categoriesSelected,
+  setCategoriesSelected,
+}: {
+  item: CategoriesData["data"][0];
+  categoriesSelected: CategoriesData["data"][0]["id"][] | null;
+  setCategoriesSelected: (
+    categoriesSelected: CategoriesData["data"][0]["id"][]
+  ) => void;
+}) => {
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+
+  const { theme } = useTheme();
+
+  // console.log(categoriesSelected);
+  return (
+    <TouchableOpacity
+      className="rounded-full px-4 py-1"
+      style={{
+        borderColor: item.color,
+        borderWidth: 1,
+        backgroundColor: isSelected ? item.color : colors[theme].popover,
+      }}
+      onPress={() => {
+        if (isSelected) {
+          const elementToRemove = categoriesSelected?.findIndex(
+            (i) => i === item.id
+          );
+          setCategoriesSelected(
+            categoriesSelected?.filter(
+              (_, index) => index !== elementToRemove
+            ) || []
+          );
+        } else setCategoriesSelected([...(categoriesSelected || []), item.id]);
+        setIsSelected(!isSelected);
+      }}
+      disabled={categoriesSelected!.length >= 3 && !isSelected}
+    >
+      <Typography
+        size="p"
+        className={isSelected ? "text-white" : colors[theme].foreground}
+      >
+        {item.emoji} {item.name}
+      </Typography>
+    </TouchableOpacity>
+  );
+};
+
 const CreatePostPage = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [categoriesSelected, setCategoriesSelected] = useState<
+    CategoriesData["data"][0]["id"][]
+  >([]);
+
+  const { token } = useAuth();
 
   const { data } = useMe();
   const { data: filters, isLoading: filtersAreLoading } = useFilters(null);
@@ -56,7 +115,7 @@ const CreatePostPage = () => {
   }`;
 
   const editor = useEditorBridge({
-    autofocus: true,
+    autofocus: false,
     avoidIosKeyboard: true,
     bridgeExtensions: [
       ...TenTapStartKit,
@@ -72,6 +131,25 @@ const CreatePostPage = () => {
   const optionsBottomSheet = useRef<BottomSheetModal>(null);
   const animatedIndex = useSharedValue<number>(0);
   const animatedPosition = useSharedValue<number>(0);
+
+  const storePost = async (
+    postBody: StorePostData["body"],
+    organizationId: number | null,
+    uploadedAt: string | null
+  ) => {
+    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/contents`;
+    const response = await postQuery<StorePostData>(
+      url,
+      token,
+      {
+        create_post: 1,
+        body: postBody,
+        organization_id: organizationId,
+        uploaded_at: uploadedAt,
+      },
+      StorePostSchema
+    );
+  };
 
   return (
     <BottomSheetModalProvider>
@@ -130,8 +208,9 @@ const CreatePostPage = () => {
           )}
           <TouchableOpacity
             onPress={async () => {
+              const test = await editor.getText();
               const post = await editor.getJSON();
-              if (!post) setModalOpen(true);
+              if (!test) setModalOpen(true);
               else {
                 Keyboard.dismiss();
                 optionsBottomSheet.current?.present();
@@ -164,9 +243,12 @@ const CreatePostPage = () => {
           shadowRadius: 2.22,
 
           elevation: 3,
+          margin: 15,
         }}
+        bottomInset={30}
         ref={optionsBottomSheet}
-        snapPoints={["70%"]}
+        snapPoints={["80%"]}
+        detached={true}
         enablePanDownToClose
         enableDismissOnClose
         overDragResistanceFactor={1}
@@ -196,18 +278,12 @@ const CreatePostPage = () => {
             ) : (
               filters.map((item, index) => {
                 return (
-                  <View
+                  <CategoryItem
                     key={index}
-                    className="rounded-full px-4 py-1"
-                    style={{
-                      borderColor: item.color,
-                      borderWidth: 1,
-                    }}
-                  >
-                    <Typography size="p">
-                      {item.emoji} {item.name}
-                    </Typography>
-                  </View>
+                    item={item}
+                    categoriesSelected={categoriesSelected}
+                    setCategoriesSelected={setCategoriesSelected}
+                  />
                 );
               })
             )}

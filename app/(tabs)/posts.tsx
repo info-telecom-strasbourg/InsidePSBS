@@ -6,8 +6,8 @@ import { Search } from "@/features/posts/search";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { useFilters } from "@/queries/posts/filters.query";
 import { usePosts } from "@/queries/posts/posts.query";
-import type { CategoriesData } from "@/schemas/posts/categories.schema";
-import type { PostsData } from "@/schemas/posts/post.schema";
+import type { CategoriesData } from "@/schemas/GET/posts/categories.schema";
+import type { PostsData } from "@/schemas/GET/posts/post.schema";
 import { FlashList } from "@shopify/flash-list";
 
 import { useState } from "react";
@@ -98,8 +98,7 @@ export default function InfiniteScrollList() {
           <RenderPosts item={item} postsAreLoading={postsAreLoading} />
         )}
         showsVerticalScrollIndicator={false}
-        estimatedItemSize={350}
-        estimatedListSize={{ height: 1000, width: 250 }}
+        estimatedItemSize={200}
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
         }

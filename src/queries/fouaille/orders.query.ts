@@ -1,6 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetchInfinite } from "@/hooks/useFetchInfinite";
-import { OrdersSchema } from "@/schemas/fouaille/orders.schema";
+import { OrdersSchema } from "@/schemas/GET/fouaille/orders.schema";
 
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {

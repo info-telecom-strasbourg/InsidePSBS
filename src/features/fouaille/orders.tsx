@@ -1,5 +1,5 @@
 import { Typography } from "@/components/primitives/typography";
-import type { OrdersData } from "@/schemas/fouaille/orders.schema";
+import type { OrdersData } from "@/schemas/GET/fouaille/orders.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { ChevronDown, TrendingUp } from "lucide-react-native";

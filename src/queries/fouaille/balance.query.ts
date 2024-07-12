@@ -1,6 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
-import { FouailleBalanceSchema } from "@/schemas/fouaille/balance.schema";
+import { FouailleBalanceSchema } from "@/schemas/GET/fouaille/balance.schema";
 
 export const balanceFetcher = async (url: string, token: string) => {
   const res = await fetch(url, {

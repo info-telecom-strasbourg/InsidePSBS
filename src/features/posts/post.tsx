@@ -4,11 +4,11 @@ import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { useReactionType } from "@/queries/posts/one-post.query";
-import { type SinglePostData } from "@/schemas/posts/post.schema";
+import { type SinglePostData } from "@/schemas/GET/posts/post.schema";
 import {
   AddReactionOnPostSchema,
   type AddReactionOnPostData,
-} from "@/schemas/posts/reactions/add-reaction.schema";
+} from "@/schemas/POST/reactions/add-reaction.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";

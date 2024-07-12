@@ -1,5 +1,5 @@
 import { useModalRouter } from "@/hooks/useModalRouter";
-import type { ShowOrganizationData } from "@/schemas/organizations/organization-profile.schema";
+import type { ShowOrganizationData } from "@/schemas/GET/organizations/organization-profile.schema";
 import { FlatList, Image, Pressable, View } from "react-native";
 
 type MembersProps = { data: ShowOrganizationData["members"] | undefined };

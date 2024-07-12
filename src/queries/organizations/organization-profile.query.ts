@@ -1,6 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
-import { ShowOrganization } from "@/schemas/organizations/organization-profile.schema";
+import { ShowOrganization } from "@/schemas/GET/organizations/organization-profile.schema";
 
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {

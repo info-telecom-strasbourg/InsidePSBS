@@ -1,6 +1,6 @@
 import type { InfiniteFlashListProps } from "@/components/primitives/infinite-flashlist";
 import InfiniteFlashList from "@/components/primitives/infinite-flashlist";
-import type { CommentsData } from "@/schemas/posts/comments.schema";
+import type { CommentsData } from "@/schemas/GET/posts/comments.schema";
 
 export const Comments = ({
   data,

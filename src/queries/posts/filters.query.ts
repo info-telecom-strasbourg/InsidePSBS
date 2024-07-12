@@ -1,6 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
-import { CategoriesSchema } from "@/schemas/posts/categories.schema";
+import { CategoriesSchema } from "@/schemas/GET/posts/categories.schema";
 import { z } from "zod";
 
 const fetcher = async (url: string, token: string | null) => {

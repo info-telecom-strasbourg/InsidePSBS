@@ -1,5 +1,5 @@
 import { Typography } from "@/components/primitives/typography";
-import type { CategoriesData } from "@/schemas/posts/categories.schema";
+import type { CategoriesData } from "@/schemas/GET/posts/categories.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";

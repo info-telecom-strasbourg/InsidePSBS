@@ -1,10 +1,10 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetchInfinite } from "@/hooks/useFetchInfinite";
-import type { PostsData } from "@/schemas/posts/post.schema";
-import { PostsSchema } from "@/schemas/posts/post.schema";
+import type { PostsData } from "@/schemas/GET/posts/post.schema";
+import { PostsSchema } from "@/schemas/GET/posts/post.schema";
 import { z } from "zod";
 
-const fetcher = async (url: string, token: string) => {
+export const postsFetcher = async (url: string, token: string) => {
   try {
     const res = await fetch(url, {
       headers: {
@@ -44,7 +44,7 @@ export const usePosts = (selectedId: number, searchPhrase: string) => {
   const res = useFetchInfinite<PostsData["data"]>(
     (pageIndex, previousPageData) =>
       getKey(pageIndex, previousPageData, selectedId, searchPhrase),
-    (url) => fetcher(url, token || ""),
+    (url) => postsFetcher(url, token || ""),
     { initialSize: 2 }
   );
 
