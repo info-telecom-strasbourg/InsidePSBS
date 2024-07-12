@@ -133,11 +133,11 @@ const CreatePostPage = () => {
   const animatedPosition = useSharedValue<number>(0);
 
   const storePost = async (
-    postBody: StorePostData["body"],
+    postBody: string,
     organizationId: number | null,
     uploadedAt: string | null
   ) => {
-    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/contents`;
+    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/contents`;
     const response = await postQuery<StorePostData>(
       url,
       token,
@@ -209,7 +209,7 @@ const CreatePostPage = () => {
           <TouchableOpacity
             onPress={async () => {
               const test = await editor.getText();
-              const post = await editor.getJSON();
+              // const post = await editor.getJSON();
               if (!test) setModalOpen(true);
               else {
                 Keyboard.dismiss();
@@ -288,6 +288,21 @@ const CreatePostPage = () => {
               })
             )}
           </View>
+          <TouchableOpacity
+            className="rounded-full bg-primary p-4"
+            onPress={async () => {
+              const post = await editor.getJSON();
+              storePost(JSON.stringify(post), null, null);
+            }}
+          >
+            <Typography
+              size="h3"
+              fontWeight="bold"
+              className="text-center text-white"
+            >
+              Publier
+            </Typography>
+          </TouchableOpacity>
         </BottomSheetView>
       </BottomSheetModal>
     </BottomSheetModalProvider>

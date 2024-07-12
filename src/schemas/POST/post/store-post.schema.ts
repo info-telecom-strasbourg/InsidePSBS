@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const PostBodySchema = z.object({
+export const PostBodySchema = z.object({
   type: z.string(),
   content: z.array(
     // Chaque élément du tableau est un objet qui représente une ligne de l'input
@@ -19,9 +19,10 @@ const PostBodySchema = z.object({
 
 export const StorePostSchema = z.object({
   create_post: z.number(),
-  body: PostBodySchema,
+  body: z.string(),
   organization_id: z.number().nullable(),
   uploaded_at: z.string().nullable(),
 });
 
 export type StorePostData = z.infer<typeof StorePostSchema>;
+export type PostBodyData = z.infer<typeof PostBodySchema>;

@@ -12,7 +12,7 @@ export const UserProfileSchema = z.object({
     created_at: z.string(),
     updated_at: z.string(),
     sector: z.string(),
-    birth_date: z.string(),
+    birth_date: z.string().nullable(),
   }),
 });
 

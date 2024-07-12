@@ -33,7 +33,7 @@ const getKey = (
   if (previousPageData && !previousPageData.length) return null;
   return `${
     process.env.EXPO_PUBLIC_API_URL
-  }/api/post?category_id=${selectedId}&search=${searchPhrase}&per_page=10&page=${
+  }/api/post?category_id[]=${selectedId}&search=${searchPhrase}&per_page=10&page=${
     pageIndex + 1
   }`;
 };

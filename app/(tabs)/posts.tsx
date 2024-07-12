@@ -22,6 +22,7 @@ const RenderPosts = ({
   postsAreLoading: boolean;
 }) => {
   const modalRouter = useModalRouter();
+
   return (
     <TouchableOpacity
       onPress={() => modalRouter.open(`/post/${item?.id}`)}

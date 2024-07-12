@@ -1,10 +1,12 @@
 import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
+import { PostParser } from "@/components/primitives/post-parser";
 import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { useReactionType } from "@/queries/posts/one-post.query";
 import { type SinglePostData } from "@/schemas/GET/posts/post.schema";
+import { PostBodySchema } from "@/schemas/POST/post/store-post.schema";
 import {
   AddReactionOnPostSchema,
   type AddReactionOnPostData,
@@ -87,7 +89,8 @@ export const Post = ({
         >
           <Image
             source={{ uri: item.author.logo_url || undefined }}
-            className="size-20"
+            className="size-20 rounded-full"
+            resizeMode="contain"
           />
         </TouchableOpacity>
         <View className="ml-2 flex-col">
@@ -103,7 +106,9 @@ export const Post = ({
           </Typography>
         </View>
       </View>
-      <Typography size={bodySize}>{item.body}</Typography>
+      <Typography size={bodySize}>
+        <PostParser data={PostBodySchema.safeParse(item.body).data} />
+      </Typography>
       <View className="relative mt-3 flex-row items-center">
         {reactionsVisible && (
           <View className="flex-row gap-4 bg-popover">

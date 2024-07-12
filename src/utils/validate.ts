@@ -5,8 +5,8 @@ export const validate = async <T>(
   data: T
 ) => {
   try {
-    await schema.parseAsync(data);
-    return;
+    const parsedData = await schema.safeParseAsync(data);
+    return parsedData.data;
   } catch (error) {
     if (error instanceof z.ZodError) {
       error = error.issues.map((e) => ({

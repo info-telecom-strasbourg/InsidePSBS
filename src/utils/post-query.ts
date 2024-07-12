@@ -8,10 +8,10 @@ export const postQuery = async <T>(
   schema: z.AnyZodObject | z.ZodOptional<z.AnyZodObject>
 ) => {
   try {
-    validate<T>(schema, data);
+    const parsedData = await validate<T>(schema, data);
     const res = await fetch(url, {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(parsedData),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
