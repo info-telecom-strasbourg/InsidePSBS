@@ -106,9 +106,7 @@ export const Post = ({
           </Typography>
         </View>
       </View>
-      <Typography size={bodySize}>
-        <PostParser data={PostBodySchema.safeParse(item.body).data} />
-      </Typography>
+      <PostParser data={PostBodySchema.safeParse(JSON.parse(item.body)).data} />
       <View className="relative mt-3 flex-row items-center">
         {reactionsVisible && (
           <View className="flex-row gap-4 bg-popover">
