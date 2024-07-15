@@ -6,7 +6,7 @@ const schema = z.object({
   id: z.number(),
   post_id: z.number().nullable(),
   title: z.string(),
-  show_date: z.boolean(),
+  show_date: z.string().nullable(),
   date_format: z.object({
     start_at_simplified: z.string(),
     end_at_simplified: z.string(),

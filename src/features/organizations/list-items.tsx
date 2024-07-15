@@ -1,6 +1,6 @@
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
-import type { OrganizationData } from "@/schemas/organizations/assos.schema";
+import type { OrganizationData } from "@/schemas/GET/organizations/organizations.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { router } from "expo-router";

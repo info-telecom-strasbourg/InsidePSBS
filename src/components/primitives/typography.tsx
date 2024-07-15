@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority";
 import type { PropsWithChildren } from "react";
 import { Text, type TextProps } from "react-native";
 
-export const typographyVariants = cva("text-foreground", {
+export const typographyVariants = cva("leading-tight text-foreground", {
   variants: {
     size: {
       h1: "text-4xl",

@@ -1,4 +1,4 @@
-export const capitalize = (str: string) => {
+export const capitalize = (str: string | undefined) => {
   if (str === undefined || str === null || str === "") {
     return "";
   }

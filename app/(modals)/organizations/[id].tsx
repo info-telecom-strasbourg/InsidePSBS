@@ -1,4 +1,3 @@
-import { PageLoading } from "@/components/page/loading";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/features/layout/header";
 import Profile from "@/features/profile/profile";
@@ -23,23 +22,19 @@ export default function AssoIdPage() {
   return (
     <PageContainer>
       <Header title="Profil" leftIcon="back" rightIcon="close" />
-      {!data || isLoading || !posts || postsAreLoading ? (
-        <PageLoading />
-      ) : (
-        <Profile
-          avatar={data.organization.logo_url}
-          handleRefresh={handleRefresh}
-          isRefreshing={isRefreshing}
-          posts={posts}
-          postsAreLoading={postsAreLoading}
-          setSize={setSize}
-          size={size}
-          socials={data.organization}
-          members={data.members}
-          subtitle={data.organization.name}
-          title={data.organization.short_name}
-        />
-      )}
+      <Profile
+        avatar={data?.organization.logo_url}
+        handleRefresh={handleRefresh}
+        isRefreshing={isRefreshing}
+        posts={posts}
+        postsAreLoading={postsAreLoading}
+        setSize={setSize}
+        size={size}
+        socials={data?.organization}
+        members={data?.members}
+        subtitle={data?.organization.name}
+        title={data?.organization.short_name}
+      />
     </PageContainer>
   );
 }

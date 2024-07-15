@@ -1,7 +1,7 @@
 import { PageContainer } from "@/components/primitives/container";
+import { Post } from "@/components/primitives/post";
 import { Header } from "@/features/layout/header";
 import { Filters } from "@/features/posts/filters";
-import { Post } from "@/features/posts/post";
 import { Search } from "@/features/posts/search";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { useFilters } from "@/queries/posts/filters.query";
@@ -14,7 +14,7 @@ import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
 
-const RenderPosts = ({
+export const RenderPosts = ({
   item,
   postsAreLoading,
 }: {

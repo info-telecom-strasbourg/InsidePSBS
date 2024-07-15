@@ -1,8 +1,8 @@
 import { PageContainer } from "@/components/primitives/container";
+import { Post } from "@/components/primitives/post";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
 import { CommentInput } from "@/features/posts/comments/comment-input";
-import { Post } from "@/features/posts/post";
 import { useComments } from "@/queries/posts/comments.query";
 import { useOnePost } from "@/queries/posts/one-post.query";
 import type { CommentsData } from "@/schemas/GET/posts/comments.schema";

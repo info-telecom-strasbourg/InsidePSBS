@@ -1,58 +1,40 @@
-import { Typography } from "@/components/primitives/typography";
+import { Order } from "@/components/primitives/order";
 import type { OrdersData } from "@/schemas/GET/fouaille/orders.schema";
-import { colors } from "@/theme/colors";
-import { useTheme } from "@/theme/theme-context";
-import { ChevronDown, TrendingUp } from "lucide-react-native";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlashList } from "@shopify/flash-list";
+import { RefreshControl } from "react-native";
 
 type OrdersProps = {
-  data: (OrdersData["data"]["orders"] | undefined)[];
+  data: (OrdersData["data"]["orders"] | undefined)[] | undefined;
   size: number;
   setSize: (size: number) => void;
+  isRefreshing: boolean;
+  handleRefresh: () => void;
 };
 
-const Orders = ({ data, size, setSize }: OrdersProps) => {
-  const { theme } = useTheme();
+const Orders = ({
+  data,
+  size,
+  setSize,
+  isRefreshing,
+  handleRefresh,
+}: OrdersProps) => {
+  const orders = data ? data.flat() : [];
+
+  const loadMore = () => {
+    setSize(size + 1);
+  };
   return (
-    <>
-      <FlatList
-        data={data}
-        onEndReached={() => setSize(size + 1)}
-        onEndReachedThreshold={0.4}
-        scrollEnabled={false}
-        renderItem={({ item }) => (
-          <View className="gap-3">
-            {item?.map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                className="mx-2 rounded-2xl bg-popover p-4"
-                // onPress={() => modalRouter.open(`/post/${item.id}`)}
-              >
-                {item.product === null ? (
-                  <View className="flex-row items-center gap-5">
-                    <TrendingUp className="size-24" color={colors.green} />
-                    <View>
-                      <Typography size="h5" fontWeight="semibold">
-                        Rechargement
-                      </Typography>
-                      <Typography className="text-green">
-                        {item.total_price}
-                      </Typography>
-                    </View>
-                    <View className="absolute right-2">
-                      <ChevronDown
-                        className="size-24"
-                        color={colors[theme].foreground}
-                      />
-                    </View>
-                  </View>
-                ) : null}
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
-      />
-    </>
+    <FlashList<OrdersData["data"]["orders"][0] | undefined>
+      data={orders}
+      onEndReached={loadMore}
+      onEndReachedThreshold={3}
+      estimatedItemSize={50}
+      showsVerticalScrollIndicator={false}
+      renderItem={({ item }) => <Order order={item} />}
+      refreshControl={
+        <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+      }
+    />
   );
 };
 

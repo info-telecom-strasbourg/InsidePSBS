@@ -1,11 +1,10 @@
 import { Typography } from "@/components/primitives/typography";
-import { useModalRouter } from "@/hooks/useModalRouter";
 import type { ShowOrganizationData } from "@/schemas/GET/organizations/organization-profile.schema";
 import type { PostsData } from "@/schemas/GET/posts/post.schema";
-import { FlashList, type ListRenderItem } from "@shopify/flash-list";
-import { RefreshControl, TouchableOpacity, View } from "react-native";
+import { FlashList } from "@shopify/flash-list";
+import { RefreshControl, View } from "react-native";
+import { RenderPosts } from "../../../app/(tabs)/posts";
 import Members from "../organizations/members";
-import { Post } from "../posts/post";
 import Hero from "./hero";
 import { Socials } from "./socials";
 
@@ -18,35 +17,14 @@ type ProfileProps = {
   size: number;
   setSize: (size: number) => void;
   avatar: string | undefined;
-  title: string;
-  subtitle: string;
+  title: string | undefined;
+  subtitle: string | undefined;
   socials?: ShowOrganizationData["organization"];
   members?: ShowOrganizationData["members"] | undefined;
 };
 
-const Profile = (props: ProfileProps) => {
-  const modalRouter = useModalRouter();
-
-  const renderOrganizationPosts: ListRenderItem<
-    PostsData["data"] | undefined
-  > = ({ item }) => (
-    <View className="gap-4">
-      {item?.map((item) => (
-        <TouchableOpacity
-          key={item.id}
-          onPress={() => modalRouter.open(`/post/${item.id}`)}
-        >
-          <Post
-            item={item}
-            isLoading={props.postsAreLoading}
-            postId={item.id}
-          />
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
-
-  const HeaderComp = () => (
+const HeaderComp = (props: ProfileProps) => {
+  return (
     <View className="mb-4 gap-4">
       <Hero
         avatar={props.avatar}
@@ -65,29 +43,40 @@ const Profile = (props: ProfileProps) => {
       <Typography size="h2" fontWeight="medium">
         Publications
       </Typography>
-    </View>
-  );
-  return (
-    <>
-      <HeaderComp />
-      {props.posts?.length === 0 ? (
+      {props.posts?.[0]?.length === 0 && (
         <Typography size="h3" className="text-center">
           Cet utilisateur n'a pas de publications
         </Typography>
-      ) : (
-        <FlashList<PostsData["data"] | undefined>
-          data={props.posts}
-          refreshControl={
-            <RefreshControl
-              refreshing={props.isRefreshing}
-              onRefresh={props.handleRefresh}
-            />
-          }
-          renderItem={renderOrganizationPosts}
-          estimatedItemSize={100}
-        />
       )}
-    </>
+    </View>
+  );
+};
+
+const Profile = (props: ProfileProps) => {
+  const items = props.posts ? props.posts.flat() : [];
+
+  const loadMore = () => {
+    props.setSize(props.size + 1);
+  };
+
+  return (
+    <FlashList<PostsData["data"][0] | undefined>
+      data={items}
+      ListHeaderComponent={<HeaderComp {...props} />}
+      onEndReached={loadMore}
+      onEndReachedThreshold={5}
+      renderItem={({ item }) => (
+        <RenderPosts item={item} postsAreLoading={props.postsAreLoading} />
+      )}
+      showsVerticalScrollIndicator={false}
+      estimatedItemSize={100}
+      refreshControl={
+        <RefreshControl
+          refreshing={props.isRefreshing}
+          onRefresh={props.handleRefresh}
+        />
+      }
+    />
   );
 };
 

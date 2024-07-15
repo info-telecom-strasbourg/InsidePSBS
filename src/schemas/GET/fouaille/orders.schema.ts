@@ -5,6 +5,7 @@ export const OrdersSchema = z.object({
     orders: z.array(
       z.object({
         date: z.string(),
+        actual_balance: z.number(),
         total_price: z.string(),
         amount: z.number(),
         product: z

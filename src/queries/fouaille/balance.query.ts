@@ -1,22 +1,26 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
 import { FouailleBalanceSchema } from "@/schemas/GET/fouaille/balance.schema";
+import { z } from "zod";
 
 export const balanceFetcher = async (url: string, token: string) => {
-  const res = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  const parsedData = FouailleBalanceSchema.safeParse(data);
-  if (!parsedData.success) {
-    parsedData.error.issues.map((issue) => {
-      console.error(`${issue.message} -- ON -- ${issue.path}`);
+  try {
+    const res = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
+    const data = await res.json();
+    const parsedData = FouailleBalanceSchema.safeParse(data);
+    return parsedData.data?.data;
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      error.issues.map((e) => ({ path: e.path, message: e.message }));
+      console.error(error);
+    }
+    console.error(error);
   }
-  return parsedData.data?.data;
 };
 
 export const useBalance = () => {

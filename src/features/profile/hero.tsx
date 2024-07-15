@@ -15,11 +15,14 @@ const Hero = ({ avatar, title, subtitle }: HeroProps) => {
         className="size-24"
         style={{ borderRadius: 100000 }}
       />
-      <View className="justify-center gap-1 text-wrap">
+      <View className="flex-1 justify-center gap-1">
         <Typography size="h2" fontWeight="semibold">
           {title}
         </Typography>
-        <Typography size="h3" className="text-muted-foreground">
+        <Typography
+          size="h3"
+          className="mr-2 line-clamp-1 text-muted-foreground"
+        >
           {subtitle}
         </Typography>
       </View>

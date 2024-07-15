@@ -12,7 +12,6 @@ const CustomModal = ({ isOpen, setIsOpen, children, ...props }: Props) => {
       visible={isOpen}
       transparent
       animationType="slide"
-      statusBarTranslucent
       hardwareAccelerated
       onRequestClose={() => setIsOpen(false)}
     >

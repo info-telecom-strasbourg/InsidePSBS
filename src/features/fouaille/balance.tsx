@@ -5,19 +5,25 @@ import { useTheme } from "@/theme/theme-context";
 import { Nfc } from "lucide-react-native";
 import { View } from "react-native";
 
-const Balance = ({ data }: { data: FouailleBalanceData["data"] }) => {
+const Balance = ({
+  data,
+  isLoading,
+}: {
+  data: FouailleBalanceData["data"] | undefined;
+  isLoading: boolean;
+}) => {
   const { theme } = useTheme();
   return (
-    <View className="mx-2 flex-1 flex-row items-center justify-between rounded-2xl border border-muted-foreground bg-popover p-8">
+    <View className="mx-2 mb-6 flex-row items-center justify-between rounded-2xl border border-muted-foreground bg-popover p-8">
       <View className="flex-1 gap-4">
         <Typography size="h4" className="text-muted-foreground">
           Carte Fouaille
         </Typography>
         <Typography size="h1" fontWeight="bold">
-          {data.balance}€
+          {data?.balance}€
         </Typography>
         <Typography size="h3" fontWeight="semibold">
-          {`${data.first_name} ${data.last_name}`}
+          {`${data?.first_name} ${data?.last_name}`}
         </Typography>
       </View>
       <View>
