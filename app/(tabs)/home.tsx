@@ -123,7 +123,11 @@ export default function HomePage() {
 
   return (
     <PageContainer className="bg-background">
-      <Header title="InsidePSBS" leftIcon="inside-psbs" rightIcon="settings" />
+      <Header
+        title="InsidePSBS"
+        leftIcon="inside-psbs"
+        rightIcon="notifications"
+      />
       <RefreshView
         className="flex-1"
         handleRefresh={handleRefresh}

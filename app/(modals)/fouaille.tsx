@@ -6,14 +6,7 @@ import { useBalance } from "@/queries/fouaille/balance.query";
 import { useOrders } from "@/queries/fouaille/orders.query";
 
 export default function FouaillePage() {
-  const {
-    data: balanceData,
-    isLoading: balanceIsLoading,
-    isRefreshing,
-    handleRefresh,
-  } = useBalance();
-
-  console.log(balanceData);
+  const { data: balanceData, isLoading: balanceIsLoading } = useBalance();
 
   const {
     data: ordersData,
@@ -21,6 +14,8 @@ export default function FouaillePage() {
     error: ordersError,
     size,
     setSize,
+    isRefreshing,
+    handleRefresh,
   } = useOrders();
 
   return (

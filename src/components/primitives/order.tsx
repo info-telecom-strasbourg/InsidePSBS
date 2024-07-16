@@ -3,12 +3,15 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { capitalize } from "@/utils/capitalize";
 import {
-  Beef,
   Beer,
+  Candy,
   ChevronDown,
   GlassWater,
+  Martini,
+  PiggyBank,
   TrendingUp,
   Utensils,
+  Wine,
 } from "lucide-react-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -18,16 +21,20 @@ const orderIcon = (
   product: OrdersData["data"]["orders"][0]["product"] | undefined
 ) => {
   switch (product?.type) {
-    case "Soirée":
+    case "afterwork":
       return Beer;
-    case "CharcutFromage":
-      return Beef;
-    case "Shots":
+    case "shot":
       return GlassWater;
-    case "Midi":
+    case "repas":
       return Utensils;
+    case "gouter":
+      return Candy;
+    case "oeno":
+      return Wine;
+    case "soiree":
+      return Martini;
     default:
-      return TrendingUp;
+      return PiggyBank;
   }
 };
 
@@ -61,7 +68,7 @@ export const Order = ({
                   fontSize: 12,
                 }}
               >
-                - {order?.total_price}€
+                {order?.total_price}€
               </Text>
             </View>
           </>
@@ -88,16 +95,23 @@ export const Order = ({
           <ChevronDown size={24} color={colors[theme].foreground} />
         </View>
       </View>
-      {isOpened && order?.product && (
-        <View className="ml-11 mt-4 flex-row items-center justify-between">
-          <Typography fontWeight="semibold">
-            {order?.amount}x {order?.product?.type}
-          </Typography>
-          <Typography className="text-muted-foreground" size="sm">
-            {order.date}
-          </Typography>
-        </View>
-      )}
+      {isOpened &&
+        (order?.product ? (
+          <View className="ml-11 mt-4 flex-row items-center justify-between">
+            <Typography fontWeight="semibold">
+              {order?.amount}x {order?.product?.type}
+            </Typography>
+            <Typography className="text-muted-foreground" size="sm">
+              {order?.date_format}
+            </Typography>
+          </View>
+        ) : (
+          <View className="ml-11 mt-4 flex-row items-center justify-end">
+            <Typography className="text-muted-foreground" size="sm">
+              {order?.date_format}
+            </Typography>
+          </View>
+        ))}
     </TouchableOpacity>
   );
 };

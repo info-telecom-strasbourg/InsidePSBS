@@ -4,12 +4,12 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { useRouter } from "expo-router";
-import { Bolt, ChevronLeft, X } from "lucide-react-native";
+import { Bell, ChevronLeft, X } from "lucide-react-native";
 import { Image, TouchableOpacity, View } from "react-native";
 
 export type HeaderProps = {
   leftIcon?: "inside-psbs" | "back";
-  rightIcon?: "settings" | "close";
+  rightIcon?: "notifications" | "close";
   title: string;
 };
 
@@ -44,12 +44,12 @@ export const Header = ({ rightIcon, title, leftIcon }: HeaderProps) => {
           <X size={32} color={colors[theme].foreground} />
         </TouchableOpacity>
       )}
-      {rightIcon === "settings" && (
+      {rightIcon === "notifications" && (
         <TouchableOpacity
           onPress={() => modalRouter.open(routes.settings)}
           className="p-2"
         >
-          <Bolt size={32} color={colors[theme].foreground} />
+          <Bell size={32} color={colors[theme].foreground} />
         </TouchableOpacity>
       )}
     </View>

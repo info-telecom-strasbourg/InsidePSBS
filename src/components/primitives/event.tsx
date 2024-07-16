@@ -19,42 +19,117 @@ export const Event = ({
   const modalRouter = useModalRouter();
   return (
     <View className="mb-6 flex-1 flex-row gap-3 text-wrap rounded-2xl bg-popover p-3">
-      <Skeleton.Group show={true}>
-        <View
-          className="w-1 rounded-full"
-          style={{ backgroundColor: item?.color }}
-        ></View>
-        <View>
-          <View className="w-full flex-row items-center justify-between gap-4 pr-6">
-            <View className="flex-row items-center gap-3">
-              <Skeleton colorMode={theme}>
-                <TouchableOpacity
-                  onPress={() =>
-                    modalRouter.open(`/organizations/${item?.author.id}`)
-                  }
+      <View
+        className="w-1 rounded-full"
+        style={{ backgroundColor: item?.color }}
+      ></View>
+      <View>
+        <View className="w-full flex-row items-center justify-between gap-4 pr-6">
+          <View className="flex-row items-center gap-3">
+            <TouchableOpacity
+              onPress={() =>
+                modalRouter.open(`/organizations/${item?.author.id}`)
+              }
+            >
+              <Image
+                source={{ uri: item?.author.logo_url || undefined }}
+                className="size-12"
+              />
+            </TouchableOpacity>
+
+            <Typography size="h5" fontWeight="semibold">
+              {item?.author.short_name}
+            </Typography>
+          </View>
+
+          <Typography
+            size="p"
+            className="rounded-full px-3 py-1 text-white"
+            style={{
+              backgroundColor: item?.color,
+              fontFamily: "SpaceGrotesk-semibold",
+            }}
+          >
+            {capitalize(item?.date_format.date)}
+          </Typography>
+        </View>
+        <View className="gap-3">
+          <Text
+            style={{
+              color: item?.color,
+              fontFamily: "SpaceGrotesk-semibold",
+              fontSize: 22,
+            }}
+          >
+            {item?.title}
+          </Text>
+
+          <View className="flex-row items-center gap-2">
+            <>
+              <Clock color={colors[theme].foreground} size={20} />
+              <Typography
+                size="sm"
+                className="text-muted-foreground"
+                fontWeight="semibold"
+              >
+                {item?.date_format.start_at_simplified} -{" "}
+                {item?.date_format.end_at_simplified}
+              </Typography>
+            </>
+          </View>
+          <View className="w-full flex-row items-center justify-between">
+            <View className="flex-row items-center gap-2">
+              <>
+                <Map color={colors[theme].foreground} size={20} />
+                <Typography
+                  size="sm"
+                  className="text-muted-foreground"
+                  fontWeight="semibold"
                 >
-                  <Image
-                    source={{ uri: item?.author.logo_url || undefined }}
-                    className="size-12"
-                  />
-                </TouchableOpacity>
-              </Skeleton>
-              <Skeleton colorMode={theme}>
-                <Typography size="h5" fontWeight="semibold">
-                  {item?.author.short_name}
+                  {item?.location}
                 </Typography>
+              </>
+            </View>
+            {item?.post_id ? (
+              <TouchableOpacity
+                className="mr-6"
+                onPress={() => modalRouter.open(`/post/${item?.post_id}`)}
+              >
+                <Forward color={colors[theme].foreground} size={24} />
+              </TouchableOpacity>
+            ) : null}
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export const SkeletonEvent = () => {
+  const { theme } = useTheme();
+  return (
+    <View className="mb-6 flex-1 flex-row gap-3 text-wrap rounded-2xl bg-popover p-3">
+      <Skeleton.Group show={true}>
+        <View>
+          <View className="mb-3 w-full flex-row items-center justify-between gap-4 pr-6">
+            <View className="flex-row items-center gap-3">
+              <Skeleton colorMode={theme} radius="round">
+                <Image
+                  source={{ uri: undefined }}
+                  className="size-12 rounded-full"
+                  resizeMode="contain"
+                />
+              </Skeleton>
+              <Skeleton colorMode={theme} height={30}>
+                <Typography size="h5">Placeholder</Typography>
               </Skeleton>
             </View>
-            <Skeleton colorMode={theme}>
+            <Skeleton colorMode={theme} height={30}>
               <Typography
                 size="p"
                 className="rounded-full px-3 py-1 text-white"
-                style={{
-                  backgroundColor: item?.color,
-                  fontFamily: "SpaceGrotesk-semibold",
-                }}
               >
-                {capitalize(item?.date_format.date)}
+                Placeholder
               </Typography>
             </Skeleton>
           </View>
@@ -62,16 +137,14 @@ export const Event = ({
             <Skeleton colorMode={theme}>
               <Text
                 style={{
-                  color: item?.color,
-                  fontFamily: "SpaceGrotesk-semibold",
                   fontSize: 22,
                 }}
               >
-                {item?.title}
+                Placeholder
               </Text>
             </Skeleton>
             <View className="flex-row items-center gap-2">
-              <Skeleton colorMode={theme}>
+              <Skeleton colorMode={theme} width={200}>
                 <>
                   <Clock color={colors[theme].foreground} size={20} />
                   <Typography
@@ -79,15 +152,14 @@ export const Event = ({
                     className="text-muted-foreground"
                     fontWeight="semibold"
                   >
-                    {item?.date_format.start_at_simplified} -{" "}
-                    {item?.date_format.end_at_simplified}
+                    Placeholder
                   </Typography>
                 </>
               </Skeleton>
             </View>
             <View className="w-full flex-row items-center justify-between">
               <View className="flex-row items-center gap-2">
-                <Skeleton colorMode={theme}>
+                <Skeleton colorMode={theme} width={200}>
                   <>
                     <Map color={colors[theme].foreground} size={20} />
                     <Typography
@@ -95,19 +167,11 @@ export const Event = ({
                       className="text-muted-foreground"
                       fontWeight="semibold"
                     >
-                      {item?.location}
+                      Placeholder
                     </Typography>
                   </>
                 </Skeleton>
               </View>
-              {item?.post_id ? (
-                <TouchableOpacity
-                  className="mr-6"
-                  onPress={() => modalRouter.open(`/post/${item?.post_id}`)}
-                >
-                  <Forward color={colors[theme].foreground} size={24} />
-                </TouchableOpacity>
-              ) : null}
             </View>
           </View>
         </View>

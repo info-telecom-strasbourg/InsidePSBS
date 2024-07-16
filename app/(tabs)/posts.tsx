@@ -1,5 +1,5 @@
 import { PageContainer } from "@/components/primitives/container";
-import { Post } from "@/components/primitives/post";
+import { Post, SkeletonPost } from "@/components/primitives/post";
 import { Header } from "@/features/layout/header";
 import { Filters } from "@/features/posts/filters";
 import { Search } from "@/features/posts/search";
@@ -78,7 +78,7 @@ export default function InfiniteScrollList() {
     <PageContainer>
       <Header
         title="Publications"
-        rightIcon="settings"
+        rightIcon="notifications"
         leftIcon="inside-psbs"
       />
       <View className="mb-4">
@@ -102,6 +102,14 @@ export default function InfiniteScrollList() {
         estimatedItemSize={200}
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+        }
+        ListEmptyComponent={
+          <View className="mb-4 gap-4">
+            <SkeletonPost />
+            <SkeletonPost />
+            <SkeletonPost />
+            <SkeletonPost />
+          </View>
         }
       />
     </PageContainer>
