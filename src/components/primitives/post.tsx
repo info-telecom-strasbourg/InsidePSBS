@@ -4,6 +4,7 @@ import { Typography } from "@/components/primitives/typography";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { useReactionType } from "@/queries/posts/one-post.query";
 import { type SinglePostData } from "@/schemas/GET/posts/post.schema";
+import { PostBodySchema } from "@/schemas/POST/post/store-post.schema";
 import {
   AddReactionOnPostSchema,
   type AddReactionOnPostData,
@@ -13,11 +14,13 @@ import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import { postQuery } from "@/utils/post-query";
 import type { VariantProps } from "class-variance-authority";
+import * as VideoThumbnails from "expo-video-thumbnails";
 import { Heart, MessageCircle } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useState, type PropsWithChildren } from "react";
+import { useEffect, useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { Image, TouchableOpacity, View } from "react-native";
+import { PostParser } from "./post-parser";
 
 export type SinglePostProps = PropsWithChildren<
   {
@@ -30,6 +33,48 @@ export type SinglePostProps = PropsWithChildren<
     bodySize?: VariantProps<typeof typographyVariants>["size"];
   } & ViewProps
 >;
+
+const generateThumbnail = async ({ mediaURL }: { mediaURL: string }) => {
+  try {
+    const { uri } = await VideoThumbnails.getThumbnailAsync(mediaURL, {
+      time: 3000,
+      quality: 1,
+    });
+    return uri;
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+const MediaElement = ({
+  media,
+}: {
+  media: SinglePostData["data"]["medias"][0];
+}) => {
+  const [thumbnailUri, setThumbnailUri] = useState<string | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    const fetchThumbnail = async () => {
+      if (media.type === "video") {
+        const uri = await generateThumbnail({ mediaURL: media.url });
+        setThumbnailUri(uri);
+      }
+    };
+
+    fetchThumbnail();
+  }, [media]);
+
+  if (media.type === "image" || thumbnailUri) {
+    const uri = media.type === "image" ? media.url : thumbnailUri;
+    return (
+      <Image source={{ uri }} resizeMode="cover" className="h-28 w-full" />
+    );
+  }
+
+  return null;
+};
 
 export const Post = ({
   item,
@@ -85,7 +130,7 @@ export const Post = ({
           <Image
             source={{ uri: item?.author.logo_url || undefined }}
             className="size-20 rounded-full"
-            resizeMode="contain"
+            resizeMode="cover"
           />
         </TouchableOpacity>
         <View className="ml-2 flex-col">
@@ -103,12 +148,24 @@ export const Post = ({
           </>
         </View>
       </View>
-      {/* <PostParser
+
+      <PostParser
         data={PostBodySchema.safeParse(JSON.parse(item?.body || "")).data}
-      /> */}
+      />
+      <View className="mt-4 flex-row flex-wrap items-center justify-start rounded-2xl">
+        {item?.medias
+          ? item.medias.map((media, index) => {
+              return (
+                <View key={index} style={{ width: "50%" }}>
+                  <MediaElement key={index} media={media} />
+                </View>
+              );
+            })
+          : null}
+      </View>
 
       <View className="relative mt-3 flex-row items-center">
-        {reactionsVisible && (
+        {reactionsVisible ? (
           <View className="absolute -left-3 -top-20 flex-row items-center justify-center gap-4 rounded-2xl border-2 border-muted bg-popover p-3">
             {reactions?.map((r, index) => {
               return (
@@ -124,7 +181,7 @@ export const Post = ({
               );
             })}
           </View>
-        )}
+        ) : null}
         <TouchableOpacity
           onPress={
             () => (reaction ? storeReaction(reaction.id) : storeReaction(1)) // 1 is the ID for the heart reaction, the default one
@@ -172,13 +229,7 @@ export const SkeletonPost = () => {
         <>
           <View className="mb-4 flex-row items-center justify-start gap-2">
             <Skeleton colorMode={theme} radius="round">
-              <TouchableOpacity>
-                <Image
-                  source={{ uri: undefined }}
-                  className="size-20 rounded-full"
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
+              <View className="size-20 rounded-full"></View>
             </Skeleton>
             <View className="ml-2 flex-col">
               <Skeleton colorMode={theme}>

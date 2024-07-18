@@ -3,7 +3,6 @@ import type { CategoriesData } from "@/schemas/GET/posts/categories.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
-import { FlashList } from "@shopify/flash-list";
 import {
   Bed,
   BookCheck,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { TouchableOpacity, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 export type FiltersProps = {
   data: CategoriesData["data"] | undefined;
@@ -33,29 +33,14 @@ const categories = [
 
 export const Filters = ({ data, selectedId, setSelectedId }: FiltersProps) => {
   const { theme } = useTheme();
+
   return (
-    <FlashList
-      data={data}
-      horizontal={true}
-      showsHorizontalScrollIndicator={false}
-      ListEmptyComponent={
-        <View className="flex-row gap-4">
-          <SkeletonFilters />
-          <SkeletonFilters />
-          <SkeletonFilters />
-          <SkeletonFilters />
-          <SkeletonFilters />
-          <SkeletonFilters />
-          <SkeletonFilters />
-          <SkeletonFilters />
-        </View>
-      }
-      estimatedItemSize={50}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item, index }) => {
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {data?.map((item, index) => {
         const Icon = categories[index].icon;
         return (
           <TouchableOpacity
+            key={index}
             onPress={() => {
               setSelectedId(item.id);
             }}
@@ -95,8 +80,8 @@ export const Filters = ({ data, selectedId, setSelectedId }: FiltersProps) => {
             </View>
           </TouchableOpacity>
         );
-      }}
-    />
+      })}
+    </ScrollView>
   );
 };
 

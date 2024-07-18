@@ -14,7 +14,7 @@ const PublishBottomSheet = () => {
     <>
       <TouchableOpacity
         className="flex-row items-center gap-3"
-        onPress={() => modalRouter.open(routes.create_post)}
+        onPress={() => modalRouter.open("/create/post/step1")}
       >
         <FilePlus size={32} color={colors[theme].foreground} />
         <Typography size="h3" fontWeight="semibold" className="text-foreground">

@@ -44,8 +44,7 @@ export const usePosts = (selectedId: number, searchPhrase: string) => {
   const res = useFetchInfinite<PostsData["data"]>(
     (pageIndex, previousPageData) =>
       getKey(pageIndex, previousPageData, selectedId, searchPhrase),
-    (url) => postsFetcher(url, token || ""),
-    { initialSize: 2 }
+    (url) => postsFetcher(url, token || "")
   );
 
   return res;

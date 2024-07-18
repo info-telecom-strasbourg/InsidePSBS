@@ -114,11 +114,7 @@ export const SkeletonEvent = () => {
           <View className="mb-3 w-full flex-row items-center justify-between gap-4 pr-6">
             <View className="flex-row items-center gap-3">
               <Skeleton colorMode={theme} radius="round">
-                <Image
-                  source={{ uri: undefined }}
-                  className="size-12 rounded-full"
-                  resizeMode="contain"
-                />
+                <View className="size-12 rounded-full" />
               </Skeleton>
               <Skeleton colorMode={theme} height={30}>
                 <Typography size="h5">Placeholder</Typography>

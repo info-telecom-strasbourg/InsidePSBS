@@ -23,6 +23,7 @@ export const ItsMeUserSchema = z.object({
       id: z.number(),
       name: z.string(),
       role: z.string(),
+      logo_url: z.string().url(),
     })
   ),
 });

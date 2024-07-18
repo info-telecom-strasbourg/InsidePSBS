@@ -12,8 +12,7 @@ const Hero = ({ avatar, title, subtitle }: HeroProps) => {
     <View className="flex-row items-center gap-4">
       <Image
         source={{ uri: avatar || undefined }}
-        className="size-24"
-        style={{ borderRadius: 100000 }}
+        className="size-24 rounded-full"
       />
       <View className="flex-1 justify-center gap-1">
         <Typography size="h2" fontWeight="semibold">

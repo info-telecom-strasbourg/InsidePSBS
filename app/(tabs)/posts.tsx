@@ -10,18 +10,20 @@ import type { CategoriesData } from "@/schemas/GET/posts/categories.schema";
 import type { PostsData } from "@/schemas/GET/posts/post.schema";
 import { FlashList } from "@shopify/flash-list";
 
-import { useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
 
-export const RenderPosts = ({
+export const RenderPosts = memo(function RenderPosts({
   item,
   postsAreLoading,
 }: {
   item: PostsData["data"][0] | undefined;
   postsAreLoading: boolean;
-}) => {
+}) {
   const modalRouter = useModalRouter();
+  if (!item) return null;
+  console.log("Posts Rendered");
 
   return (
     <TouchableOpacity
@@ -31,9 +33,9 @@ export const RenderPosts = ({
       <Post item={item} isLoading={postsAreLoading} postId={item?.id} />
     </TouchableOpacity>
   );
-};
+});
 
-const HeaderComponent = ({
+const HeaderComponent = memo(function HeaderComponent({
   filters,
   selectedId,
   setSelectedId,
@@ -41,7 +43,8 @@ const HeaderComponent = ({
   filters: CategoriesData["data"] | undefined;
   selectedId: number;
   setSelectedId: (selectedId: number) => void;
-}) => {
+}) {
+  console.log("Header Rendered");
   return (
     <View className="mb-4 gap-5">
       <Filters
@@ -51,11 +54,11 @@ const HeaderComponent = ({
       />
     </View>
   );
-};
+});
 
 export default function InfiniteScrollList() {
-  const [selectedId, setSelectedId] = useState(1);
-  const [searchPhrase, setSearchPhrase] = useState("");
+  const [selectedId, setSelectedId] = useState<number>(1);
+  const [searchPhrase, setSearchPhrase] = useState<string>("");
 
   const {
     data,
@@ -68,7 +71,7 @@ export default function InfiniteScrollList() {
 
   const { data: filters } = useFilters(1);
 
-  const items = data ? data.flat() : [];
+  const items = useMemo(() => (data ? data.flat() : []), [data]);
 
   const loadMore = () => {
     setSize(size + 1);
@@ -94,12 +97,12 @@ export default function InfiniteScrollList() {
           />
         }
         onEndReached={loadMore}
-        onEndReachedThreshold={5}
+        onEndReachedThreshold={1}
         renderItem={({ item }) => (
           <RenderPosts item={item} postsAreLoading={postsAreLoading} />
         )}
         showsVerticalScrollIndicator={false}
-        estimatedItemSize={200}
+        estimatedItemSize={150}
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
         }
