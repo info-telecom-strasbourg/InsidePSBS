@@ -12,6 +12,7 @@ import { useTheme } from "@/theme/theme-context";
 import { postQuery } from "@/utils/post-query";
 import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Calendar, toDateId } from "@marceloterreiro/flash-calendar";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { FlashList } from "@shopify/flash-list";
 import { format } from "date-fns";
 import { Calendar as Cal } from "lucide-react-native";
@@ -138,7 +139,11 @@ const CreatePostStep2 = () => {
   const animatedPosition = useSharedValue<number>(0);
   const snapPoints = useMemo(() => ["80%"], []);
 
-  const today = toDateId(new Date());
+  const today = new Date();
+  // console.log(format(today, "yyyy-MM-dd HH:mm:ss"));
+  const [time, setTime] = useState<Date>(today);
+  const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
+  const formattedTime = format(time, "HH:mm");
 
   const { postBody, categories, organizationId, updatePostInfo, uploadedAt } =
     useCreatePost();
@@ -164,10 +169,12 @@ const CreatePostStep2 = () => {
   };
 
   const handlePublish = async () => {
+    const timeToPublish = `${uploadedAt} ${formattedTime}`;
+    console.log(timeToPublish);
     const res = await storePost(
       JSON.stringify(postBody),
       organizationId,
-      uploadedAt
+      timeToPublish
     );
     // add categories and medias to post if needed
   };
@@ -215,6 +222,24 @@ const CreatePostStep2 = () => {
               />
             </View>
           </TouchableOpacity>
+          <Typography size="h2" fontWeight="bold" className="mb-4">
+            Heure de publication :
+          </Typography>
+          <TouchableOpacity
+            onPress={() => {
+              setShowTimePicker(true);
+            }}
+          >
+            <View className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6">
+              <Typography fontWeight="semibold">{formattedTime}</Typography>
+
+              <Cal
+                strokeWidth={1.5}
+                color={colors[theme].mutedForeground}
+                size={24}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
         <View className="rounded-full bg-primary p-4">
           <TouchableOpacity onPress={handlePublish}>
@@ -228,6 +253,18 @@ const CreatePostStep2 = () => {
           </TouchableOpacity>
         </View>
       </View>
+      {showTimePicker && (
+        <DateTimePicker
+          value={time || new Date()}
+          mode="time"
+          is24Hour={true}
+          timeZoneName="UTC+01:00"
+          onChange={(event, selectedTime) => {
+            setTime(selectedTime!);
+            setShowTimePicker(false);
+          }}
+        />
+      )}
       <BottomSheetModal
         style={{
           shadowColor: "#000000",
@@ -266,8 +303,8 @@ const CreatePostStep2 = () => {
       >
         <Calendar.List
           CalendarScrollComponent={FlashList}
-          calendarMinDateId={today}
-          calendarInitialMonthId={today}
+          calendarMinDateId={toDateId(today)}
+          calendarInitialMonthId={toDateId(today)}
           onCalendarDayPress={(dateId) => {
             updatePostInfo("uploadedAt", dateId);
           }}

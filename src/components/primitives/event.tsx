@@ -5,7 +5,7 @@ import { useTheme } from "@/theme/theme-context";
 import { capitalize } from "@/utils/capitalize";
 import { Clock, Forward, Map } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Typography } from "./typography";
 
 export const Event = ({
@@ -31,10 +31,10 @@ export const Event = ({
                 modalRouter.open(`/organizations/${item?.author.id}`)
               }
             >
-              <Image
+              {/* <Image
                 source={{ uri: item?.author.logo_url || undefined }}
                 className="size-12"
-              />
+              /> */}
             </TouchableOpacity>
 
             <Typography size="h5" fontWeight="semibold">

@@ -152,7 +152,7 @@ export const Post = ({
       <PostParser
         data={PostBodySchema.safeParse(JSON.parse(item?.body || "")).data}
       />
-      <View className="mt-4 flex-row flex-wrap items-center justify-start rounded-2xl">
+      {/* <View className="mt-4 flex-row flex-wrap items-center justify-start rounded-2xl">
         {item?.medias
           ? item.medias.map((media, index) => {
               return (
@@ -162,7 +162,7 @@ export const Post = ({
               );
             })
           : null}
-      </View>
+      </View> */}
 
       <View className="relative mt-3 flex-row items-center">
         {reactionsVisible ? (
