@@ -7,12 +7,13 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { useFilters } from "@/queries/posts/filters.query";
 import { usePosts } from "@/queries/posts/posts.query";
 import type { CategoriesData } from "@/schemas/GET/posts/categories.schema";
-import type { PostsData } from "@/schemas/GET/posts/post.schema";
+
 import { FlashList } from "@shopify/flash-list";
 
 import { memo, useMemo, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
+import type { PostsData } from "./_features/fetch/post.schema";
 
 export const RenderPosts = memo(function RenderPosts({
   item,

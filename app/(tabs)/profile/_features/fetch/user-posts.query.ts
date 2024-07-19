@@ -1,7 +1,7 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetchInfinite } from "@/hooks/useFetchInfinite";
 import type { PostsData } from "@/schemas/GET/posts/post.schema";
-import { postsFetcher } from "../posts/posts.query";
+import { postsFetcher } from "../../../../../src/queries/posts/posts.query";
 
 const getKey = (
   pageIndex: number,

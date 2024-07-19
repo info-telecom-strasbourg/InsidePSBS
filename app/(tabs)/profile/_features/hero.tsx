@@ -7,7 +7,7 @@ type HeroProps = {
   subtitle: string | undefined;
 };
 
-const Hero = ({ avatar, title, subtitle }: HeroProps) => {
+export const ProfileHero = ({ avatar, title, subtitle }: HeroProps) => {
   return (
     <View className="flex-row items-center gap-4">
       <Image
@@ -28,5 +28,3 @@ const Hero = ({ avatar, title, subtitle }: HeroProps) => {
     </View>
   );
 };
-
-export default Hero;

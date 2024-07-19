@@ -6,7 +6,7 @@ import { useTheme } from "@/theme/theme-context";
 import { CalendarPlus, CopyPlus, FilePlus } from "lucide-react-native";
 import { TouchableOpacity } from "react-native";
 
-const PublishBottomSheet = () => {
+export const PublishBottomSheet = () => {
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
 
@@ -42,5 +42,3 @@ const PublishBottomSheet = () => {
     </>
   );
 };
-
-export default PublishBottomSheet;

@@ -4,7 +4,7 @@ import { FlatList, Image, Pressable, View } from "react-native";
 
 type MembersProps = { data: ShowOrganizationData["members"] | undefined };
 
-const Members = ({ data }: MembersProps) => {
+export const Members = ({ data }: MembersProps) => {
   const modalRouter = useModalRouter();
   return (
     <View>
@@ -31,5 +31,3 @@ const Members = ({ data }: MembersProps) => {
     </View>
   );
 };
-
-export default Members;

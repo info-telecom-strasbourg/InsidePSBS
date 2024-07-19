@@ -1,8 +1,8 @@
 import { PlusButton } from "@/features/layout/plus-button";
-import PublishBottomSheet from "@/features/layout/publish-bottom-sheet";
 import { TabIcon } from "@/features/layout/tab-icon";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { PublishBottomSheet } from "@app/(tabs)/_features/publish-bottom-sheet";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
