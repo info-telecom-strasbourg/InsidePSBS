@@ -3,9 +3,9 @@ import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
-import ListItems from "@/features/organizations/list-items";
-import { Search } from "@/features/posts/search";
-import { useIndexOrganizations } from "@/queries/organizations/organizations.query";
+import { useIndexOrganizations } from "@app/(modals)/organizations/_features/fetch/organizations.query";
+import { ListItems } from "@app/(modals)/organizations/_features/list-items";
+import { Search } from "@app/(tabs)/posts/_features/search";
 import { useState } from "react";
 import { View } from "react-native";
 

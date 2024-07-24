@@ -3,19 +3,27 @@ import type { ShowOrganizationData } from "@app/(modals)/organizations/_features
 import { Members } from "@app/(modals)/organizations/_features/members";
 import { Socials } from "@app/(modals)/organizations/_features/socials";
 import type { PostsData } from "@app/(tabs)/posts/_features/fetch/post.schema";
-import { View } from "react-native";
+import { RenderPosts } from "@app/(tabs)/posts/_features/render-posts";
+import { FlashList } from "@shopify/flash-list";
+import { RefreshControl, View } from "react-native";
 import { ProfileHero } from "./hero";
 
 type ProfileProps = {
+  posts: (PostsData["data"] | undefined)[] | undefined;
+  isRefreshing: boolean;
+  handleRefresh: () => void;
+  postsAreLoading: boolean;
+  postsError?: Error;
+  size: number;
+  setSize: (size: number) => void;
   avatar: string | undefined;
   title: string | undefined;
   subtitle: string | undefined;
   socials?: ShowOrganizationData["organization"];
   members?: ShowOrganizationData["members"] | undefined;
-  posts: (PostsData["data"] | undefined)[] | undefined;
 };
 
-export const ProfileHeader = (props: ProfileProps) => {
+const HeaderComp = (props: ProfileProps) => {
   return (
     <View className="mb-4 gap-4">
       <ProfileHero
@@ -41,5 +49,33 @@ export const ProfileHeader = (props: ProfileProps) => {
         </Typography>
       )}
     </View>
+  );
+};
+
+export const Profile = (props: ProfileProps) => {
+  const items = props.posts ? props.posts.flat() : [];
+
+  const loadMore = () => {
+    props.setSize(props.size + 1);
+  };
+
+  return (
+    <FlashList<PostsData["data"][0] | undefined>
+      data={items}
+      ListHeaderComponent={<HeaderComp {...props} />}
+      onEndReached={loadMore}
+      onEndReachedThreshold={5}
+      renderItem={({ item }) => (
+        <RenderPosts item={item} postsAreLoading={props.postsAreLoading} />
+      )}
+      showsVerticalScrollIndicator={false}
+      estimatedItemSize={100}
+      refreshControl={
+        <RefreshControl
+          refreshing={props.isRefreshing}
+          onRefresh={props.handleRefresh}
+        />
+      }
+    />
   );
 };

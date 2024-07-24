@@ -1,8 +1,8 @@
-import { PlusButton } from "@/features/layout/plus-button";
-import { TabIcon } from "@/features/layout/tab-icon";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { PlusButton } from "@app/(tabs)/_features/plus-button";
 import { PublishBottomSheet } from "@app/(tabs)/_features/publish-bottom-sheet";
+import { TabIcon } from "@app/(tabs)/_features/tab-icon";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -53,7 +53,7 @@ export default function TabsLayout() {
           }}
         >
           <Tabs.Screen
-            name="home"
+            name="home/index"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
@@ -62,7 +62,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="calendar"
+            name="calendar/index"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
@@ -71,7 +71,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="create"
+            name="create/index"
             options={{
               headerShown: false,
               tabBarButton: () => (
@@ -87,7 +87,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="posts"
+            name="posts/index"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
@@ -100,7 +100,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="profile"
+            name="profile/index"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (

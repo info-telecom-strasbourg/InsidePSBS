@@ -1,12 +1,12 @@
 import { PageContainer } from "@/components/primitives/container";
-import { Post } from "@/components/primitives/post";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
-import { CommentInput } from "@/features/posts/comments/comment-input";
-import { useComments } from "@/queries/posts/comments.query";
-import { useOnePost } from "@/queries/posts/one-post.query";
-import type { CommentsData } from "@/schemas/GET/posts/comments.schema";
-import type { SinglePostData } from "@/schemas/GET/posts/post.schema";
+import { CommentInput } from "@app/(modals)/post/_features/comment-input";
+import { useComments } from "@app/(modals)/post/_features/fetch/comments.query";
+import type { CommentsData } from "@app/(modals)/post/_features/fetch/comments.schema";
+import { useOnePost } from "@app/(modals)/post/_features/fetch/one-post.query";
+import type { SinglePostData } from "@app/(tabs)/posts/_features/fetch/post.schema";
+import { Post } from "@app/(tabs)/posts/_features/post";
 import { FlashList, type ListRenderItem } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
 import { Image, KeyboardAvoidingView, View } from "react-native";

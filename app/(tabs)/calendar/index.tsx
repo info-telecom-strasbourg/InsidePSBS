@@ -1,11 +1,11 @@
 import { PageContainer } from "@/components/primitives/container";
-import Event, { SkeletonEvent } from "@/components/primitives/event";
 import { Typography } from "@/components/primitives/typography";
 import { Header } from "@/features/layout/header";
-import { useCalendar } from "@/queries/events/calendar.query";
 import { capitalize } from "@/utils/capitalize";
 import type { DailyEvents } from "@/utils/daily-events";
 import { generateDailyEvents } from "@/utils/daily-events";
+import { Event, SkeletonEvent } from "@app/(tabs)/calendar/_features/event";
+import { useCalendar } from "@app/(tabs)/calendar/_features/fetch/calendar.query";
 import { FlashList } from "@shopify/flash-list";
 import { View } from "react-native";
 

@@ -6,7 +6,12 @@ type Props = ModalProps & {
   setIsOpen: (isOpen: boolean) => void;
 };
 
-const CustomModal = ({ isOpen, setIsOpen, children, ...props }: Props) => {
+export const CustomModal = ({
+  isOpen,
+  setIsOpen,
+  children,
+  ...props
+}: Props) => {
   return (
     <Modal
       visible={isOpen}
@@ -24,5 +29,3 @@ const CustomModal = ({ isOpen, setIsOpen, children, ...props }: Props) => {
     </Modal>
   );
 };
-
-export default CustomModal;

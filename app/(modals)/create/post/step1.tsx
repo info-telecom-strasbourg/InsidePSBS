@@ -1,11 +1,8 @@
-import CustomModal from "@/components/primitives/custom-modal";
+import { CustomModal } from "@/components/primitives/custom-modal";
 import { Typography } from "@/components/primitives/typography";
 import type { UpdatePostInfoType } from "@/contexts/create-post.context";
 import { useCreatePost } from "@/contexts/create-post.context";
 import { useModalRouter } from "@/hooks/useModalRouter";
-import { useMe } from "@/queries/profile/me.query";
-import type { ItsMeUserData } from "@/schemas/GET/profile/me.schema";
-import { PostBodySchema } from "@/schemas/POST/post/store-post.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { SpaceGroteskFont } from "@/utils/custom-font";
@@ -17,6 +14,9 @@ import {
   Toolbar,
   useEditorBridge,
 } from "@10play/tentap-editor";
+import { PostBodySchema } from "@app/(modals)/create/post/_features/fetch/store-post.schema";
+import { useMe } from "@app/(tabs)/profile/_features/fetch/me.query";
+import type { ItsMeUserData } from "@app/(tabs)/profile/_features/fetch/me.schema";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,

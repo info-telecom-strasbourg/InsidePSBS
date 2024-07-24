@@ -2,20 +2,19 @@ import { useAuth } from "@/auth/useAuth";
 import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
-import { Post } from "@/components/primitives/post";
 import { Typography } from "@/components/primitives/typography";
-import { GridCards } from "@/features/home/grid-cards";
 import { Header } from "@/features/layout/header";
 import { useFetch } from "@/hooks/useFetch";
 import { useModalRouter } from "@/hooks/useModalRouter";
-import { useEvents } from "@/queries/events/event.query";
-import { useCards } from "@/queries/home/cards.query";
-import { postsFetcher } from "@/queries/posts/posts.query";
-import type { EventsData } from "@/schemas/GET/events/event.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { capitalize } from "@/utils/capitalize";
-
+import { useEvents } from "@app/(tabs)/calendar/_features/fetch/event.query";
+import type { EventsData } from "@app/(tabs)/calendar/_features/fetch/event.schema";
+import { useCards } from "@app/(tabs)/home/_features/fetch/cards.query";
+import { GridCards } from "@app/(tabs)/home/_features/grid-cards";
+import { postsFetcher } from "@app/(tabs)/posts/_features/fetch/posts.query";
+import { Post } from "@app/(tabs)/posts/_features/post";
 import { ChevronDown, Clock, Forward, MapPin } from "lucide-react-native";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 

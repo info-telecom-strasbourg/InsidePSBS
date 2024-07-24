@@ -1,63 +1,18 @@
 import { PageContainer } from "@/components/primitives/container";
-import { Post, SkeletonPost } from "@/components/primitives/post";
 import { Header } from "@/features/layout/header";
-import { Filters } from "@/features/posts/filters";
-import { Search } from "@/features/posts/search";
-import { useModalRouter } from "@/hooks/useModalRouter";
-import { useFilters } from "@/queries/posts/filters.query";
-import { usePosts } from "@/queries/posts/posts.query";
-import type { CategoriesData } from "@/schemas/GET/posts/categories.schema";
-
+import { useFilters } from "@app/(tabs)/posts/_features/fetch/filters.query";
+import type { PostsData } from "@app/(tabs)/posts/_features/fetch/post.schema";
+import { usePosts } from "@app/(tabs)/posts/_features/fetch/posts.query";
+import { SkeletonPost } from "@app/(tabs)/posts/_features/post";
+import { PostsHeader } from "@app/(tabs)/posts/_features/posts-header";
+import { RenderPosts } from "@app/(tabs)/posts/_features/render-posts";
+import { Search } from "@app/(tabs)/posts/_features/search";
 import { FlashList } from "@shopify/flash-list";
-
-import { memo, useMemo, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { useMemo, useState } from "react";
+import { View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
-import type { PostsData } from "./_features/fetch/post.schema";
 
-export const RenderPosts = memo(function RenderPosts({
-  item,
-  postsAreLoading,
-}: {
-  item: PostsData["data"][0] | undefined;
-  postsAreLoading: boolean;
-}) {
-  const modalRouter = useModalRouter();
-  if (!item) return null;
-  console.log("Posts Rendered");
-
-  return (
-    <TouchableOpacity
-      onPress={() => modalRouter.open(`/post/${item?.id}`)}
-      className="mb-4"
-    >
-      <Post item={item} isLoading={postsAreLoading} postId={item?.id} />
-    </TouchableOpacity>
-  );
-});
-
-const HeaderComponent = memo(function HeaderComponent({
-  filters,
-  selectedId,
-  setSelectedId,
-}: {
-  filters: CategoriesData["data"] | undefined;
-  selectedId: number;
-  setSelectedId: (selectedId: number) => void;
-}) {
-  console.log("Header Rendered");
-  return (
-    <View className="mb-4 gap-5">
-      <Filters
-        data={filters}
-        selectedId={selectedId}
-        setSelectedId={setSelectedId}
-      />
-    </View>
-  );
-});
-
-export default function InfiniteScrollList() {
+export default function PostsPage() {
   const [selectedId, setSelectedId] = useState<number>(1);
   const [searchPhrase, setSearchPhrase] = useState<string>("");
 
@@ -91,7 +46,7 @@ export default function InfiniteScrollList() {
       <FlashList<PostsData["data"][0] | undefined>
         data={items}
         ListHeaderComponent={
-          <HeaderComponent
+          <PostsHeader
             filters={filters}
             selectedId={selectedId}
             setSelectedId={setSelectedId}
