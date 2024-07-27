@@ -1,4 +1,4 @@
-import type { CategoriesData } from "@app/(tabs)/posts/_features/fetch/categories.schema";
+import type { CategoriesData } from "@app/(tabs)/posts/_features/categories.schema";
 import { Filters } from "@app/(tabs)/posts/_features/filters";
 import { memo } from "react";
 import { View } from "react-native";

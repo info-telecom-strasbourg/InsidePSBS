@@ -1,6 +1,6 @@
 import { PageContainer } from "@/components/primitives/container";
+import { Header } from "@/components/primitives/header";
 import { CreatePostProvider } from "@/contexts/create-post.context";
-import { Header } from "@/features/layout/header";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Stack } from "expo-router";
 

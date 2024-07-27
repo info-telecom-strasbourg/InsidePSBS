@@ -1,7 +1,7 @@
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import type { ShowOrganizationData } from "@app/(modals)/organizations/_features/fetch/organization-profile.schema";
+import type { ShowOrganizationData } from "@app/(modals)/organizations/_features/organization-profile.schema";
 import { Facebook, Globe, Instagram, Mail } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";

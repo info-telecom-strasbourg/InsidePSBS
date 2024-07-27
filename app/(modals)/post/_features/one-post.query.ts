@@ -1,7 +1,7 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
-import { ReactionTypeSchema } from "@app/(modals)/post/_features/fetch/add-reaction.schema";
-import { SinglePostSchema } from "@app/(tabs)/posts/_features/fetch/post.schema";
+import { ReactionTypeSchema } from "@app/(modals)/post/_features/add-reaction.schema";
+import { SinglePostSchema } from "@app/(tabs)/posts/_features/post.schema";
 
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {

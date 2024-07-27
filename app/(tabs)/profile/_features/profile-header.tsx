@@ -1,8 +1,8 @@
 import { Typography } from "@/components/primitives/typography";
-import type { ShowOrganizationData } from "@app/(modals)/organizations/_features/fetch/organization-profile.schema";
 import { Members } from "@app/(modals)/organizations/_features/members";
+import type { ShowOrganizationData } from "@app/(modals)/organizations/_features/organization-profile.schema";
 import { Socials } from "@app/(modals)/organizations/_features/socials";
-import type { PostsData } from "@app/(tabs)/posts/_features/fetch/post.schema";
+import type { PostsData } from "@app/(tabs)/posts/_features/post.schema";
 import { View } from "react-native";
 import { ProfileHero } from "./hero";
 

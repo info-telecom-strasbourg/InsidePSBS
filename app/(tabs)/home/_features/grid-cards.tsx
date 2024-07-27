@@ -3,7 +3,7 @@ import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
-import type { FouailleBalanceData } from "@app/(modals)/fouaille/_features/fetch/balance.schema";
+import type { FouailleBalanceData } from "@app/(modals)/fouaille/_features/balance.schema";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";

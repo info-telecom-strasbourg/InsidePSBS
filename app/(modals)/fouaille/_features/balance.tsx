@@ -1,7 +1,7 @@
 import { Typography } from "@/components/primitives/typography";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import type { FouailleBalanceData } from "@app/(modals)/fouaille/_features/fetch/balance.schema";
+import type { FouailleBalanceData } from "@app/(modals)/fouaille/_features/balance.schema";
 import { Nfc } from "lucide-react-native";
 import { View } from "react-native";
 

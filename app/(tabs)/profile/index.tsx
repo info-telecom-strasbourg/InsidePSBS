@@ -1,10 +1,10 @@
 import { PageLoading } from "@/components/page/loading";
 import { PageContainer } from "@/components/primitives/container";
-import { Header } from "@/features/layout/header";
-import { useShowUserPosts } from "@app/(modals)/user/_features/fetch/user-posts.query";
-import type { PostsData } from "@app/(tabs)/posts/_features/fetch/post.schema";
+import { Header } from "@/components/primitives/header";
+import { useShowUserPosts } from "@app/(modals)/user/_features/user-posts.query";
+import type { PostsData } from "@app/(tabs)/posts/_features/post.schema";
 import { RenderPosts } from "@app/(tabs)/posts/_features/render-posts";
-import { useMe } from "@app/(tabs)/profile/_features/fetch/me.query";
+import { useMe } from "@app/(tabs)/profile/_features/me.query";
 import { ProfileHeader } from "@app/(tabs)/profile/_features/profile-header";
 import { FlashList } from "@shopify/flash-list";
 import { RefreshControl } from "react-native";

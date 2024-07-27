@@ -1,4 +1,4 @@
-import type { OrdersData } from "@app/(modals)/fouaille/_features/fetch/orders.schema";
+import type { OrdersData } from "@app/(modals)/fouaille/_features/orders.schema";
 import { FlashList } from "@shopify/flash-list";
 import { RefreshControl } from "react-native";
 import { Order } from "./order";

@@ -2,7 +2,7 @@ import { Typography } from "@/components/primitives/typography";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
-import type { CategoriesData } from "@app/(tabs)/posts/_features/fetch/categories.schema";
+import type { CategoriesData } from "@app/(tabs)/posts/_features/categories.schema";
 import {
   Bed,
   BookCheck,

@@ -1,6 +1,6 @@
+import { AuthorSchema } from "@/schemas/author.schema";
+import { MetaSchema } from "@/schemas/meta.schema";
 import { z } from "zod";
-import { AuthorSchema } from "../../../../../src/schemas/author.schema";
-import { MetaSchema } from "../../../../../src/schemas/meta.schema";
 
 // Define the schema for a single post
 const onePostSchema = z.object({

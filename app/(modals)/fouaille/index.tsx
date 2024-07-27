@@ -1,9 +1,9 @@
 import { PageContainer } from "@/components/primitives/container";
-import { Header } from "@/features/layout/header";
+import { Header } from "@/components/primitives/header";
 import { Balance } from "@app/(modals)/fouaille/_features/balance";
-import { useBalance } from "@app/(modals)/fouaille/_features/fetch/balance.query";
-import { useOrders } from "@app/(modals)/fouaille/_features/fetch/orders.query";
+import { useBalance } from "@app/(modals)/fouaille/_features/balance.query";
 import { Orders } from "@app/(modals)/fouaille/_features/orders";
+import { useOrders } from "@app/(modals)/fouaille/_features/orders.query";
 
 export default function FouaillePage() {
   const { data: balanceData, isLoading: balanceIsLoading } = useBalance();

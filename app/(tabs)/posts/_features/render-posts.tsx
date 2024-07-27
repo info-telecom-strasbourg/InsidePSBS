@@ -1,6 +1,6 @@
 import { useModalRouter } from "@/hooks/useModalRouter";
-import type { PostsData } from "@app/(tabs)/posts/_features/fetch/post.schema";
 import { Post } from "@app/(tabs)/posts/_features/post";
+import type { PostsData } from "@app/(tabs)/posts/_features/post.schema";
 import { memo } from "react";
 import { TouchableOpacity } from "react-native";
 

@@ -2,7 +2,7 @@ import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import type { OrganizationData } from "@app/(modals)/organizations/_features/fetch/organizations.schema";
+import type { OrganizationData } from "@app/(modals)/organizations/_features/organizations.schema";
 import { router } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import type { PropsWithChildren } from "react";

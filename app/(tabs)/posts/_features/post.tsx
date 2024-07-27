@@ -7,12 +7,12 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import { postQuery } from "@/utils/post-query";
-import { PostBodySchema } from "@app/(modals)/create/post/_features/fetch/store-post.schema";
+import { PostBodySchema } from "@app/(modals)/create/post/_features/store-post.schema";
 import {
   AddReactionOnPostSchema,
   type AddReactionOnPostData,
-} from "@app/(modals)/post/_features/fetch/add-reaction.schema";
-import { useReactionType } from "@app/(modals)/post/_features/fetch/one-post.query";
+} from "@app/(modals)/post/_features/add-reaction.schema";
+import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
 import * as VideoThumbnails from "expo-video-thumbnails";
 import { Heart, MessageCircle } from "lucide-react-native";
@@ -20,8 +20,8 @@ import { Skeleton } from "moti/skeleton";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { Image, TouchableOpacity, View } from "react-native";
-import type { SinglePostData } from "./fetch/post.schema";
 import { PostParser } from "./post-parser";
+import type { SinglePostData } from "./post.schema";
 
 export type SinglePostProps = PropsWithChildren<
   {

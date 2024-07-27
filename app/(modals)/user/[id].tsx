@@ -1,8 +1,8 @@
 import { PageLoading } from "@/components/page/loading";
 import { PageContainer } from "@/components/primitives/container";
-import { Header } from "@/features/layout/header";
-import { useShowUserPosts } from "@app/(modals)/user/_features/fetch/user-posts.query";
-import { useShowUserProfile } from "@app/(modals)/user/_features/fetch/user-profile.query";
+import { Header } from "@/components/primitives/header";
+import { useShowUserPosts } from "@app/(modals)/user/_features/user-posts.query";
+import { useShowUserProfile } from "@app/(modals)/user/_features/user-profile.query";
 import { Profile } from "@app/(tabs)/profile/_features/profile";
 import { useLocalSearchParams } from "expo-router";
 

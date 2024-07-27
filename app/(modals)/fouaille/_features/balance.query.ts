@@ -1,9 +1,9 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
-import { CategoriesSchema } from "@app/(tabs)/posts/_features/fetch/categories.schema";
+import { FouailleBalanceSchema } from "@app/(modals)/fouaille/_features/balance.schema";
 import { z } from "zod";
 
-const fetcher = async (url: string, token: string | null) => {
+export const balanceFetcher = async (url: string, token: string) => {
   try {
     const res = await fetch(url, {
       headers: {
@@ -12,7 +12,7 @@ const fetcher = async (url: string, token: string | null) => {
       },
     });
     const data = await res.json();
-    const parsedData = CategoriesSchema.safeParse(data);
+    const parsedData = FouailleBalanceSchema.safeParse(data);
     return parsedData.data?.data;
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -23,15 +23,10 @@ const fetcher = async (url: string, token: string | null) => {
   }
 };
 
-export const useFilters = (isShown: number | null) => {
-  let url = "";
-  if (isShown) {
-    url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories?is_shown=${isShown}`;
-  } else {
-    url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories`;
-  }
+export const useBalance = () => {
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille/balance`;
   const { token } = useAuth();
 
-  const res = useFetch(url, (url: string) => fetcher(url, token || ""));
+  const res = useFetch(url, (url: string) => balanceFetcher(url, token || ""));
   return res;
 };

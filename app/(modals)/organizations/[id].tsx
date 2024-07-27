@@ -1,7 +1,7 @@
 import { PageContainer } from "@/components/primitives/container";
-import { Header } from "@/features/layout/header";
-import { useShowOrganization } from "@app/(modals)/organizations/_features/fetch/organization-profile.query";
-import { useShowOrganizationPosts } from "@app/(modals)/organizations/_features/fetch/organizations-posts.query";
+import { Header } from "@/components/primitives/header";
+import { useShowOrganization } from "@app/(modals)/organizations/_features/organization-profile.query";
+import { useShowOrganizationPosts } from "@app/(modals)/organizations/_features/organizations-posts.query";
 import { Profile } from "@app/(tabs)/profile/_features/profile";
 import { useLocalSearchParams } from "expo-router";
 

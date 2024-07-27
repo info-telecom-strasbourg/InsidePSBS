@@ -1,4 +1,4 @@
-import { Provider } from "@/features/providers";
+import { Provider } from "@/components/primitives/providers";
 import { useFonts } from "@/hooks/useFonts";
 import { SplashScreen, Stack } from "expo-router";
 import "../global.css";

@@ -1,6 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
-import { balanceFetcher } from "@app/(modals)/fouaille/_features/fetch/balance.query";
+import { balanceFetcher } from "@app/(modals)/fouaille/_features/balance.query";
 
 export const useCards = () => {
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/fouaille/balance`;

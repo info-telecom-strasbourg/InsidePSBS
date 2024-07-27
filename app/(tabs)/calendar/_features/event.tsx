@@ -2,7 +2,7 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { capitalize } from "@/utils/capitalize";
-import type { EventsData } from "@app/(tabs)/calendar/_features/fetch/event.schema";
+import type { EventsData } from "@app/(tabs)/calendar/_features/event.schema";
 import { Clock, Forward, Map } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { Text, TouchableOpacity, View } from "react-native";

@@ -1,8 +1,8 @@
 import { Typography } from "@/components/primitives/typography";
-import type { ShowOrganizationData } from "@app/(modals)/organizations/_features/fetch/organization-profile.schema";
 import { Members } from "@app/(modals)/organizations/_features/members";
+import type { ShowOrganizationData } from "@app/(modals)/organizations/_features/organization-profile.schema";
 import { Socials } from "@app/(modals)/organizations/_features/socials";
-import type { PostsData } from "@app/(tabs)/posts/_features/fetch/post.schema";
+import type { PostsData } from "@app/(tabs)/posts/_features/post.schema";
 import { RenderPosts } from "@app/(tabs)/posts/_features/render-posts";
 import { FlashList } from "@shopify/flash-list";
 import { RefreshControl, View } from "react-native";
@@ -21,6 +21,34 @@ type ProfileProps = {
   subtitle: string | undefined;
   socials?: ShowOrganizationData["organization"];
   members?: ShowOrganizationData["members"] | undefined;
+};
+
+export const Profile = (props: ProfileProps) => {
+  const items = props.posts ? props.posts.flat() : [];
+
+  const loadMore = () => {
+    props.setSize(props.size + 1);
+  };
+
+  return (
+    <FlashList<PostsData["data"][0] | undefined>
+      data={items}
+      ListHeaderComponent={<HeaderComp {...props} />}
+      onEndReached={loadMore}
+      onEndReachedThreshold={5}
+      renderItem={({ item }) => (
+        <RenderPosts item={item} postsAreLoading={props.postsAreLoading} />
+      )}
+      showsVerticalScrollIndicator={false}
+      estimatedItemSize={100}
+      refreshControl={
+        <RefreshControl
+          refreshing={props.isRefreshing}
+          onRefresh={props.handleRefresh}
+        />
+      }
+    />
+  );
 };
 
 const HeaderComp = (props: ProfileProps) => {
@@ -49,33 +77,5 @@ const HeaderComp = (props: ProfileProps) => {
         </Typography>
       )}
     </View>
-  );
-};
-
-export const Profile = (props: ProfileProps) => {
-  const items = props.posts ? props.posts.flat() : [];
-
-  const loadMore = () => {
-    props.setSize(props.size + 1);
-  };
-
-  return (
-    <FlashList<PostsData["data"][0] | undefined>
-      data={items}
-      ListHeaderComponent={<HeaderComp {...props} />}
-      onEndReached={loadMore}
-      onEndReachedThreshold={5}
-      renderItem={({ item }) => (
-        <RenderPosts item={item} postsAreLoading={props.postsAreLoading} />
-      )}
-      showsVerticalScrollIndicator={false}
-      estimatedItemSize={100}
-      refreshControl={
-        <RefreshControl
-          refreshing={props.isRefreshing}
-          onRefresh={props.handleRefresh}
-        />
-      }
-    />
   );
 };

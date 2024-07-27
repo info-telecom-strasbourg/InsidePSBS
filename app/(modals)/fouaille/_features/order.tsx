@@ -1,7 +1,7 @@
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { capitalize } from "@/utils/capitalize";
-import type { OrdersData } from "@app/(modals)/fouaille/_features/fetch/orders.schema";
+import type { OrdersData } from "@app/(modals)/fouaille/_features/orders.schema";
 import {
   Beer,
   Candy,

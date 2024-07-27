@@ -1,8 +1,5 @@
 import { PageContainer } from "@/components/primitives/container";
-import { Header } from "@/features/layout/header";
-import { useFilters } from "@app/(tabs)/posts/_features/fetch/filters.query";
-import type { PostsData } from "@app/(tabs)/posts/_features/fetch/post.schema";
-import { usePosts } from "@app/(tabs)/posts/_features/fetch/posts.query";
+import { Header } from "@/components/primitives/header";
 import { SkeletonPost } from "@app/(tabs)/posts/_features/post";
 import { PostsHeader } from "@app/(tabs)/posts/_features/posts-header";
 import { RenderPosts } from "@app/(tabs)/posts/_features/render-posts";
@@ -11,6 +8,9 @@ import { FlashList } from "@shopify/flash-list";
 import { useMemo, useState } from "react";
 import { View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
+import { useFilters } from "./_features/filters.query";
+import type { PostsData } from "./_features/post.schema";
+import { usePosts } from "./_features/posts.query";
 
 export default function PostsPage() {
   const [selectedId, setSelectedId] = useState<number>(1);

@@ -2,11 +2,11 @@ import { PageError } from "@/components/page/error";
 import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
+import { Header } from "@/components/primitives/header";
 import { Typography } from "@/components/primitives/typography";
-import { Header } from "@/features/layout/header";
 
 import { View } from "react-native";
-import { useCGU } from "./_features/fetch/cgu.query";
+import { useCGU } from "./_features/cgu.query";
 
 export default function CguPage() {
   const { data, error, isLoading, handleRefresh, isRefreshing } = useCGU();
