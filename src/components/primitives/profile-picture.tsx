@@ -30,13 +30,13 @@ export const ProfilePicture = ({
           style={{ width: imageSize, height: imageSize }}
         >
           <Typography size="h3" fontWeight="semibold">
-            {name[0].toUpperCase()}
+            {name?.[0].toUpperCase()}
           </Typography>
         </View>
       );
     } else {
-      const str1 = name.split(" ")[0];
-      const str2 = name.split(" ")[1];
+      const str1 = name?.split(" ")[0];
+      const str2 = name?.split(" ")[1];
       return (
         <View
           className={`items-center justify-center rounded-full bg-background`}

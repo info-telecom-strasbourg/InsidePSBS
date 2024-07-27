@@ -1,5 +1,5 @@
 import { PageContainer } from "@/components/primitives/container";
-import { Header } from "@/features/layout/header";
+import { Header } from "@/components/primitives/header";
 
 export default function CreditsPage() {
   return (

@@ -1,7 +1,7 @@
 import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
 import { FormTextInput } from "@/components/primitives/form-input";
-import { Header } from "@/features/layout/header";
+import { Header } from "@/components/primitives/header";
 import { useForm } from "@/hooks/useForm";
 import { z } from "zod";
 

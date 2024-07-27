@@ -1,9 +1,9 @@
 import { PageLoading } from "@/components/page/loading";
 import { PageContainer } from "@/components/primitives/container";
-import { Header } from "@/features/layout/header";
-import Profile from "@/features/profile/profile";
-import { useShowUserPosts } from "@/queries/user/user-posts.query";
-import { useShowUserProfile } from "@/queries/user/user-profile.query";
+import { Header } from "@/components/primitives/header";
+import { useShowUserPosts } from "@app/(modals)/user/_features/user-posts.query";
+import { useShowUserProfile } from "@app/(modals)/user/_features/user-profile.query";
+import { Profile } from "@app/(tabs)/profile/_features/profile";
 import { useLocalSearchParams } from "expo-router";
 
 const UserPage = () => {

@@ -1,9 +1,9 @@
 import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
+import { Header } from "@/components/primitives/header";
 import { Input } from "@/components/primitives/input";
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
-import { Header } from "@/features/layout/header";
 import { Link } from "expo-router";
 import { TouchableOpacity, View } from "react-native";
 

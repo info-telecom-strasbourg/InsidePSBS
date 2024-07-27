@@ -1,9 +1,9 @@
 import { useAuth } from "@/auth/useAuth";
 import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
+import { Header } from "@/components/primitives/header";
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
-import { Header } from "@/features/layout/header";
 import { useRouter } from "expo-router";
 
 export default function DevPage() {

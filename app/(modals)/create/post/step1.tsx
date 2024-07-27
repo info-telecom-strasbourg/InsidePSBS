@@ -1,11 +1,8 @@
-import CustomModal from "@/components/primitives/custom-modal";
+import { CustomModal } from "@/components/primitives/custom-modal";
 import { Typography } from "@/components/primitives/typography";
 import type { UpdatePostInfoType } from "@/contexts/create-post.context";
 import { useCreatePost } from "@/contexts/create-post.context";
 import { useModalRouter } from "@/hooks/useModalRouter";
-import { useMe } from "@/queries/profile/me.query";
-import type { ItsMeUserData } from "@/schemas/GET/profile/me.schema";
-import { PostBodySchema } from "@/schemas/POST/post/store-post.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { SpaceGroteskFont } from "@/utils/custom-font";
@@ -17,6 +14,9 @@ import {
   Toolbar,
   useEditorBridge,
 } from "@10play/tentap-editor";
+import { PostBodySchema } from "@app/(modals)/create/post/_features/store-post.schema";
+import { useMe } from "@app/(tabs)/profile/_features/me.query";
+import type { ItsMeUserData } from "@app/(tabs)/profile/_features/me.schema";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -38,54 +38,6 @@ import {
   View,
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-
-const RenderOrganization = ({
-  organization,
-  organizationId,
-  updatePostInfo,
-  organizationBottomSheet,
-}: {
-  organization: ItsMeUserData["organizations"][0];
-  organizationId: number | null;
-  updatePostInfo: UpdatePostInfoType;
-  organizationBottomSheet: React.RefObject<BottomSheetModal>;
-}) => {
-  const { theme } = useTheme();
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        organizationBottomSheet.current?.dismiss();
-        updatePostInfo("organizationId", organization.id);
-      }}
-    >
-      <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center gap-4">
-          <Image
-            source={{ uri: organization.logo_url }}
-            className="size-14"
-            resizeMode="cover"
-          />
-          <Typography size="h4" fontWeight="medium" className="line-clamp-1">
-            {organization.name}
-          </Typography>
-        </View>
-        <Circle
-          size={20}
-          fill={
-            organizationId === organization.id
-              ? colors[theme].primary
-              : colors[theme].secondary
-          }
-          color={
-            organizationId === organization.id
-              ? colors[theme].primary
-              : colors[theme].secondary
-          }
-        />
-      </View>
-    </TouchableOpacity>
-  );
-};
 
 const CreatePostPage = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -322,6 +274,54 @@ const CreatePostPage = () => {
         </BottomSheetScrollView>
       </BottomSheetModal>
     </>
+  );
+};
+
+const RenderOrganization = ({
+  organization,
+  organizationId,
+  updatePostInfo,
+  organizationBottomSheet,
+}: {
+  organization: ItsMeUserData["organizations"][0];
+  organizationId: number | null;
+  updatePostInfo: UpdatePostInfoType;
+  organizationBottomSheet: React.RefObject<BottomSheetModal>;
+}) => {
+  const { theme } = useTheme();
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        organizationBottomSheet.current?.dismiss();
+        updatePostInfo("organizationId", organization.id);
+      }}
+    >
+      <View className="flex-row items-center justify-between">
+        <View className="flex-row items-center gap-4">
+          <Image
+            source={{ uri: organization.logo_url }}
+            className="size-14"
+            resizeMode="cover"
+          />
+          <Typography size="h4" fontWeight="medium" className="line-clamp-1">
+            {organization.name}
+          </Typography>
+        </View>
+        <Circle
+          size={20}
+          fill={
+            organizationId === organization.id
+              ? colors[theme].primary
+              : colors[theme].secondary
+          }
+          color={
+            organizationId === organization.id
+              ? colors[theme].primary
+              : colors[theme].secondary
+          }
+        />
+      </View>
+    </TouchableOpacity>
   );
 };
 

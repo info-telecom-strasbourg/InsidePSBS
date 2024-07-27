@@ -1,49 +1,15 @@
 import { PageContainer } from "@/components/primitives/container";
-import { Post } from "@/components/primitives/post";
+import { Header } from "@/components/primitives/header";
 import { Typography } from "@/components/primitives/typography";
-import { Header } from "@/features/layout/header";
-import { CommentInput } from "@/features/posts/comments/comment-input";
-import { useComments } from "@/queries/posts/comments.query";
-import { useOnePost } from "@/queries/posts/one-post.query";
-import type { CommentsData } from "@/schemas/GET/posts/comments.schema";
-import type { SinglePostData } from "@/schemas/GET/posts/post.schema";
+import { CommentInput } from "@app/(modals)/post/_features/comment-input";
+import { useComments } from "@app/(modals)/post/_features/comments.query";
+import type { CommentsData } from "@app/(modals)/post/_features/comments.schema";
+import { useOnePost } from "@app/(modals)/post/_features/one-post.query";
+import { Post } from "@app/(tabs)/posts/_features/post";
+import type { SinglePostData } from "@app/(tabs)/posts/_features/post.schema";
 import { FlashList, type ListRenderItem } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
 import { Image, KeyboardAvoidingView, View } from "react-native";
-
-const RenderComments: ListRenderItem<CommentsData["data"][0] | undefined> = ({
-  item,
-}: {
-  item: CommentsData["data"][0] | undefined;
-}) => (
-  <View className="mb-4 flex-row gap-3">
-    <View>
-      <Image
-        source={{ uri: item?.author.logo_url || undefined }}
-        className="size-12 rounded-full"
-        resizeMode="contain"
-      />
-    </View>
-    <View className="flex-1 rounded-2xl bg-popover p-3">
-      <Typography fontWeight="medium" className="">
-        {item?.author.name}
-      </Typography>
-      <Typography size="p">{item?.body}</Typography>
-    </View>
-  </View>
-);
-
-const HeaderComp = ({
-  postIsLoading,
-  postData,
-}: {
-  postIsLoading: boolean;
-  postData: SinglePostData["data"] | undefined;
-}) => (
-  <View className="mb-4">
-    <Post isLoading={postIsLoading} item={postData} postId={postData?.id} />
-  </View>
-);
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -78,3 +44,37 @@ export default function PostIdPage() {
     </PageContainer>
   );
 }
+
+const RenderComments: ListRenderItem<CommentsData["data"][0] | undefined> = ({
+  item,
+}: {
+  item: CommentsData["data"][0] | undefined;
+}) => (
+  <View className="mb-4 flex-row gap-3">
+    <View>
+      <Image
+        source={{ uri: item?.author.logo_url || undefined }}
+        className="size-12 rounded-full"
+        resizeMode="contain"
+      />
+    </View>
+    <View className="flex-1 rounded-2xl bg-popover p-3">
+      <Typography fontWeight="medium" className="">
+        {item?.author.name}
+      </Typography>
+      <Typography size="p">{item?.body}</Typography>
+    </View>
+  </View>
+);
+
+const HeaderComp = ({
+  postIsLoading,
+  postData,
+}: {
+  postIsLoading: boolean;
+  postData: SinglePostData["data"] | undefined;
+}) => (
+  <View className="mb-4">
+    <Post isLoading={postIsLoading} item={postData} postId={postData?.id} />
+  </View>
+);
