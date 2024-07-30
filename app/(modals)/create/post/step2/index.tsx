@@ -25,7 +25,7 @@ const CreatePostStep2 = () => {
     useCreatePost();
   const [isPublishing, setIsPublishing] = useState<boolean>(false);
 
-  const datePicker = useRef<BottomSheetModal>(null);
+  const datePickerRef = useRef<BottomSheetModal>(null);
 
   const today = new Date();
   const { time, setTime, showTimePicker, setShowTimePicker, formattedTime } =
@@ -75,7 +75,7 @@ const CreatePostStep2 = () => {
           </Typography>
           <TouchableOpacity
             onPress={() => {
-              datePicker.current?.present();
+              datePickerRef.current?.present();
             }}
           >
             <View className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6">
@@ -137,7 +137,7 @@ const CreatePostStep2 = () => {
           }}
         />
       )}
-      <DatePicker ref={datePicker} today={today} />
+      <DatePicker ref={datePickerRef} today={today} />
     </>
   );
 };
