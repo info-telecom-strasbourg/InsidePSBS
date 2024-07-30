@@ -13,7 +13,6 @@ export const RenderPosts = memo(function RenderPosts({
 }) {
   const modalRouter = useModalRouter();
   if (!item) return null;
-  console.log("Posts Rendered");
 
   return (
     <TouchableOpacity

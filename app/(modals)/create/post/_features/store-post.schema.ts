@@ -24,5 +24,12 @@ export const StorePostSchema = z.object({
   uploaded_at: z.string().nullable(),
 });
 
+export const StorePostCategoriesSchema = z.object({
+  post_id: z.number().optional(),
+  event_id: z.number().optional(),
+  category_ids: z.array(z.number()),
+});
+
 export type StorePostData = z.infer<typeof StorePostSchema>;
 export type PostBodyData = z.infer<typeof PostBodySchema>;
+export type StorePostCategoriesData = z.infer<typeof StorePostCategoriesSchema>;

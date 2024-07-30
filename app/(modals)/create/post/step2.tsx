@@ -6,8 +6,14 @@ import { useCreatePost } from "@/contexts/create-post.context";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { postQuery } from "@/utils/post-query";
-import type { StorePostData } from "@app/(modals)/create/post/_features/store-post.schema";
-import { StorePostSchema } from "@app/(modals)/create/post/_features/store-post.schema";
+import type {
+  StorePostCategoriesData,
+  StorePostData,
+} from "@app/(modals)/create/post/_features/store-post.schema";
+import {
+  StorePostCategoriesSchema,
+  StorePostSchema,
+} from "@app/(modals)/create/post/_features/store-post.schema";
 import type { CategoriesData } from "@app/(tabs)/posts/_features/categories.schema";
 import { useFilters } from "@app/(tabs)/posts/_features/filters.query";
 import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
@@ -17,65 +23,8 @@ import { FlashList } from "@shopify/flash-list";
 import { format } from "date-fns";
 import { Calendar as Cal } from "lucide-react-native";
 import { memo, useMemo, useRef, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-
-// const linearTheme: CalendarTheme = {
-//   rowMonth: {
-//     content: {
-//       textAlign: "left",
-//       color: "rgba(255, 255, 255, 0.5)",
-//       fontWeight: "700",
-//     },
-//   },
-//   rowWeek: {
-//     container: {
-//       borderBottomWidth: 1,
-//       borderBottomColor: "rgba(255, 255, 255, 0.1)",
-//       borderStyle: "solid",
-//     },
-//   },
-//   itemWeekName: { content: { color: "rgba(255, 255, 255, 0.5)" } },
-//   itemDayContainer: {
-//     activeDayFiller: {
-//       backgroundColor: colors[theme].primary,
-//     },
-//   },
-//   itemDay: {
-//     idle: ({ isPressed, isWeekend }) => ({
-//       container: {
-//         backgroundColor: isPressed ? colors[theme].primary : "transparent",
-//         borderRadius: 4,
-//       },
-//       content: {
-//         color:
-//           isWeekend && !isPressed ? "rgba(255, 255, 255, 0.5)" : "#ffffff",
-//       },
-//     }),
-//     today: ({ isPressed }) => ({
-//       container: {
-//         borderColor: "rgba(255, 255, 255, 0.5)",
-//         borderRadius: isPressed ? 4 : 30,
-//         backgroundColor: isPressed ? colors[theme].primary : "transparent",
-//       },
-//       content: {
-//         color: isPressed ? "#ffffff" : "rgba(255, 255, 255, 0.5)",
-//       },
-//     }),
-//     active: ({ isEndOfRange, isStartOfRange }) => ({
-//       container: {
-//         backgroundColor: colors[theme].primary,
-//         borderTopLeftRadius: isStartOfRange ? 4 : 0,
-//         borderBottomLeftRadius: isStartOfRange ? 4 : 0,
-//         borderTopRightRadius: isEndOfRange ? 4 : 0,
-//         borderBottomRightRadius: isEndOfRange ? 4 : 0,
-//       },
-//       content: {
-//         color: "#ffffff",
-//       },
-//     }),
-//   },
-// };
 
 const CategoryItem = memo(function CategoryItem({
   item,
@@ -148,6 +97,8 @@ const CreatePostStep2 = () => {
   const { postBody, categories, organizationId, updatePostInfo, uploadedAt } =
     useCreatePost();
 
+  const [isPublishing, setIsPublishing] = useState<boolean>(false);
+
   const storePost = async (
     postBody: string,
     organizationId: number | null,
@@ -168,16 +119,39 @@ const CreatePostStep2 = () => {
     return response;
   };
 
+  const storePostCategories = async (
+    postId: number,
+    categories: number[],
+    eventId?: number
+  ) => {
+    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories`;
+    const response = await postQuery<StorePostCategoriesData>(
+      url,
+      token,
+      {
+        post_id: postId,
+        event_id: eventId,
+        category_ids: categories,
+      },
+      StorePostCategoriesSchema
+    );
+    return response;
+  };
+
   const handlePublish = async () => {
+    setIsPublishing(true);
     const timeToPublish = `${uploadedAt} ${formattedTime}`;
-    console.log(timeToPublish);
     const res = await storePost(
       JSON.stringify(postBody),
       organizationId,
       timeToPublish
     );
-    // add categories and medias to post if needed
+    const postId = res?.data?.id;
+    const res_category = await storePostCategories(postId, categories);
+    console.log("Post published");
+    setIsPublishing(false);
   };
+  // add medias to post if needed
 
   return (
     <>
@@ -241,17 +215,21 @@ const CreatePostStep2 = () => {
             </View>
           </TouchableOpacity>
         </View>
-        <View className="rounded-full bg-primary p-4">
-          <TouchableOpacity onPress={handlePublish}>
-            <Typography
-              className="text-center text-white"
-              fontWeight="bold"
-              size="h2"
-            >
-              Publier
-            </Typography>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={handlePublish}>
+          <View className="items-center justify-center rounded-full bg-primary p-4">
+            {isPublishing ? (
+              <ActivityIndicator color="white" />
+            ) : (
+              <Typography
+                className="text-center text-white"
+                fontWeight="bold"
+                size="h2"
+              >
+                Publier
+              </Typography>
+            )}
+          </View>
+        </TouchableOpacity>
       </View>
       {showTimePicker && (
         <DateTimePicker
