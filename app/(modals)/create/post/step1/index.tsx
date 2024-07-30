@@ -14,7 +14,7 @@ import {
   Toolbar,
   useEditorBridge,
 } from "@10play/tentap-editor";
-import { PostBodySchema } from "@app/(modals)/create/post/_features/store-post.schema";
+import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { useMe } from "@app/(tabs)/profile/_features/me.query";
 import type { ItsMeUserData } from "@app/(tabs)/profile/_features/me.schema";
 import {
