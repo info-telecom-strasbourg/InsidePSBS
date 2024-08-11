@@ -29,7 +29,7 @@ export default function ProfilePage() {
 
   return (
     <PageContainer>
-      <Header title="Profil" leftIcon="inside-psbs" rightIcon="notifications" />
+      <Header title="Profil" leftIcon="inside-psbs" rightIcon="settings" />
       {!data || isLoading ? (
         <PageLoading />
       ) : (

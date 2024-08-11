@@ -92,7 +92,7 @@ const CreatePostPage = () => {
       <RichText editor={editor} />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="w-full"
+        className="absolute bottom-0 w-full"
       >
         <Toolbar editor={editor} />
       </KeyboardAvoidingView>
