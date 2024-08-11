@@ -15,7 +15,9 @@ export const CategoryItem = ({
   categoriesSelected: number[] | null;
   updatePostCategories: UpdatePostInfoType;
 }) => {
-  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const [isSelected, setIsSelected] = useState<boolean>(
+    categoriesSelected?.includes(item.id) || false
+  );
 
   const { theme } = useTheme();
 

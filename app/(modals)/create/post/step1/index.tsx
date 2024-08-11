@@ -31,9 +31,9 @@ const CreatePostPage = () => {
   const organizationListRef = useRef<BottomSheetModal>(null);
 
   return (
-    <>
+    <View className="flex-1 bg-background">
       <EmptyEditor modalOpen={modalOpen} setModalOpen={setModalOpen} />
-      <View className="mb-5 w-full flex-row items-center justify-between">
+      <View className="mb-6 w-full flex-row items-center justify-between bg-background">
         {data?.organizations ? (
           organizationId ? (
             <ChoiceItem
@@ -97,7 +97,7 @@ const CreatePostPage = () => {
         <Toolbar editor={editor} />
       </KeyboardAvoidingView>
       <OrganizationList ref={organizationListRef} data={data} />
-    </>
+    </View>
   );
 };
 

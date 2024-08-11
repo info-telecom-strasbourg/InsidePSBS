@@ -10,7 +10,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 import { Calendar as Cal } from "lucide-react-native";
 import { useRef, useState } from "react";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { CategoryItem } from "./_features/category-item";
 import { DatePicker } from "./_features/date-picker";
 import { storePost, storePostCategories } from "./_features/store-post";
@@ -49,7 +49,7 @@ const CreatePostStep2 = () => {
 
   return (
     <>
-      <View className=" flex-1 justify-between pb-3">
+      <View className="flex-1 justify-between bg-background pb-3">
         <View>
           <Typography size="h2" fontWeight="bold" className="mb-6">
             Catégories
@@ -109,10 +109,19 @@ const CreatePostStep2 = () => {
             </View>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={handlePublish}>
-          <View className="items-center justify-center rounded-full bg-primary p-4">
+        <TouchableOpacity onPress={handlePublish} disabled={isPublishing}>
+          <View
+            className="items-center justify-center rounded-full bg-primary p-4"
+            style={{ opacity: isPublishing ? 0.6 : 1 }}
+          >
             {isPublishing ? (
-              <ActivityIndicator color="white" />
+              <Typography
+                className="text-center text-white"
+                fontWeight="bold"
+                size="h2"
+              >
+                Publication en cours...
+              </Typography>
             ) : (
               <Typography
                 className="text-center text-white"
