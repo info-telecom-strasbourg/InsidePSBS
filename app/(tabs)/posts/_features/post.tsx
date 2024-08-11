@@ -15,9 +15,14 @@ import {
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
 import * as VideoThumbnails from "expo-video-thumbnails";
-import { Heart, MessageCircle } from "lucide-react-native";
+import { Ellipsis, Heart, MessageCircle } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useEffect, useState, type PropsWithChildren } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+  type PropsWithChildren,
+} from "react";
 import type { ViewProps } from "react-native";
 import { Image, TouchableOpacity, View } from "react-native";
 import { PostParser } from "./post-parser";
@@ -101,17 +106,20 @@ export const Post = ({
 
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
 
-  const storeReaction = async (reactionTypeId: number) => {
-    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/reaction`;
-    const response = await postQuery<AddReactionOnPostData>(
-      url,
-      token,
-      { reaction_type_id: reactionTypeId },
-      AddReactionOnPostSchema
-    );
-    setReaction(response.data.reaction);
-    setReactionCount(response.data.reaction_count);
-  };
+  const storeReaction = useCallback(
+    async (reactionTypeId: number) => {
+      const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/reaction`;
+      const response = await postQuery<AddReactionOnPostData>(
+        url,
+        token,
+        { reaction_type_id: reactionTypeId },
+        AddReactionOnPostSchema
+      );
+      setReaction(response.data.reaction);
+      setReactionCount(response.data.reaction_count);
+    },
+    [token, postId]
+  );
 
   if (!item) return null;
   return (
@@ -121,40 +129,40 @@ export const Post = ({
         className
       )}
     >
-      <View className="mb-2 flex-row items-center justify-start gap-2">
-        <TouchableOpacity
-          onPress={() =>
-            item?.author.is_organization
-              ? modalRouter.open(`/organizations/${item.author.id}`)
-              : modalRouter.open(`/user/${item?.author.id}`)
-          }
-        >
-          {/* <Image
-            source={{ uri: item?.author.logo_url || undefined }}
-            className="size-20 rounded-full"
-            resizeMode="cover"
-          /> */}
-          <ProfilePicture
-            avatar={item.author.logo_url}
-            imageSize={60}
-            isOrganization={item.author.is_organization}
-            name={item.author.name}
-          />
-        </TouchableOpacity>
-        <View className="ml-2 flex-col">
-          <>
-            <Typography size={authorNameSize} fontWeight="semibold">
-              {item?.author.name}
-            </Typography>
-            <Typography
-              size={dateSize}
-              fontWeight="medium"
-              className="text-muted-foreground"
-            >
-              {item?.uploaded_since}
-            </Typography>
-          </>
+      <View className="flex-row items-center justify-between">
+        <View className="mb-2 flex-row items-center justify-start gap-2">
+          <TouchableOpacity
+            onPress={() =>
+              item?.author.is_organization
+                ? modalRouter.open(`/organizations/${item.author.id}`)
+                : modalRouter.open(`/user/${item?.author.id}`)
+            }
+          >
+            <ProfilePicture
+              avatar={item.author.logo_url}
+              imageSize={55}
+              isOrganization={item.author.is_organization}
+              name={item.author.name}
+            />
+          </TouchableOpacity>
+          <View className="ml-2 flex-col">
+            <>
+              <Typography size={authorNameSize} fontWeight="semibold">
+                {item?.author.name}
+              </Typography>
+              <Typography
+                size={dateSize}
+                fontWeight="medium"
+                className="text-muted-foreground"
+              >
+                {item?.uploaded_since}
+              </Typography>
+            </>
+          </View>
         </View>
+        <TouchableOpacity className="mr-2 bg-red">
+          <Ellipsis size={30} color={colors[theme].foreground} />
+        </TouchableOpacity>
       </View>
 
       <PostParser
