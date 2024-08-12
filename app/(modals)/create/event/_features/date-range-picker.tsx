@@ -1,17 +1,22 @@
-import { useCreatePost } from "@/contexts/create-post.context";
+import { Typography } from "@/components/primitives/typography";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { useDatePickerTheme } from "@app/(modals)/create/event/_features/useDateRangeTheme";
 import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Calendar, toDateId } from "@marceloterreiro/flash-calendar";
+import {
+  Calendar,
+  toDateId,
+  useDateRange,
+} from "@marceloterreiro/flash-calendar";
 import { FlashList } from "@shopify/flash-list";
 import { forwardRef, useMemo } from "react";
+import { View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
+import { useDatePickerTheme } from "./useDateRangeTheme";
 
-export const DatePicker = forwardRef<BottomSheetModal, { today: Date }>(
-  function DatePicker({ today }, ref) {
+export const DateRangePicker = forwardRef<BottomSheetModal, { today: Date }>(
+  function DateRangePicker({ today }, ref) {
     const { theme } = useTheme();
-    const { updatePostInfo } = useCreatePost();
+    const { calendarActiveDateRanges, onCalendarDayPress } = useDateRange();
 
     const animatedIndex = useSharedValue<number>(0);
     const animatedPosition = useSharedValue<number>(0);
@@ -30,9 +35,10 @@ export const DatePicker = forwardRef<BottomSheetModal, { today: Date }>(
           shadowOpacity: 0.22,
           shadowRadius: 2.22,
           elevation: 3,
-          margin: 15,
+          margin: 10,
+          padding: 20,
         }}
-        bottomInset={30}
+        bottomInset={45}
         ref={ref}
         snapPoints={snapPoints}
         detached={true}
@@ -55,15 +61,19 @@ export const DatePicker = forwardRef<BottomSheetModal, { today: Date }>(
           ></BottomSheetBackdrop>
         )}
       >
+        <View className="mb-3 border-b-2 border-muted-foreground pb-3">
+          <Typography size="h2" fontWeight="bold">
+            Dates de l'évènement
+          </Typography>
+        </View>
         <Calendar.List
           CalendarScrollComponent={FlashList}
           calendarFirstDayOfWeek="monday"
+          calendarActiveDateRanges={calendarActiveDateRanges}
           calendarFormatLocale="fr-FR"
           calendarMinDateId={toDateId(today)}
           calendarInitialMonthId={toDateId(today)}
-          onCalendarDayPress={(dateId) => {
-            updatePostInfo("uploadedAt", dateId);
-          }}
+          onCalendarDayPress={onCalendarDayPress}
           theme={datePickerTheme}
         />
       </BottomSheetModal>
