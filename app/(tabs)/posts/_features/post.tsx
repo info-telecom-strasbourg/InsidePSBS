@@ -139,6 +139,7 @@ export const Post = ({
             imageSize={60}
             isOrganization={item.author.is_organization}
             name={item.author.name}
+            color={colors[theme].background}
           />
         </TouchableOpacity>
         <View className="ml-2 flex-col">

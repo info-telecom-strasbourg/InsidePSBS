@@ -37,6 +37,7 @@ const CreatePostPage = () => {
         {data?.organizations ? (
           organizationId ? (
             <ChoiceItem
+              isOrganization
               onPress={() => {
                 Keyboard.dismiss();
                 organizationListRef.current?.present();
@@ -57,6 +58,7 @@ const CreatePostPage = () => {
               onPress={() => organizationListRef.current?.present()}
               title={`${data?.data.first_name} ${data?.data.last_name}`}
               url={data?.data.avatar_url}
+              isOrganization={false}
             />
           )
         ) : (

@@ -13,70 +13,85 @@ import { View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { useDatePickerTheme } from "./useDateRangeTheme";
 
-export const DateRangePicker = forwardRef<BottomSheetModal, { today: Date }>(
-  function DateRangePicker({ today }, ref) {
-    const { theme } = useTheme();
-    const { calendarActiveDateRanges, onCalendarDayPress } = useDateRange();
-
-    const animatedIndex = useSharedValue<number>(0);
-    const animatedPosition = useSharedValue<number>(0);
-    const snapPoints = useMemo(() => ["80%"], []);
-
-    const datePickerTheme = useDatePickerTheme();
-
-    return (
-      <BottomSheetModal
-        style={{
-          shadowColor: "#000000",
-          shadowOffset: {
-            width: 0,
-            height: 1,
-          },
-          shadowOpacity: 0.22,
-          shadowRadius: 2.22,
-          elevation: 3,
-          margin: 10,
-          padding: 20,
-        }}
-        bottomInset={45}
-        ref={ref}
-        snapPoints={snapPoints}
-        detached={true}
-        enablePanDownToClose
-        enableDismissOnClose
-        overDragResistanceFactor={1}
-        backgroundStyle={{ backgroundColor: colors[theme].background }}
-        backdropComponent={() => (
-          <BottomSheetBackdrop
-            pressBehavior={"close"}
-            animatedIndex={animatedIndex}
-            animatedPosition={animatedPosition}
-            style={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
-            }}
-            appearsOnIndex={0}
-            disappearsOnIndex={-1}
-          ></BottomSheetBackdrop>
-        )}
-      >
-        <View className="mb-3 border-b-2 border-muted-foreground pb-3">
-          <Typography size="h2" fontWeight="bold">
-            Dates de l'évènement
-          </Typography>
-        </View>
-        <Calendar.List
-          CalendarScrollComponent={FlashList}
-          calendarFirstDayOfWeek="monday"
-          calendarActiveDateRanges={calendarActiveDateRanges}
-          calendarFormatLocale="fr-FR"
-          calendarMinDateId={toDateId(today)}
-          calendarInitialMonthId={toDateId(today)}
-          onCalendarDayPress={onCalendarDayPress}
-          theme={datePickerTheme}
-        />
-      </BottomSheetModal>
-    );
+export const DateRangePicker = forwardRef<
+  BottomSheetModal,
+  {
+    today: Date;
+    setStartAt: React.Dispatch<React.SetStateAction<string>>;
+    setEndAt: React.Dispatch<React.SetStateAction<string>>;
   }
-);
+>(function DateRangePicker({ today, setStartAt, setEndAt }, ref) {
+  const { theme } = useTheme();
+  const { calendarActiveDateRanges, onCalendarDayPress } = useDateRange();
+
+  const animatedIndex = useSharedValue<number>(0);
+  const animatedPosition = useSharedValue<number>(0);
+  const snapPoints = useMemo(() => ["80%"], []);
+
+  const datePickerTheme = useDatePickerTheme();
+
+  if (calendarActiveDateRanges[0]) {
+    if (
+      calendarActiveDateRanges[0].startId !== undefined &&
+      calendarActiveDateRanges[0].endId !== undefined
+    ) {
+      setStartAt(calendarActiveDateRanges[0].startId || "");
+      setEndAt(calendarActiveDateRanges[0].endId || "");
+    }
+  }
+
+  return (
+    <BottomSheetModal
+      style={{
+        shadowColor: "#000000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        elevation: 3,
+        margin: 10,
+        padding: 20,
+      }}
+      bottomInset={45}
+      ref={ref}
+      snapPoints={snapPoints}
+      detached={true}
+      enablePanDownToClose
+      enableDismissOnClose
+      overDragResistanceFactor={1}
+      backgroundStyle={{ backgroundColor: colors[theme].background }}
+      backdropComponent={() => (
+        <BottomSheetBackdrop
+          pressBehavior={"close"}
+          animatedIndex={animatedIndex}
+          animatedPosition={animatedPosition}
+          style={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+          }}
+          appearsOnIndex={0}
+          disappearsOnIndex={-1}
+        ></BottomSheetBackdrop>
+      )}
+    >
+      <View className="mb-3 border-b-2 border-muted-foreground pb-3">
+        <Typography size="h2" fontWeight="bold">
+          Dates de l'évènement
+        </Typography>
+      </View>
+      <Calendar.List
+        CalendarScrollComponent={FlashList}
+        calendarFirstDayOfWeek="monday"
+        calendarActiveDateRanges={calendarActiveDateRanges}
+        calendarFormatLocale="fr-FR"
+        calendarMinDateId={toDateId(today)}
+        calendarInitialMonthId={toDateId(today)}
+        onCalendarDayPress={(dateId) => onCalendarDayPress(dateId)}
+        theme={datePickerTheme}
+      />
+    </BottomSheetModal>
+  );
+});

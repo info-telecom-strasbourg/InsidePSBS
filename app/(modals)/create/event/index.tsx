@@ -1,4 +1,3 @@
-import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
 import { FormTextInput } from "@/components/primitives/form-input";
 import { Header } from "@/components/primitives/header";
@@ -10,8 +9,9 @@ import {
   BottomSheetModalProvider,
   type BottomSheetModal,
 } from "@gorhom/bottom-sheet";
+import { format } from "date-fns";
 import { Calendar } from "lucide-react-native";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import type { CreateEventData } from "./_features/create-event.schema";
 import { CreateEventSchema } from "./_features/create-event.schema";
@@ -35,47 +35,92 @@ export default function CreateEventPage() {
 
   const dateRangePickerRef = useRef<BottomSheetModal>(null);
 
+  const [isPublishing, setIsPublishing] = useState<boolean>(false);
+
+  const [startAt, setStartAt] = useState<string>("");
+  const [endAt, setEndAt] = useState<string>("");
+
   return (
     <BottomSheetModalProvider>
       <PageContainer>
         <Header title="Créer un événement" rightIcon="close" leftIcon="back" />
 
-        <FormTextInput
-          form={form}
-          id="title"
-          placeholder="Samed'ITS"
-          label="Titre"
-        />
-        <FormTextInput
-          form={form}
-          id="place"
-          placeholder="Samed'ITS"
-          label="Lieu"
-        />
-
-        <Typography size="h2" fontWeight="bold" className="mb-4">
-          Date(s) de l'événement :
-        </Typography>
-        <TouchableOpacity
-          onPress={() => {
-            dateRangePickerRef.current?.present();
-          }}
-        >
-          <View className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6">
-            <Typography fontWeight="semibold">
-              {/* {format(uploadedAt, "dd/MM/yyyy")} */}
-            </Typography>
-
-            <Calendar
-              strokeWidth={1.5}
-              color={colors[theme].mutedForeground}
-              size={24}
+        <View className="flex-1 justify-between pb-4">
+          <View>
+            <FormTextInput
+              form={form}
+              id="title"
+              placeholder="Samed'ITS"
+              label="Titre"
             />
+            <FormTextInput
+              form={form}
+              id="place"
+              placeholder="Fouaille"
+              label="Lieu"
+            />
+
+            <Typography size="h2" fontWeight="bold" className="mb-4">
+              Date(s) de l'événement :
+            </Typography>
+            <TouchableOpacity
+              onPress={() => {
+                dateRangePickerRef.current?.present();
+              }}
+            >
+              <View className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6">
+                <Typography fontWeight="semibold">
+                  {startAt && endAt
+                    ? `${format(startAt, "dd/MM/yyyy")} - ${format(
+                        endAt,
+                        "dd/MM/yyyy"
+                      )}`
+                    : format(today, "dd/MM/yyyy")}
+                </Typography>
+
+                <Calendar
+                  strokeWidth={1.5}
+                  color={colors[theme].mutedForeground}
+                  size={24}
+                />
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-        <Button onPress={() => form.submit(handleSubmit)}>Envoyer</Button>
+          <TouchableOpacity
+            onPress={() => form.submit(handleSubmit)}
+            disabled={isPublishing}
+          >
+            <View
+              className="items-center justify-center rounded-full bg-primary p-4"
+              style={{ opacity: isPublishing ? 0.6 : 1 }}
+            >
+              {isPublishing ? (
+                <Typography
+                  className="text-center text-white"
+                  fontWeight="bold"
+                  size="h2"
+                >
+                  Publication en cours...
+                </Typography>
+              ) : (
+                <Typography
+                  className="text-center text-white"
+                  fontWeight="bold"
+                  size="h2"
+                >
+                  Publier
+                </Typography>
+              )}
+            </View>
+          </TouchableOpacity>
+        </View>
       </PageContainer>
-      <DateRangePicker ref={dateRangePickerRef} today={today} />
+      <DateRangePicker
+        ref={dateRangePickerRef}
+        today={today}
+        setStartAt={setStartAt}
+        setEndAt={setEndAt}
+      />
     </BottomSheetModalProvider>
   );
 }

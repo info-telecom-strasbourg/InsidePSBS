@@ -1,3 +1,4 @@
+import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
 import type { UpdatePostInfoType } from "@/contexts/create-post.context";
 import { useCreatePost } from "@/contexts/create-post.context";
@@ -11,7 +12,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import { Circle } from "lucide-react-native";
 import { forwardRef, useMemo } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
 export const OrganizationList = forwardRef<
@@ -44,7 +45,7 @@ export const OrganizationList = forwardRef<
       enablePanDownToClose
       enableDismissOnClose
       overDragResistanceFactor={1}
-      backgroundStyle={{ backgroundColor: colors[theme].secondary }}
+      backgroundStyle={{ backgroundColor: colors[theme].background }}
       backdropComponent={() => (
         <BottomSheetBackdrop
           pressBehavior={"close"}
@@ -62,16 +63,23 @@ export const OrganizationList = forwardRef<
     >
       <BottomSheetScrollView>
         <TouchableOpacity
-          className="flex-row items-center justify-between"
+          className="mb-3 flex-row items-center justify-between"
           onPress={() => {
             updatePostInfo("organizationId", null);
           }}
         >
           <View className="flex-1 flex-row items-center gap-4">
-            <Image
+            {/* <Image
               source={{ uri: data?.data.avatar_url }}
               className="size-14"
               resizeMode="cover"
+            /> */}
+            <ProfilePicture
+              avatar={data?.data.avatar_url}
+              imageSize={50}
+              isOrganization={false}
+              name={`${data?.data.first_name} ${data?.data.last_name}`}
+              color={colors[theme].popover}
             />
             <Typography size="h4" fontWeight="medium" className="line-clamp-1">
               {data?.data.first_name} {data?.data.last_name}
@@ -116,16 +124,23 @@ const RenderOrganization = ({
   const { theme } = useTheme();
   return (
     <TouchableOpacity
-      className="flex-row items-center justify-between"
+      className="mb-3 flex-row items-center justify-between"
       onPress={() => {
         updatePostInfo("organizationId", organization.id);
       }}
     >
       <View className="flex-row items-center gap-4">
-        <Image
+        {/* <Image
           source={{ uri: organization.logo_url }}
           className="size-14"
           resizeMode="cover"
+        /> */}
+        <ProfilePicture
+          avatar={organization.logo_url}
+          imageSize={50}
+          isOrganization
+          name={organization.name}
+          color={colors[theme].popover}
         />
         <Typography size="h4" fontWeight="medium" className="line-clamp-1">
           {organization.name}

@@ -1,6 +1,7 @@
 import type { useForm } from "@/hooks/useForm";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { cn } from "@/utils/cn";
 import type { TextInputProps } from "react-native";
 import { TextInput } from "react-native";
 import type { TypeOf, ZodSchema } from "zod";
@@ -20,7 +21,7 @@ export const FormTextInput = <Z extends ZodSchema>({
   return (
     <>
       {label && (
-        <Typography size="h3" fontWeight="medium" className="mb-3">
+        <Typography size="h2" fontWeight="medium" className="mb-3">
           {label}
         </Typography>
       )}
@@ -28,7 +29,10 @@ export const FormTextInput = <Z extends ZodSchema>({
         {...props}
         value={form.values[id]}
         onChangeText={(value) => form.updateValue(id, value)}
-        className="mb-3 items-center rounded-2xl bg-popover p-4 text-foreground focus:border-2 focus:border-primary"
+        className={cn(
+          "mb-3 items-center rounded-2xl border-2 bg-popover p-4 text-foreground",
+          form.formError[id] ? "border-destructive" : ""
+        )}
         placeholderTextColor={colors[theme].mutedForeground}
         style={{ fontFamily: "SpaceGrotesk-medium" }}
       />

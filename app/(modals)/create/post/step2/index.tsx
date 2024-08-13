@@ -49,9 +49,9 @@ const CreatePostStep2 = () => {
 
   return (
     <>
-      <View className="flex-1 justify-between bg-background pb-3">
+      <View className="flex-1 justify-between bg-background pb-4">
         <View>
-          <Typography size="h2" fontWeight="bold" className="mb-6">
+          <Typography size="h2" fontWeight="semibold" className="mb-4">
             Catégories
           </Typography>
           <View className="mb-6 flex-row flex-wrap gap-4">
@@ -70,13 +70,14 @@ const CreatePostStep2 = () => {
               })
             )}
           </View>
-          <Typography size="h2" fontWeight="bold" className="mb-4">
+          <Typography size="h2" fontWeight="semibold" className="mb-4">
             Date de publication :
           </Typography>
           <TouchableOpacity
             onPress={() => {
               datePickerRef.current?.present();
             }}
+            className="mb-4"
           >
             <View className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6">
               <Typography fontWeight="semibold">
@@ -90,7 +91,7 @@ const CreatePostStep2 = () => {
               />
             </View>
           </TouchableOpacity>
-          <Typography size="h2" fontWeight="bold" className="mb-4">
+          <Typography size="h2" fontWeight="semibold" className="mb-4">
             Heure de publication :
           </Typography>
           <TouchableOpacity
@@ -125,7 +126,7 @@ const CreatePostStep2 = () => {
             ) : (
               <Typography
                 className="text-center text-white"
-                fontWeight="bold"
+                fontWeight="semibold"
                 size="h2"
               >
                 Publier
