@@ -8,30 +8,45 @@ import { useFilters } from "@app/(tabs)/posts/_features/filters.query";
 import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
-import { Calendar as Cal } from "lucide-react-native";
-import { useRef, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import type * as ImagePicker from "expo-image-picker";
+import { Calendar as Cal, Minus, Plus } from "lucide-react-native";
+import { useCallback, useRef, useState } from "react";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { CategoryItem } from "./_features/category-item";
 import { DatePicker } from "./_features/date-picker";
-import { storePost, storePostCategories } from "./_features/store-post";
+import { pickImages } from "./_features/pick-images";
+import {
+  storeMedias,
+  storePost,
+  storePostCategories,
+} from "./_features/store-post";
 import { useTimePicker } from "./_features/useTimePicker";
 
 const CreatePostStep2 = () => {
+  // Utils
   const { token } = useAuth();
   const { theme } = useTheme();
 
+  // Fetching...
   const { data: filters, isLoading: filtersAreLoading } = useFilters(null);
-  const { postBody, categories, organizationId, updatePostInfo, uploadedAt } =
-    useCreatePost();
-  const [isPublishing, setIsPublishing] = useState<boolean>(false);
 
+  // Date Picker & Time Picker
   const datePickerRef = useRef<BottomSheetModal>(null);
-
   const today = new Date();
   const { time, setTime, showTimePicker, setShowTimePicker, formattedTime } =
     useTimePicker(today);
 
-  const handlePublish = async () => {
+  // Posts Settings Context
+  const { postBody, categories, organizationId, updatePostInfo, uploadedAt } =
+    useCreatePost();
+
+  // States
+  const [medias, setMedias] = useState<
+    ImagePicker.ImagePickerSuccessResult["assets"] | null
+  >(null);
+  const [isPublishing, setIsPublishing] = useState<boolean>(false);
+
+  const handlePublish = useCallback(async () => {
     setIsPublishing(true);
     const timeToPublish = `${uploadedAt} ${formattedTime}`;
     const res = await storePost(
@@ -42,10 +57,25 @@ const CreatePostStep2 = () => {
     );
     const postId = res?.data?.id;
     const res_category = await storePostCategories(postId, categories, token);
-    console.log("Post published");
+    if (medias) {
+      medias.map(async (media) => {
+        try {
+          const res_medias = await storeMedias(postId, media, token);
+        } catch (error) {
+          throw error;
+        }
+      });
+    }
     setIsPublishing(false);
-    // add medias to post if needed
-  };
+  }, [
+    categories,
+    formattedTime,
+    organizationId,
+    postBody,
+    token,
+    uploadedAt,
+    medias,
+  ]);
 
   return (
     <>
@@ -70,7 +100,7 @@ const CreatePostStep2 = () => {
               })
             )}
           </View>
-          <Typography size="h2" fontWeight="semibold" className="mb-4">
+          <Typography size="h2" fontWeight="medium" className="mb-2">
             Date de publication :
           </Typography>
           <TouchableOpacity
@@ -91,7 +121,7 @@ const CreatePostStep2 = () => {
               />
             </View>
           </TouchableOpacity>
-          <Typography size="h2" fontWeight="semibold" className="mb-4">
+          <Typography size="h2" fontWeight="medium" className="mb-2">
             Heure de publication :
           </Typography>
           <TouchableOpacity
@@ -109,6 +139,55 @@ const CreatePostStep2 = () => {
               />
             </View>
           </TouchableOpacity>
+          <View className="mt-4 flex-row items-center gap-3">
+            <View
+              style={{ width: 40, height: 40, borderRadius: 999 }}
+              className="items-center justify-center bg-primary"
+            >
+              <TouchableOpacity onPress={() => pickImages(setMedias)}>
+                <Plus size={25} color="#ffffff" strokeWidth={3} />
+              </TouchableOpacity>
+            </View>
+            <View className="flex-1 items-center justify-center rounded-full bg-popover p-3">
+              <Typography
+                size="h4"
+                fontWeight="semibold"
+                className="text-center text-muted-foreground"
+              >
+                {medias ? medias.length : 0} médias ajoutés
+              </Typography>
+            </View>
+          </View>
+          <ScrollView
+            className="mt-4"
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          >
+            {medias
+              ? medias.map((media, index) => {
+                  return (
+                    <View
+                      key={index}
+                      style={{ overflow: "visible" }}
+                      className="z-1"
+                    >
+                      <TouchableOpacity
+                        className="absolute -left-2 -top-2 z-40 items-center justify-center rounded-full bg-destructive"
+                        style={{ width: 20, height: 20 }}
+                      >
+                        <Minus color={"#ffffff"} size={18} />
+                      </TouchableOpacity>
+                      <Image
+                        source={{ uri: media.uri }}
+                        key={index}
+                        resizeMode="cover"
+                        className="z-1 relative mr-3 size-24 rounded-2xl"
+                      />
+                    </View>
+                  );
+                })
+              : null}
+          </ScrollView>
         </View>
         <TouchableOpacity onPress={handlePublish} disabled={isPublishing}>
           <View

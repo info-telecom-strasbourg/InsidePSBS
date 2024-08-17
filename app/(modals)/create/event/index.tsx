@@ -1,3 +1,4 @@
+import { useAuth } from "@/auth/useAuth";
 import { PageContainer } from "@/components/primitives/container";
 import { FormTextInput } from "@/components/primitives/form-input";
 import { Header } from "@/components/primitives/header";
@@ -5,17 +6,20 @@ import { Typography } from "@/components/primitives/typography";
 import { useForm } from "@/hooks/useForm";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { useMe } from "@app/(tabs)/profile/_features/me.query";
 import {
   BottomSheetModalProvider,
   type BottomSheetModal,
 } from "@gorhom/bottom-sheet";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react-native";
-import { useRef, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { useCallback, useRef, useState } from "react";
+import { Keyboard, TouchableOpacity, View } from "react-native";
+import { ChoiceItem } from "../post/step1/_features/choice-item";
 import type { CreateEventData } from "./_features/create-event.schema";
 import { CreateEventSchema } from "./_features/create-event.schema";
 import { DateRangePicker } from "./_features/date-range-picker";
+import { OrganizationSelect } from "./_features/organization-select";
 
 export default function CreateEventPage() {
   const form = useForm({
@@ -25,25 +29,72 @@ export default function CreateEventPage() {
       place: "",
     },
   });
-
-  const handleSubmit = (values: CreateEventData) => {
-    console.log(values);
-  };
-
+  const { token } = useAuth();
   const { theme } = useTheme();
   const today = new Date();
 
+  const { data } = useMe();
+  const [organizationId, setOrganizationId] = useState<number | null>(
+    data?.organizations ? data.organizations[0].id : null
+  );
+
   const dateRangePickerRef = useRef<BottomSheetModal>(null);
+  const organizationListRef = useRef<BottomSheetModal>(null);
 
   const [isPublishing, setIsPublishing] = useState<boolean>(false);
-
   const [startAt, setStartAt] = useState<string>("");
   const [endAt, setEndAt] = useState<string>("");
+
+  const handleSubmit = useCallback(
+    async (values: CreateEventData) => {
+      setIsPublishing(true);
+      console.log(values, organizationId, startAt, endAt, token);
+      // const res = await storeEvent(
+      //   values.title,
+      //   values.place,
+      //   organizationId,
+      //   startAt,
+      //   endAt,
+      //   token
+      // );
+      setIsPublishing(false);
+    },
+    [endAt, startAt, token, organizationId]
+  );
 
   return (
     <BottomSheetModalProvider>
       <PageContainer>
         <Header title="Créer un événement" rightIcon="close" leftIcon="back" />
+
+        {data ? (
+          <View className="mb-4 flex-row items-center">
+            {data?.organizations ? (
+              <ChoiceItem
+                isOrganization
+                onPress={() => {
+                  Keyboard.dismiss();
+                  organizationListRef.current?.present();
+                }}
+                title={
+                  data.organizations.filter(
+                    (item) => item.id === organizationId
+                  )[0].name
+                }
+                url={
+                  data.organizations.filter(
+                    (item) => item.id === organizationId
+                  )[0].logo_url
+                }
+              />
+            ) : (
+              <Typography size="h3" fontWeight="medium">
+                Vous ne pouvez pas créer d'évènement car vous ne faîtes pas
+                partie d'une association ou d'un club !
+              </Typography>
+            )}
+          </View>
+        ) : null}
 
         <View className="flex-1 justify-between pb-4">
           <View>
@@ -120,6 +171,12 @@ export default function CreateEventPage() {
         today={today}
         setStartAt={setStartAt}
         setEndAt={setEndAt}
+      />
+      <OrganizationSelect
+        data={data}
+        organizationId={organizationId}
+        setOrganizationId={setOrganizationId}
+        ref={organizationListRef}
       />
     </BottomSheetModalProvider>
   );

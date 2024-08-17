@@ -59,6 +59,9 @@ importers:
       expo-font:
         specifier: ~12.0.9
         version: 12.0.9(expo@51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2)))
+      expo-image-picker:
+        specifier: ~15.0.7
+        version: 15.0.7(expo@51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2)))
       expo-linear-gradient:
         specifier: ~13.0.2
         version: 13.0.2(expo@51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2)))
@@ -2942,6 +2945,16 @@ packages:
 
   expo-font@12.0.9:
     resolution: {integrity: sha512-seTCyf0tbgkAnp3ZI9ZfK9QVtURQUgFnuj+GuJ5TSnN0XsOtVe1s2RxTvmMgkfuvfkzcjJ69gyRpsZS1cC8hjw==}
+    peerDependencies:
+      expo: '*'
+
+  expo-image-loader@4.7.0:
+    resolution: {integrity: sha512-cx+MxxsAMGl9AiWnQUzrkJMJH4eNOGlu7XkLGnAXSJrRoIiciGaKqzeaD326IyCTV+Z1fXvIliSgNW+DscvD8g==}
+    peerDependencies:
+      expo: '*'
+
+  expo-image-picker@15.0.7:
+    resolution: {integrity: sha512-u8qiPZNfDb+ap6PJ8pq2iTO7JKX+ikAUQ0K0c7gXGliKLxoXgDdDmXxz9/6QdICTshJBJlBvI0MwY5NWu7A/uw==}
     peerDependencies:
       expo: '*'
 
@@ -9885,6 +9898,15 @@ snapshots:
     dependencies:
       expo: 51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2))
       fontfaceobserver: 2.3.0
+
+  expo-image-loader@4.7.0(expo@51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2))):
+    dependencies:
+      expo: 51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2))
+
+  expo-image-picker@15.0.7(expo@51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2))):
+    dependencies:
+      expo: 51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2))
+      expo-image-loader: 4.7.0(expo@51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2)))
 
   expo-keep-awake@13.0.2(expo@51.0.26(@babel/core@7.25.2)(@babel/preset-env@7.24.7(@babel/core@7.25.2))):
     dependencies:

@@ -98,7 +98,7 @@ const CreatePostPage = () => {
       >
         <Toolbar editor={editor} />
       </KeyboardAvoidingView>
-      <OrganizationList ref={organizationListRef} data={data} />
+      <OrganizationList ref={organizationListRef} data={data} type="post" />
     </View>
   );
 };

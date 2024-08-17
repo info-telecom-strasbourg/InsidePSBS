@@ -3,7 +3,7 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import type { TextInputProps } from "react-native";
-import { TextInput } from "react-native";
+import { TextInput, View } from "react-native";
 import type { TypeOf, ZodSchema } from "zod";
 import { Typography } from "./typography";
 
@@ -19,7 +19,7 @@ export const FormTextInput = <Z extends ZodSchema>({
 }) => {
   const { theme } = useTheme();
   return (
-    <>
+    <View className="mb-3">
       {label && (
         <Typography size="h2" fontWeight="medium" className="mb-3">
           {label}
@@ -30,7 +30,7 @@ export const FormTextInput = <Z extends ZodSchema>({
         value={form.values[id]}
         onChangeText={(value) => form.updateValue(id, value)}
         className={cn(
-          "mb-3 items-center rounded-2xl border-2 bg-popover p-4 text-foreground",
+          "mb-1 items-center rounded-2xl border-2 bg-popover p-4 text-foreground",
           form.formError[id] ? "border-destructive" : ""
         )}
         placeholderTextColor={colors[theme].mutedForeground}
@@ -41,6 +41,6 @@ export const FormTextInput = <Z extends ZodSchema>({
           {form.formError[id]}
         </Typography>
       )}
-    </>
+    </View>
   );
 };

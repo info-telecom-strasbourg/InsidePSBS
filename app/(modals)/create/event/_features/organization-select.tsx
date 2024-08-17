@@ -1,7 +1,5 @@
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
-import type { UpdatePostInfoType } from "@/contexts/create-post.context";
-import { useCreatePost } from "@/contexts/create-post.context";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import type { ItsMeUserData } from "@app/(tabs)/profile/_features/me.schema";
@@ -15,12 +13,15 @@ import { forwardRef, useMemo } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
-export const OrganizationList = forwardRef<
+export const OrganizationSelect = forwardRef<
   BottomSheetModal,
-  { data: ItsMeUserData | undefined }
->(function OrganizationList({ data }, ref) {
+  {
+    data: ItsMeUserData | undefined;
+    organizationId: number | null;
+    setOrganizationId: React.Dispatch<React.SetStateAction<number | null>>;
+  }
+>(function OrganizationList({ data, organizationId, setOrganizationId }, ref) {
   const { theme } = useTheme();
-  const { updatePostInfo, organizationId } = useCreatePost();
 
   const animatedIndex = useSharedValue<number>(0);
   const animatedPosition = useSharedValue<number>(0);
@@ -62,44 +63,12 @@ export const OrganizationList = forwardRef<
       )}
     >
       <BottomSheetScrollView>
-        <TouchableOpacity
-          className="mb-3 flex-row items-center justify-between"
-          onPress={() => {
-            updatePostInfo("organizationId", null);
-          }}
-        >
-          <View className="flex-1 flex-row items-center gap-4">
-            <ProfilePicture
-              avatar={data?.data.avatar_url}
-              imageSize={50}
-              isOrganization={false}
-              name={`${data?.data.first_name} ${data?.data.last_name}`}
-              color={colors[theme].popover}
-            />
-            <Typography size="h4" fontWeight="medium" className="line-clamp-1">
-              {data?.data.first_name} {data?.data.last_name}
-            </Typography>
-          </View>
-          <Circle
-            size={20}
-            fill={
-              organizationId === null
-                ? colors[theme].primary
-                : colors[theme].secondary
-            }
-            color={
-              organizationId === null
-                ? colors[theme].primary
-                : colors[theme].secondary
-            }
-          />
-        </TouchableOpacity>
         {data?.organizations.map((item, index) => (
           <RenderOrganization
             key={index}
             organization={item}
             organizationId={organizationId}
-            updatePostInfo={updatePostInfo}
+            setOrganizationId={setOrganizationId}
           />
         ))}
       </BottomSheetScrollView>
@@ -110,18 +79,18 @@ export const OrganizationList = forwardRef<
 const RenderOrganization = ({
   organization,
   organizationId,
-  updatePostInfo,
+  setOrganizationId,
 }: {
   organization: ItsMeUserData["organizations"][0];
   organizationId: number | null;
-  updatePostInfo: UpdatePostInfoType;
+  setOrganizationId: React.Dispatch<React.SetStateAction<number | null>>;
 }) => {
   const { theme } = useTheme();
   return (
     <TouchableOpacity
       className="mb-3 flex-row items-center justify-between"
       onPress={() => {
-        updatePostInfo("organizationId", organization.id);
+        setOrganizationId(organization.id);
       }}
     >
       <View className="flex-row items-center gap-4">
