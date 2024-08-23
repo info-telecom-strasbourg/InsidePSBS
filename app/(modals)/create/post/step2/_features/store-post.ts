@@ -1,5 +1,4 @@
 import { postQuery } from "@/utils/post-query";
-import * as FileSystem from "expo-file-system";
 import type * as ImagePicker from "expo-image-picker";
 import type {
   StorePostCategoriesData,
@@ -61,20 +60,49 @@ export const storePostCategories = async (
 
 export const storeMedias = async (
   postId: number,
-  file: ImagePicker.ImagePickerSuccessResult["assets"][0],
+  files: ImagePicker.ImagePickerAsset[],
   token: string | null
 ) => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/${postId}/media`;
+  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/media`;
+
+  const formData = new FormData();
   try {
-    const response = await FileSystem.uploadAsync(url, file.uri, {
-      fieldName: "media",
-      uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
-      mimeType: file.mimeType,
-      httpMethod: "POST",
-      headers: { Authorization: `Bearer ${token}` },
+    // for (let i = 0; i < files.length; i++) {
+    //   const file = {
+    //     uri: files[i].uri,
+    //     name: files[i].fileName || `${files[i].type}_${i}`,
+    //     type: files[i].mimeType,
+    //   };
+
+    // const response = await fetch(fileObject.uri);
+    //   const blob = await response.blob();
+    //   console.log(blob);
+    //   formData.append("medias[]", file, file.name);
+    // }
+    files.forEach(async (file, index) => {
+      const fileObject = {
+        uri: file.uri,
+        name: file.fileName || `${file.type}_${index}`,
+        type: file.mimeType || "image/jpeg",
+      };
+
+      formData.append("medias[]", fileObject, fileObject.name);
     });
-    console.log(JSON.stringify(response, null, 4));
+
+    const res = await fetch(url, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // "Content-Type": "multipart/form-data",
+      },
+    });
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(`HTTP error! status: ${res.status}, message: ${error}`);
+    }
+    return res.json();
   } catch (error) {
-    throw error;
+    console.error(error);
   }
 };

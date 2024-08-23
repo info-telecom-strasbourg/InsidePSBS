@@ -14,6 +14,7 @@ import {
   View,
 } from "react-native";
 import { ChoiceItem } from "./_features/choice-item";
+import { CustomToolbarItems } from "./_features/custom-toolbar";
 import { EmptyEditor } from "./_features/empty-post";
 import { OrganizationList } from "./_features/organization-list";
 import { useEditor } from "./_features/useEditor";
@@ -96,9 +97,9 @@ const CreatePostPage = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="absolute bottom-0 w-full"
       >
-        <Toolbar editor={editor} />
+        <Toolbar editor={editor} items={CustomToolbarItems} />
       </KeyboardAvoidingView>
-      <OrganizationList ref={organizationListRef} data={data} type="post" />
+      <OrganizationList ref={organizationListRef} data={data} />
     </View>
   );
 };

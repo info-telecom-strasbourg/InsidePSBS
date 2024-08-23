@@ -49,22 +49,32 @@ const CreatePostStep2 = () => {
   const handlePublish = useCallback(async () => {
     setIsPublishing(true);
     const timeToPublish = `${uploadedAt} ${formattedTime}`;
-    const res = await storePost(
-      JSON.stringify(postBody),
-      organizationId,
-      timeToPublish,
-      token
-    );
-    const postId = res?.data?.id;
-    const res_category = await storePostCategories(postId, categories, token);
-    if (medias) {
-      medias.map(async (media) => {
+    try {
+      const postsResponse = await storePost(
+        JSON.stringify(postBody),
+        organizationId,
+        timeToPublish,
+        token
+      );
+      // const parsedResPosts = await validate<StorePostResponseData>(
+      //   StorePostResponseSchema,
+      //   postsResponse
+      // );
+      const postId = postsResponse.data.id;
+      const categoryResponse = await storePostCategories(
+        postId,
+        categories,
+        token
+      );
+      if (medias) {
         try {
-          const res_medias = await storeMedias(postId, media, token);
+          const mediasResponse = await storeMedias(postId, medias, token);
         } catch (error) {
           throw error;
         }
-      });
+      }
+    } catch (error) {
+      throw error;
     }
     setIsPublishing(false);
   }, [
@@ -174,6 +184,10 @@ const CreatePostStep2 = () => {
                       <TouchableOpacity
                         className="absolute -left-2 -top-2 z-40 items-center justify-center rounded-full bg-destructive"
                         style={{ width: 20, height: 20 }}
+                        onPress={() => {
+                          medias.splice(index, 1);
+                          setMedias([...medias]);
+                        }}
                       >
                         <Minus color={"#ffffff"} size={18} />
                       </TouchableOpacity>
