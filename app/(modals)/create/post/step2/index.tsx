@@ -21,7 +21,8 @@ import {
   storePostCategories,
 } from "./_features/store-post";
 import { useTimePicker } from "./_features/useTimePicker";
-import { Href, router } from 'expo-router';
+import type { Href } from 'expo-router';
+import { router } from 'expo-router';
 import { routes } from "@/constants/routes";
 
 const CreatePostStep2 = () => {
@@ -92,7 +93,11 @@ const CreatePostStep2 = () => {
 
   return (
     <>
-      <View className="flex-1 justify-between bg-background pb-4">
+      <ScrollView
+       horizontal={false}
+       showsHorizontalScrollIndicator={true}
+       contentContainerStyle={{justifyContent: "space-between"}}
+       className="flex-1 bg-background pb-4">
         <View>
           <Typography size="h2" fontWeight="semibold" className="mb-4">
             Catégories
@@ -152,7 +157,7 @@ const CreatePostStep2 = () => {
               />
             </View>
           </TouchableOpacity>
-          <View className="mt-4 flex-row items-center gap-3">
+          <View className="mt-4 flex-row items-center">
             <View
               style={{ width: 40, height: 40, borderRadius: 999 }}
               className="items-center justify-center bg-primary"
@@ -230,7 +235,7 @@ const CreatePostStep2 = () => {
             )}
           </View>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
       {showTimePicker && (
         <DateTimePicker
           value={time || new Date()}
