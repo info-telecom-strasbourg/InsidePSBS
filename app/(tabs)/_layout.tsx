@@ -24,7 +24,6 @@ export default function TabsLayout() {
   const rotation = useSharedValue<number>(0);
 
   // BottomSheet Modal
-
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   if (isModalOpened) {
@@ -150,7 +149,7 @@ export default function TabsLayout() {
           )}
         >
           <BottomSheetView className="gap-6 p-4">
-            <PublishBottomSheet />
+            <PublishBottomSheet setIsModalOpened={setIsModalOpened} />
           </BottomSheetView>
         </BottomSheetModal>
       </BottomSheetModalProvider>

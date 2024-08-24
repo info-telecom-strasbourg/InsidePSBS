@@ -1,9 +1,12 @@
 import { Typography } from "@/components/primitives/typography";
+import { routes } from "@/constants/routes";
 import { useCreatePost } from "@/contexts/create-post.context";
 import { RichText, Toolbar } from "@10play/tentap-editor";
 import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { useMe } from "@app/(tabs)/profile/_features/me.query";
 import type { BottomSheetModal } from "@gorhom/bottom-sheet";
+import type { Href } from "expo-router";
+import { router } from "expo-router";
 import { useRef, useState } from "react";
 import {
   Keyboard,
@@ -17,7 +20,6 @@ import { CustomToolbarItems } from "./_features/custom-toolbar";
 import { EmptyEditor } from "./_features/empty-post";
 import { OrganizationList } from "./_features/organization-list";
 import { useEditor } from "./_features/useEditor";
-import { router } from "expo-router";
 
 const CreatePostPage = () => {
   const { data } = useMe();
@@ -78,7 +80,7 @@ const CreatePostPage = () => {
                 "postBody",
                 PostBodySchema.safeParse(postBody).data
               );
-              router.push("/create/post/step2");
+              router.push(routes.create_post_step_2 as Href);
             }
           }}
         >
