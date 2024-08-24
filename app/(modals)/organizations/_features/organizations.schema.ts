@@ -4,7 +4,7 @@ const OrganizationIndexSchema = z.object({
   id: z.number(),
   short_name: z.string().nullable(),
   name: z.string(),
-  logo_url: z.string().url(),
+  logo_url: z.string().url().nullable(),
 });
 
 // Define the schema for the API response
