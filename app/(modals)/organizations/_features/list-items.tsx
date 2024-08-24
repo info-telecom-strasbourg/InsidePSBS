@@ -1,13 +1,15 @@
+import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import type { OrganizationData } from "@app/(modals)/organizations/_features/organizations.schema";
+import type { Href } from "expo-router";
 import { router } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import type { TouchableOpacityProps } from "react-native";
-import { Image, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 export type ListItemsProps = PropsWithChildren<{
   item:
@@ -20,14 +22,16 @@ export const ListItems = ({ item }: ListItemsProps) => {
   const { theme } = useTheme();
   return (
     <TouchableOpacity
-      onPress={() => router.push(`${routes.organizations}/${item.id}`)}
+      onPress={() => router.push(`${routes.organizations}/${item.id}` as Href)}
       key={item.id}
       className="flex-1 flex-row items-center justify-start gap-3 rounded-2xl bg-popover p-3"
     >
-      <Image
-        source={{ uri: `${item.logo_url}` }}
-        resizeMode="contain"
-        className="size-16 rounded-2xl"
+      <ProfilePicture
+        avatar={item.logo_url}
+        imageSize={50}
+        isOrganization
+        name={item.name}
+        color={colors[theme].background}
       />
       <View>
         {item.short_name ? (
