@@ -2,7 +2,7 @@ import { SafeFlashList } from "@/components/primitives/bottom-sheet-flashlist";
 import { useCreatePost } from "@/contexts/create-post.context";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { useDatePickerTheme } from "@app/(modals)/create/event/_features/useDateRangeTheme";
+import { useDatePickerTheme } from "@app/(modals)/create/event/_features/useDatePickerTheme";
 import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Calendar, toDateId } from "@marceloterreiro/flash-calendar";
 import { forwardRef, useMemo } from "react";
@@ -16,7 +16,7 @@ export const DatePicker = forwardRef<
   }
 >(function DatePicker({ today }, ref) {
   const { theme } = useTheme();
-  const { updatePostInfo } = useCreatePost();
+  const { updatePostInfo, uploadedAt } = useCreatePost();
 
   const animatedIndex = useSharedValue<number>(0);
   const animatedPosition = useSharedValue<number>(0);
@@ -71,6 +71,9 @@ export const DatePicker = forwardRef<
           calendarFirstDayOfWeek="monday"
           calendarFormatLocale="fr-FR"
           calendarMinDateId={toDateId(today)}
+          calendarActiveDateRanges={[
+            { startId: uploadedAt, endId: uploadedAt },
+          ]}
           calendarInitialMonthId={toDateId(today)}
           onCalendarDayPress={(dateId) => {
             updatePostInfo("uploadedAt", dateId);

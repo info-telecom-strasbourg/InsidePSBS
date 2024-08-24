@@ -1,6 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
-import { PageLoading } from "@/components/page/loading";
 import { Typography } from "@/components/primitives/typography";
+import { routes } from "@/constants/routes";
 import { useCreatePost } from "@/contexts/create-post.context";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
@@ -9,10 +9,13 @@ import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 import type * as ImagePicker from "expo-image-picker";
+import type { Href } from "expo-router";
+import { router } from "expo-router";
 import { Calendar as Cal, Minus, Plus } from "lucide-react-native";
+import { Skeleton } from "moti/skeleton";
 import { useCallback, useRef, useState } from "react";
 import { Image, ScrollView, TouchableOpacity, View } from "react-native";
-import { CategoryItem } from "./_features/category-item";
+import { CategoryItem, SkeletonCategoryItem } from "./_features/category-item";
 import { DatePicker } from "./_features/date-picker";
 import { pickImages } from "./_features/pick-images";
 import {
@@ -21,9 +24,12 @@ import {
   storePostCategories,
 } from "./_features/store-post";
 import { useTimePicker } from "./_features/useTimePicker";
+<<<<<<< HEAD
 import type { Href } from 'expo-router';
 import { router } from 'expo-router';
 import { routes } from "@/constants/routes";
+=======
+>>>>>>> 97597d9 (fixed themes of pickers)
 
 const CreatePostStep2 = () => {
   // Utils
@@ -104,7 +110,14 @@ const CreatePostStep2 = () => {
           </Typography>
           <View className="mb-6 flex-row flex-wrap gap-4">
             {!filters || filtersAreLoading ? (
-              <PageLoading />
+              <Skeleton.Group show={!filters || filtersAreLoading}>
+                <SkeletonCategoryItem />
+                <SkeletonCategoryItem />
+                <SkeletonCategoryItem />
+                <SkeletonCategoryItem />
+                <SkeletonCategoryItem />
+                <SkeletonCategoryItem />
+              </Skeleton.Group>
             ) : (
               filters.map((item, index) => {
                 return (

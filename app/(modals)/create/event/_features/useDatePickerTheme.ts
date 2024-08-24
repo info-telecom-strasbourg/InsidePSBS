@@ -28,54 +28,29 @@ export const useDatePickerTheme = () => {
       },
     },
     itemDay: {
-      disabled: () => ({
+      base: () => ({
         container: {
-          backgroundColor: colors[theme].popover,
+          padding: 0,
           borderTopRightRadius: 999,
           borderBottomRightRadius: 999,
           borderTopLeftRadius: 999,
           borderBottomLeftRadius: 999,
-          opacity: 0.4,
+          backgroundColor: colors[theme].popover,
         },
         content: {
           color: colors[theme].foreground,
           fontFamily: "SpaceGrotesk-medium",
         },
       }),
-      idle: ({ isPressed }) => ({
+      disabled: () => ({
         container: {
-          backgroundColor: isPressed
-            ? colors[theme].primary
-            : colors[theme].popover,
-          borderTopRightRadius: 999,
-          borderBottomRightRadius: 999,
-          borderTopLeftRadius: 999,
-          borderBottomLeftRadius: 999,
-        },
-        content: {
-          color: isPressed ? "#ffffff" : colors[theme].foreground,
-          fontFamily: "SpaceGrotesk-medium",
+          opacity: 0.4,
         },
       }),
-      today: ({ isPressed }) => ({
+      today: () => ({
         container: {
           borderColor: "#000000",
           borderWidth: 2,
-          borderTopRightRadius: 999,
-          borderBottomRightRadius: 999,
-          borderTopLeftRadius: 999,
-          borderBottomLeftRadius: 999,
-          backgroundColor: isPressed
-            ? colors[theme].primary
-            : colors[theme].popover,
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center",
-        },
-        content: {
-          color: colors[theme].foreground,
-          fontFamily: "SpaceGrotesk-medium",
-          textAlign: "center",
         },
       }),
       active: ({ isEndOfRange, isStartOfRange }) => ({

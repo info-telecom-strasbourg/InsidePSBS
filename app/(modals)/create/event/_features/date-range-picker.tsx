@@ -11,7 +11,7 @@ import {
 import { forwardRef, useMemo } from "react";
 import { View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-import { useDatePickerTheme } from "./useDateRangeTheme";
+import { useDatePickerTheme } from "./useDatePickerTheme";
 
 export const DateRangePicker = forwardRef<
   BottomSheetModal,

@@ -3,8 +3,9 @@ import type { UpdatePostInfoType } from "@/contexts/create-post.context";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import type { CategoriesData } from "@app/(tabs)/posts/_features/categories.schema";
+import { Skeleton } from "moti/skeleton";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 export const CategoryItem = ({
   item,
@@ -56,5 +57,16 @@ export const CategoryItem = ({
         {item.emoji} {item.name}
       </Typography>
     </TouchableOpacity>
+  );
+};
+
+export const SkeletonCategoryItem = () => {
+  const { theme } = useTheme();
+  return (
+    <Skeleton colorMode={theme}>
+      <View className="rounded-full px-4 py-1">
+        <Typography size="p">📘 Admis 2024</Typography>
+      </View>
+    </Skeleton>
   );
 };
