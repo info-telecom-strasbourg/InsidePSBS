@@ -1,11 +1,16 @@
+import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { useModalRouter } from "@/hooks/useModalRouter";
+import { colors } from "@/theme/colors";
+import { useTheme } from "@/theme/theme-context";
 import type { ShowOrganizationData } from "@app/(modals)/organizations/_features/organization-profile.schema";
-import { FlatList, Image, Pressable, View } from "react-native";
+import { FlatList, Pressable, View } from "react-native";
 
 type MembersProps = { data: ShowOrganizationData["members"] | undefined };
 
 export const Members = ({ data }: MembersProps) => {
   const modalRouter = useModalRouter();
+
+  const { theme } = useTheme();
   return (
     <View>
       <View className="flex-row gap-3">
@@ -18,10 +23,12 @@ export const Members = ({ data }: MembersProps) => {
               key={item.id}
               onPress={() => modalRouter.open(`/user/${item.id}`)}
             >
-              <Image
-                source={{ uri: `${item.avatar_url}` || undefined }}
-                resizeMode="contain"
-                className="size-16 rounded-full"
+              <ProfilePicture
+                avatar={item.avatar_url}
+                imageSize={60}
+                isOrganization={false}
+                name={`${item.first_name} ${item.last_name}`}
+                color={colors[theme].popover}
               />
             </Pressable>
           )}
