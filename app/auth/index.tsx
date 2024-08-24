@@ -38,13 +38,13 @@ export default function AuthPage() {
           {process.env.EXPO_PUBLIC_MODE === "developer" && (
             <Link
               className="text-center"
-              onPress={() => modalRouter.open("dev")}
+              onPress={() => modalRouter.open(routes.dev)}
             >
               Dev screen
             </Link>
           )}
           <Link
-            onPress={() => modalRouter.open("cgu")}
+            onPress={() => modalRouter.open(routes.cgu)}
             className="text-center text-foreground"
           >
             Conditions d'utilisation
