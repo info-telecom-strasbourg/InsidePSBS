@@ -1,6 +1,5 @@
 import { Typography } from "@/components/primitives/typography";
 import { useCreatePost } from "@/contexts/create-post.context";
-import { useModalRouter } from "@/hooks/useModalRouter";
 import { RichText, Toolbar } from "@10play/tentap-editor";
 import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { useMe } from "@app/(tabs)/profile/_features/me.query";
@@ -18,10 +17,9 @@ import { CustomToolbarItems } from "./_features/custom-toolbar";
 import { EmptyEditor } from "./_features/empty-post";
 import { OrganizationList } from "./_features/organization-list";
 import { useEditor } from "./_features/useEditor";
+import { router } from "expo-router";
 
 const CreatePostPage = () => {
-  const modalRouter = useModalRouter();
-
   const { data } = useMe();
 
   const editor = useEditor();
@@ -30,7 +28,6 @@ const CreatePostPage = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const organizationListRef = useRef<BottomSheetModal>(null);
-
   return (
     <View className="flex-1 bg-background">
       <EmptyEditor modalOpen={modalOpen} setModalOpen={setModalOpen} />
@@ -81,7 +78,7 @@ const CreatePostPage = () => {
                 "postBody",
                 PostBodySchema.safeParse(postBody).data
               );
-              modalRouter.open("/create/post/step2");
+              router.push("/create/post/step2");
             }
           }}
         >
