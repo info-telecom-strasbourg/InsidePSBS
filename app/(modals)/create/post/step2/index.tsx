@@ -21,6 +21,8 @@ import {
   storePostCategories,
 } from "./_features/store-post";
 import { useTimePicker } from "./_features/useTimePicker";
+import { Href, router } from 'expo-router';
+import { routes } from "@/constants/routes";
 
 const CreatePostStep2 = () => {
   // Utils
@@ -77,6 +79,7 @@ const CreatePostStep2 = () => {
       throw error;
     }
     setIsPublishing(false);
+    router.replace(routes.home as Href);
   }, [
     categories,
     formattedTime,
