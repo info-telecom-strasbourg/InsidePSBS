@@ -24,12 +24,6 @@ import {
   storePostCategories,
 } from "./_features/store-post";
 import { useTimePicker } from "./_features/useTimePicker";
-<<<<<<< HEAD
-import type { Href } from 'expo-router';
-import { router } from 'expo-router';
-import { routes } from "@/constants/routes";
-=======
->>>>>>> 97597d9 (fixed themes of pickers)
 
 const CreatePostStep2 = () => {
   // Utils
