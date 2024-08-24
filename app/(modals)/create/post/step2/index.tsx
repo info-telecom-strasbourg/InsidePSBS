@@ -14,7 +14,7 @@ import { router } from "expo-router";
 import { Calendar as Cal, Minus, Plus } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { useCallback, useRef, useState } from "react";
-import { Image, ScrollView, TouchableOpacity, View } from "react-native";
+import { Image, Platform, ScrollView, TouchableOpacity, View } from "react-native";
 import { CategoryItem, SkeletonCategoryItem } from "./_features/category-item";
 import { DatePicker } from "./_features/date-picker";
 import { pickImages } from "./_features/pick-images";
@@ -24,6 +24,7 @@ import {
   storePostCategories,
 } from "./_features/store-post";
 import { useTimePicker } from "./_features/useTimePicker";
+import { CustomModal } from "@/components/primitives/custom-modal";
 
 const CreatePostStep2 = () => {
   // Utils
@@ -246,18 +247,34 @@ const CreatePostStep2 = () => {
           </View>
         </TouchableOpacity>
       </ScrollView>
-      {showTimePicker && (
-        <DateTimePicker
-          value={time || new Date()}
-          mode="time"
-          is24Hour={true}
-          timeZoneName="Europe/Paris"
-          onChange={(event, selectedTime) => {
-            setTime(selectedTime!);
-            setShowTimePicker(false);
-          }}
-        />
-      )}
+      {showTimePicker && (() => {
+          const dateTimePicker = (
+              <DateTimePicker
+                  value={time || new Date()}
+                  mode="time"
+                  display="spinner"
+                  is24Hour={true}
+                  style={{
+                    backgroundColor: colors[theme].popover,
+                  }}
+                  timeZoneName="Europe/Paris"
+                  onChange={(event, selectedTime) => {
+                      setTime(selectedTime!);
+                      if (Platform.OS === "android") {
+                          setShowTimePicker(false);
+                      }
+                  }}
+              />
+          );
+          return Platform.OS === "android" ? dateTimePicker : (
+              <CustomModal 
+                  isOpen={showTimePicker}
+                  setIsOpen={setShowTimePicker}
+              >
+                  {dateTimePicker}
+              </CustomModal>
+          );
+      })()}
       <DatePicker ref={datePickerRef} today={today} />
     </>
   );
