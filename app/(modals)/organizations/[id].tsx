@@ -4,6 +4,7 @@ import { useShowOrganization } from "@app/(modals)/organizations/_features/organ
 import { useShowOrganizationPosts } from "@app/(modals)/organizations/_features/organizations-posts.query";
 import { Profile } from "@app/(tabs)/profile/_features/profile";
 import { useLocalSearchParams } from "expo-router";
+import { ActivityIndicator } from "react-native";
 
 export default function AssoIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -22,19 +23,23 @@ export default function AssoIdPage() {
   return (
     <PageContainer>
       <Header title="Profil" leftIcon="back" rightIcon="close" />
-      <Profile
-        avatar={data?.organization.logo_url}
-        handleRefresh={handleRefresh}
-        isRefreshing={isRefreshing}
-        posts={posts}
-        postsAreLoading={postsAreLoading}
-        setSize={setSize}
-        size={size}
-        socials={data?.organization}
-        members={data?.members}
-        subtitle={data?.organization.name}
-        title={data?.organization.short_name}
-      />
+      {!data || isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <Profile
+          avatar={data?.organization.logo_url}
+          handleRefresh={handleRefresh}
+          isRefreshing={isRefreshing}
+          posts={posts}
+          postsAreLoading={postsAreLoading}
+          setSize={setSize}
+          size={size}
+          socials={data?.organization}
+          members={data?.members}
+          subtitle={data?.organization.name}
+          title={data?.organization.short_name}
+        />
+      )}
     </PageContainer>
   );
 }

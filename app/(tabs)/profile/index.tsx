@@ -7,7 +7,7 @@ import { RenderPosts } from "@app/(tabs)/posts/_features/render-posts";
 import { useMe } from "@app/(tabs)/profile/_features/me.query";
 import { ProfileHeader } from "@app/(tabs)/profile/_features/profile-header";
 import { FlashList } from "@shopify/flash-list";
-import { RefreshControl } from "react-native";
+import { RefreshControl, View } from "react-native";
 
 export default function ProfilePage() {
   const { data, isLoading, handleRefresh, isRefreshing } = useMe();
@@ -36,12 +36,14 @@ export default function ProfilePage() {
         <FlashList<PostsData["data"][0] | undefined>
           data={items}
           ListHeaderComponent={
-            <ProfileHeader
-              avatar={data.data.avatar_url}
-              title={`${data.data.first_name} ${data.data.last_name}`}
-              subtitle={data.data.user_name}
-              posts={posts}
-            />
+            <View className="mt-4">
+              <ProfileHeader
+                avatar={data.data.avatar_url}
+                title={`${data.data.first_name} ${data.data.last_name}`}
+                subtitle={data.data.user_name}
+                posts={posts}
+              />
+            </View>
           }
           onEndReached={loadMore}
           onEndReachedThreshold={3}
