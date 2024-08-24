@@ -1,3 +1,4 @@
+import { SafeFlashList } from "@/components/primitives/bottom-sheet-flashlist";
 import { useCreatePost } from "@/contexts/create-post.context";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
@@ -5,6 +6,7 @@ import { useDatePickerTheme } from "@app/(modals)/create/event/_features/useDate
 import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Calendar, toDateId } from "@marceloterreiro/flash-calendar";
 import { forwardRef, useMemo } from "react";
+import { View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
 export const DatePicker = forwardRef<
@@ -36,7 +38,7 @@ export const DatePicker = forwardRef<
         margin: 10,
         padding: 20,
       }}
-      bottomInset={30}
+      bottomInset={45}
       ref={ref}
       snapPoints={snapPoints}
       detached={true}
@@ -59,17 +61,23 @@ export const DatePicker = forwardRef<
         ></BottomSheetBackdrop>
       )}
     >
-      <Calendar.List
-        // CalendarScrollComponent={FlashList}
-        calendarFirstDayOfWeek="monday"
-        calendarFormatLocale="fr-FR"
-        calendarMinDateId={toDateId(today)}
-        calendarInitialMonthId={toDateId(today)}
-        onCalendarDayPress={(dateId) => {
-          updatePostInfo("uploadedAt", dateId);
+      <View
+        style={{
+          flex: 1,
         }}
-        theme={datePickerTheme}
-      />
+      >
+        <Calendar.List
+          CalendarScrollComponent={SafeFlashList}
+          calendarFirstDayOfWeek="monday"
+          calendarFormatLocale="fr-FR"
+          calendarMinDateId={toDateId(today)}
+          calendarInitialMonthId={toDateId(today)}
+          onCalendarDayPress={(dateId) => {
+            updatePostInfo("uploadedAt", dateId);
+          }}
+          theme={datePickerTheme}
+        />
+      </View>
     </BottomSheetModal>
   );
 });

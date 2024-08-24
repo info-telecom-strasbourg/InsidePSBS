@@ -1,3 +1,4 @@
+import { SafeFlashList } from "@/components/primitives/bottom-sheet-flashlist";
 import { Typography } from "@/components/primitives/typography";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
@@ -7,7 +8,6 @@ import {
   toDateId,
   useDateRange,
 } from "@marceloterreiro/flash-calendar";
-import { FlashList } from "@shopify/flash-list";
 import { forwardRef, useMemo } from "react";
 import { View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
@@ -82,16 +82,18 @@ export const DateRangePicker = forwardRef<
           Dates de l'évènement
         </Typography>
       </View>
-      <Calendar.List
-        CalendarScrollComponent={FlashList}
-        calendarFirstDayOfWeek="monday"
-        calendarActiveDateRanges={calendarActiveDateRanges}
-        calendarFormatLocale="fr-FR"
-        calendarMinDateId={toDateId(today)}
-        calendarInitialMonthId={toDateId(today)}
-        onCalendarDayPress={(dateId) => onCalendarDayPress(dateId)}
-        theme={datePickerTheme}
-      />
+      <View className="flex-1">
+        <Calendar.List
+          CalendarScrollComponent={SafeFlashList}
+          calendarFirstDayOfWeek="monday"
+          calendarActiveDateRanges={calendarActiveDateRanges}
+          calendarFormatLocale="fr-FR"
+          calendarMinDateId={toDateId(today)}
+          calendarInitialMonthId={toDateId(today)}
+          onCalendarDayPress={(dateId) => onCalendarDayPress(dateId)}
+          theme={datePickerTheme}
+        />
+      </View>
     </BottomSheetModal>
   );
 });

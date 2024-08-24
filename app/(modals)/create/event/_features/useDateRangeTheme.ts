@@ -31,7 +31,10 @@ export const useDatePickerTheme = () => {
       disabled: () => ({
         container: {
           backgroundColor: colors[theme].popover,
-          borderRadius: 999,
+          borderTopRightRadius: 999,
+          borderBottomRightRadius: 999,
+          borderTopLeftRadius: 999,
+          borderBottomLeftRadius: 999,
           opacity: 0.4,
         },
         content: {
@@ -44,7 +47,10 @@ export const useDatePickerTheme = () => {
           backgroundColor: isPressed
             ? colors[theme].primary
             : colors[theme].popover,
-          borderRadius: 999,
+          borderTopRightRadius: 999,
+          borderBottomRightRadius: 999,
+          borderTopLeftRadius: 999,
+          borderBottomLeftRadius: 999,
         },
         content: {
           color: isPressed ? "#ffffff" : colors[theme].foreground,
@@ -55,7 +61,10 @@ export const useDatePickerTheme = () => {
         container: {
           borderColor: "#000000",
           borderWidth: 2,
-          borderRadius: 999,
+          borderTopRightRadius: 999,
+          borderBottomRightRadius: 999,
+          borderTopLeftRadius: 999,
+          borderBottomLeftRadius: 999,
           backgroundColor: isPressed
             ? colors[theme].primary
             : colors[theme].popover,
