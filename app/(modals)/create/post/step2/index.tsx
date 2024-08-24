@@ -94,10 +94,14 @@ const CreatePostStep2 = () => {
   return (
     <>
       <ScrollView
-       horizontal={false}
-       showsHorizontalScrollIndicator={true}
-       contentContainerStyle={{justifyContent: "space-between"}}
-       className="flex-1 bg-background pb-4">
+        showsVerticalScrollIndicator={false}
+        className="bg-background pb-3"
+        contentContainerStyle={{
+          justifyContent: "space-between",
+          flexDirection: "column",
+          flexGrow: 1,
+        }}
+      >
         <View>
           <Typography size="h2" fontWeight="semibold" className="mb-4">
             Catégories
@@ -167,7 +171,7 @@ const CreatePostStep2 = () => {
           <View className="mt-4 flex-row items-center">
             <View
               style={{ width: 40, height: 40, borderRadius: 999 }}
-              className="items-center justify-center bg-primary"
+              className="mr-3 items-center justify-center bg-primary"
             >
               <TouchableOpacity onPress={() => pickImages(setMedias)}>
                 <Plus size={25} color="#ffffff" strokeWidth={3} />
@@ -194,7 +198,7 @@ const CreatePostStep2 = () => {
                     <View
                       key={index}
                       style={{ overflow: "visible" }}
-                      className="z-1"
+                      className="m-2"
                     >
                       <TouchableOpacity
                         className="absolute -left-2 -top-2 z-40 items-center justify-center rounded-full bg-destructive"
@@ -208,9 +212,8 @@ const CreatePostStep2 = () => {
                       </TouchableOpacity>
                       <Image
                         source={{ uri: media.uri }}
-                        key={index}
                         resizeMode="cover"
-                        className="z-1 relative mr-3 size-24 rounded-2xl"
+                        className="size-24 rounded-2xl"
                       />
                     </View>
                   );
@@ -248,7 +251,7 @@ const CreatePostStep2 = () => {
           value={time || new Date()}
           mode="time"
           is24Hour={true}
-          timeZoneName="UTC+01:00"
+          timeZoneName="Europe/Paris"
           onChange={(event, selectedTime) => {
             setTime(selectedTime!);
             setShowTimePicker(false);
