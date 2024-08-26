@@ -10,7 +10,7 @@ on:
 jobs:
   build-ios:
     runs-on: its-macos
-    if: ${{ github.event.inputs.job == 'build-ios' }}
+    if: ${{ inputs.job == 'build-ios' }}
     name: Build iOS
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +25,7 @@ jobs:
   
   build-android:
     runs-on: its-linux
-    if: ${{ github.event.inputs.job == 'build-android' }}
+    if: ${{ inputs.job == 'build-android' }}
     name: Build Android
     steps:
       - uses: actions/checkout@v4
