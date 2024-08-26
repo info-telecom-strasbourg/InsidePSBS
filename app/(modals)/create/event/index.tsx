@@ -13,8 +13,9 @@ import {
 } from "@gorhom/bottom-sheet";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react-native";
-import { useCallback, useRef, useState } from "react";
-import { Keyboard, TouchableOpacity, View } from "react-native";
+import { Skeleton } from "moti/skeleton";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 import { ChoiceItem } from "../post/step1/_features/choice-item";
 import type { CreateEventData } from "./_features/create-event.schema";
 import { CreateEventSchema } from "./_features/create-event.schema";
@@ -33,10 +34,8 @@ export default function CreateEventPage() {
   const { theme } = useTheme();
   const today = new Date();
 
-  const { data } = useMe();
-  const [organizationId, setOrganizationId] = useState<number | null>(
-    data?.organizations ? data.organizations[0].id : null
-  );
+  const { data, isLoading: dataIsLoading } = useMe();
+  const [organizationId, setOrganizationId] = useState<number | null>(null);
 
   const dateRangePickerRef = useRef<BottomSheetModal>(null);
   const organizationListRef = useRef<BottomSheetModal>(null);
@@ -44,6 +43,8 @@ export default function CreateEventPage() {
   const [isPublishing, setIsPublishing] = useState<boolean>(false);
   const [startAt, setStartAt] = useState<string>("");
   const [endAt, setEndAt] = useState<string>("");
+  const [displayOrganizations, setDisplayOrganizations] =
+    useState<boolean>(false);
 
   const handleSubmit = useCallback(
     async (values: CreateEventData) => {
@@ -62,39 +63,58 @@ export default function CreateEventPage() {
     [endAt, startAt, token, organizationId]
   );
 
+  useEffect(() => {
+    if (data && organizationId === null) {
+      setOrganizationId(data.organizations[0].id);
+      setDisplayOrganizations(true);
+    }
+  }, [organizationId, data]);
+
   return (
     <BottomSheetModalProvider>
       <PageContainer>
         <Header title="Créer un événement" rightIcon="close" leftIcon="back" />
 
-        {data ? (
-          <View className="mb-4 flex-row items-center">
-            {data?.organizations ? (
-              <ChoiceItem
-                isOrganization
-                onPress={() => {
-                  Keyboard.dismiss();
-                  organizationListRef.current?.present();
-                }}
-                title={
-                  data.organizations.filter(
-                    (item) => item.id === organizationId
-                  )[0].name
-                }
-                url={
-                  data.organizations.filter(
-                    (item) => item.id === organizationId
-                  )[0].logo_url
-                }
-              />
-            ) : (
-              <Typography size="h3" fontWeight="medium">
-                Vous ne pouvez pas créer d'évènement car vous ne faîtes pas
-                partie d'une association ou d'un club !
-              </Typography>
-            )}
-          </View>
-        ) : null}
+        <View className="mb-4 flex-row items-center">
+          {!data || dataIsLoading ? (
+            <Skeleton.Group show={!data || dataIsLoading}>
+              <Skeleton colorMode={theme}>
+                <View className="rounded-2xl p-4">
+                  <Typography size="h3">Name Surname</Typography>
+                </View>
+              </Skeleton>
+            </Skeleton.Group>
+          ) : data.organizations && displayOrganizations ? (
+            <ChoiceItem
+              isOrganization
+              onPress={() => {
+                organizationListRef.current?.present();
+              }}
+              title={
+                data.organizations.filter(
+                  (item) => item.id === organizationId
+                )[0].name
+              }
+              url={
+                data.organizations.filter(
+                  (item) => item.id === organizationId
+                )[0].logo_url
+              }
+            />
+          ) : (
+            // <Typography size="h3" fontWeight="medium">
+            //   Vous ne pouvez pas créer d'évènement car vous ne faîtes pas partie
+            //   d'une association ou d'un club !
+            // </Typography>
+            <Skeleton.Group show={!(!data || dataIsLoading)}>
+              <Skeleton colorMode={theme}>
+                <View className="rounded-2xl p-4">
+                  <Typography size="h3">Name Surname</Typography>
+                </View>
+              </Skeleton>
+            </Skeleton.Group>
+          )}
+        </View>
 
         <View className="flex-1 justify-between pb-4">
           <View>
