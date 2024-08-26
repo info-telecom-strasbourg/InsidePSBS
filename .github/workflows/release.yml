@@ -34,5 +34,11 @@ jobs:
         with:
           EXPO-TOKEN: ${{ secrets.EXPO_TOKEN }}
 
+      - name: Copy .env
+        run: cp ${{ secrets.ENV_LOCATION }} .
+
+      - name: Rmoeve .env from .gitignore
+        run: sed -i '/.env/d' .gitignore
+
       - name: 🚀 Build app
         run: eas build --platform android --non-interactive --local
