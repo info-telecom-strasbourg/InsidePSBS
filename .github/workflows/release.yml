@@ -1,0 +1,28 @@
+name: 'publish'
+# on:
+#   push:
+#     tags:
+#       - 'app-v0.*'
+
+on: [push]
+
+jobs:
+  install:
+    uses: ./.github/workflows/setup.yml
+    secrets: inherit
+  
+  build-ios:
+    name: build-ios-job
+    needs: [install]
+    uses: ./.github/workflows/ios.yml
+    with:
+      job: build-ios
+    secrets: inherit
+
+  build-android:
+    name: build-android-job
+    needs: [install]
+    uses: ./.github/workflows/android.yml
+    with:
+      job: build-android
+    secrets: inherit

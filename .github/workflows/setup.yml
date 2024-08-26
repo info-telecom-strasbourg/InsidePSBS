@@ -1,0 +1,17 @@
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+    - uses: pnpm/action-setup@v4
+      id: general-setup
+      with:
+        cache: pnpm
+        cache-dependency-path: '**/pnpm-lock.yaml'
+    - uses: expo/expo-github-action@v7
+      with:
+        expo-version: latest
+        eas-version: latest
+        token: ${{ secrets.EXPO_TOKEN }}
+
+    - name: 📦 Install dependencies
+      run: pnpm install

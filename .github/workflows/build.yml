@@ -1,0 +1,36 @@
+name: Build application
+
+on:
+  workflow_call:
+    inputs:
+      job:
+        required: true
+        type: string
+
+jobs:
+  build-ios:
+    runs-on: its-macos
+    if: ${{ github.event.inputs.job == 'build-ios' }}
+    name: Build iOS
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup environment (node, pnpm, expo)
+        uses: ./.github/workflows/build.yml
+      
+      - name: Set private eas.json
+        run: echo '${{ secrets.EAS_JSON }}' > eas.json
+
+      - name: 🚀 Build app
+        run: eas build --platform ios --non-interactive --local
+  
+  build-android:
+    runs-on: its-linux
+    if: ${{ github.event.inputs.job == 'build-android' }}
+    name: Build Android
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup environment (node, pnpm, expo)
+        uses: ./.github/workflows/build.yml
+      
+      - name: 🚀 Build app
+        run: eas build --platform android --non-interactive --local
