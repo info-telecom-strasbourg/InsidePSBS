@@ -9,6 +9,7 @@ runs:
     - uses: pnpm/action-setup@v4
       id: general-setup
       with:
+        version: 9
         cache: pnpm
         cache-dependency-path: '**/pnpm-lock.yaml'
     - uses: expo/expo-github-action@v7
