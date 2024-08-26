@@ -24,7 +24,7 @@ runs:
       with:
         packager: pnpm
         expo-version: 6.3.10
-        eas-version: 11.0.0
+        eas-version: 3.4.0
         token: ${{ inputs.EXPO-TOKEN }}
       
 
