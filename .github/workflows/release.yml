@@ -19,14 +19,7 @@ jobs:
       
       - name: Set private eas.json
         run: echo '${{ secrets.EAS_JSON }}' > eas.json
-
-      - name: Copy .env
-        run: cp ${{ secrets.ENV_LOCATION }} .
-
-      - name: Rmoeve .env from .gitignore
-        run: sed -i '/.env/d' .gitignore
-
-
+        
       - name: 🚀 Build app
         run: eas build --platform ios --non-interactive --local
   
