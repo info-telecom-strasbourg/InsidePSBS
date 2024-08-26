@@ -8,15 +8,27 @@ on: [push]
 
 jobs:  
   build-ios:
-    name: build-ios-job
-    uses: ./.github/workflows/build.yml
-    with:
-      job: build-ios
-    secrets: inherit
+    runs-on: its-macos
+    name: Build iOS
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup environment (node, pnpm, expo)
+        uses: ./.github/workflows/setup.yml
+      
+      - name: Set private eas.json
+        run: echo '${{ secrets.EAS_JSON }}' > eas.json
+
+      - name: 🚀 Build app
+        run: eas build --platform ios --non-interactive --local
+  
 
   build-android:
-    name: build-android-job
-    uses: ./.github/workflows/build.yml
-    with:
-      job: build-android
-    secrets: inherit
+    runs-on: its-linux
+    name: Build Android
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup environment (node, pnpm, expo)
+        uses: ./.github/workflows/setup.yml
+
+      - name: 🚀 Build app
+        run: eas build --platform android --non-interactive --local
