@@ -5,13 +5,18 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v4
     - uses: pnpm/action-setup@v4
       id: general-setup
       with:
         version: 9
         cache: pnpm
         cache-dependency-path: '**/pnpm-lock.yaml'
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: pnpm
+
     - uses: expo/expo-github-action@v7
       with:
         expo-version: latest
