@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup environment (node, pnpm, expo)
-        uses: ./.github/workflows/setup.yml
+        uses: ./.github/workflows/setup
       
       - name: Set private eas.json
         run: echo '${{ secrets.EAS_JSON }}' > eas.json
@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup environment (node, pnpm, expo)
-        uses: ./.github/workflows/setup.yml
+        uses: ./.github/workflows/setup
 
       - name: 🚀 Build app
         run: eas build --platform android --non-interactive --local
