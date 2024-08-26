@@ -25,7 +25,7 @@ export default function AuthPage() {
         </Typography>
       </View>
       <View className="flex flex-col gap-4">
-        <Button onPress={() => modalRouter.open(routes.sign_up)}>
+        <Button onPress={() => modalRouter.open("/auth/sign-up/step-2")}>
           Créer un compte
         </Button>
         <Button
