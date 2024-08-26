@@ -16,14 +16,15 @@ runs:
         cache: pnpm
         cache-dependency-path: pnpm-lock.yaml
 
-    - name: 📦 Install dependencies
-      run: pnpm install
-      shell: bash
-      
-    - uses: expo/expo-github-action@v8
+    - uses: expo/expo-github-action@v7
       with:
         packager: pnpm
         expo-version: latest
         eas-version: latest
         token: ${{ inputs.EXPO-TOKEN }}
+    
+    - name: 📦 Install dependencies
+      run: pnpm install
+      shell: bash
+      
 
