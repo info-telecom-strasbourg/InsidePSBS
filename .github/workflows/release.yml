@@ -6,14 +6,9 @@ name: 'publish'
 
 on: [push]
 
-jobs:
-  install:
-    uses: ./.github/workflows/setup.yml
-    secrets: inherit
-  
+jobs:  
   build-ios:
     name: build-ios-job
-    needs: [install]
     uses: ./.github/workflows/ios.yml
     with:
       job: build-ios
@@ -21,7 +16,6 @@ jobs:
 
   build-android:
     name: build-android-job
-    needs: [install]
     uses: ./.github/workflows/android.yml
     with:
       job: build-android
