@@ -14,6 +14,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup environment (node, pnpm, expo)
         uses: ./.github/workflows/setup
+        with:
+          EXPO-TOKEN: ${{ secrets.EXPO_TOKEN }}
       
       - name: Set private eas.json
         run: echo '${{ secrets.EAS_JSON }}' > eas.json
@@ -29,6 +31,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup environment (node, pnpm, expo)
         uses: ./.github/workflows/setup
+        with:
+          EXPO-TOKEN: ${{ secrets.EXPO_TOKEN }}
+
 
       - name: 🚀 Build app
         run: eas build --platform android --non-interactive --local

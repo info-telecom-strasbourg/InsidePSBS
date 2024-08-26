@@ -1,3 +1,7 @@
+inputs:
+  EXPO-TOKEN:
+    required: true
+
 runs:
   using: composite
   steps:
@@ -11,7 +15,7 @@ runs:
       with:
         expo-version: latest
         eas-version: latest
-        token: ${{ secrets.EXPO_TOKEN }}
+        token: ${{ inputs.EXPO-TOKEN }}
 
     - name: 📦 Install dependencies
       run: pnpm install
