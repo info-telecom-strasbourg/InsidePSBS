@@ -9,14 +9,14 @@ on: [push]
 jobs:  
   build-ios:
     name: build-ios-job
-    uses: ./.github/workflows/ios.yml
+    uses: ./.github/workflows/build.yml
     with:
       job: build-ios
     secrets: inherit
 
   build-android:
     name: build-android-job
-    uses: ./.github/workflows/android.yml
+    uses: ./.github/workflows/build.yml
     with:
       job: build-android
     secrets: inherit
