@@ -47,6 +47,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f2c7d704-249e-4c82-8182-d8375867dc13"
+      }
+    },
+    "owner": "info-telecom-strasbourg"
   }
 }

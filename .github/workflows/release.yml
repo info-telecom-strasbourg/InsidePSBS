@@ -34,6 +34,5 @@ jobs:
         with:
           EXPO-TOKEN: ${{ secrets.EXPO_TOKEN }}
 
-
       - name: 🚀 Build app
         run: eas build --platform android --non-interactive --local
