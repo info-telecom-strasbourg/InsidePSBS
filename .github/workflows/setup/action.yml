@@ -9,20 +9,21 @@ runs:
       id: general-setup
       with:
         version: 9
-        cache: pnpm
-        cache-dependency-path: '**/pnpm-lock.yaml'
 
     - uses: actions/setup-node@v4
       with:
         node-version: 20
         cache: pnpm
-
-    - uses: expo/expo-github-action@v7
-      with:
-        expo-version: latest
-        eas-version: latest
-        token: ${{ inputs.EXPO-TOKEN }}
+        cache-dependency-path: pnpm-lock.yaml
 
     - name: 📦 Install dependencies
       run: pnpm install
       shell: bash
+      
+    - uses: expo/expo-github-action@v8
+      with:
+        packager: pnpm
+        expo-version: latest
+        eas-version: latest
+        token: ${{ inputs.EXPO-TOKEN }}
+
