@@ -28,19 +28,23 @@ const fetcher = async (url: string, token: string) => {
 const getKey = (
   pageIndex: number,
   previousPageData: CommentsData["data"],
-  id: string
+  postId: string,
+  parentCommentId: number | null
 ) => {
   if (previousPageData && !previousPageData.length) return null;
   return `${
     process.env.EXPO_PUBLIC_API_URL
-  }/api/post/${id}/comment?per_page=10&page=${pageIndex + 1}`;
+  }/api/post/${postId}/comment?per_page=10&parent_comment_id=${parentCommentId}&page=${
+    pageIndex + 1
+  }`;
 };
 
-export const useComments = (id: string) => {
+export const useComments = (postId: string, parentCommentId: number | null) => {
   const { token } = useAuth();
 
   const res = useFetchInfinite<CommentsData["data"]>(
-    (pageIndex, previousPageData) => getKey(pageIndex, previousPageData, id),
+    (pageIndex, previousPageData) =>
+      getKey(pageIndex, previousPageData, postId, parentCommentId),
     (url) => fetcher(url, token || "")
   );
   const hasMore = res.data?.[res.data?.length - 1]?.length ?? 0 > 0;

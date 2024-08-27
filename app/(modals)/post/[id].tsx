@@ -10,10 +10,15 @@ import { useOnePost } from "@app/(modals)/post/_features/one-post.query";
 import { Post } from "@app/(tabs)/posts/_features/post";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
-import { CirclePlus } from "lucide-react-native";
+import { CircleMinus, CirclePlus } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { memo, useMemo, useState } from "react";
-import { RefreshControl, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  RefreshControl,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -27,7 +32,7 @@ export default function PostIdPage() {
     size,
     setSize,
     hasMore,
-  } = useComments(id);
+  } = useComments(id, null);
 
   const comments = useMemo(
     () => (commentsData ? commentsData.flat() : []),
@@ -50,7 +55,9 @@ export default function PostIdPage() {
         showsVerticalScrollIndicator={false}
         onEndReached={loadMore}
         onEndReachedThreshold={1}
-        renderItem={({ item, index }) => <Comment comment={item} key={index} />}
+        renderItem={({ item, index }) => (
+          <Comment comment={item} key={index} postId={id} levelFromRoot={0} />
+        )}
         refreshControl={
           <RefreshControl
             refreshing={commentsAreRefreshing}
@@ -83,14 +90,25 @@ export default function PostIdPage() {
 
 export const Comment = memo(function Comment({
   comment,
+  postId,
+  levelFromRoot = 0,
 }: {
   comment: CommentsData["data"][0] | undefined;
+  postId: string;
+  levelFromRoot?: number;
 }) {
   const { theme } = useTheme();
 
-  const [childrenComment, setChildrenComment] = useState<
-    CommentsData["data"][0][] | null
-  >(null);
+  const { data: children, isLoading: childrenAreLoading } = useComments(
+    postId,
+    comment!.id
+  );
+
+  const childrenComment = useMemo(
+    () => (children ? children.flat() : []),
+    [children]
+  );
+  const [showChildren, setShowChildren] = useState<boolean>(false);
 
   if (!comment) return null;
   return (
@@ -117,17 +135,51 @@ export const Comment = memo(function Comment({
           <Typography size="p">{comment?.body}</Typography>
         </View>
         {comment?.children_count && comment.children_count > 0 ? (
-          <TouchableOpacity className="flex-row justify-start gap-2 py-2">
-            <CirclePlus color={colors[theme].mutedForeground} />
-            <Typography
-              size="h5"
-              fontWeight="medium"
-              className="text-muted-foreground"
+          (!childrenComment || childrenAreLoading) && showChildren ? (
+            <View className="flex-row items-center justify-center">
+              <ActivityIndicator
+                size={30}
+                color={colors[theme].mutedForeground}
+              />
+              <Typography
+                size="h5"
+                fontWeight="medium"
+                className="text-muted-foreground"
+              >
+                Chargement...
+              </Typography>
+            </View>
+          ) : (
+            <TouchableOpacity
+              className="flex-row justify-start gap-2 py-2"
+              onPress={() => setShowChildren(!showChildren)}
             >
-              Voir les réponses
-            </Typography>
-          </TouchableOpacity>
+              {showChildren ? (
+                <CircleMinus color={colors[theme].mutedForeground} />
+              ) : (
+                <CirclePlus color={colors[theme].mutedForeground} />
+              )}
+              <Typography
+                size="h5"
+                fontWeight="medium"
+                className="text-muted-foreground"
+              >
+                {showChildren ? "Masquer" : "Afficher"} les réponses
+              </Typography>
+            </TouchableOpacity>
+          )
         ) : null}
+        <View className={levelFromRoot >= 2 ? "" : "ml-3"}>
+          {childrenComment &&
+            childrenComment.map((c, i) => (
+              <Comment
+                key={i}
+                comment={c}
+                postId={postId}
+                levelFromRoot={levelFromRoot + 1}
+              />
+            ))}
+        </View>
       </View>
     </View>
   );
