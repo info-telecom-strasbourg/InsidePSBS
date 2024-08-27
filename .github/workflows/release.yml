@@ -7,32 +7,38 @@ name: 'publish'
 on: [push]
 
 jobs:  
-  build-ios:
-    runs-on: its-macos
-    name: Build iOS
+  build-app:
+    runs-on: ${{ matrix.os }}
+    name: Build ${{ matrix.platform }}
+    strategy:
+      matrix:
+        platform: [ios, android]
+        include:
+          - platform: ios
+            os: its-macos
+          - platform: android
+            os: its-linux
+
     steps:
       - uses: actions/checkout@v4
+      
       - name: Setup environment (node, pnpm, expo)
         uses: ./.github/workflows/setup
         with:
-          EXPO-TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
       
-      - name: Set private eas.json
+      - name: Set private eas.json (iOS only)
+        if: matrix.platform == 'ios'
         run: echo '${{ secrets.EAS_JSON }}' > eas.json
         
       - name: 🚀 Build app
-        run: eas build --platform ios --non-interactive --local
-  
+        run: eas build --platform ${{ matrix.platform }} --non-interactive --local
 
-  build-android:
-    runs-on: its-linux
-    name: Build Android
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup environment (node, pnpm, expo)
-        uses: ./.github/workflows/setup
+      - name: 📌 Nextcloud Artifact
+        uses: trympet/nextcloud-artifacts-action@v2
         with:
-          EXPO-TOKEN: ${{ secrets.EXPO_TOKEN }}
-
-      - name: 🚀 Build app
-        run: eas build --platform android --non-interactive --local
+          name: ${{ matrix.platform == 'ios' && 'app-ipa' || 'app-aab' }}
+          path: build-*                                         
+          nextcloud-url: ${{ secrets.NEXTCLOUD_URL }}           
+          nextcloud-username: ${{ secrets.NEXTCLOUD_USERNAME }} 
+          nextcloud-password: ${{ secrets.NEXTCLOUD_PASSWORD }} 

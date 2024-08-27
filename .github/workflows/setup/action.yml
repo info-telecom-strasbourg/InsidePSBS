@@ -1,5 +1,5 @@
 inputs:
-  EXPO-TOKEN:
+  EXPO_TOKEN:
     required: true
 
 runs:
@@ -25,6 +25,6 @@ runs:
         packager: pnpm
         expo-version: 6.3.10
         eas-version: 11.0.0
-        token: ${{ inputs.EXPO-TOKEN }}
+        token: ${{ inputs.EXPO_TOKEN }}
       
 
