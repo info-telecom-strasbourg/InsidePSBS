@@ -1,11 +1,16 @@
 name: 'publish'
-# on:
-#   push:
-#     tags:
-#       - 'app-v0.*'
-
-on: [push]
-
+on:
+  workflow_dispatch:
+    inputs:
+      submit_ios:
+        description: 'Submit iOS build'
+        type: choice
+        options:
+          - 'yes'
+          - 'false'
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 jobs:  
   build-app:
     runs-on: ${{ matrix.os }}
@@ -27,12 +32,24 @@ jobs:
         with:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
       
+      - name: Extract Tag Value
+        id: extract_tag
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "TAG=$TAG" >> $GITHUB_ENV
+
       - name: Set private eas.json (iOS only)
         if: matrix.platform == 'ios'
         run: echo '${{ secrets.EAS_JSON }}' > eas.json
         
       - name: 🚀 Build app
+        with:
+          RELEASE_VERSION: ${{ steps.extract_tag.outputs.TAG }}
         run: eas build --platform ${{ matrix.platform }} --non-interactive --local
+
+      - name: Submit to App Store (iOS only)
+        if: ${{ github.event.inputs.submit_ios == 'yes' && matrix.platform == 'ios' }}
+        run: eas submit --platform ios --path build* 
 
       - name: 📌 Nextcloud Artifact
         uses: trympet/nextcloud-artifacts-action@v2
