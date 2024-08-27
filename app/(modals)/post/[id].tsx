@@ -1,15 +1,12 @@
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
-import { ProfilePicture } from "@/components/primitives/profile-picture";
-import { Typography } from "@/components/primitives/typography";
-import { colors } from "@/theme/colors";
-import { useTheme } from "@/theme/theme-context";
 import { useComments } from "@app/(modals)/post/_features/comments.query";
-import type { CommentsData } from "@app/(modals)/post/_features/comments.schema";
+import { type CommentsData } from "@app/(modals)/post/_features/comments.schema";
 import { useOnePost } from "@app/(modals)/post/_features/one-post.query";
 import { Post } from "@app/(tabs)/posts/_features/post";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
+<<<<<<< HEAD
 import { CircleMinus, CirclePlus } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { memo, useMemo, useState } from "react";
@@ -19,6 +16,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+=======
+import { useMemo } from "react";
+import { RefreshControl, View } from "react-native";
+import { Comment, SkeletonComment } from "./_features/comment";
+>>>>>>> f8a6610 (recursive component and fetching children done)
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -87,6 +89,7 @@ export default function PostIdPage() {
     </PageContainer>
   );
 }
+<<<<<<< HEAD
 
 export const Comment = memo(function Comment({
   comment,
@@ -201,3 +204,5 @@ export const SkeletonComment = () => {
     </Skeleton.Group>
   );
 };
+=======
+>>>>>>> f8a6610 (recursive component and fetching children done)
