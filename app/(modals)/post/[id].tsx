@@ -5,7 +5,7 @@ import { Typography } from "@/components/primitives/typography";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { useComments } from "@app/(modals)/post/_features/comments.query";
-import type { CommentsData } from "@app/(modals)/post/_features/comments.schema";
+import { type CommentsData } from "@app/(modals)/post/_features/comments.schema";
 import { useOnePost } from "@app/(modals)/post/_features/one-post.query";
 import { Post } from "@app/(tabs)/posts/_features/post";
 import { FlashList } from "@shopify/flash-list";
@@ -19,6 +19,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -87,6 +88,7 @@ export default function PostIdPage() {
     </PageContainer>
   );
 }
+
 
 export const Comment = memo(function Comment({
   comment,
@@ -201,3 +203,4 @@ export const SkeletonComment = () => {
     </Skeleton.Group>
   );
 };
+
