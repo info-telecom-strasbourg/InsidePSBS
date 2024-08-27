@@ -40,8 +40,7 @@ export const useComments = (id: string) => {
   const { token } = useAuth();
 
   const res = useFetchInfinite<CommentsData["data"]>(
-    (pageIndex, previousPageData) =>
-      getKey(pageIndex, previousPageData, id),
+    (pageIndex, previousPageData) => getKey(pageIndex, previousPageData, id),
     (url) => fetcher(url, token || "")
   );
   const hasMore = res.data?.[res.data?.length - 1]?.length ?? 0 > 0;
