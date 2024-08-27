@@ -15,14 +15,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.its.insidepsbs"
+      "bundleIdentifier": "com.ITS.InsidePSBS"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.its.insidepsbs"
+      "package": "com.ITS.InsidePSBS"
     },
     "web": {
       "bundler": "metro",
