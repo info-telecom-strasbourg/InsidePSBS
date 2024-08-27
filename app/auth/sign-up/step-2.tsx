@@ -10,12 +10,12 @@ import { signUpStep2Schema } from "./_features/sign-up.schema";
 import { useSignUp } from "./_features/use-sign-up";
 
 const defaultValues = {
-  first_name: "",
-  last_name: "",
-  user_name: "",
-  phone: "",
-  admission_year: new Date().getFullYear(),
-  sector: 0,
+  user_name: "romain.bourdain",
+  last_name: "Bourdain",
+  first_name: "Romain",
+  sector: 1,
+  phone: "0637297485",
+  admission_year: 2025,
 };
 
 export default function Step1Page() {
@@ -29,7 +29,7 @@ export default function Step1Page() {
     defaultValues,
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     Object.keys(form.values).forEach((key) => {
       const typedKey = key as keyof SignUpStep2Data;
       updateValue(typedKey, form.values[typedKey]);
@@ -86,18 +86,26 @@ export default function Step1Page() {
             keyboardType="numeric"
             placeholder="2010"
           />
-          <FormPicker
-            id="sector"
-            label="Filière"
-            form={form}
-            values={sectors?.map((sector) => ({
-              id: sector.id,
-              value: sector.name,
-            }))}
-          />
+          <View>
+            <FormPicker
+              id="sector"
+              label="Filière"
+              form={form}
+              values={sectors?.map((sector) => ({
+                id: sector.id,
+                value: sector.name,
+              }))}
+            />
+          </View>
 
           <View className="pb-8">
-            <Button onPress={() => form.submit(handleSubmit)}>Suivant</Button>
+            <Button
+              onPress={() => form.submit(handleSubmit)}
+              disabled={form.isSubmitting}
+              loading={form.isSubmitting}
+            >
+              Suivant
+            </Button>
           </View>
         </View>
       </ScrollView>

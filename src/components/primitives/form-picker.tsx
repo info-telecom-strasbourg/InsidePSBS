@@ -27,7 +27,7 @@ export const FormPicker = <Z extends ZodSchema>({
   const error = form.formError[id];
 
   return (
-    <View className={cn("gap-2", className)}>
+    <View className={cn("gap-2 flex-1", className)}>
       {label && (
         <Typography
           size="h3"
@@ -39,7 +39,7 @@ export const FormPicker = <Z extends ZodSchema>({
       )}
       <View
         className={cn(
-          "flex-1 overflow-hidden rounded-2xl border-2 border-transparent bg-popover",
+          "flex-1 overflow-hidden rounded-2xl border-2 border-transparent bg-popover h-auto",
           error && "border-destructive"
         )}
       >
@@ -53,6 +53,7 @@ export const FormPicker = <Z extends ZodSchema>({
           }}
           dropdownIconColor={colors[theme].foreground}
           dropdownIconRippleColor="transparent"
+          selectionColor={colors.red}
           {...props}
         >
           {values?.map((item) => (
@@ -60,6 +61,7 @@ export const FormPicker = <Z extends ZodSchema>({
               key={item.id}
               label={item.value}
               value={item.id}
+              style={{ backgroundColor: colors[theme].popover }}
               color={colors[theme].foreground}
             />
           ))}

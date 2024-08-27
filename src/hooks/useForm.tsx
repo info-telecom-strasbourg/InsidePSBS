@@ -15,10 +15,11 @@ export const useForm = <Z extends ZodSchema>({
   }, {} as Record<keyof typeof defaultValues, string>);
 
   const [values, setValues] = useState<z.infer<typeof schema>>(defaultValues);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] =
     useState<Record<keyof z.infer<typeof schema>, string>>(defaultError);
 
-  const updateValue = <K extends keyof z.infer<typeof schema>>(
+  const updateValue = async <K extends keyof z.infer<typeof schema>>(
     key: K,
     value: z.infer<typeof schema>[K]
   ) => {
@@ -29,13 +30,13 @@ export const useForm = <Z extends ZodSchema>({
     });
 
     if (formError[key] !== "") {
-      checkError(new_value);
+      await checkError(new_value);
     }
   };
 
-  const checkError = (values: z.infer<typeof schema>) => {
+  const checkError = async (values: z.infer<typeof schema>) => {
     setFormError(defaultError);
-    const result = schema.safeParse(values);
+    const result = await schema.safeParseAsync(values);
     if (!result.success) {
       result.error.errors.forEach((error) => {
         setFormError((p) => ({ ...p, [error.path[0]]: error.message }));
@@ -45,10 +46,17 @@ export const useForm = <Z extends ZodSchema>({
     return true;
   };
 
-  const submit = (action: (values: z.infer<typeof schema>) => void) => {
-    if (!checkError(values)) return;
-    action(values);
+  const submit = async (
+    action: (values: z.infer<typeof schema>) => Promise<void>
+  ) => {
+    setIsSubmitting(true);
+    const is_error = await checkError(values);
+    if (!is_error) {
+      return;
+    }
+    await action(values);
+    setIsSubmitting(false);
   };
 
-  return { values, updateValue, formError, submit };
+  return { values, updateValue, isSubmitting, formError, submit };
 };

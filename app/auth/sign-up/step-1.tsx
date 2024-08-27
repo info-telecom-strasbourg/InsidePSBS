@@ -7,10 +7,16 @@ import type { SignUpStep1Data } from "./_features/sign-up.schema";
 import { signUpStep1Schema } from "./_features/sign-up.schema";
 import { useSignUp } from "./_features/use-sign-up";
 
+// const defaultValues = {
+//   email: "",
+//   password: "",
+//   password_confirmation: "",
+// };
+
 const defaultValues = {
-  email: "",
-  password: "",
-  password_confirmation: "",
+  email: "romain.bourdain93@gmail.com",
+  password: "azertyuioP0",
+  password_confirmation: "azertyuioP0",
 };
 
 export default function Step1Page() {
@@ -22,7 +28,7 @@ export default function Step1Page() {
     defaultValues,
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     Object.keys(form.values).forEach((key) => {
       const typedKey = key as keyof SignUpStep1Data;
       updateValue(typedKey, form.values[typedKey]);
@@ -71,7 +77,13 @@ export default function Step1Page() {
           />
 
           <View className="pb-8">
-            <Button onPress={() => form.submit(handleSubmit)}>Suivant</Button>
+            <Button
+              onPress={() => form.submit(handleSubmit)}
+              loading={form.isSubmitting}
+              disabled={form.isSubmitting}
+            >
+              Suivant
+            </Button>
           </View>
         </View>
       </ScrollView>

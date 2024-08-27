@@ -1,9 +1,11 @@
+import { colors } from "@/theme/colors";
+import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 import type { PropsWithChildren } from "react";
 import type { TouchableOpacityProps } from "react-native";
-import { TouchableOpacity } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { Typography } from "./typography";
 
 export const buttonVariants = cva(
@@ -28,7 +30,7 @@ export const buttonVariants = cva(
   }
 );
 
-export const textButtonVariants = cva("text-xl font-bold", {
+export const textButtonVariants = cva("flex flex-row gap-2 text-xl font-bold", {
   variants: {
     variant: {
       default: "text-primary-foreground",
@@ -43,23 +45,39 @@ export const textButtonVariants = cva("text-xl font-bold", {
 });
 
 export type ButtonProps = PropsWithChildren<
-  {} & VariantProps<typeof buttonVariants> & TouchableOpacityProps
+  {
+    loading?: boolean;
+  } & VariantProps<typeof buttonVariants> &
+    TouchableOpacityProps
 >;
 
 export const Button = ({
   children,
   variant,
   size,
+  loading,
   className,
   ...props
 }: ButtonProps) => {
+  const { theme } = useTheme();
   return (
     <TouchableOpacity
-      className={cn(buttonVariants({ variant, size }), className)}
+      className={cn(
+        buttonVariants({ variant, size }),
+        props.disabled && "opacity-40",
+        className
+      )}
       {...props}
     >
       <Typography className={cn(textButtonVariants({ variant }))}>
-        {children}
+        {loading ? (
+          <ActivityIndicator
+            animating={loading}
+            color={colors[theme].primaryForeground}
+          />
+        ) : (
+          children
+        )}
       </Typography>
     </TouchableOpacity>
   );
