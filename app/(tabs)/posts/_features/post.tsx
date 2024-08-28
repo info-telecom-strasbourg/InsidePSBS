@@ -1,4 +1,3 @@
-import { useAuth } from "@/auth/useAuth";
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
@@ -6,16 +5,10 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
-import { postQuery } from "@/utils/post-query";
 import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
-import {
-  AddReactionOnPostSchema,
-  type AddReactionOnPostData,
-} from "@app/(modals)/post/_features/add-reaction.schema";
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
-
-import { Heart, MessageCircle } from "lucide-react-native";
+import { MessageCircle } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
@@ -23,6 +16,7 @@ import { TouchableOpacity, View } from "react-native";
 import { Media } from "./media";
 import { PostParser } from "./post-parser";
 import type { SinglePostData } from "./post.schema";
+import { Reaction } from "./reaction";
 
 export type SinglePostProps = PropsWithChildren<
   {
@@ -46,7 +40,6 @@ export const Post = ({
 }: SinglePostProps) => {
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
-  const { token } = useAuth();
 
   const { data: reactions } = useReactionType();
 
@@ -59,18 +52,6 @@ export const Post = ({
   >(item?.reaction);
 
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
-
-  const storeReaction = async (reactionTypeId: number) => {
-    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/reaction`;
-    const response = await postQuery<AddReactionOnPostData>(
-      url,
-      token,
-      { reaction_type_id: reactionTypeId },
-      AddReactionOnPostSchema
-    );
-    setReaction(response.data.reaction);
-    setReactionCount(response.data.reaction_count);
-  };
 
   if (!item) return null;
   return (
@@ -128,57 +109,26 @@ export const Post = ({
       </View>
 
       <View className="relative mt-3 flex-row items-center">
-        {reactionsVisible ? (
-          <View className="absolute -left-3 -top-20 flex-row items-center justify-center gap-4 rounded-2xl border-2 border-muted bg-popover p-3">
-            {reactions?.map((r, index) => {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    storeReaction(r.id);
-                    setReactionsVisible(false);
-                  }}
-                >
-                  <Typography size="h2">{r.icon}</Typography>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        ) : null}
-        <TouchableOpacity
-          onPress={
-            () => (reaction ? storeReaction(reaction.id) : storeReaction(1)) // 1 is the ID for the heart reaction, the default one
-          }
-          onLongPress={() => setReactionsVisible(true)}
-          delayLongPress={200}
-        >
-          <View className="flex-row items-center gap-2 pr-4">
-            <>
-              {reaction ? (
-                <Typography size="h2">{reaction.icon}</Typography>
-              ) : (
-                <Heart
-                  strokeWidth={1.5}
-                  color={colors[theme].foreground}
-                  size={30}
-                />
-              )}
-              <Typography size="p">{reactionCount}</Typography>
-            </>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View className="flex-row items-center gap-2">
-            <>
-              <MessageCircle
-                strokeWidth={1.5}
-                color={colors[theme].foreground}
-                size={30}
-              />
-              <Typography size="p">{item?.comment_count}</Typography>
-            </>
-          </View>
-        </TouchableOpacity>
+        <Reaction
+          allReactions={reactions}
+          postId={postId}
+          reaction={reaction}
+          reactionCount={reactionCount}
+          reactionsVisible={reactionsVisible}
+          setReaction={setReaction}
+          setReactionCount={setReactionCount}
+          setReactionsVisible={setReactionsVisible}
+        />
+        <View className="flex-row items-center gap-2">
+          <>
+            <MessageCircle
+              strokeWidth={1.5}
+              color={colors[theme].foreground}
+              size={30}
+            />
+            <Typography size="p">{item?.comment_count}</Typography>
+          </>
+        </View>
       </View>
     </View>
   );
@@ -187,7 +137,7 @@ export const Post = ({
 export const SkeletonPost = () => {
   const { theme } = useTheme();
   return (
-    <View className={"justify-between rounded-2xl bg-popover p-4 shadow-md"}>
+    <View className={"bg-popover justify-between rounded-2xl p-4 shadow-md"}>
       <Skeleton.Group show={true}>
         <>
           <View className="mb-4 flex-row items-center justify-start gap-2">

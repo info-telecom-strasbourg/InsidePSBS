@@ -4,12 +4,14 @@ import { Typography } from "@/components/primitives/typography";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
+import { Reaction } from "@app/(tabs)/posts/_features/reaction";
 import { CircleMinus, CirclePlus } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { memo, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { z } from "zod";
 import { CommentsSchema, type CommentsData } from "./comments.schema";
+import { useReactionType } from "./one-post.query";
 
 export const Comment = memo(function Comment({
   comment,
@@ -22,6 +24,18 @@ export const Comment = memo(function Comment({
 }) {
   const { theme } = useTheme();
   const { token } = useAuth();
+
+  // Reaction
+  const { data: reactions } = useReactionType();
+
+  const [reactionCount, setReactionCount] = useState<number | null | undefined>(
+    comment?.reaction_count
+  );
+  const [reaction, setReaction] = useState<
+    { id: number; icon: string } | null | undefined
+  >(comment?.reaction);
+
+  const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
 
   const [childrenComment, setChildrenComment] = useState<
     CommentsData["data"] | null
@@ -76,7 +90,7 @@ export const Comment = memo(function Comment({
         </View>
         <View className="flex-1">
           <View className="gap-3 overflow-hidden rounded-2xl bg-popover p-3">
-            <View className="flex-row flex-wrap items-center justify-between">
+            <View className="flex-row flex-wrap items-center justify-between gap-2">
               <Typography fontWeight="medium" size="h5">
                 {comment?.author.name}
               </Typography>
@@ -85,19 +99,26 @@ export const Comment = memo(function Comment({
               </Typography>
             </View>
             <Typography size="p">{comment?.body}</Typography>
+            <Reaction
+              allReactions={reactions}
+              postId={comment.post_id}
+              reaction={reaction}
+              reactionCount={reactionCount}
+              reactionsVisible={reactionsVisible}
+              setReaction={setReaction}
+              setReactionCount={setReactionCount}
+              setReactionsVisible={setReactionsVisible}
+              postCommentId={comment.id}
+            />
           </View>
           {comment?.children_count && comment.children_count > 0 ? (
             !childrenComment && showChildren ? (
               <View className="flex-row items-center gap-2">
                 <ActivityIndicator
-                  size={30}
+                  size={20}
                   color={colors[theme].mutedForeground}
                 />
-                <Typography
-                  size="h5"
-                  fontWeight="medium"
-                  className="text-muted-foreground"
-                >
+                <Typography size="p" className="text-muted-foreground">
                   Chargement...
                 </Typography>
               </View>
