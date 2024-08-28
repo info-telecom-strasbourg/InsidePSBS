@@ -65,7 +65,7 @@ export default function PostIdPage() {
         }
         ListEmptyComponent={
           <>
-            <View>
+            <View className="mb-4">
               <SkeletonPost />
             </View>
             <View className="mb-4 gap-4">
