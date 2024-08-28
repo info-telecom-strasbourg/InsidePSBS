@@ -7,7 +7,7 @@ import { useTheme } from "@/theme/theme-context";
 import { useComments } from "@app/(modals)/post/_features/comments.query";
 import { type CommentsData } from "@app/(modals)/post/_features/comments.schema";
 import { useOnePost } from "@app/(modals)/post/_features/one-post.query";
-import { Post } from "@app/(tabs)/posts/_features/post";
+import { Post, SkeletonPost } from "@app/(tabs)/posts/_features/post";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
 import { CircleMinus, CirclePlus } from "lucide-react-native";
@@ -19,7 +19,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -33,7 +32,7 @@ export default function PostIdPage() {
     size,
     setSize,
     hasMore,
-  } = useComments(id, null);
+  } = useComments(id);
 
   const comments = useMemo(
     () => (commentsData ? commentsData.flat() : []),
@@ -75,20 +74,24 @@ export default function PostIdPage() {
           </View>
         }
         ListEmptyComponent={
-          <View className="mb-4 gap-4">
-            <SkeletonComment />
-            <SkeletonComment />
-            <SkeletonComment />
-            <SkeletonComment />
-            <SkeletonComment />
-            <SkeletonComment />
-          </View>
+          <>
+            <View>
+              <SkeletonPost />
+            </View>
+            <View className="mb-4 gap-4">
+              <SkeletonComment />
+              <SkeletonComment />
+              <SkeletonComment />
+              <SkeletonComment />
+              <SkeletonComment />
+              <SkeletonComment />
+            </View>
+          </>
         }
       />
     </PageContainer>
   );
 }
-
 
 export const Comment = memo(function Comment({
   comment,
@@ -101,10 +104,7 @@ export const Comment = memo(function Comment({
 }) {
   const { theme } = useTheme();
 
-  const { data: children, isLoading: childrenAreLoading } = useComments(
-    postId,
-    comment!.id
-  );
+  const { data: children, isLoading: childrenAreLoading } = useComments(postId);
 
   const childrenComment = useMemo(
     () => (children ? children.flat() : []),
@@ -125,7 +125,7 @@ export const Comment = memo(function Comment({
         />
       </View>
       <View className="flex-1">
-        <View className="gap-3 rounded-2xl bg-popover p-3">
+        <View className="bg-popover gap-3 rounded-2xl p-3">
           <View className="flex-row justify-between">
             <Typography fontWeight="medium" size="h4">
               {comment?.author.name}
@@ -194,7 +194,7 @@ export const SkeletonComment = () => {
       <View className="flex-row gap-3">
         <Skeleton radius="round" colorMode={theme} width={35} height={35} />
         <View className="flex-1">
-          <View className="justify-center gap-2 rounded-2xl bg-popover p-4">
+          <View className="bg-popover justify-center gap-2 rounded-2xl p-4">
             <Skeleton colorMode={theme} width={150} />
             <Skeleton colorMode={theme} height={50} width={"100%"} />
           </View>
@@ -203,4 +203,3 @@ export const SkeletonComment = () => {
     </Skeleton.Group>
   );
 };
-
