@@ -1,3 +1,4 @@
+import { useAuth } from "@/auth/useAuth";
 import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
 import { Link } from "@/components/primitives/link";
@@ -8,6 +9,8 @@ import { Image, View } from "react-native";
 
 export default function AuthPage() {
   const modalRouter = useModalRouter();
+  const { isAuthenticated } = useAuth();
+  // if (isAuthenticated) return <Redirect href={routes.home} />;
   return (
     <PageContainer className="flex flex-col justify-between">
       <View className="flex flex-1 flex-col items-center justify-center gap-2">
