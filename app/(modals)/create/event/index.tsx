@@ -21,6 +21,7 @@ import type { CreateEventData } from "./_features/create-event.schema";
 import { CreateEventSchema } from "./_features/create-event.schema";
 import { DateRangePicker } from "./_features/date-range-picker";
 import { OrganizationSelect } from "./_features/organization-select";
+import { storeEvent } from "./_features/store-event";
 
 export default function CreateEventPage() {
   const form = useForm({
@@ -50,21 +51,21 @@ export default function CreateEventPage() {
     async (values: CreateEventData) => {
       setIsPublishing(true);
       console.log(values, organizationId, startAt, endAt, token);
-      // const res = await storeEvent(
-      //   values.title,
-      //   values.place,
-      //   organizationId,
-      //   startAt,
-      //   endAt,
-      //   token
-      // );
+      const res = await storeEvent(
+        values.title,
+        values.place,
+        organizationId,
+        startAt,
+        endAt,
+        token
+      );
       setIsPublishing(false);
     },
     [endAt, startAt, token, organizationId]
   );
 
   useEffect(() => {
-    if (data && organizationId === null) {
+    if (data?.organizations && organizationId === null) {
       setOrganizationId(data.organizations[0].id);
       setDisplayOrganizations(true);
     }
@@ -102,17 +103,10 @@ export default function CreateEventPage() {
               }
             />
           ) : (
-            // <Typography size="h3" fontWeight="medium">
-            //   Vous ne pouvez pas créer d'évènement car vous ne faîtes pas partie
-            //   d'une association ou d'un club !
-            // </Typography>
-            <Skeleton.Group show={!(!data || dataIsLoading)}>
-              <Skeleton colorMode={theme}>
-                <View className="rounded-2xl p-4">
-                  <Typography size="h3">Name Surname</Typography>
-                </View>
-              </Skeleton>
-            </Skeleton.Group>
+            <Typography size="h3" fontWeight="medium">
+              Vous ne pouvez pas créer d'évènement car vous ne faîtes pas partie
+              d'une association ou d'un club !
+            </Typography>
           )}
         </View>
 
