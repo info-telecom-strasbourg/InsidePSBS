@@ -5,7 +5,7 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import { Reaction } from "@app/(tabs)/posts/_features/reaction";
-import { CircleMinus, CirclePlus } from "lucide-react-native";
+import { CircleMinus, CirclePlus, CornerUpRight } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { memo, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
@@ -17,10 +17,16 @@ export const Comment = memo(function Comment({
   comment,
   postId,
   levelFromRoot = 0,
+  commentToAnswer,
+  setCommentToAnswer,
 }: {
   comment: CommentsData["data"][0] | undefined;
   postId: string;
   levelFromRoot?: number;
+  commentToAnswer: CommentsData["data"][0] | null;
+  setCommentToAnswer: React.Dispatch<
+    React.SetStateAction<typeof commentToAnswer>
+  >;
 }) {
   const { theme } = useTheme();
   const { token } = useAuth();
@@ -89,7 +95,7 @@ export const Comment = memo(function Comment({
           />
         </View>
         <View className="flex-1">
-          <View className="gap-3 overflow-hidden rounded-2xl bg-popover p-3">
+          <View className="bg-popover gap-3 overflow-hidden rounded-2xl p-3">
             <View className="flex-row flex-wrap items-center justify-between gap-2">
               <Typography fontWeight="medium" size="h5">
                 {comment?.author.name}
@@ -111,41 +117,55 @@ export const Comment = memo(function Comment({
               postCommentId={comment.id}
             />
           </View>
-          {comment?.children_count && comment.children_count > 0 ? (
-            !childrenComment && showChildren ? (
-              <View className="flex-row items-center gap-2">
-                <ActivityIndicator
-                  size={20}
-                  color={colors[theme].mutedForeground}
-                />
-                <Typography size="p" className="text-muted-foreground">
-                  Chargement...
-                </Typography>
-              </View>
-            ) : (
-              <TouchableOpacity
-                className="flex-row items-center justify-start gap-2 py-1"
-                onPress={() => {
-                  setShowChildren(!showChildren);
-                  if (!childrenComment) {
-                    fetchChildrenComments(postId, comment.id, 1);
-                  }
-                }}
-              >
-                {showChildren ? (
-                  <CircleMinus
-                    color={colors[theme].mutedForeground}
+          <View className="flex-row items-center gap-2">
+            <TouchableOpacity
+              className="flex-row items-center gap-2"
+              onPress={() => setCommentToAnswer(comment)}
+            >
+              <CornerUpRight size={15} color={colors[theme].mutedForeground} />
+              <Typography size="p" className="text-muted-foreground">
+                Répondre
+              </Typography>
+            </TouchableOpacity>
+            {comment?.children_count && comment.children_count > 0 ? (
+              !childrenComment && showChildren ? (
+                <View className="flex-row items-center gap-2">
+                  <ActivityIndicator
                     size={15}
+                    color={colors[theme].mutedForeground}
                   />
-                ) : (
-                  <CirclePlus color={colors[theme].mutedForeground} size={15} />
-                )}
-                <Typography size="p" className="text-muted-foreground">
-                  {showChildren ? "Masquer" : "Afficher"} les réponses
-                </Typography>
-              </TouchableOpacity>
-            )
-          ) : null}
+                  <Typography size="p" className="text-muted-foreground">
+                    Chargement...
+                  </Typography>
+                </View>
+              ) : (
+                <TouchableOpacity
+                  className="flex-row items-center justify-start gap-2 py-1"
+                  onPress={() => {
+                    setShowChildren(!showChildren);
+                    if (!childrenComment) {
+                      fetchChildrenComments(postId, comment.id, 1);
+                    }
+                  }}
+                >
+                  {showChildren ? (
+                    <CircleMinus
+                      color={colors[theme].mutedForeground}
+                      size={15}
+                    />
+                  ) : (
+                    <CirclePlus
+                      color={colors[theme].mutedForeground}
+                      size={15}
+                    />
+                  )}
+                  <Typography size="p" className="text-muted-foreground">
+                    {showChildren ? "Masquer" : "Afficher"} les réponses
+                  </Typography>
+                </TouchableOpacity>
+              )
+            ) : null}
+          </View>
         </View>
       </View>
       <View className={cn(levelFromRoot >= 2 ? "" : "ml-12", "flex-1")}>
@@ -157,6 +177,8 @@ export const Comment = memo(function Comment({
               comment={c}
               postId={postId}
               levelFromRoot={levelFromRoot + 1}
+              commentToAnswer={commentToAnswer}
+              setCommentToAnswer={setCommentToAnswer}
             />
           ))}
       </View>
@@ -171,7 +193,7 @@ export const SkeletonComment = () => {
       <View className="flex-row gap-3">
         <Skeleton radius="round" colorMode={theme} width={35} height={35} />
         <View className="flex-1">
-          <View className="justify-center gap-2 rounded-2xl bg-popover p-4">
+          <View className="bg-popover justify-center gap-2 rounded-2xl p-4">
             <Skeleton colorMode={theme} width={150} />
             <Skeleton colorMode={theme} height={50} width={"100%"} />
           </View>
