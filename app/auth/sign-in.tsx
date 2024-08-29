@@ -9,6 +9,7 @@ import { routes } from "@/constants/routes";
 import { useForm } from "@/hooks/useForm";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import type { Href } from "expo-router";
 import { Link, useRouter } from "expo-router";
 import { TouchableOpacity, View } from "react-native";
 import Toast from "react-native-root-toast";
@@ -87,7 +88,7 @@ export default function SignInPage() {
           password
           placeholder="********"
         />
-        <Link href={routes.forgot_password}>
+        <Link href={routes.forgot_password as Href}>
           <TouchableOpacity className="flex w-full flex-row gap-2">
             <Typography size="p">Mot de passe oublié ?</Typography>
             <Typography size="p" className="text-primary">

@@ -2,6 +2,7 @@ import { Button } from "@/components/primitives/button";
 import { FormTextInput } from "@/components/primitives/form-input";
 import { FormPicker } from "@/components/primitives/form-picker";
 import { useForm } from "@/hooks/useForm";
+import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { useSectors } from "./_features/sectors.query";
@@ -34,7 +35,7 @@ export default function Step1Page() {
       const typedKey = key as keyof SignUpStep2Data;
       updateValue(typedKey, form.values[typedKey]);
     });
-    router.push("auth/sign-up/step-3");
+    router.push("auth/sign-up/step-3" as Href);
   };
 
   return (
@@ -43,7 +44,7 @@ export default function Step1Page() {
       keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 60}
       className="flex-1 bg-background"
     >
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex-1 gap-8">
           <FormTextInput
             id="first_name"

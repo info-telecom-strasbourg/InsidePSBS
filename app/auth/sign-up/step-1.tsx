@@ -1,6 +1,7 @@
 import { Button } from "@/components/primitives/button";
 import { FormTextInput } from "@/components/primitives/form-input";
 import { useForm } from "@/hooks/useForm";
+import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import type { SignUpStep1Data } from "./_features/sign-up.schema";
@@ -33,7 +34,7 @@ export default function Step1Page() {
       const typedKey = key as keyof SignUpStep1Data;
       updateValue(typedKey, form.values[typedKey]);
     });
-    router.push("auth/sign-up/step-2");
+    router.push("auth/sign-up/step-2" as Href);
   };
 
   return (
@@ -42,7 +43,7 @@ export default function Step1Page() {
       keyboardVerticalOffset={60}
       className="flex-1 bg-background"
     >
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex flex-1 flex-col gap-8">
           {/* TODO: Verify if email is already used */}
           <FormTextInput
