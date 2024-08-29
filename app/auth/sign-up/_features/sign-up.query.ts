@@ -1,12 +1,24 @@
 import { type SignUpData } from "./sign-up.schema";
+import * as Crypto from 'expo-crypto';
 
 export const signUp = async (data: SignUpData) => {
+  const hashedPassword = await Crypto.digestStringAsync(
+    Crypto.CryptoDigestAlgorithm.SHA256,
+    `${data.password}${data.email}`
+  );
+  
+  const toSend = {
+    ...data,
+    password: hashedPassword,
+  };
+
+  console.debug("SignUp data:", toSend);
   const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(toSend),
   });
 
   if (!res.ok) {
