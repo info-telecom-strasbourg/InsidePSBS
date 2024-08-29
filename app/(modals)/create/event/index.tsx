@@ -65,7 +65,7 @@ export default function CreateEventPage() {
   );
 
   useEffect(() => {
-    if (data?.organizations && organizationId === null) {
+    if (data?.organizations[0] && organizationId === null) {
       setOrganizationId(data.organizations[0].id);
       setDisplayOrganizations(true);
     }
@@ -103,7 +103,7 @@ export default function CreateEventPage() {
               }
             />
           ) : (
-            <Typography size="h3" fontWeight="medium">
+            <Typography size="h4" fontWeight="medium">
               Vous ne pouvez pas créer d'évènement car vous ne faîtes pas partie
               d'une association ou d'un club !
             </Typography>
@@ -153,7 +153,10 @@ export default function CreateEventPage() {
           </View>
           <TouchableOpacity
             onPress={() => form.submit(handleSubmit)}
-            disabled={isPublishing}
+            disabled={
+              isPublishing ||
+              !(data?.organizations[0] && organizationId === null)
+            }
           >
             <View
               className="items-center justify-center rounded-full bg-primary p-4"
