@@ -6,7 +6,11 @@ import { useTheme } from "@/theme/theme-context";
 import { CalendarPlus, CopyPlus, FilePlus } from "lucide-react-native";
 import { TouchableOpacity } from "react-native";
 
-export const PublishBottomSheet = () => {
+export const PublishBottomSheet = ({
+  setIsModalOpened,
+}: {
+  setIsModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
 
@@ -14,7 +18,10 @@ export const PublishBottomSheet = () => {
     <>
       <TouchableOpacity
         className="flex-row items-center gap-3"
-        onPress={() => modalRouter.open("/create/post/step1")}
+        onPress={() => {
+          setIsModalOpened(false);
+          modalRouter.open(routes.create_post_step_1);
+        }}
       >
         <FilePlus size={32} color={colors[theme].foreground} />
         <Typography size="h3" fontWeight="semibold" className="text-foreground">
@@ -23,7 +30,10 @@ export const PublishBottomSheet = () => {
       </TouchableOpacity>
       <TouchableOpacity
         className="flex-row items-center gap-3"
-        onPress={() => modalRouter.open(routes.create_event)}
+        onPress={() => {
+          setIsModalOpened(false);
+          modalRouter.open(routes.create_event);
+        }}
       >
         <CalendarPlus size={32} color={colors[theme].foreground} />
         <Typography size="h3" fontWeight="semibold" className="text-foreground">
@@ -32,7 +42,10 @@ export const PublishBottomSheet = () => {
       </TouchableOpacity>
       <TouchableOpacity
         className="flex-row items-center gap-3"
-        onPress={() => modalRouter.open(routes.create_both)}
+        onPress={() => {
+          setIsModalOpened(false);
+          modalRouter.open(routes.create_both);
+        }}
       >
         <CopyPlus size={32} color={colors[theme].foreground} />
         <Typography size="h3" fontWeight="semibold" className="text-foreground">

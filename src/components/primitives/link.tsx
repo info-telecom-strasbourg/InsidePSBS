@@ -1,5 +1,5 @@
-import { routes } from "@/constants/routes";
 import { cn } from "@/utils/cn";
+import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
 import type { PropsWithChildren } from "react";
 import { TouchableOpacity } from "react-native";
@@ -7,7 +7,7 @@ import type { TypographyProps } from "./typography";
 import { Typography } from "./typography";
 
 export type LinkProps = PropsWithChildren<{
-  href?: string;
+  href?: Href;
   className?: string;
   onPress?: () => void;
 }> &
@@ -21,7 +21,7 @@ export const Link = ({
   ...props
 }: LinkProps) => {
   const router = useRouter();
-  const handlePress = onPress || (() => router.push(href || routes.root));
+  const handlePress = onPress || (() => router.push(href || "/"));
   return (
     <TouchableOpacity onPress={handlePress}>
       <Typography size="p" {...props} className={cn("text-primary", className)}>

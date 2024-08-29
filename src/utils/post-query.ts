@@ -20,6 +20,6 @@ export const postQuery = async <T>(
 
     return await res.json();
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };

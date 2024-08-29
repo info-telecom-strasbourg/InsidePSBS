@@ -21,11 +21,11 @@ export const Input = ({
   const { theme } = useTheme();
   const [show, setShow] = useState(false);
   return (
-    <View className="flex flex-col gap-2">
+    <View className={"flex flex-col gap-2"}>
       <Typography size="h5">{title}</Typography>
       <View className="flex flex-row items-center rounded-lg bg-secondary">
         <TextInput
-          className="flex-1 px-5 py-3 text-lg text-foreground"
+          className="flex-1 px-5 py-4 text-lg leading-5 text-foreground"
           secureTextEntry={variant === "password" && !show}
           {...inputProps(variant)}
           {...props}
