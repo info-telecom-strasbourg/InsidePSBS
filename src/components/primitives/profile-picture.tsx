@@ -6,11 +6,13 @@ export const ProfilePicture = ({
   name,
   isOrganization,
   imageSize = 20,
+  color,
 }: {
   avatar: string | undefined | null;
   name: string;
   isOrganization: boolean;
   imageSize: number;
+  color: string;
 }) => {
   if (avatar) {
     return (
@@ -26,8 +28,13 @@ export const ProfilePicture = ({
     if (isOrganization) {
       return (
         <View
-          className={`items-center justify-center rounded-full bg-background`}
-          style={{ width: imageSize, height: imageSize }}
+          className={`items-center justify-center`}
+          style={{
+            width: imageSize,
+            height: imageSize,
+            backgroundColor: color,
+            borderRadius: 999,
+          }}
         >
           <Typography size="h3" fontWeight="semibold">
             {name?.[0].toUpperCase()}
@@ -39,8 +46,12 @@ export const ProfilePicture = ({
       const str2 = name?.split(" ")[1];
       return (
         <View
-          className={`items-center justify-center rounded-full bg-background`}
-          style={{ width: imageSize, height: imageSize }}
+          className={`items-center justify-center rounded-full`}
+          style={{
+            width: imageSize,
+            height: imageSize,
+            backgroundColor: color,
+          }}
         >
           <Typography size="h3" fontWeight="semibold">
             {str1[0].toUpperCase() + str2[0].toUpperCase()}

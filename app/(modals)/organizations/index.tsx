@@ -34,7 +34,7 @@ export default function AssociationsPage() {
             <View className="gap-3">
               <Typography
                 size="h3"
-                className="mt-4 text-foreground"
+                className="mt-2 text-foreground"
                 fontWeight="semibold"
               >
                 Associations
@@ -43,7 +43,7 @@ export default function AssociationsPage() {
                 <ListItems item={item} key={item.id} />
               ))}
             </View>
-            <View className="gap-3">
+            <View className="mb-5 gap-3">
               <Typography
                 size="h3"
                 className="mt-4 text-foreground"
