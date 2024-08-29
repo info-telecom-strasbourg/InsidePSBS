@@ -14,12 +14,13 @@ import {
 } from "@app/(modals)/post/_features/add-reaction.schema";
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
-import * as VideoThumbnails from "expo-video-thumbnails";
+
 import { Heart, MessageCircle } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useEffect, useState, type PropsWithChildren } from "react";
+import { useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
-import { Image, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { Media } from "./media";
 import { PostParser } from "./post-parser";
 import type { SinglePostData } from "./post.schema";
 
@@ -34,48 +35,6 @@ export type SinglePostProps = PropsWithChildren<
     bodySize?: VariantProps<typeof typographyVariants>["size"];
   } & ViewProps
 >;
-
-const generateThumbnail = async ({ mediaURL }: { mediaURL: string }) => {
-  try {
-    const { uri } = await VideoThumbnails.getThumbnailAsync(mediaURL, {
-      time: 3000,
-      quality: 1,
-    });
-    return uri;
-  } catch (e) {
-    console.warn(e);
-  }
-};
-
-const MediaElement = ({
-  media,
-}: {
-  media: SinglePostData["data"]["medias"][0];
-}) => {
-  const [thumbnailUri, setThumbnailUri] = useState<string | undefined>(
-    undefined
-  );
-
-  useEffect(() => {
-    const fetchThumbnail = async () => {
-      if (media.type === "video") {
-        const uri = await generateThumbnail({ mediaURL: media.url });
-        setThumbnailUri(uri);
-      }
-    };
-
-    fetchThumbnail();
-  }, [media]);
-
-  if (media.type === "image" || thumbnailUri) {
-    const uri = media.type === "image" ? media.url : thumbnailUri;
-    return (
-      <Image source={{ uri }} resizeMode="cover" className="h-28 w-full" />
-    );
-  }
-
-  return null;
-};
 
 export const Post = ({
   item,
@@ -129,11 +88,6 @@ export const Post = ({
               : modalRouter.open(`/user/${item?.author.id}`)
           }
         >
-          {/* <Image
-            source={{ uri: item?.author.logo_url || undefined }}
-            className="size-20 rounded-full"
-            resizeMode="cover"
-          /> */}
           <ProfilePicture
             avatar={item.author.logo_url}
             imageSize={60}
@@ -161,17 +115,17 @@ export const Post = ({
       <PostParser
         data={PostBodySchema.safeParse(JSON.parse(item?.body || "")).data}
       />
-      {/* <View className="mt-4 flex-row flex-wrap items-center justify-start rounded-2xl">
+      <View className="mt-4 flex-row flex-wrap items-center justify-start rounded-2xl">
         {item?.medias
           ? item.medias.map((media, index) => {
               return (
                 <View key={index} style={{ width: "50%" }}>
-                  <MediaElement key={index} media={media} />
+                  <Media key={index} media={media} />
                 </View>
               );
             })
           : null}
-      </View> */}
+      </View>
 
       <View className="relative mt-3 flex-row items-center">
         {reactionsVisible ? (
