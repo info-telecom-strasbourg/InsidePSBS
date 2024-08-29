@@ -15,7 +15,7 @@ export const useAuth = () => {
     };
     loadAuthData();
   }, [setUser]);
-
+  // NOTE: this is signIn is only used for dev purposes, has to be removed in futures releases
   const signIn = async ({
     email,
     password,
