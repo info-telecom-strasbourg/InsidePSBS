@@ -1,6 +1,7 @@
 import { clearAuthData, getAuthData, saveAuthData } from "@/auth/auth-storage";
 import { useAuthStore } from "@/auth/auth-store";
 import { useEffect } from "react";
+import * as Crypto from 'expo-crypto';
 
 export const useAuth = () => {
   const { user, token, isAuthenticated, setUser, logout } = useAuthStore();
@@ -14,7 +15,7 @@ export const useAuth = () => {
     };
     loadAuthData();
   }, [setUser]);
-
+  // NOTE: this is signIn is only used for dev purposes, has to be removed in futures releases
   const signIn = async ({
     email,
     password,
@@ -28,6 +29,11 @@ export const useAuth = () => {
     }
 
     try {
+      const passwordHash = await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        `${password}${email}`
+      );
+      console.debug("Password hash:", passwordHash);
       const { token, user } = await fetch(
         `${process.env.EXPO_PUBLIC_API_URL}/api/login`,
         {
@@ -35,7 +41,7 @@ export const useAuth = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email, passwordHash }),
         }
       ).then((res) => res.json());
 

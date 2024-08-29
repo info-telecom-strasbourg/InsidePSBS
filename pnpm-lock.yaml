@@ -59,6 +59,9 @@ dependencies:
   expo-constants:
     specifier: ~16.0.2
     version: 16.0.2(expo@51.0.31)
+  expo-crypto:
+    specifier: ~13.0.2
+    version: 13.0.2(expo@51.0.31)
   expo-font:
     specifier: ~12.0.9
     version: 12.0.9(expo@51.0.31)
@@ -6039,6 +6042,15 @@ packages:
       expo: 51.0.31(@babel/core@7.25.2)(@babel/preset-env@7.25.4)
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /expo-crypto@13.0.2(expo@51.0.31):
+    resolution: {integrity: sha512-7f/IMPYJZkBM21LNEMXGrNo/0uXSVfZTwufUdpNKedJR0fm5fH4DCSN79ZddlV26nF90PuXjK2inIbI6lb0qRA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      base64-js: 1.5.1
+      expo: 51.0.31(@babel/core@7.25.2)(@babel/preset-env@7.25.4)
     dev: false
 
   /expo-file-system@17.0.1(expo@51.0.31):
