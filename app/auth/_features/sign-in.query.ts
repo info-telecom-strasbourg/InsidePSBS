@@ -11,7 +11,7 @@ export const signIn = async (data: SignInData) => {
     password: hashedPassword,
   } as SignInData;
   
-  console.debug("Password: ", hashedPassword);
+  console.debug("signIn data: ", dataToSend);
   const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/login`, {
     method: "POST",
     headers: {
