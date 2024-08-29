@@ -6,9 +6,10 @@ import { useOnePost } from "@app/(modals)/post/_features/one-post.query";
 import { Post, SkeletonPost } from "@app/(tabs)/posts/_features/post";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
-import { useMemo } from "react";
-import { RefreshControl, View } from "react-native";
+import { useMemo, useState } from "react";
+import { KeyboardAvoidingView, RefreshControl, View } from "react-native";
 import { Comment, SkeletonComment } from "./_features/comment";
+import { CommentInput } from "./_features/comment-input";
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -29,6 +30,10 @@ export default function PostIdPage() {
     [commentsData]
   );
 
+  const [commentToAnswer, setCommentToAnswer] = useState<
+    CommentsData["data"][0] | null
+  >(null);
+
   const loadMore = () => {
     if (hasMore) {
       setSize(size + 1);
@@ -46,7 +51,14 @@ export default function PostIdPage() {
         onEndReached={loadMore}
         onEndReachedThreshold={1}
         renderItem={({ item, index }) => (
-          <Comment comment={item} key={index} postId={id} levelFromRoot={0} />
+          <Comment
+            comment={item}
+            key={index}
+            postId={id}
+            levelFromRoot={0}
+            commentToAnswer={commentToAnswer}
+            setCommentToAnswer={setCommentToAnswer}
+          />
         )}
         refreshControl={
           <RefreshControl
@@ -79,6 +91,13 @@ export default function PostIdPage() {
           </>
         }
       />
+      <KeyboardAvoidingView>
+        <CommentInput
+          postId={id}
+          commentToAnswer={commentToAnswer}
+          setCommentToAnswer={setCommentToAnswer}
+        />
+      </KeyboardAvoidingView>
     </PageContainer>
   );
 }
