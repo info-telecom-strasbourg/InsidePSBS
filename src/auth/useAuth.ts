@@ -29,11 +29,12 @@ export const useAuth = () => {
     }
 
     try {
-      const passwordHash = await Crypto.digestStringAsync(
+    const passwordHash = await Crypto.digestStringAsync(
         Crypto.CryptoDigestAlgorithm.SHA256,
         `${password}${email}`
       );
-      console.debug("Password hash:", passwordHash);
+      const toSend = { email, "password": passwordHash };
+      console.log("SignIn data:", toSend);
       const { token, user } = await fetch(
         `${process.env.EXPO_PUBLIC_API_URL}/api/login`,
         {
@@ -41,10 +42,12 @@ export const useAuth = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, passwordHash }),
+          body: JSON.stringify(toSend),
         }
-      ).then((res) => res.json());
-
+      ).then((res) => res.json())
+      .catch((err) => {
+        console.error(err);
+      });
       setUser(user, token);
       await saveAuthData(token, user);
     } catch {
