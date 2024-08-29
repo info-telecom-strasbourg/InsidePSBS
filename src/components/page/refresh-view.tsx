@@ -18,6 +18,7 @@ export const RefreshView = ({
 }: RefreshViewProps) => {
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
       }
