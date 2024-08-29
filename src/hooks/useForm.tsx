@@ -37,6 +37,7 @@ export const useForm = <Z extends ZodSchema>({
   const checkError = async (values: z.infer<typeof schema>) => {
     setFormError(defaultError);
     const result = await schema.safeParseAsync(values);
+
     if (!result.success) {
       result.error.errors.forEach((error) => {
         setFormError((p) => ({ ...p, [error.path[0]]: error.message }));
@@ -50,12 +51,17 @@ export const useForm = <Z extends ZodSchema>({
     action: (values: z.infer<typeof schema>) => Promise<void>
   ) => {
     setIsSubmitting(true);
-    const is_error = await checkError(values);
-    if (!is_error) {
-      return;
+    const is_ok = await checkError(values);
+
+    try {
+      if (is_ok) await action(values);
+      setIsSubmitting(false);
+      return is_ok;
+    } catch (e) {
+      console.error(e);
+      setIsSubmitting(false);
+      return false;
     }
-    await action(values);
-    setIsSubmitting(false);
   };
 
   return { values, updateValue, isSubmitting, formError, submit };

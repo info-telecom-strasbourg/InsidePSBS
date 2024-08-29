@@ -7,8 +7,7 @@ export const checkPhone = async (phone: string) => {
       },
     }
   );
-  console.log("phone: ", !!res.ok);
-  return !!res.ok;
+  return res.ok;
 };
 
 export const checkUserName = async (user_name: string) => {
@@ -20,9 +19,8 @@ export const checkUserName = async (user_name: string) => {
       },
     }
   );
-  console.log("username: ", !!res.ok);
 
-  return !!res.ok;
+  return res.ok;
 };
 
 export const checkEmail = async (email: string) => {
@@ -34,5 +32,5 @@ export const checkEmail = async (email: string) => {
       },
     }
   );
-  return !!res.ok;
+  return res.ok;
 };

@@ -10,12 +10,12 @@ import { signUpStep2Schema } from "./_features/sign-up.schema";
 import { useSignUp } from "./_features/use-sign-up";
 
 const defaultValues = {
-  user_name: "romain.bourdain",
-  last_name: "Bourdain",
-  first_name: "Romain",
-  sector: 1,
-  phone: "0637297485",
-  admission_year: 2025,
+  user_name: "",
+  last_name: "",
+  first_name: "",
+  sector: 0,
+  phone: "",
+  admission_year: new Date().getFullYear(),
 };
 
 export default function Step1Page() {
@@ -44,7 +44,7 @@ export default function Step1Page() {
       className="flex-1 bg-background"
     >
       <ScrollView>
-        <View className="flex flex-1 flex-col gap-8">
+        <View className="flex-1 gap-8">
           <FormTextInput
             id="first_name"
             label="Prénom"
@@ -86,17 +86,16 @@ export default function Step1Page() {
             keyboardType="numeric"
             placeholder="2010"
           />
-          <View>
-            <FormPicker
-              id="sector"
-              label="Filière"
-              form={form}
-              values={sectors?.map((sector) => ({
-                id: sector.id,
-                value: sector.name,
-              }))}
-            />
-          </View>
+
+          <FormPicker
+            id="sector"
+            label="Filière"
+            form={form}
+            values={sectors?.map((sector) => ({
+              id: sector.id,
+              value: sector.name,
+            }))}
+          />
 
           <View className="pb-8">
             <Button

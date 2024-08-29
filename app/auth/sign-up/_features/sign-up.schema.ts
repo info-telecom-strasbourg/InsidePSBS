@@ -48,10 +48,12 @@ const signUpStep2 = z.object({
     .string()
     .regex(phoneRegex, "Le numéro de téléphone n'est pas valide"),
   admission_year: z
-    .number()
-    .int()
-    .min(2000, { message: "L'année de promotion n'est pas valide" })
-    .max(3000),
+    .string()
+    .regex(/\d+/, { message: "L'année de promotion n'est pas valide" })
+    .transform(Number)
+    .refine((n) => n > 2000 && n < 3000, {
+      message: "L'année de promotion n'est pas valide",
+    }),
 });
 
 const signUp = signUpStep1.merge(signUpStep2);
@@ -93,7 +95,7 @@ export const signUpStep2Schema = signUpStep2.superRefine(
 );
 
 export const signUpSchema = signUp.superRefine(
-  async ({ password, password_confirmation, user_name, phone }, ctx) => {
+  async ({ password, password_confirmation, user_name, phone, email }, ctx) => {
     if (password !== password_confirmation)
       ctx.addIssue({
         code: "custom",
@@ -101,16 +103,23 @@ export const signUpSchema = signUp.superRefine(
         path: ["password_confirmation"],
       });
 
-    if (await checkUserName(user_name))
+    if (!(await checkUserName(user_name)))
       ctx.addIssue({
         code: "custom",
         message: "Le nom d'utilisateur est déjà utilisé",
       });
 
-    if (await checkPhone(phone))
+    if (!(await checkPhone(phone)))
       ctx.addIssue({
         code: "custom",
         message: "Le numéro de téléphone est déjà utilisé",
+      });
+
+    if (!(await checkEmail(email)))
+      ctx.addIssue({
+        code: "custom",
+        message: "L'email est déjà utilisé",
+        path: ["email"],
       });
   }
 );

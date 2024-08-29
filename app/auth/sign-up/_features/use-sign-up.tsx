@@ -12,7 +12,7 @@ const defaultValues: SignUpData = {
   first_name: "",
   sector: 0,
   phone: "",
-  admission_year: 0,
+  admission_year: new Date().getFullYear(),
 };
 // Used to share the form state and dispatch function
 type SignUpContextType = ReturnType<typeof useForm> | undefined;

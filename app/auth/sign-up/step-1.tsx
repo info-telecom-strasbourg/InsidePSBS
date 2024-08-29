@@ -14,9 +14,9 @@ import { useSignUp } from "./_features/use-sign-up";
 // };
 
 const defaultValues = {
-  email: "romain.bourdain93@gmail.com",
-  password: "azertyuioP0",
-  password_confirmation: "azertyuioP0",
+  email: "",
+  password: "",
+  password_confirmation: "",
 };
 
 export default function Step1Page() {
