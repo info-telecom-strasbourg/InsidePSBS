@@ -7,7 +7,7 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import { postQuery } from "@/utils/post-query";
-import { PostBodySchema } from "@app/(modals)/create/post/_features/store-post.schema";
+import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import {
   AddReactionOnPostSchema,
   type AddReactionOnPostData,
