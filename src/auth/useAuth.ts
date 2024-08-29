@@ -24,6 +24,7 @@ export const useAuth = () => {
   }) => {
     if (isAuthenticated) {
       console.error("User already authenticated");
+      return;
     }
 
     try {

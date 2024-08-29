@@ -12,8 +12,8 @@ export const colors = {
     mutedForeground: "hsl(25 5% 44%)",
     accent: "hsl(60 4% 95%)",
     accentForeground: "hsl(24 9% 10%)",
-    border: "hsl(20 5% 90%)",
-    destructive: "hsl(0 83% 60%)",
+    border: "hsl(20 5% 80%)",
+    destructive: "hsl(0 83% 50%)",
     destructiveForeground: "hsl(0 0% 98%)",
   },
   dark: {
@@ -29,8 +29,8 @@ export const colors = {
     mutedForeground: "hsl(240 5% 64.9%)",
     accent: "hsl(240 3.7% 15.9%)",
     accentForeground: "hsl(0 0% 98%)",
-    border: "hsl(240 3.7% 15.9%)",
-    destructive: "hsl(0 72.2% 20%)",
+    border: "hsl(240 5% 65%)",
+    destructive: "hsl(0 72.2% 35%)",
     destructiveForeground: "hsl(60 9.1% 97.8%)",
   },
 
