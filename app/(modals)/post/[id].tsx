@@ -1,5 +1,6 @@
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
+import { useComments } from "@app/(modals)/post/_features/comments.query";
 import { type CommentsData } from "@app/(modals)/post/_features/comments.schema";
 import { useOnePost } from "@app/(modals)/post/_features/one-post.query";
 import { Post, SkeletonPost } from "@app/(tabs)/posts/_features/post";
@@ -9,7 +10,6 @@ import { useMemo, useState } from "react";
 import { KeyboardAvoidingView, RefreshControl, View } from "react-native";
 import { Comment, SkeletonComment } from "./_features/comment";
 import { CommentInput } from "./_features/comment-input";
-import { useComments } from "./_features/comments.query";
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
