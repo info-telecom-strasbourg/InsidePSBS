@@ -14,8 +14,8 @@ export default function RootLayout() {
     <Provider>
       <Stack screenOptions={{ headerShown: false, animation: "none" }}>
         <Stack.Screen
-          name="(public)/cgu/index"
-          options={{ animation: "fade_from_bottom", presentation: "modal" }}
+          name="(public)"
+          options={{ animation: "slide_from_right" }}
         />
         <Stack.Screen
           name="(dev)/dev"

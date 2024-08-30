@@ -13,7 +13,7 @@ export default function CguPage() {
 
   return (
     <PageContainer>
-      <Header rightIcon="close" leftIcon="inside-psbs" title="CGU" />
+      <Header rightIcon="close" leftIcon="back" title="CGU" />
       <RefreshView
         handleRefresh={handleRefresh}
         isRefreshing={isRefreshing}
