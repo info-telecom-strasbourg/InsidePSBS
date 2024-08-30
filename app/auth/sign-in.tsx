@@ -61,7 +61,7 @@ export default function SignInPage() {
       const { token, user } = res.data;
       setUser(user, token);
       await saveAuthData(token, user);
-      router.push("/");
+      router.push(routes.home as Href);
     }
   };
   return (

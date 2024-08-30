@@ -1,3 +1,5 @@
+import { useAuth } from "@/auth/useAuth";
+import { routes } from "@/constants/routes";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { PlusButton } from "@app/(tabs)/_features/plus-button";
@@ -9,7 +11,8 @@ import {
   BottomSheetModalProvider,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { Tabs } from "expo-router";
+import type { Href } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { Calendar, CircleUserIcon, Home, Megaphone } from "lucide-react-native";
 import { useRef, useState } from "react";
 import { TouchableOpacity } from "react-native";
@@ -18,6 +21,7 @@ import { useSharedValue } from "react-native-reanimated";
 export default function TabsLayout() {
   const { theme } = useTheme();
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const { isAuthenticated } = useAuth();
   const animatedIndex = useSharedValue<number>(0);
   const animatedPosition = useSharedValue<number>(0);
 
@@ -36,6 +40,8 @@ export default function TabsLayout() {
 
   const toggleModal = () =>
     isModalOpened ? setIsModalOpened(false) : setIsModalOpened(true);
+
+  if (!isAuthenticated) return <Redirect href={routes.root as Href} />;
 
   return (
     <>
