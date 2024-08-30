@@ -1,4 +1,5 @@
 import { useAuth } from "@/auth/useAuth";
+import { RefreshView } from "@/components/page/refresh-view";
 import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
@@ -15,7 +16,7 @@ import {
   Phone,
   User,
 } from "lucide-react-native";
-import { RefreshControl, ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { SettingsButton } from "./_features/settings-button";
 import { SettingsTitle } from "./_features/settings-title";
 
@@ -31,10 +32,10 @@ export default function SettingsPage() {
   return (
     <PageContainer>
       <Header title="Paramètres" rightIcon="close" leftIcon="inside-psbs" />
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
-        }
+      <RefreshView
+        handleRefresh={handleRefresh}
+        isRefreshing={isRefreshing}
+        showsVerticalScrollIndicator={false}
       >
         <View className="gap-8 py-2">
           <View>
@@ -43,31 +44,31 @@ export default function SettingsPage() {
               label="Nom d'utilisateur"
               subtitle={`@${data.data.user_name}`}
               icon={User}
-              onPress={() => {}}
+              onPress={() => router.push("/settings/profile/username")}
             />
             <SettingsButton
               label="Mot de passe"
               subtitle="********"
               icon={Lock}
-              onPress={() => {}}
+              onPress={() => router.push("/settings/profile/password")}
             />
             <SettingsButton
               label="Téléphone"
               subtitle={data.data.phone?.toString()}
               icon={Phone}
-              onPress={() => {}}
+              onPress={() => router.push("/settings/profile/phone")}
             />
             <SettingsButton
               label="Filière"
               subtitle={data.data.sector}
               icon={Building}
-              onPress={() => {}}
+              onPress={() => router.push("/settings/profile/sector")}
             />
             <SettingsButton
               label="Année d'arrivée"
               subtitle={data.data.admission_year}
               icon={Cake}
-              onPress={() => {}}
+              onPress={() => router.push("/settings/profile/admission_year")}
             />
           </View>
           <View>
@@ -102,7 +103,7 @@ export default function SettingsPage() {
             </Button>
           </View>
         </View>
-      </ScrollView>
+      </RefreshView>
     </PageContainer>
   );
 }
