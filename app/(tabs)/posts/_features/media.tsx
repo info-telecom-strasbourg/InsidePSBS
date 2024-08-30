@@ -38,7 +38,7 @@ export const Media = ({ media, ...props }: MediaProps) => {
       }
     }
   }, [media]);
-  if (media.url && imageUri) {
+  if (imageUri) {
     return <Image source={{ uri: imageUri }} resizeMode="cover" {...props} />;
   } else {
     return <ActivityIndicator color={colors[theme].foreground} {...props} />;

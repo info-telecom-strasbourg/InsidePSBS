@@ -6,11 +6,12 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
+import { useMediaCarousel } from "@app/(modals)/post/_features/media-carousel.context";
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
 import { MessageCircle } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useState, type PropsWithChildren } from "react";
+import { useCallback, useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { TouchableOpacity, View } from "react-native";
 import { Media } from "./media";
@@ -52,6 +53,13 @@ export const Post = ({
   >(item?.reaction);
 
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
+
+  const { updateMediaCarousel } = useMediaCarousel();
+
+  const handleMediaPress = useCallback(() => {
+    updateMediaCarousel("medias", item!.medias);
+    updateMediaCarousel("isMediaCarouselOpen", true);
+  }, [item, updateMediaCarousel]);
 
   if (!item) return null;
   return (
@@ -97,25 +105,38 @@ export const Post = ({
         data={PostBodySchema.safeParse(JSON.parse(item?.body || "")).data}
       />
       {item.medias[0] ? (
-        <View className="mt-4 flex-row items-center justify-between overflow-hidden rounded-2xl">
+        <View className="mt-3 flex-row items-center justify-between rounded-2xl">
           {item.medias.length === 1 ? (
-            <Media media={item.medias[0]} className="h-28 w-full rounded-2xl" />
-          ) : (
-            <>
+            <TouchableOpacity
+              onPress={() => handleMediaPress()}
+              className="flex-1"
+            >
               <Media
                 media={item.medias[0]}
-                className="h-28"
-                style={{ width: "49.5%" }}
+                className="h-28 w-full rounded-2xl"
               />
-              <View
-                className="bg-background h-28 items-center justify-center"
-                style={{ width: "49.5%" }}
+            </TouchableOpacity>
+          ) : (
+            <View
+              className="flex-row overflow-hidden rounded-2xl"
+              style={{ gap: 4 }}
+            >
+              <TouchableOpacity
+                onPress={() => handleMediaPress()}
+                className="h-28 flex-1"
+              >
+                <Media media={item.medias[0]} className="h-28" />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                className="h-28 flex-1 items-center justify-center bg-background"
+                onPress={() => handleMediaPress()}
               >
                 <Typography size="h1" className="text-center" fontWeight="bold">
                   +{item.medias.length - 1}
                 </Typography>
-              </View>
-            </>
+              </TouchableOpacity>
+            </View>
           )}
         </View>
       ) : null}
@@ -149,7 +170,7 @@ export const Post = ({
 export const SkeletonPost = () => {
   const { theme } = useTheme();
   return (
-    <View className={"bg-popover justify-between rounded-2xl p-4 shadow-md"}>
+    <View className={"justify-between rounded-2xl bg-popover p-4 shadow-md"}>
       <Skeleton.Group show={true}>
         <>
           <View className="mb-4 flex-row items-center justify-start gap-2">

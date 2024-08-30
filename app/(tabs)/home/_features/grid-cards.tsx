@@ -25,7 +25,7 @@ export const GridCards = ({ data, isLoading }: GridCardsProps) => {
         onRequestClose={() => setModalOpen(false)}
         setIsOpen={setModalOpen}
       >
-        <View className="w-full justify-center rounded-2xl bg-popover p-6">
+        <View className="bg-popover w-full justify-center rounded-2xl p-6">
           <View className="mb-4">
             <Typography size="h4" className="text-foreground" fontWeight="bold">
               Vous allez quitter l'application InsidePSBS.
