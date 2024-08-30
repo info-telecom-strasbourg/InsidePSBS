@@ -50,15 +50,21 @@ export default function CreateEventPage() {
   const handleSubmit = useCallback(
     async (values: CreateEventData) => {
       setIsPublishing(true);
-      console.log(values, organizationId, startAt, endAt, token);
-      const res = await storeEvent(
-        values.title,
-        values.place,
-        organizationId,
-        startAt,
-        endAt,
-        token
-      );
+      try {
+        const res = await storeEvent(
+          values.title,
+          values.place,
+          organizationId,
+          startAt,
+          endAt,
+          token
+        );
+        if (!res.ok) {
+          console.log(JSON.stringify(res));
+        }
+      } catch (error) {
+        console.log(error);
+      }
       setIsPublishing(false);
     },
     [endAt, startAt, token, organizationId]
@@ -125,7 +131,7 @@ export default function CreateEventPage() {
               label="Lieu"
             />
 
-            <Typography size="h2" fontWeight="bold" className="mb-4">
+            <Typography size="h2" fontWeight="bold" className="mb-4 mt-2">
               Date(s) de l'événement :
             </Typography>
             <TouchableOpacity
@@ -136,10 +142,12 @@ export default function CreateEventPage() {
               <View className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6">
                 <Typography fontWeight="semibold">
                   {startAt && endAt
-                    ? `${format(startAt, "dd/MM/yyyy")} - ${format(
-                        endAt,
-                        "dd/MM/yyyy"
-                      )}`
+                    ? startAt === endAt
+                      ? format(startAt, "dd/MM/yyyy")
+                      : `${format(startAt, "dd/MM/yyyy")} - ${format(
+                          endAt,
+                          "dd/MM/yyyy"
+                        )}`
                     : format(today, "dd/MM/yyyy")}
                 </Typography>
 
@@ -154,8 +162,7 @@ export default function CreateEventPage() {
           <TouchableOpacity
             onPress={() => form.submit(handleSubmit)}
             disabled={
-              isPublishing ||
-              !(data?.organizations[0] && organizationId === null)
+              isPublishing || !data?.organizations[0] || organizationId === null
             }
           >
             <View
