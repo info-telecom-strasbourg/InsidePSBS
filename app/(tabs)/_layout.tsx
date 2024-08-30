@@ -1,10 +1,7 @@
-import { PageContainer } from "@/components/primitives/container";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import {
-  MediaCarouselProvider,
-  useMediaCarousel,
-} from "@app/(modals)/post/_features/media-carousel.context";
+import { CarouselModal } from "@app/(modals)/post/_features/carousel-modal";
+import { MediaCarouselProvider } from "@app/(modals)/post/_features/media-carousel.context";
 import { PlusButton } from "@app/(tabs)/_features/plus-button";
 import { PublishBottomSheet } from "@app/(tabs)/_features/publish-bottom-sheet";
 import { TabIcon } from "@app/(tabs)/_features/tab-icon";
@@ -15,18 +12,10 @@ import {
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { Tabs } from "expo-router";
-import {
-  Calendar,
-  CircleUserIcon,
-  Home,
-  Megaphone,
-  X,
-} from "lucide-react-native";
+import { Calendar, CircleUserIcon, Home, Megaphone } from "lucide-react-native";
 import { useRef, useState } from "react";
-import { Modal, TouchableOpacity } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-import { Media } from "./posts/_features/media";
 
 export default function TabsLayout() {
   const { theme } = useTheme();
@@ -49,11 +38,6 @@ export default function TabsLayout() {
 
   const toggleModal = () =>
     isModalOpened ? setIsModalOpened(false) : setIsModalOpened(true);
-
-  const { isMediaCarouselOpen, medias, updateMediaCarousel } =
-    useMediaCarousel();
-
-  console.log(medias);
 
   return (
     <BottomSheetModalProvider>
@@ -170,25 +154,7 @@ export default function TabsLayout() {
             <PublishBottomSheet setIsModalOpened={setIsModalOpened} />
           </BottomSheetView>
         </BottomSheetModal>
-
-        <Modal
-          visible={isMediaCarouselOpen}
-          animationType="slide"
-          hardwareAccelerated
-          onRequestClose={() =>
-            updateMediaCarousel("isMediaCarouselOpen", false)
-          }
-        >
-          <PageContainer>
-            <X className="items-center justify-end" />
-
-            <ScrollView horizontal className="items-center justify-center">
-              {medias.map((media, index) => {
-                return <Media key={index} media={media} />;
-              })}
-            </ScrollView>
-          </PageContainer>
-        </Modal>
+        <CarouselModal />
       </MediaCarouselProvider>
     </BottomSheetModalProvider>
   );

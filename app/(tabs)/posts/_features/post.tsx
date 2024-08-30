@@ -11,7 +11,7 @@ import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
 import { MessageCircle } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useCallback, useState, type PropsWithChildren } from "react";
+import { useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { TouchableOpacity, View } from "react-native";
 import { Media } from "./media";
@@ -56,10 +56,12 @@ export const Post = ({
 
   const { updateMediaCarousel } = useMediaCarousel();
 
-  const handleMediaPress = useCallback(() => {
-    updateMediaCarousel("medias", item!.medias);
-    updateMediaCarousel("isMediaCarouselOpen", true);
-  }, [item, updateMediaCarousel]);
+  const handleMediaPress = () => {
+    if (item) {
+      updateMediaCarousel("medias", item.medias);
+      updateMediaCarousel("isMediaCarouselOpen", true);
+    }
+  };
 
   if (!item) return null;
   return (
@@ -129,7 +131,7 @@ export const Post = ({
               </TouchableOpacity>
 
               <TouchableOpacity
-                className="h-28 flex-1 items-center justify-center bg-background"
+                className="h-28 flex-1 items-center justify-center bg-background opacity-50"
                 onPress={() => handleMediaPress()}
               >
                 <Typography size="h1" className="text-center" fontWeight="bold">
