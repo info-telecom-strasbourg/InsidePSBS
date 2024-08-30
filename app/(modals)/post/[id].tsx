@@ -1,15 +1,15 @@
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
-import { Typography } from "@/components/primitives/typography";
-import { CommentInput } from "@app/(modals)/post/_features/comment-input";
 import { useComments } from "@app/(modals)/post/_features/comments.query";
-import type { CommentsData } from "@app/(modals)/post/_features/comments.schema";
+import { type CommentsData } from "@app/(modals)/post/_features/comments.schema";
 import { useOnePost } from "@app/(modals)/post/_features/one-post.query";
-import { Post } from "@app/(tabs)/posts/_features/post";
-import type { SinglePostData } from "@app/(tabs)/posts/_features/post.schema";
-import { FlashList, type ListRenderItem } from "@shopify/flash-list";
+import { Post, SkeletonPost } from "@app/(tabs)/posts/_features/post";
+import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
-import { Image, KeyboardAvoidingView, View } from "react-native";
+import { useMemo, useState } from "react";
+import { KeyboardAvoidingView, RefreshControl, View } from "react-native";
+import { Comment, SkeletonComment } from "./_features/comment";
+import { CommentInput } from "./_features/comment-input";
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -18,63 +18,86 @@ export default function PostIdPage() {
 
   const {
     data: commentsData,
-    isLoading: commentsAreLoading,
+    isRefreshing: commentsAreRefreshing,
+    handleRefresh: handleCommentsRefresh,
     size,
     setSize,
-    isRefreshing: commentsAreRefreshing,
-    handleRefresh,
+    hasMore,
   } = useComments(id);
 
-  const comments = commentsData ? commentsData.flat() : [];
+  const comments = useMemo(
+    () => (commentsData ? commentsData.flat() : []),
+    [commentsData]
+  );
+
+  const [commentToAnswer, setCommentToAnswer] = useState<
+    CommentsData["data"][0] | null
+  >(null);
+
+  const loadMore = () => {
+    if (hasMore) {
+      setSize(size + 1);
+    }
+  };
 
   return (
     <PageContainer>
       <Header title="Post" rightIcon="close" />
+
       <FlashList<CommentsData["data"][0] | undefined>
         data={comments}
-        renderItem={RenderComments}
-        estimatedItemSize={200}
+        estimatedItemSize={100}
+        showsVerticalScrollIndicator={false}
+        onEndReached={loadMore}
+        onEndReachedThreshold={1}
+        renderItem={({ item, index }) => (
+          <Comment
+            comment={item}
+            key={index}
+            postId={id}
+            levelFromRoot={0}
+            commentToAnswer={commentToAnswer}
+            setCommentToAnswer={setCommentToAnswer}
+          />
+        )}
+        refreshControl={
+          <RefreshControl
+            refreshing={commentsAreRefreshing}
+            onRefresh={handleCommentsRefresh}
+          />
+        }
         ListHeaderComponent={
-          <HeaderComp postIsLoading={postIsLoading} postData={postData} />
+          <View className="mb-4">
+            <Post
+              isLoading={postIsLoading}
+              item={postData}
+              postId={postData?.id}
+            />
+          </View>
+        }
+        ListEmptyComponent={
+          <>
+            <View className="mb-4">
+              <SkeletonPost />
+            </View>
+            <View className="mb-4 gap-4">
+              <SkeletonComment />
+              <SkeletonComment />
+              <SkeletonComment />
+              <SkeletonComment />
+              <SkeletonComment />
+              <SkeletonComment />
+            </View>
+          </>
         }
       />
-      <KeyboardAvoidingView className="my-2 flex-row items-center gap-3 rounded-full bg-popover p-2 pl-4">
-        <CommentInput />
+      <KeyboardAvoidingView>
+        <CommentInput
+          postId={id}
+          commentToAnswer={commentToAnswer}
+          setCommentToAnswer={setCommentToAnswer}
+        />
       </KeyboardAvoidingView>
     </PageContainer>
   );
 }
-
-const RenderComments: ListRenderItem<CommentsData["data"][0] | undefined> = ({
-  item,
-}: {
-  item: CommentsData["data"][0] | undefined;
-}) => (
-  <View className="mb-4 flex-row gap-3">
-    <View>
-      <Image
-        source={{ uri: item?.author.logo_url || undefined }}
-        className="size-12 rounded-full"
-        resizeMode="contain"
-      />
-    </View>
-    <View className="flex-1 rounded-2xl bg-popover p-3">
-      <Typography fontWeight="medium" className="">
-        {item?.author.name}
-      </Typography>
-      <Typography size="p">{item?.body}</Typography>
-    </View>
-  </View>
-);
-
-const HeaderComp = ({
-  postIsLoading,
-  postData,
-}: {
-  postIsLoading: boolean;
-  postData: SinglePostData["data"] | undefined;
-}) => (
-  <View className="mb-4">
-    <Post isLoading={postIsLoading} item={postData} postId={postData?.id} />
-  </View>
-);
