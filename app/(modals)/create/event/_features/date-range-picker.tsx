@@ -8,7 +8,7 @@ import {
   toDateId,
   useDateRange,
 } from "@marceloterreiro/flash-calendar";
-import { forwardRef, useMemo } from "react";
+import { forwardRef, useEffect, useMemo } from "react";
 import { View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { useDatePickerTheme } from "./useDatePickerTheme";
@@ -29,16 +29,17 @@ export const DateRangePicker = forwardRef<
   const snapPoints = useMemo(() => ["80%"], []);
 
   const datePickerTheme = useDatePickerTheme();
-
-  if (calendarActiveDateRanges[0]) {
-    if (
-      calendarActiveDateRanges[0].startId !== undefined &&
-      calendarActiveDateRanges[0].endId !== undefined
-    ) {
-      setStartAt(calendarActiveDateRanges[0].startId || "");
-      setEndAt(calendarActiveDateRanges[0].endId || "");
+  useEffect(() => {
+    if (calendarActiveDateRanges[0]) {
+      if (
+        calendarActiveDateRanges[0].startId &&
+        calendarActiveDateRanges[0].endId
+      ) {
+        setStartAt(calendarActiveDateRanges[0].startId || "");
+        setEndAt(calendarActiveDateRanges[0].endId || "");
+      }
     }
-  }
+  }, [calendarActiveDateRanges, setStartAt, setEndAt]);
 
   return (
     <BottomSheetModal
@@ -90,7 +91,7 @@ export const DateRangePicker = forwardRef<
           calendarFormatLocale="fr-FR"
           calendarMinDateId={toDateId(today)}
           calendarInitialMonthId={toDateId(today)}
-          onCalendarDayPress={(dateId) => onCalendarDayPress(dateId)}
+          onCalendarDayPress={onCalendarDayPress}
           theme={datePickerTheme}
         />
       </View>

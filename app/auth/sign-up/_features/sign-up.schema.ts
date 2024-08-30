@@ -53,7 +53,8 @@ const signUpStep2 = z.object({
     .transform(Number)
     .refine((n) => n > 2000 && n < 3000, {
       message: "L'année de promotion n'est pas valide",
-    }),
+    })
+    .transform(String),
 });
 
 const signUp = signUpStep1.merge(signUpStep2);

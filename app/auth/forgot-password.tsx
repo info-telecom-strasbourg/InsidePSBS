@@ -5,7 +5,7 @@ import { Header } from "@/components/primitives/header";
 import { useForm } from "@/hooks/useForm";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { View } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import Toast from "react-native-root-toast";
 import { forgotPassword } from "./_features/forgot.query";
 import { ForgotPasswordSchema } from "./_features/forgot.schema";
@@ -52,26 +52,34 @@ export default function ForgotPasswordPage() {
   return (
     <PageContainer>
       <Header title="Réinitialiser" leftIcon="inside-psbs" rightIcon="close" />
-      <View className="mt-8 flex flex-col justify-center gap-8">
-        <FormTextInput
-          label="Email"
-          form={form}
-          id="email"
-          autoComplete="email"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="fabien.pregaldiny@its-tps.fr"
-        />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={60}
+        className="flex-1"
+      >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View className="mt-8 flex flex-col justify-center gap-8">
+            <FormTextInput
+              label="Email"
+              form={form}
+              id="email"
+              autoComplete="email"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="fabien.pregaldiny@its-tps.fr"
+            />
 
-        <Button
-          onPress={() => form.submit(handleSubmit)}
-          loading={form.isSubmitting}
-          disabled={form.isSubmitting}
-        >
-          Réinitialiser le mot de passe
-        </Button>
-      </View>
+            <Button
+              onPress={() => form.submit(handleSubmit)}
+              loading={form.isSubmitting}
+              disabled={form.isSubmitting}
+            >
+              Réinitialiser le mot de passe
+            </Button>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </PageContainer>
   );
 }
