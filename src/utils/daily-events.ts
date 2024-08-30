@@ -1,4 +1,4 @@
-import type { EventsData } from "@/schemas/GET/events/event.schema";
+import type { EventsData } from "@app/(tabs)/calendar/_features/event.schema";
 import { addDays, format, isSameDay, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
 

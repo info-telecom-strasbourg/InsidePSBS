@@ -96,17 +96,29 @@ export const Post = ({
       <PostParser
         data={PostBodySchema.safeParse(JSON.parse(item?.body || "")).data}
       />
-      <View className="mt-4 flex-row flex-wrap items-center justify-start rounded-2xl">
-        {item?.medias
-          ? item.medias.map((media, index) => {
-              return (
-                <View key={index} style={{ width: "50%" }}>
-                  <Media key={index} media={media} />
-                </View>
-              );
-            })
-          : null}
-      </View>
+      {item.medias[0] ? (
+        <View className="mt-4 flex-row items-center justify-between overflow-hidden rounded-2xl">
+          {item.medias.length === 1 ? (
+            <Media media={item.medias[0]} className="h-28 w-full rounded-2xl" />
+          ) : (
+            <>
+              <Media
+                media={item.medias[0]}
+                className="h-28"
+                style={{ width: "49.5%" }}
+              />
+              <View
+                className="bg-background h-28 items-center justify-center"
+                style={{ width: "49.5%" }}
+              >
+                <Typography size="h1" className="text-center" fontWeight="bold">
+                  +{item.medias.length - 1}
+                </Typography>
+              </View>
+            </>
+          )}
+        </View>
+      ) : null}
 
       <View className="relative mt-3 flex-row items-center">
         <Reaction
