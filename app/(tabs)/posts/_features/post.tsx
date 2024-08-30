@@ -17,6 +17,7 @@ import { Media } from "./media";
 import { PostParser } from "./post-parser";
 import type { SinglePostData } from "./post.schema";
 import { Reaction } from "./reaction";
+import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 
 export type SinglePostProps = PropsWithChildren<
   {

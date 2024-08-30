@@ -193,6 +193,7 @@ export const SkeletonComment = () => {
       <View className="flex-row gap-3">
         <Skeleton radius="round" colorMode={theme} width={35} height={35} />
         <View className="flex-1">
+
           <View className="bg-popover justify-center gap-2 rounded-2xl p-4">
             <Skeleton colorMode={theme} width={150} />
             <Skeleton colorMode={theme} height={50} width={"100%"} />

@@ -16,6 +16,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@10play/tentap-editor": "^0.5.19",
     "@babel/runtime": "^7.25.4",
     "@10play/tentap-editor": "^0.5.19",
     "@expo/cli": "^0.18.29",
