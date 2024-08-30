@@ -5,11 +5,11 @@ import type { LucideIcon } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import { Switch, TouchableHighlight, View } from "react-native";
 
-type SettingsButtonPrimitiveProps = PropsWithChildren<{
+export type SettingsButtonPrimitiveProps = PropsWithChildren<{
   onPress: () => void;
 }>;
 
-const SettingButtonPrimitive = ({
+export const SettingButtonPrimitive = ({
   children,
   onPress,
 }: SettingsButtonPrimitiveProps) => {

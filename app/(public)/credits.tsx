@@ -2,12 +2,14 @@ import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
 import { SettingsButton } from "@app/(modals)/settings/_features/settings-button";
 import { SettingsTitle } from "@app/(modals)/settings/_features/settings-title";
+import { Bug, Database, Monitor, Paintbrush } from "lucide-react-native";
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
 
 const creditData = [
   {
     title: "FrontEnd",
+    icon: Monitor,
     items: [
       {
         title: "Fabio Tocco",
@@ -33,6 +35,7 @@ const creditData = [
   },
   {
     title: "BackEnd",
+    icon: Database,
     items: [
       {
         title: "Thibault Deslandes",
@@ -58,6 +61,7 @@ const creditData = [
   },
   {
     title: "Debug",
+    icon: Bug,
     items: [
       {
         title: "Alexander Yanovskyy",
@@ -71,6 +75,7 @@ const creditData = [
   },
   {
     title: "Design",
+    icon: Paintbrush,
     items: [
       {
         title: "Romain Bourdain",
@@ -93,10 +98,14 @@ export default function CreditsPage() {
     <PageContainer>
       <Header title="Credits" rightIcon="close" leftIcon="back" />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="gap-3">
+        <View className="gap-8">
           {creditData.map((section, i) => (
             <View key={i}>
-              <SettingsTitle label={section.title}></SettingsTitle>
+              <SettingsTitle
+                label={section.title}
+                icon={section.icon}
+                className="mb-2"
+              />
               {section.items.map((item, j) => (
                 <CreditsItem
                   key={j}

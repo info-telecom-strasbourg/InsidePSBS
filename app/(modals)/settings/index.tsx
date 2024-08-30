@@ -3,7 +3,10 @@ import { RefreshView } from "@/components/page/refresh-view";
 import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
+import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
+import { colors } from "@/theme/colors";
+import { useTheme } from "@/theme/theme-context";
 import { useMe } from "@app/(tabs)/profile/_features/me.query";
 import { useRouter } from "expo-router";
 import {
@@ -17,13 +20,17 @@ import {
   User,
 } from "lucide-react-native";
 import { View } from "react-native";
-import { SettingsButton } from "./_features/settings-button";
+import {
+  SettingButtonPrimitive,
+  SettingsButton,
+} from "./_features/settings-button";
 import { SettingsTitle } from "./_features/settings-title";
 
 export default function SettingsPage() {
   const { data, isLoading, handleRefresh, isRefreshing } = useMe();
   const { signOut } = useAuth();
   const router = useRouter();
+  const { theme } = useTheme();
 
   if (!data?.data || isLoading) {
     return <Typography>Loading ...</Typography>;
@@ -40,6 +47,21 @@ export default function SettingsPage() {
         <View className="gap-8 py-2">
           <View>
             <SettingsTitle label="Profil" />
+            <SettingButtonPrimitive
+              onPress={() => router.push("/settings/profile/avatar")}
+            >
+              <ProfilePicture
+                avatar={data.data.avatar_url}
+                imageSize={28}
+                isOrganization
+                name={data.data.user_name}
+                color={colors[theme].popover}
+                textClassName="text-lg font-medium"
+              />
+              <Typography size="h4" fontWeight="semibold">
+                Photo de profil
+              </Typography>
+            </SettingButtonPrimitive>
             <SettingsButton
               label="Nom d'utilisateur"
               subtitle={`@${data.data.user_name}`}

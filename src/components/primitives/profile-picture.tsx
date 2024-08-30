@@ -7,12 +7,14 @@ export const ProfilePicture = ({
   isOrganization,
   imageSize = 20,
   color,
+  textClassName,
 }: {
   avatar: string | undefined | null;
   name: string;
   isOrganization: boolean;
   imageSize: number;
   color: string;
+  textClassName?: string;
 }) => {
   if (avatar) {
     return (
@@ -36,7 +38,7 @@ export const ProfilePicture = ({
             borderRadius: 999,
           }}
         >
-          <Typography size="h3" fontWeight="semibold">
+          <Typography size="h3" fontWeight="semibold" className={textClassName}>
             {name?.[0].toUpperCase()}
           </Typography>
         </View>
