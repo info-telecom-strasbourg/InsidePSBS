@@ -11,7 +11,13 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
-import { TouchableOpacity, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Toast from "react-native-root-toast";
 import { signIn } from "./_features/sign-in.query";
 import { SignInSchema } from "./_features/sign-in.schema";
@@ -67,45 +73,53 @@ export default function SignInPage() {
   return (
     <PageContainer>
       <Header title="Se connecter" leftIcon="inside-psbs" rightIcon="close" />
-      <View className="mt-8 flex flex-col justify-center gap-8">
-        <FormTextInput
-          label="Email"
-          form={form}
-          id="email"
-          autoComplete="email"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="fabien.pregaldiny@its-tps.fr"
-        />
-        <FormTextInput
-          label="Mot de passe"
-          form={form}
-          id="password"
-          autoComplete="current-password"
-          autoCapitalize="none"
-          autoCorrect={false}
-          password
-          placeholder="********"
-        />
-        <TouchableOpacity
-          className="flex w-full flex-row gap-2"
-          onPress={() => router.push(routes.forgot_password as Href)}
-        >
-          <Typography size="p">Mot de passe oublié ?</Typography>
-          <Typography size="p" className="text-primary">
-            Réinitialiser
-          </Typography>
-        </TouchableOpacity>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={60}
+        className="flex-1"
+      >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View className="mt-8 flex flex-col justify-center gap-8">
+            <FormTextInput
+              label="Email"
+              form={form}
+              id="email"
+              autoComplete="email"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="fabien.pregaldiny@its-tps.fr"
+            />
+            <FormTextInput
+              label="Mot de passe"
+              form={form}
+              id="password"
+              autoComplete="current-password"
+              autoCapitalize="none"
+              autoCorrect={false}
+              password
+              placeholder="********"
+            />
+            <TouchableOpacity
+              className="flex w-full flex-row gap-2"
+              onPress={() => router.push(routes.forgot_password as Href)}
+            >
+              <Typography size="p">Mot de passe oublié ?</Typography>
+              <Typography size="p" className="text-primary">
+                Réinitialiser
+              </Typography>
+            </TouchableOpacity>
 
-        <Button
-          onPress={() => form.submit(handleSubmit)}
-          loading={form.isSubmitting}
-          disabled={form.isSubmitting}
-        >
-          Se connecter
-        </Button>
-      </View>
+            <Button
+              onPress={() => form.submit(handleSubmit)}
+              loading={form.isSubmitting}
+              disabled={form.isSubmitting}
+            >
+              Se connecter
+            </Button>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </PageContainer>
   );
 }
