@@ -1,12 +1,12 @@
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
-import { SkeletonPost } from "@app/(tabs)/posts/_features/post";
+import { useModalRouter } from "@/hooks/useModalRouter";
+import { Post, SkeletonPost } from "@app/(tabs)/posts/_features/post";
 import { PostsHeader } from "@app/(tabs)/posts/_features/posts-header";
-import { RenderPosts } from "@app/(tabs)/posts/_features/render-posts";
 import { Search } from "@app/(tabs)/posts/_features/search";
 import { FlashList } from "@shopify/flash-list";
-import { useCallback, useMemo, useState } from "react";
-import { View } from "react-native";
+import { useMemo, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useMe } from "../profile/_features/me.query";
 import { useFilters } from "./_features/filters.query";
@@ -16,6 +16,7 @@ import { usePosts } from "./_features/posts.query";
 export default function PostsPage() {
   const [selectedId, setSelectedId] = useState<number>(1);
   const [searchPhrase, setSearchPhrase] = useState<string>("");
+  const modalRouter = useModalRouter();
 
   const {
     data,
@@ -33,13 +34,11 @@ export default function PostsPage() {
 
   const items = useMemo(() => (data ? data.flat() : []), [data]);
 
-
   const loadMore = () => {
     if (hasMore) {
       setSize(size + 1);
     }
   };
-
 
   return (
     <PageContainer>
@@ -63,7 +62,12 @@ export default function PostsPage() {
         onEndReached={loadMore}
         onEndReachedThreshold={1}
         renderItem={({ item }) => (
-          <RenderPosts item={item} postsAreLoading={postsAreLoading} />
+          <TouchableOpacity
+            onPress={() => modalRouter.open(`/post/${item?.id}`)}
+            className="mb-4"
+          >
+            <Post item={item} postId={item?.id} />
+          </TouchableOpacity>
         )}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={150}

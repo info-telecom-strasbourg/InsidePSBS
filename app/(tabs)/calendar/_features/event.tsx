@@ -1,3 +1,4 @@
+import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
@@ -10,13 +11,13 @@ import { Typography } from "../../../../src/components/primitives/typography";
 
 export const Event = ({
   item,
-  isLoading,
 }: {
   item: EventsData["data"][0] | undefined;
-  isLoading: boolean;
 }) => {
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
+
+  if (!item) return null;
   return (
     <View className="bg-popover mb-6 flex-1 flex-row gap-3 text-wrap rounded-2xl p-3">
       <View
@@ -31,10 +32,13 @@ export const Event = ({
                 modalRouter.open(`/organizations/${item?.author.id}`)
               }
             >
-              {/* <Image
-                source={{ uri: item?.author.logo_url || undefined }}
-                className="size-12"
-              /> */}
+              <ProfilePicture
+                avatar={item.author.logo_url}
+                color={colors[theme].popover}
+                imageSize={30}
+                isOrganization={item.author.is_organization}
+                name={item.author.name}
+              />
             </TouchableOpacity>
 
             <Typography size="h5" fontWeight="semibold">

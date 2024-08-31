@@ -10,7 +10,7 @@ import { TouchableOpacity, View } from "react-native";
 import { ProfileHero } from "./hero";
 
 type ProfileProps = {
-  avatar: string | null;
+  avatar: string | undefined | null;
   title: string;
   subtitle: string | undefined;
   socials?: ShowOrganizationData["organization"];

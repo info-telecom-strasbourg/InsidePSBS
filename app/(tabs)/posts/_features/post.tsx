@@ -66,7 +66,6 @@ export const Post = ({
     }
   };
 
-
   if (!item) return null;
   return (
     <View

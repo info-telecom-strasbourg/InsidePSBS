@@ -22,5 +22,7 @@ export const useShowOrganizationPosts = (id: string | undefined) => {
     (pageIndex, previousPageData) => getKey(pageIndex, previousPageData, id),
     (url) => postsFetcher(url, token || "")
   );
-  return res;
+
+  const hasMore = res.data?.[res.data?.length - 1]?.length ?? 0 > 0;
+  return { ...res, hasMore };
 };
