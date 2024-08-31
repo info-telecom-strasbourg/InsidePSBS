@@ -50,6 +50,7 @@ export default function TabsLayout() {
       <MediaCarouselProvider>
         <Tabs
           screenOptions={{
+            headerShown: false,
             tabBarShowLabel: false,
             tabBarStyle: {
               backgroundColor: colors[theme].secondary,
@@ -60,7 +61,7 @@ export default function TabsLayout() {
           }}
         >
           <Tabs.Screen
-            name="home/index"
+            name="home"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
@@ -69,7 +70,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="calendar/index"
+            name="calendar"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
@@ -78,7 +79,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="create/index"
+            name="create"
             options={{
               headerShown: false,
               tabBarButton: () => (
@@ -94,7 +95,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="posts/index"
+            name="posts"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
@@ -107,7 +108,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="profile/index"
+            name="profile"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
