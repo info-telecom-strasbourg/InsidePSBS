@@ -55,17 +55,17 @@ export const Post = ({
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
 
   const deleteMyPost = async () => {
-    const url = `${process.env.EXPO_API_URL}/api/post/${postId}/delete`;
+    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/delete`;
     try {
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          // "Content-Type": "application/json",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
       const res = await response.json();
-      console.log(res);
+      return res;
     } catch (e) {
       console.error(e);
     }
