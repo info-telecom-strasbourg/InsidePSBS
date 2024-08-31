@@ -1,18 +1,25 @@
+import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
-import { Image, View } from "react-native";
+import { colors } from "@/theme/colors";
+import { useTheme } from "@/theme/theme-context";
+import { View } from "react-native";
 
 type HeroProps = {
-  avatar: string | undefined;
-  title: string | undefined;
+  avatar: string | undefined | null;
+  title: string;
   subtitle: string | undefined;
 };
 
 export const ProfileHero = ({ avatar, title, subtitle }: HeroProps) => {
+  const { theme } = useTheme();
   return (
     <View className="flex-row items-center gap-4">
-      <Image
-        source={{ uri: avatar || undefined }}
-        className="size-24 rounded-full"
+      <ProfilePicture
+        avatar={avatar}
+        imageSize={60}
+        isOrganization
+        name={title}
+        color={colors[theme].popover}
       />
       <View className="flex-1 justify-center gap-1">
         <Typography size="h2" fontWeight="semibold">

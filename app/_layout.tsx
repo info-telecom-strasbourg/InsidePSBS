@@ -12,7 +12,7 @@ export default function RootLayout() {
 
   return (
     <Provider>
-      <Stack screenOptions={{ headerShown: false, animation: "fade" }}>
+      <Stack screenOptions={{ headerShown: false, animation: "none" }}>
         <Stack.Screen
           name="(public)/cgu/index"
           options={{ animation: "fade_from_bottom", presentation: "modal" }}
@@ -23,6 +23,10 @@ export default function RootLayout() {
         />
         <Stack.Screen
           name="(modals)"
+          options={{ animation: "fade_from_bottom", presentation: "modal" }}
+        />
+        <Stack.Screen
+          name="auth"
           options={{ animation: "fade_from_bottom", presentation: "modal" }}
         />
       </Stack>

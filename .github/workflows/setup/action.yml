@@ -1,0 +1,30 @@
+inputs:
+  EXPO_TOKEN:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+      id: general-setup
+      with:
+        version: 9
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: pnpm
+        cache-dependency-path: pnpm-lock.yaml
+
+    - name: 📦 Install dependencies
+      run: pnpm install
+      shell: bash
+
+    - uses: expo/expo-github-action@v8
+      with:
+        packager: pnpm
+        expo-version: 6.3.10
+        eas-version: 11.0.0
+        token: ${{ inputs.EXPO_TOKEN }}
+      
+

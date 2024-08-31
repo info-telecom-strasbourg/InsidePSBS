@@ -1,4 +1,4 @@
-import type { PostBodyData } from "@app/(modals)/create/post/_features/store-post.schema";
+import type { PostBodyData } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { toDateId } from "@marceloterreiro/flash-calendar";
 import type { PropsWithChildren } from "react";
 import { createContext, useContext, useState } from "react";

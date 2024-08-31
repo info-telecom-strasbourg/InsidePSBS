@@ -10,14 +10,14 @@ const organizationSchema = z.object({
   instagram_link: z.string().url(),
   discord_link: z.string().url(),
   email: z.string().email(),
-  logo_url: z.string().url(),
+  logo_url: z.string().url().nullable(),
 });
 
 const memberSchema = z.object({
   id: z.number(),
   first_name: z.string(),
   last_name: z.string(),
-  avatar_url: z.string().url(),
+  avatar_url: z.string().url().nullable(),
 });
 
 export const ShowOrganization = z.object({

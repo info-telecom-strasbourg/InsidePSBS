@@ -1,6 +1,7 @@
 import { clearAuthData, getAuthData, saveAuthData } from "@/auth/auth-storage";
 import { useAuthStore } from "@/auth/auth-store";
 import { useEffect } from "react";
+import * as Crypto from 'expo-crypto';
 
 export const useAuth = () => {
   const { user, token, isAuthenticated, setUser, logout } = useAuthStore();
@@ -14,7 +15,7 @@ export const useAuth = () => {
     };
     loadAuthData();
   }, [setUser]);
-
+  // NOTE: this is signIn is only used for dev purposes, has to be removed in futures releases
   const signIn = async ({
     email,
     password,
@@ -24,9 +25,16 @@ export const useAuth = () => {
   }) => {
     if (isAuthenticated) {
       console.error("User already authenticated");
+      return;
     }
 
     try {
+    const passwordHash = await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        `${password}${email}`
+      );
+      const toSend = { email, "password": passwordHash };
+      console.log("SignIn data:", toSend);
       const { token, user } = await fetch(
         `${process.env.EXPO_PUBLIC_API_URL}/api/login`,
         {
@@ -34,10 +42,12 @@ export const useAuth = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify(toSend),
         }
-      ).then((res) => res.json());
-
+      ).then((res) => res.json())
+      .catch((err) => {
+        console.error(err);
+      });
       setUser(user, token);
       await saveAuthData(token, user);
     } catch {

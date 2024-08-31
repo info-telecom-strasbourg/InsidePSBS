@@ -1,5 +1,5 @@
 import { Typography } from "@/components/primitives/typography";
-import type { PostBodyData } from "@app/(modals)/create/post/_features/store-post.schema";
+import type { PostBodyData } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { Fragment } from "react";
 
 export const PostParser = ({ data }: { data: PostBodyData | undefined }) => {

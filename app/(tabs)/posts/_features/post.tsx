@@ -1,4 +1,3 @@
-import { useAuth } from "@/auth/useAuth";
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
@@ -6,12 +5,7 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
-import { postQuery } from "@/utils/post-query";
-import { PostBodySchema } from "@app/(modals)/create/post/_features/store-post.schema";
-import {
-  AddReactionOnPostSchema,
-  type AddReactionOnPostData,
-} from "@app/(modals)/post/_features/add-reaction.schema";
+import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
 import * as VideoThumbnails from "expo-video-thumbnails";
@@ -27,6 +21,7 @@ import type { ViewProps } from "react-native";
 import { Image, TouchableOpacity, View } from "react-native";
 import { PostParser } from "./post-parser";
 import type { SinglePostData } from "./post.schema";
+import { Reaction } from "./reaction";
 
 export type SinglePostProps = PropsWithChildren<
   {
@@ -92,7 +87,6 @@ export const Post = ({
 }: SinglePostProps) => {
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
-  const { token } = useAuth();
 
   const { data: reactions } = useReactionType();
 
@@ -106,20 +100,6 @@ export const Post = ({
 
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
 
-  const storeReaction = useCallback(
-    async (reactionTypeId: number) => {
-      const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/reaction`;
-      const response = await postQuery<AddReactionOnPostData>(
-        url,
-        token,
-        { reaction_type_id: reactionTypeId },
-        AddReactionOnPostSchema
-      );
-      setReaction(response.data.reaction);
-      setReactionCount(response.data.reaction_count);
-    },
-    [token, postId]
-  );
 
   if (!item) return null;
   return (
@@ -129,36 +109,35 @@ export const Post = ({
         className
       )}
     >
-      <View className="flex-row items-center justify-between">
-        <View className="mb-2 flex-row items-center justify-start gap-2">
-          <TouchableOpacity
-            onPress={() =>
-              item?.author.is_organization
-                ? modalRouter.open(`/organizations/${item.author.id}`)
-                : modalRouter.open(`/user/${item?.author.id}`)
-            }
-          >
-            <ProfilePicture
-              avatar={item.author.logo_url}
-              imageSize={55}
-              isOrganization={item.author.is_organization}
-              name={item.author.name}
-            />
-          </TouchableOpacity>
-          <View className="ml-2 flex-col">
-            <>
-              <Typography size={authorNameSize} fontWeight="semibold">
-                {item?.author.name}
-              </Typography>
-              <Typography
-                size={dateSize}
-                fontWeight="medium"
-                className="text-muted-foreground"
-              >
-                {item?.uploaded_since}
-              </Typography>
-            </>
-          </View>
+      <View className="mb-2 flex-row items-center justify-start gap-2">
+        <TouchableOpacity
+          onPress={() =>
+            item?.author.is_organization
+              ? modalRouter.open(`/organizations/${item.author.id}`)
+              : modalRouter.open(`/user/${item?.author.id}`)
+          }
+        >
+          <ProfilePicture
+            avatar={item.author.logo_url}
+            imageSize={60}
+            isOrganization={item.author.is_organization}
+            name={item.author.name}
+            color={colors[theme].background}
+          />
+        </TouchableOpacity>
+        <View className="ml-2 flex-col">
+          <>
+            <Typography size={authorNameSize} fontWeight="semibold">
+              {item?.author.name}
+            </Typography>
+            <Typography
+              size={dateSize}
+              fontWeight="medium"
+              className="text-muted-foreground"
+            >
+              {item?.uploaded_since}
+            </Typography>
+          </>
         </View>
         <TouchableOpacity className="mr-2 bg-red">
           <Ellipsis size={30} color={colors[theme].foreground} />
@@ -181,57 +160,26 @@ export const Post = ({
       </View> */}
 
       <View className="relative mt-3 flex-row items-center">
-        {reactionsVisible ? (
-          <View className="absolute -left-3 -top-20 flex-row items-center justify-center gap-4 rounded-2xl border-2 border-muted bg-popover p-3">
-            {reactions?.map((r, index) => {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    storeReaction(r.id);
-                    setReactionsVisible(false);
-                  }}
-                >
-                  <Typography size="h2">{r.icon}</Typography>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        ) : null}
-        <TouchableOpacity
-          onPress={
-            () => (reaction ? storeReaction(reaction.id) : storeReaction(1)) // 1 is the ID for the heart reaction, the default one
-          }
-          onLongPress={() => setReactionsVisible(true)}
-          delayLongPress={200}
-        >
-          <View className="flex-row items-center gap-2 pr-4">
-            <>
-              {reaction ? (
-                <Typography size="h2">{reaction.icon}</Typography>
-              ) : (
-                <Heart
-                  strokeWidth={1.5}
-                  color={colors[theme].foreground}
-                  size={30}
-                />
-              )}
-              <Typography size="p">{reactionCount}</Typography>
-            </>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View className="flex-row items-center gap-2">
-            <>
-              <MessageCircle
-                strokeWidth={1.5}
-                color={colors[theme].foreground}
-                size={30}
-              />
-              <Typography size="p">{item?.comment_count}</Typography>
-            </>
-          </View>
-        </TouchableOpacity>
+        <Reaction
+          allReactions={reactions}
+          postId={postId}
+          reaction={reaction}
+          reactionCount={reactionCount}
+          reactionsVisible={reactionsVisible}
+          setReaction={setReaction}
+          setReactionCount={setReactionCount}
+          setReactionsVisible={setReactionsVisible}
+        />
+        <View className="flex-row items-center gap-2">
+          <>
+            <MessageCircle
+              strokeWidth={1.5}
+              color={colors[theme].foreground}
+              size={30}
+            />
+            <Typography size="p">{item?.comment_count}</Typography>
+          </>
+        </View>
       </View>
     </View>
   );

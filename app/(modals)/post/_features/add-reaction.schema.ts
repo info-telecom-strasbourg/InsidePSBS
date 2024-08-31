@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const AddReactionOnPostSchema = z.object({
   reaction_type_id: z.number(),
+  post_comment_id: z.number().optional(),
 });
 
 export const ReactionTypeSchema = z.object({
@@ -15,3 +16,4 @@ export const ReactionTypeSchema = z.object({
 });
 
 export type AddReactionOnPostData = z.infer<typeof AddReactionOnPostSchema>;
+export type ReactionTypeData = z.infer<typeof ReactionTypeSchema>;

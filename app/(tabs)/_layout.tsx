@@ -24,7 +24,6 @@ export default function TabsLayout() {
   const rotation = useSharedValue<number>(0);
 
   // BottomSheet Modal
-
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   if (isModalOpened) {
@@ -39,121 +38,111 @@ export default function TabsLayout() {
     isModalOpened ? setIsModalOpened(false) : setIsModalOpened(true);
 
   return (
-    <>
-      <BottomSheetModalProvider>
-        <Tabs
-          screenOptions={{
-            tabBarShowLabel: false,
-            tabBarStyle: {
-              backgroundColor: colors[theme].secondary,
-              borderTopWidth: 0,
-              paddingTop: 4,
-              zIndex: 10,
-            },
+    <BottomSheetModalProvider>
+      <Tabs
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            backgroundColor: colors[theme].secondary,
+            borderTopWidth: 0,
+            paddingTop: 4,
+            zIndex: 10,
+          },
+        }}
+      >
+        <Tabs.Screen
+          name="home/index"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <TabIcon focused={focused} name="Accueil" icon={Home} />
+            ),
           }}
-        >
-          <Tabs.Screen
-            name="home/index"
-            options={{
-              headerShown: false,
-              tabBarIcon: ({ focused }) => (
-                <TabIcon focused={focused} name="Accueil" icon={Home} />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="calendar/index"
-            options={{
-              headerShown: false,
-              tabBarIcon: ({ focused }) => (
-                <TabIcon focused={focused} name="Calendrier" icon={Calendar} />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="create/index"
-            options={{
-              headerShown: false,
-              tabBarButton: () => (
-                <TouchableOpacity
-                  className="-top-7"
-                  onPress={() => {
-                    toggleModal();
-                  }}
-                >
-                  <PlusButton rotation={rotation} />
-                </TouchableOpacity>
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="posts/index"
-            options={{
-              headerShown: false,
-              tabBarIcon: ({ focused }) => (
-                <TabIcon
-                  focused={focused}
-                  name="Publications"
-                  icon={Megaphone}
-                />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="profile/index"
-            options={{
-              headerShown: false,
-              tabBarIcon: ({ focused }) => (
-                <TabIcon
-                  focused={focused}
-                  name="Profile"
-                  icon={CircleUserIcon}
-                />
-              ),
-            }}
-          />
-        </Tabs>
-        <BottomSheetModal
-          style={{
-            zIndex: -100,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 5,
-            },
-            shadowOpacity: 0.34,
-            shadowRadius: 6.27,
-            elevation: 10,
+        />
+        <Tabs.Screen
+          name="calendar/index"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <TabIcon focused={focused} name="Calendrier" icon={Calendar} />
+            ),
           }}
-          ref={bottomSheetRef}
-          snapPoints={["30%"]}
-          enablePanDownToClose
-          enableDismissOnClose
-          animatedIndex={animatedIndex}
-          animatedPosition={animatedPosition}
-          overDragResistanceFactor={1}
-          onChange={(e) => setIsModalOpened(e === 0)}
-          backgroundStyle={{ backgroundColor: colors[theme].secondary }}
-          backdropComponent={() => (
-            <BottomSheetBackdrop
-              pressBehavior={"close"}
-              animatedIndex={animatedIndex}
-              animatedPosition={animatedPosition}
-              style={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-              }}
-              appearsOnIndex={0}
-              disappearsOnIndex={-1}
-            ></BottomSheetBackdrop>
-          )}
-        >
-          <BottomSheetView className="gap-6 p-4">
-            <PublishBottomSheet />
-          </BottomSheetView>
-        </BottomSheetModal>
-      </BottomSheetModalProvider>
-    </>
+        />
+        <Tabs.Screen
+          name="create/index"
+          options={{
+            headerShown: false,
+            tabBarButton: () => (
+              <TouchableOpacity
+                className="-top-7"
+                onPress={() => {
+                  toggleModal();
+                }}
+              >
+                <PlusButton rotation={rotation} />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="posts/index"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <TabIcon focused={focused} name="Publications" icon={Megaphone} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile/index"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ focused }) => (
+              <TabIcon focused={focused} name="Profile" icon={CircleUserIcon} />
+            ),
+          }}
+        />
+      </Tabs>
+      <BottomSheetModal
+        style={{
+          zIndex: -100,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 5,
+          },
+          shadowOpacity: 0.34,
+          shadowRadius: 6.27,
+          elevation: 10,
+        }}
+        ref={bottomSheetRef}
+        snapPoints={["30%"]}
+        enablePanDownToClose
+        enableDismissOnClose
+        animatedIndex={animatedIndex}
+        animatedPosition={animatedPosition}
+        overDragResistanceFactor={1}
+        onChange={(e) => setIsModalOpened(e === 0)}
+        backgroundStyle={{ backgroundColor: colors[theme].secondary }}
+        backdropComponent={() => (
+          <BottomSheetBackdrop
+            pressBehavior={"close"}
+            animatedIndex={animatedIndex}
+            animatedPosition={animatedPosition}
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+            }}
+            appearsOnIndex={0}
+            disappearsOnIndex={-1}
+          ></BottomSheetBackdrop>
+        )}
+      >
+        <BottomSheetView className="gap-6 p-4">
+          <PublishBottomSheet setIsModalOpened={setIsModalOpened} />
+        </BottomSheetView>
+      </BottomSheetModal>
+    </BottomSheetModalProvider>
   );
 }

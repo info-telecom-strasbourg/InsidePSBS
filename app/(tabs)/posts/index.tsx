@@ -24,6 +24,7 @@ export default function PostsPage() {
     setSize,
     isRefreshing,
     handleRefresh,
+    hasMore,
   } = usePosts(selectedId, searchPhrase);
 
   const { data: myInfo } = useMe();
@@ -32,25 +33,13 @@ export default function PostsPage() {
 
   const items = useMemo(() => (data ? data.flat() : []), [data]);
 
-  const loadMore = useCallback(() => {
-    setSize(size + 1);
-  }, [size, setSize]);
 
-  const isItMyPost = useCallback(
-    (item: PostsData["data"][0]) => {
-      if (myInfo?.data.id === item?.author.id) {
-        return true;
-      } else {
-        myInfo?.organizations.map((org) => {
-          if (org.id === item?.author.id) {
-            return true;
-          }
-        });
-        return false;
-      }
-    },
-    [myInfo]
-  );
+  const loadMore = () => {
+    if (hasMore) {
+      setSize(size + 1);
+    }
+  };
+
 
   return (
     <PageContainer>

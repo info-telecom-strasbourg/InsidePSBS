@@ -3,7 +3,8 @@ export const routes = {
   home: "/home",
   dev: "/dev",
   organizations: "/organizations",
-  create_post: "/create/post/step-1",
+  create_post_step_1: "/create/post/step1",
+  create_post_step_2: "/create/post/step2",
   create_event: "/create/event",
   create_both: "/create/both",
   auth: "/auth",
@@ -14,4 +15,5 @@ export const routes = {
   menu: "/menu",
   settings: "/settings",
   mps: "https://nextcloud.its-tps.fr/s/zfFkwR6y5wxt5gW",
+  cgu: "/cgu",
 };
