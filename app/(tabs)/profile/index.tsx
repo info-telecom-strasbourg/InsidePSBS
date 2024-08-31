@@ -13,7 +13,6 @@ import { Post } from "../posts/_features/post";
 export default function ProfilePage() {
   const modalRouter = useModalRouter();
   const { data, isLoading, handleRefresh, isRefreshing } = useMe();
-  const modalRouter = useModalRouter();
   const {
     data: posts,
     isLoading: postsAreLoading,

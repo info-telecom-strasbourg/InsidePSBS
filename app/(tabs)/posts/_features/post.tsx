@@ -1,3 +1,4 @@
+import { useAuth } from "@/auth/useAuth";
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
@@ -8,7 +9,6 @@ import { cn } from "@/utils/cn";
 import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { useMediaCarousel } from "@app/(modals)/post/_features/media-carousel.context";
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
-import type { ItsMeUserData } from "@app/(tabs)/profile/_features/me.schema";
 import type { VariantProps } from "class-variance-authority";
 import { MessageCircle, Trash2 } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
@@ -25,7 +25,6 @@ export type PostProps = PropsWithChildren<
     item: SinglePostData["data"] | undefined;
     className?: string;
     postId: number | undefined;
-    userData?: ItsMeUserData | undefined;
     authorNameSize?: VariantProps<typeof typographyVariants>["size"];
     dateSize?: VariantProps<typeof typographyVariants>["size"];
     bodySize?: VariantProps<typeof typographyVariants>["size"];
@@ -36,12 +35,12 @@ export const Post = ({
   item,
   className,
   postId,
-  userData = undefined,
   authorNameSize = "h4",
   dateSize = "h5",
 }: PostProps) => {
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
+  const { token } = useAuth();
 
   const { data: reactions } = useReactionType();
 
@@ -55,7 +54,22 @@ export const Post = ({
 
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
 
-  const deleteMyPost = () => {};
+  const deleteMyPost = async () => {
+    const url = `${process.env.EXPO_API_URL}/api/post/${postId}/delete`;
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const res = await response.json();
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const { updateMediaCarousel } = useMediaCarousel();
 
@@ -74,24 +88,24 @@ export const Post = ({
         className
       )}
     >
-      <View className="mb-2 flex-row items-center justify-start gap-2">
-        <TouchableOpacity
-          onPress={() =>
-            item?.author.is_organization
-              ? modalRouter.open(`/organizations/${item.author.id}`)
-              : modalRouter.open(`/user/${item?.author.id}`)
-          }
-        >
-          <ProfilePicture
-            avatar={item.author.logo_url}
-            imageSize={60}
-            isOrganization={item.author.is_organization}
-            name={item.author.name}
-            color={colors[theme].background}
-          />
-        </TouchableOpacity>
-        <View className="ml-2 flex-col">
-          <>
+      <View className="mb-2 flex-row items-center justify-between gap-2">
+        <View className="flex-row items-center gap-3">
+          <TouchableOpacity
+            onPress={() =>
+              item?.author.is_organization
+                ? modalRouter.open(`/organizations/${item.author.id}`)
+                : modalRouter.open(`/user/${item?.author.id}`)
+            }
+          >
+            <ProfilePicture
+              avatar={item.author.logo_url}
+              imageSize={60}
+              isOrganization={item.author.is_organization}
+              name={item.author.name}
+              color={colors[theme].background}
+            />
+          </TouchableOpacity>
+          <View>
             <Typography size={authorNameSize} fontWeight="semibold">
               {item?.author.name}
             </Typography>
@@ -102,12 +116,12 @@ export const Post = ({
             >
               {item?.uploaded_since}
             </Typography>
-          </>
+          </View>
         </View>
-        {userData && userData.data.id === item.author.id && (
+        {item.author.user_is_author && (
           <TouchableOpacity
-            className="mr-2 bg-red"
-            onPress={() => deleteMyPost()}
+            className="p-3"
+            onPress={async () => await deleteMyPost()}
           >
             <Trash2 size={30} color={colors[theme].foreground} />
           </TouchableOpacity>
