@@ -15,6 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ITS.InsidePSBS"
+
     },
     "android": {
       "adaptiveIcon": {

@@ -1,10 +1,12 @@
+import type { PropsWithChildren } from "react";
 import type { ModalProps } from "react-native";
 import { Modal, Pressable } from "react-native";
 
-type Props = ModalProps & {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-};
+type Props = PropsWithChildren &
+  ModalProps & {
+    isOpen: boolean;
+    setIsOpen: (isOpen: boolean) => void;
+  };
 
 export const CustomModal = ({
   isOpen,
