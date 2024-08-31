@@ -31,9 +31,9 @@ const CreatePostPage = () => {
 
   const organizationListRef = useRef<BottomSheetModal>(null);
   return (
-    <View className="flex-1 bg-background">
+    <View className="bg-background flex-1">
       <EmptyEditor modalOpen={modalOpen} setModalOpen={setModalOpen} />
-      <View className="mb-6 w-full flex-row items-center justify-between bg-background">
+      <View className="bg-background mb-6 w-full flex-row items-center justify-between">
         {data?.organizations ? (
           organizationId ? (
             <ChoiceItem
@@ -84,7 +84,7 @@ const CreatePostPage = () => {
             }
           }}
         >
-          <View className="rounded-full bg-primary p-3">
+          <View className="bg-primary rounded-full p-3">
             <Typography className="text-white" fontWeight="medium" size="h4">
               Suivant
             </Typography>

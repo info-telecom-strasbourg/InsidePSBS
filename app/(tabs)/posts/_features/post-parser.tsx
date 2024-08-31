@@ -1,5 +1,7 @@
+import type { typographyVariants } from "@/components/primitives/typography";
 import { Typography } from "@/components/primitives/typography";
 import type { PostBodyData } from "@app/(modals)/create/post/step2/_features/store-post.schema";
+import type { VariantProps } from "class-variance-authority";
 import { Fragment } from "react";
 
 export const PostParser = ({ data }: { data: PostBodyData | undefined }) => {
@@ -86,8 +88,11 @@ export const PostParser = ({ data }: { data: PostBodyData | undefined }) => {
               </Typography>
             );
           case "heading":
+            const size = `h${line.attrs?.level || "1"}` as VariantProps<
+              typeof typographyVariants
+            >["size"];
             return (
-              <Typography key={lineIndex} size="h2">
+              <Typography key={lineIndex} size={size} fontWeight="semibold">
                 {line.content.map((element, elementIndex) => {
                   return <Fragment key={elementIndex}>{element.text}</Fragment>;
                 })}
