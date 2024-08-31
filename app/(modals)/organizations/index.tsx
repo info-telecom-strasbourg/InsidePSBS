@@ -13,7 +13,7 @@ import { View } from "react-native";
 export default function AssociationsPage() {
   const [searchPhrase, setSearchPhrase] = useState("");
 
-  const { data, isLoading, error, isRefreshing, handleRefresh } =
+  const { data, isLoading, isRefreshing, handleRefresh } =
     useIndexOrganizations(searchPhrase);
 
   return (

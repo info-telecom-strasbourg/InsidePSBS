@@ -9,8 +9,12 @@ import { useLocalSearchParams } from "expo-router";
 export default function AssoIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const { data, isLoading, isRefreshing, handleRefresh } =
-    useShowOrganization(id);
+  const {
+    data,
+    isLoading,
+    isRefreshing,
+    handleRefresh: handleRefreshUser,
+  } = useShowOrganization(id);
 
   const {
     data: posts,
@@ -18,7 +22,13 @@ export default function AssoIdPage() {
     size,
     setSize,
     hasMore,
+    handleRefresh: handleRefreshPosts,
   } = useShowOrganizationPosts(id);
+
+  const handleRefresh = () => {
+    handleRefreshUser();
+    handleRefreshPosts();
+  };
 
   return (
     <PageContainer>
