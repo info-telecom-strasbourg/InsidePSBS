@@ -12,7 +12,12 @@ import { RefreshControl, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
   const modalRouter = useModalRouter();
-  const { data, isLoading, handleRefresh, isRefreshing } = useMe();
+  const {
+    data,
+    isLoading,
+    handleRefresh: handleRefreshUser,
+    isRefreshing,
+  } = useMe();
   const {
     data: posts,
     isLoading: postsAreLoading,
@@ -20,12 +25,20 @@ export default function ProfilePage() {
     setSize,
     handleRefresh: handleRefreshPosts,
     isRefreshing: arePostsRefreshing,
+    hasMore,
   } = useShowUserPosts(data?.data.id.toString());
+
+  const handleRefresh = () => {
+    handleRefreshUser();
+    handleRefreshPosts();
+  };
 
   const items = posts ? posts.flat() : [];
 
   const loadMore = () => {
-    setSize(size + 1);
+    if (hasMore) {
+      setSize(size + 1);
+    }
   };
 
   return (
@@ -60,8 +73,8 @@ export default function ProfilePage() {
           estimatedItemSize={100}
           refreshControl={
             <RefreshControl
-              refreshing={arePostsRefreshing}
-              onRefresh={handleRefreshPosts}
+              refreshing={arePostsRefreshing || isRefreshing}
+              onRefresh={handleRefresh}
             />
           }
         />
