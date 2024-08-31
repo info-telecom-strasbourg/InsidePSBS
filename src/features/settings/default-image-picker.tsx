@@ -11,6 +11,7 @@ export const DefaultImagePickerModal = forwardRef<BottomSheetModal>(
     const snapPoints = useMemo(() => ["60%"], []);
     const animatedIndex = useSharedValue<number>(0);
     const animatedPosition = useSharedValue<number>(0);
+
     return (
       <BottomSheetModal
         style={{
@@ -48,6 +49,7 @@ export const DefaultImagePickerModal = forwardRef<BottomSheetModal>(
           />
         )}
       >
+        {/* <BottomSheetFlashList /> */}
         {null}
       </BottomSheetModal>
     );

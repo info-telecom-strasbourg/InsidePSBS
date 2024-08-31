@@ -3,8 +3,8 @@ import { RefreshView } from "@/components/page/refresh-view";
 import { Button } from "@/components/primitives/button";
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
-import { DefaultImagePickerModal } from "@/features/settings/default-image-picker";
 import { useMe } from "@/queries/profile/me.query";
+import { useDefaultImages } from "@/queries/settings/default-images.query";
 import { storeProfilePicture } from "@/queries/settings/store-profile-picture";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
@@ -37,8 +37,10 @@ export const pickProfilePicture = async (
 
 export default function AvatarPage() {
   const { theme } = useTheme();
-  const { data, isLoading, handleRefresh, isRefreshing } = useMe();
   const { token } = useAuth();
+
+  const { data, isLoading, handleRefresh, isRefreshing } = useMe();
+  const { data: defaultImages } = useDefaultImages();
 
   const defaultImagePickerRef = useRef<BottomSheetModal>(null);
   const [profilePicture, setProfilePicture] =
@@ -116,7 +118,10 @@ export default function AvatarPage() {
           </Button>
         </View>
       </RefreshView>
-      <DefaultImagePickerModal ref={defaultImagePickerRef} />
+      {/* <DefaultImagePickerModal
+        ref={defaultImagePickerRef}
+        data={defaultImages}
+      /> */}
     </>
   );
 }
