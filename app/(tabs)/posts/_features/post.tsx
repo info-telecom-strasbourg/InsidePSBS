@@ -22,7 +22,6 @@ import { Reaction } from "./reaction";
 export type SinglePostProps = PropsWithChildren<
   {
     item: SinglePostData["data"] | undefined;
-    isLoading: boolean;
     className?: string;
     postId: number | undefined;
     authorNameSize?: VariantProps<typeof typographyVariants>["size"];
@@ -33,7 +32,6 @@ export type SinglePostProps = PropsWithChildren<
 
 export const Post = ({
   item,
-  isLoading,
   className,
   postId,
   authorNameSize = "h4",

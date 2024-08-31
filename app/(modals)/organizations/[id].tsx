@@ -15,9 +15,9 @@ export default function AssoIdPage() {
   const {
     data: posts,
     isLoading: postsAreLoading,
-    error: postsError,
     size,
     setSize,
+    hasMore,
   } = useShowOrganizationPosts(id);
 
   return (
@@ -37,7 +37,8 @@ export default function AssoIdPage() {
           socials={data?.organization}
           members={data?.members}
           subtitle={data?.organization.name}
-          title={data?.organization.short_name}
+          title={data?.organization.short_name || data.organization.name}
+          hasMore={hasMore}
         />
       )}
     </PageContainer>
