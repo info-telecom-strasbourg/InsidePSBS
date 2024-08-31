@@ -45,7 +45,6 @@ export default function Step1Page() {
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex flex-1 flex-col gap-8">
-          {/* TODO: Verify if email is already used */}
           <FormTextInput
             id="email"
             label="Email"

@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import { Image, View } from "react-native";
 import { Typography } from "./typography";
 
@@ -7,12 +8,14 @@ export const ProfilePicture = ({
   isOrganization,
   imageSize = 20,
   color,
+  textClassName,
 }: {
   avatar: string | undefined | null;
   name: string;
   isOrganization: boolean;
   imageSize: number;
   color: string;
+  textClassName?: string;
 }) => {
   if (avatar) {
     return (
@@ -36,7 +39,11 @@ export const ProfilePicture = ({
             borderRadius: 999,
           }}
         >
-          <Typography size="h3" fontWeight="semibold">
+          <Typography
+            size="h3"
+            fontWeight="semibold"
+            className={cn(textClassName, "leading-snug text-center")}
+          >
             {name?.[0].toUpperCase()}
           </Typography>
         </View>
@@ -53,7 +60,11 @@ export const ProfilePicture = ({
             backgroundColor: color,
           }}
         >
-          <Typography size="h3" fontWeight="semibold">
+          <Typography
+            size="h3"
+            fontWeight="semibold"
+            className={cn(textClassName, "leading-snug text-center")}
+          >
             {str1[0].toUpperCase() + str2[0].toUpperCase()}
           </Typography>
         </View>

@@ -5,12 +5,14 @@ import { Link } from "@/components/primitives/link";
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
 import { useModalRouter } from "@/hooks/useModalRouter";
+import type { Href } from "expo-router";
+import { Redirect } from "expo-router";
 import { Image, View } from "react-native";
 
 export default function AuthPage() {
   const modalRouter = useModalRouter();
   const { isAuthenticated } = useAuth();
-  // if (isAuthenticated) return <Redirect href={routes.home} />;
+  if (isAuthenticated) return <Redirect href={routes.home as Href} />;
   return (
     <PageContainer className="flex flex-col justify-between">
       <View className="flex flex-1 flex-col items-center justify-center gap-2">
