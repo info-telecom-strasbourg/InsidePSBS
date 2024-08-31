@@ -2,7 +2,7 @@
   "expo": {
     "jsEngine": "hermes",
     "name": "InsidePSBS",
-    "slug": "InsidePSBS",
+    "slug": "insidepsbs",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "inside-psbs",
