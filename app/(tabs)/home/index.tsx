@@ -5,6 +5,7 @@ import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
 import { Typography } from "@/components/primitives/typography";
 import { useFetch } from "@/hooks/useFetch";
+import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { useEvents } from "@app/(tabs)/calendar/_features/event.query";
@@ -111,6 +112,7 @@ export default function HomePage() {
   } = useCards();
 
   const { data: eventsData, isLoading: eventsAreLoading } = useEvents();
+  const modalRouter = useModalRouter();
 
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post?per_page=3`;
   const { data: news, isLoading: postIsLoading } = useFetch(
@@ -152,12 +154,13 @@ export default function HomePage() {
         </Typography>
         <View className="mb-4 gap-4">
           {news?.map((item, index) => (
-            <Post
-              item={item}
+            <TouchableOpacity
               key={index}
-              isLoading={postIsLoading}
-              postId={item.id}
-            />
+              onPress={() => modalRouter.open(`/post/${item?.id}`)}
+              className="mb-4"
+            >
+              <Post item={item} isLoading={postIsLoading} postId={item.id} />
+            </TouchableOpacity>
           ))}
         </View>
       </RefreshView>
