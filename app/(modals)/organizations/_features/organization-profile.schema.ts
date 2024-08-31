@@ -1,15 +1,15 @@
 import { z } from "zod";
 
 const organizationSchema = z.object({
-  short_name: z.string(),
+  short_name: z.string().nullable(),
   name: z.string(),
   description: z.string(),
-  website_link: z.string().url(),
-  facebook_link: z.string().url(),
-  twitter_link: z.string().url(),
-  instagram_link: z.string().url(),
-  discord_link: z.string().url(),
-  email: z.string().email(),
+  website_link: z.string().url().nullable(),
+  facebook_link: z.string().url().nullable(),
+  twitter_link: z.string().url().nullable(),
+  instagram_link: z.string().url().nullable(),
+  discord_link: z.string().url().nullable(),
+  email: z.string().email().nullable(),
   logo_url: z.string().url().nullable(),
 });
 

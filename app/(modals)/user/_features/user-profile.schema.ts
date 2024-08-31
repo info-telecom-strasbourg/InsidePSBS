@@ -8,7 +8,7 @@ export const UserProfileSchema = z.object({
     user_name: z.string(),
     description: z.string().nullable(),
     avatar_url: z.string().nullable(),
-    promotion_year: z.string(),
+    admission_year: z.string(),
     created_at: z.string(),
     updated_at: z.string(),
     sector: z.string(),

@@ -1,11 +1,12 @@
 import { Typography } from "@/components/primitives/typography";
+import { useModalRouter } from "@/hooks/useModalRouter";
 import { Members } from "@app/(modals)/organizations/_features/members";
 import type { ShowOrganizationData } from "@app/(modals)/organizations/_features/organization-profile.schema";
 import { Socials } from "@app/(modals)/organizations/_features/socials";
+import { Post } from "@app/(tabs)/posts/_features/post";
 import type { PostsData } from "@app/(tabs)/posts/_features/post.schema";
-import { RenderPosts } from "@app/(tabs)/posts/_features/render-posts";
 import { FlashList } from "@shopify/flash-list";
-import { RefreshControl, View } from "react-native";
+import { RefreshControl, TouchableOpacity, View } from "react-native";
 import { ProfileHero } from "./hero";
 
 type ProfileProps = {
@@ -21,14 +22,19 @@ type ProfileProps = {
   subtitle: string | undefined;
   socials?: ShowOrganizationData["organization"];
   members?: ShowOrganizationData["members"] | undefined;
+  hasMore: number | boolean;
 };
 
 export const Profile = (props: ProfileProps) => {
   const items = props.posts ? props.posts.flat() : [];
 
   const loadMore = () => {
-    props.setSize(props.size + 1);
+    if (props.hasMore) {
+      props.setSize(props.size + 1);
+    }
   };
+
+  const modalRouter = useModalRouter();
 
   return (
     <FlashList<PostsData["data"][0] | undefined>
@@ -37,7 +43,12 @@ export const Profile = (props: ProfileProps) => {
       onEndReached={loadMore}
       onEndReachedThreshold={5}
       renderItem={({ item }) => (
-        <RenderPosts item={item} postsAreLoading={props.postsAreLoading} />
+        <TouchableOpacity
+          onPress={() => modalRouter.open(`/post/${item?.id}`)}
+          className="mb-4"
+        >
+          <Post item={item} postId={item?.id} />
+        </TouchableOpacity>
       )}
       showsVerticalScrollIndicator={false}
       estimatedItemSize={100}

@@ -8,12 +8,11 @@ import { cn } from "@/utils/cn";
 import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
-import * as VideoThumbnails from "expo-video-thumbnails";
 import { MessageCircle } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useEffect, useState, type PropsWithChildren } from "react";
+import { useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
-import { Image, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { PostParser } from "./post-parser";
 import type { SinglePostData } from "./post.schema";
 import { Reaction } from "./reaction";
@@ -21,7 +20,6 @@ import { Reaction } from "./reaction";
 export type SinglePostProps = PropsWithChildren<
   {
     item: SinglePostData["data"] | undefined;
-    isLoading: boolean;
     className?: string;
     postId: number | undefined;
     authorNameSize?: VariantProps<typeof typographyVariants>["size"];
@@ -30,51 +28,8 @@ export type SinglePostProps = PropsWithChildren<
   } & ViewProps
 >;
 
-const generateThumbnail = async ({ mediaURL }: { mediaURL: string }) => {
-  try {
-    const { uri } = await VideoThumbnails.getThumbnailAsync(mediaURL, {
-      time: 3000,
-      quality: 1,
-    });
-    return uri;
-  } catch (e) {
-    console.warn(e);
-  }
-};
-
-const MediaElement = ({
-  media,
-}: {
-  media: SinglePostData["data"]["medias"][0];
-}) => {
-  const [thumbnailUri, setThumbnailUri] = useState<string | undefined>(
-    undefined
-  );
-
-  useEffect(() => {
-    const fetchThumbnail = async () => {
-      if (media.type === "video") {
-        const uri = await generateThumbnail({ mediaURL: media.url });
-        setThumbnailUri(uri);
-      }
-    };
-
-    fetchThumbnail();
-  }, [media]);
-
-  if (media.type === "image" || thumbnailUri) {
-    const uri = media.type === "image" ? media.url : thumbnailUri;
-    return (
-      <Image source={{ uri }} resizeMode="cover" className="h-28 w-full" />
-    );
-  }
-
-  return null;
-};
-
 export const Post = ({
   item,
-  isLoading,
   className,
   postId,
   authorNameSize = "h4",

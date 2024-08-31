@@ -10,14 +10,16 @@ import { FlashList } from "@shopify/flash-list";
 import { View } from "react-native";
 
 export default function CalendarPage() {
-  const { data, setSize, size, isLoading: eventsAreLoading } = useCalendar();
+  const { data, setSize, size, hasMore } = useCalendar();
 
   const items = data ? data.flat() : [];
 
   const eventList = generateDailyEvents(items);
 
   const loadMore = () => {
-    setSize(size + 1);
+    if (hasMore) {
+      setSize(size + 1);
+    }
   };
   return (
     <PageContainer>
@@ -29,11 +31,24 @@ export default function CalendarPage() {
       <FlashList<DailyEvents>
         data={eventList}
         renderItem={({ item }) => (
-          <RenderEvents day={item} eventsAreLoading={eventsAreLoading} />
+          <View>
+            <Typography size="h3" fontWeight="semibold" className="mb-4">
+              {capitalize(item.date)}
+            </Typography>
+            {item.events.length === 0 ? (
+              <Typography size="h4" className="mb-4 text-center">
+                Il n'y a pas d'évènements en ce jour !
+              </Typography>
+            ) : (
+              item.events.map((event, index) => (
+                <Event item={event} key={index} />
+              ))
+            )}
+          </View>
         )}
         estimatedItemSize={100}
         onEndReached={loadMore}
-        onEndReachedThreshold={5}
+        onEndReachedThreshold={3}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View className="mb-4">
@@ -47,28 +62,3 @@ export default function CalendarPage() {
     </PageContainer>
   );
 }
-
-const RenderEvents = ({
-  day,
-  eventsAreLoading,
-}: {
-  day: DailyEvents;
-  eventsAreLoading: boolean;
-}) => {
-  return (
-    <View>
-      <Typography size="h3" fontWeight="semibold" className="mb-4">
-        {capitalize(day.date)}
-      </Typography>
-      {day.events.length === 0 ? (
-        <Typography size="h4" className="mb-4 text-center">
-          Il n'y a pas d'évènements en ce jour !
-        </Typography>
-      ) : (
-        day.events.map((event, index) => (
-          <Event item={event} isLoading={eventsAreLoading} key={index} />
-        ))
-      )}
-    </View>
-  );
-};
