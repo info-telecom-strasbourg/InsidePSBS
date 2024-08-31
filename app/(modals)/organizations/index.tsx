@@ -4,8 +4,8 @@ import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
 import { Typography } from "@/components/primitives/typography";
 import { ListItems } from "@/features/organizations/list-items";
+import { Search } from "@/features/post/search";
 import { useIndexOrganizations } from "@/queries/organizations/organizations.query";
-import { Search } from "lucide-react-native";
 
 import { useState } from "react";
 import { View } from "react-native";
