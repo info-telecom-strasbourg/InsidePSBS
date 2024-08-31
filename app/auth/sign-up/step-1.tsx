@@ -1,12 +1,12 @@
 import { Button } from "@/components/primitives/button";
 import { FormTextInput } from "@/components/primitives/form-input";
+import { useSignUp } from "@/hooks/auth/use-sign-up";
 import { useForm } from "@/hooks/useForm";
+import type { SignUpStep1Data } from "@/schemas/auth/sign-up.schema";
+import { signUpStep1Schema } from "@/schemas/auth/sign-up.schema";
 import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
-import type { SignUpStep1Data } from "./_features/sign-up.schema";
-import { signUpStep1Schema } from "./_features/sign-up.schema";
-import { useSignUp } from "./_features/use-sign-up";
 
 // const defaultValues = {
 //   email: "",

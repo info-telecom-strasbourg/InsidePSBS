@@ -1,12 +1,12 @@
 import { useAuth } from "@/auth/useAuth";
 import { routes } from "@/constants/routes";
+import { CarouselModal } from "@/features/post/carousel-modal";
+import { MediaCarouselProvider } from "@/features/post/media-carousel.context";
+import { PlusButton } from "@/features/tabs/plus-button";
+import { PublishBottomSheet } from "@/features/tabs/publish-bottom-sheet";
+import { TabIcon } from "@/features/tabs/tab-icon";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { CarouselModal } from "@app/(modals)/post/_features/carousel-modal";
-import { MediaCarouselProvider } from "@app/(modals)/post/_features/media-carousel.context";
-import { PlusButton } from "@app/(tabs)/_features/plus-button";
-import { PublishBottomSheet } from "@app/(tabs)/_features/publish-bottom-sheet";
-import { TabIcon } from "@app/(tabs)/_features/tab-icon";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,

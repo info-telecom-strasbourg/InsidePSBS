@@ -3,16 +3,16 @@ import { RefreshView } from "@/components/page/refresh-view";
 import { Button } from "@/components/primitives/button";
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
+import { DefaultImagePickerModal } from "@/features/settings/default-image-picker";
+import { useMe } from "@/queries/profile/me.query";
+import { storeProfilePicture } from "@/queries/settings/store-profile-picture";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { useMe } from "@app/(tabs)/profile/_features/me.query";
 import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import * as ImagePicker from "expo-image-picker";
 import { Image, LibraryBig } from "lucide-react-native";
 import { useRef, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
-import { DefaultImagePickerModal } from "../_features/default-image-picker";
-import { storeProfilePicture } from "../_features/store-profile-picture";
 
 export const pickProfilePicture = async (
   setProfilePicture: React.Dispatch<

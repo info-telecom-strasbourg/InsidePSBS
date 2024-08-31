@@ -2,17 +2,17 @@ import { PageError } from "@/components/page/error";
 import { PageLoading } from "@/components/page/loading";
 import { Button } from "@/components/primitives/button";
 import { Typography } from "@/components/primitives/typography";
+import { useSignUp } from "@/hooks/auth/use-sign-up";
+import { signUp } from "@/queries/auth/sign-up.query";
+import { useCGU } from "@/queries/cgu/cgu.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { useCGU } from "@app/(public)/cgu/_features/cgu.query";
 import CheckBox from "expo-checkbox";
 import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import toast from "react-native-root-toast";
-import { signUp } from "./_features/sign-up.query";
-import { useSignUp } from "./_features/use-sign-up";
 
 export default function Step3Page() {
   const { data, error, isLoading } = useCGU();

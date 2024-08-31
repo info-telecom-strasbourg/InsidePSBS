@@ -1,15 +1,15 @@
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
-import { useComments } from "@app/(modals)/post/_features/comments.query";
-import { type CommentsData } from "@app/(modals)/post/_features/comments.schema";
-import { useOnePost } from "@app/(modals)/post/_features/one-post.query";
-import { Post, SkeletonPost } from "@app/(tabs)/posts/_features/post";
+import { Comment, SkeletonComment } from "@/features/post/comment";
+import { CommentInput } from "@/features/post/comment-input";
+import { Post, SkeletonPost } from "@/features/post/post";
+import { useComments } from "@/queries/post/comments.query";
+import { useOnePost } from "@/queries/post/one-post.query";
+import type { CommentsData } from "@/schemas/post/comments.schema";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
 import { KeyboardAvoidingView, RefreshControl, View } from "react-native";
-import { Comment, SkeletonComment } from "./_features/comment";
-import { CommentInput } from "./_features/comment-input";
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();

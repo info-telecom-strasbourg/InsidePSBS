@@ -1,9 +1,9 @@
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
+import { SignUpProvider } from "@/hooks/auth/use-sign-up";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { Stack, usePathname } from "expo-router";
-import { SignUpProvider } from "./_features/use-sign-up";
 
 export default function SignUpLayout() {
   const pathname = usePathname();
