@@ -11,8 +11,8 @@ import { FlashList } from "@shopify/flash-list";
 import { RefreshControl, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
-  const { data, isLoading, handleRefresh, isRefreshing } = useMe();
   const modalRouter = useModalRouter();
+  const { data, isLoading, handleRefresh, isRefreshing } = useMe();
   const {
     data: posts,
     isLoading: postsAreLoading,
