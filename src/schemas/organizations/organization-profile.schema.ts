@@ -3,7 +3,7 @@ import { z } from "zod";
 const organizationSchema = z.object({
   short_name: z.string().nullable(),
   name: z.string(),
-  description: z.string(),
+  description: z.string().nullable(),
   website_link: z.string().url().nullable(),
   facebook_link: z.string().url().nullable(),
   twitter_link: z.string().url().nullable(),

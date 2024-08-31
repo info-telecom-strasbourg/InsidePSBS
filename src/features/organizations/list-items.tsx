@@ -1,9 +1,9 @@
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
+import type { OrganizationData } from "@/schemas/organizations/organizations.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import type { OrganizationData } from "@app/(modals)/organizations/_features/organizations.schema";
 import type { Href } from "expo-router";
 import { router } from "expo-router";
 import { ChevronRight } from "lucide-react-native";

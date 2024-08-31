@@ -23,6 +23,7 @@ type ProfileProps = {
   socials?: ShowOrganizationData["organization"];
   members?: ShowOrganizationData["members"] | undefined;
   hasMore: number | boolean;
+  description?: string | null;
 };
 
 export const Profile = (props: ProfileProps) => {
@@ -71,6 +72,9 @@ const HeaderComp = (props: ProfileProps) => {
         subtitle={props.subtitle}
       />
       {props.socials ? <Socials data={props.socials} /> : null}
+      {props.description ? (
+        <Typography size="p">{props.description}</Typography>
+      ) : null}
       {props.members ? (
         <>
           <Typography size="h2" fontWeight="medium" className="mt-5">
