@@ -33,11 +33,13 @@ jobs:
           RELEASE_VERSION=${{ github.ref_name }} eas build --platform ${{ matrix.platform }} --profile production --non-interactive --local
 
       - name: Submit to App Store/Google play
-        if: ${{ matrix.platform == 'ios' }}
-        with:
-          EXPO_APPLE_PASSWORD: ${{ secrets.EXPO_APPLE_PASSWORD }}
-        run: eas submit --profile production --platform ${{ matrix.platform }} --path build* 
-
+        run: |
+          if [ ${{ matrix.platform }} == 'ios' ]; then
+             EXPO_APPLE_PASSWORD=${{ secrets.EXPO_APPLE_PASSWORD }} eas submit --platform ${{ matrix.platform }} --profile production --local
+          else
+            eas submit --profile production --platform ${{ matrix.platform }} --path build* 
+          fi
+          
       - name: Clean google-service.json (Android only)
         if: ${{ matrix.platform == 'android' }}
         run: rm -f /tmp/google-service.json
