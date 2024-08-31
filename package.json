@@ -16,7 +16,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@10play/tentap-editor": "^0.5.18",
+    "@10play/tentap-editor": "^0.5.19",
     "@babel/runtime": "^7.25.4",
     "@expo/cli": "^0.18.29",
     "@expo/vector-icons": "^14.0.2",
@@ -52,7 +52,7 @@
     "nativewind": "^4.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.52.2",
+    "react-hook-form": "^7.53.0",
     "react-native": "0.74.5",
     "react-native-gesture-handler": "~2.16.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",

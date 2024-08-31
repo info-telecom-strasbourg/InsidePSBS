@@ -13,13 +13,15 @@ import {
 } from "@gorhom/bottom-sheet";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react-native";
-import { useCallback, useRef, useState } from "react";
-import { Keyboard, TouchableOpacity, View } from "react-native";
+import { Skeleton } from "moti/skeleton";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 import { ChoiceItem } from "../post/step1/_features/choice-item";
 import type { CreateEventData } from "./_features/create-event.schema";
 import { CreateEventSchema } from "./_features/create-event.schema";
 import { DateRangePicker } from "./_features/date-range-picker";
 import { OrganizationSelect } from "./_features/organization-select";
+import { storeEvent } from "./_features/store-event";
 
 export default function CreateEventPage() {
   const form = useForm({
@@ -33,10 +35,8 @@ export default function CreateEventPage() {
   const { theme } = useTheme();
   const today = new Date();
 
-  const { data } = useMe();
-  const [organizationId, setOrganizationId] = useState<number | null>(
-    data?.organizations ? data.organizations[0].id : null
-  );
+  const { data, isLoading: dataIsLoading } = useMe();
+  const [organizationId, setOrganizationId] = useState<number | null>(null);
 
   const dateRangePickerRef = useRef<BottomSheetModal>(null);
   const organizationListRef = useRef<BottomSheetModal>(null);
@@ -44,57 +44,77 @@ export default function CreateEventPage() {
   const [isPublishing, setIsPublishing] = useState<boolean>(false);
   const [startAt, setStartAt] = useState<string>("");
   const [endAt, setEndAt] = useState<string>("");
+  const [displayOrganizations, setDisplayOrganizations] =
+    useState<boolean>(false);
 
   const handleSubmit = useCallback(
     async (values: CreateEventData) => {
       setIsPublishing(true);
-      console.log(values, organizationId, startAt, endAt, token);
-      // const res = await storeEvent(
-      //   values.title,
-      //   values.place,
-      //   organizationId,
-      //   startAt,
-      //   endAt,
-      //   token
-      // );
+      try {
+        const res = await storeEvent(
+          values.title,
+          values.place,
+          organizationId,
+          startAt,
+          endAt,
+          token
+        );
+        if (!res.ok) {
+          console.log(JSON.stringify(res));
+        }
+      } catch (error) {
+        console.log(error);
+      }
       setIsPublishing(false);
     },
     [endAt, startAt, token, organizationId]
   );
+
+  useEffect(() => {
+    if (data?.organizations[0] && organizationId === null) {
+      setOrganizationId(data.organizations[0].id);
+      setDisplayOrganizations(true);
+    }
+  }, [organizationId, data]);
 
   return (
     <BottomSheetModalProvider>
       <PageContainer>
         <Header title="Créer un événement" rightIcon="close" leftIcon="back" />
 
-        {data ? (
-          <View className="mb-4 flex-row items-center">
-            {data?.organizations ? (
-              <ChoiceItem
-                isOrganization
-                onPress={() => {
-                  Keyboard.dismiss();
-                  organizationListRef.current?.present();
-                }}
-                title={
-                  data.organizations.filter(
-                    (item) => item.id === organizationId
-                  )[0].name
-                }
-                url={
-                  data.organizations.filter(
-                    (item) => item.id === organizationId
-                  )[0].logo_url
-                }
-              />
-            ) : (
-              <Typography size="h3" fontWeight="medium">
-                Vous ne pouvez pas créer d'évènement car vous ne faîtes pas
-                partie d'une association ou d'un club !
-              </Typography>
-            )}
-          </View>
-        ) : null}
+        <View className="mb-4 flex-row items-center">
+          {!data || dataIsLoading ? (
+            <Skeleton.Group show={!data || dataIsLoading}>
+              <Skeleton colorMode={theme}>
+                <View className="rounded-2xl p-4">
+                  <Typography size="h3">Name Surname</Typography>
+                </View>
+              </Skeleton>
+            </Skeleton.Group>
+          ) : data.organizations && displayOrganizations ? (
+            <ChoiceItem
+              isOrganization
+              onPress={() => {
+                organizationListRef.current?.present();
+              }}
+              title={
+                data.organizations.filter(
+                  (item) => item.id === organizationId
+                )[0].name
+              }
+              url={
+                data.organizations.filter(
+                  (item) => item.id === organizationId
+                )[0].logo_url
+              }
+            />
+          ) : (
+            <Typography size="h4" fontWeight="medium">
+              Vous ne pouvez pas créer d'évènement car vous ne faîtes pas partie
+              d'une association ou d'un club !
+            </Typography>
+          )}
+        </View>
 
         <View className="flex-1 justify-between pb-4">
           <View>
@@ -111,7 +131,7 @@ export default function CreateEventPage() {
               label="Lieu"
             />
 
-            <Typography size="h2" fontWeight="bold" className="mb-4">
+            <Typography size="h2" fontWeight="bold" className="mb-4 mt-2">
               Date(s) de l'événement :
             </Typography>
             <TouchableOpacity
@@ -122,10 +142,12 @@ export default function CreateEventPage() {
               <View className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6">
                 <Typography fontWeight="semibold">
                   {startAt && endAt
-                    ? `${format(startAt, "dd/MM/yyyy")} - ${format(
-                        endAt,
-                        "dd/MM/yyyy"
-                      )}`
+                    ? startAt === endAt
+                      ? format(startAt, "dd/MM/yyyy")
+                      : `${format(startAt, "dd/MM/yyyy")} - ${format(
+                          endAt,
+                          "dd/MM/yyyy"
+                        )}`
                     : format(today, "dd/MM/yyyy")}
                 </Typography>
 
@@ -139,7 +161,9 @@ export default function CreateEventPage() {
           </View>
           <TouchableOpacity
             onPress={() => form.submit(handleSubmit)}
-            disabled={isPublishing}
+            disabled={
+              isPublishing || !data?.organizations[0] || organizationId === null
+            }
           >
             <View
               className="items-center justify-center rounded-full bg-primary p-4"

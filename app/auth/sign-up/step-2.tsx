@@ -16,7 +16,7 @@ const defaultValues = {
   first_name: "",
   sector: 0,
   phone: "",
-  admission_year: new Date().getFullYear(),
+  admission_year: new Date().getFullYear().toString(),
 };
 
 export default function Step1Page() {

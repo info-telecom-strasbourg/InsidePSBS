@@ -23,6 +23,7 @@ export default function PostsPage() {
     setSize,
     isRefreshing,
     handleRefresh,
+    hasMore,
   } = usePosts(selectedId, searchPhrase);
 
   const { data: filters } = useFilters(1);
@@ -30,7 +31,9 @@ export default function PostsPage() {
   const items = useMemo(() => (data ? data.flat() : []), [data]);
 
   const loadMore = () => {
-    setSize(size + 1);
+    if (hasMore) {
+      setSize(size + 1);
+    }
   };
 
   return (
