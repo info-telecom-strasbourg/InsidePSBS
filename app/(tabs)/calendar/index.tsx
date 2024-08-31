@@ -23,11 +23,7 @@ export default function CalendarPage() {
   };
   return (
     <PageContainer>
-      <Header
-        title="Calendar"
-        rightIcon="notifications"
-        leftIcon="inside-psbs"
-      />
+      <Header title="Calendar" rightIcon="settings" leftIcon="inside-psbs" />
       <FlashList<DailyEvents>
         data={eventList}
         renderItem={({ item }) => (

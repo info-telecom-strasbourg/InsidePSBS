@@ -6,6 +6,7 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
+import { useMediaCarousel } from "@app/(modals)/post/_features/media-carousel.context";
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
 import { MessageCircle } from "lucide-react-native";
@@ -13,6 +14,7 @@ import { Skeleton } from "moti/skeleton";
 import { useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { TouchableOpacity, View } from "react-native";
+import { Media } from "./media";
 import { PostParser } from "./post-parser";
 import type { SinglePostData } from "./post.schema";
 import { Reaction } from "./reaction";
@@ -49,6 +51,15 @@ export const Post = ({
   >(item?.reaction);
 
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
+
+  const { updateMediaCarousel } = useMediaCarousel();
+
+  const handleMediaPress = () => {
+    if (item) {
+      updateMediaCarousel("medias", item.medias);
+      updateMediaCarousel("isMediaCarouselOpen", true);
+    }
+  };
 
   if (!item) return null;
   return (
@@ -93,17 +104,42 @@ export const Post = ({
       <PostParser
         data={PostBodySchema.safeParse(JSON.parse(item?.body || "")).data}
       />
-      {/* <View className="mt-4 flex-row flex-wrap items-center justify-start rounded-2xl">
-        {item?.medias
-          ? item.medias.map((media, index) => {
-              return (
-                <View key={index} style={{ width: "50%" }}>
-                  <MediaElement key={index} media={media} />
-                </View>
-              );
-            })
-          : null}
-      </View> */}
+      {item.medias[0] ? (
+        <View className="mt-3 flex-row items-center justify-between rounded-2xl">
+          {item.medias.length === 1 ? (
+            <TouchableOpacity
+              onPress={() => handleMediaPress()}
+              className="flex-1"
+            >
+              <Media
+                media={item.medias[0]}
+                className="h-64 w-full rounded-2xl"
+              />
+            </TouchableOpacity>
+          ) : (
+            <View
+              className="flex-row overflow-hidden rounded-2xl"
+              style={{ gap: 4 }}
+            >
+              <TouchableOpacity
+                onPress={() => handleMediaPress()}
+                className="h-64 flex-1"
+              >
+                <Media media={item.medias[0]} className="h-full" />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                className="h-64 flex-1 items-center justify-center bg-background opacity-50"
+                onPress={() => handleMediaPress()}
+              >
+                <Typography size="h1" className="text-center" fontWeight="bold">
+                  +{item.medias.length - 1}
+                </Typography>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      ) : null}
 
       <View className="relative mt-3 flex-row items-center">
         <Reaction

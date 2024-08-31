@@ -13,7 +13,8 @@ export const PostBodySchema = z.object({
           text: z.string(),
         })
       ),
-    }) || z.object({ type: z.string(), attrs: z.object({ level: z.number() }) })
+      attrs: z.object({ level: z.number() }).optional(),
+    })
   ),
 });
 

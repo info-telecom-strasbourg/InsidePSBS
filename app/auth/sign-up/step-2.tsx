@@ -60,7 +60,6 @@ export default function Step1Page() {
             autoComplete="family-name"
             placeholder="Pregaldiny"
           />
-          {/* TODO: Verify if username is already used */}
 
           <FormTextInput
             id="user_name"
@@ -70,7 +69,6 @@ export default function Step1Page() {
             autoCapitalize="none"
             placeholder="fabien.pregaldiny"
           />
-          {/* TODO: Verify if phone is already used */}
 
           <FormTextInput
             id="phone"

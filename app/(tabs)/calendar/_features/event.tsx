@@ -19,7 +19,7 @@ export const Event = ({
 
   if (!item) return null;
   return (
-    <View className="mb-6 flex-1 flex-row gap-3 text-wrap rounded-2xl bg-popover p-3">
+    <View className="bg-popover mb-6 flex-1 flex-row gap-3 text-wrap rounded-2xl p-3">
       <View
         className="w-1 rounded-full"
         style={{ backgroundColor: item?.color }}
@@ -112,7 +112,7 @@ export const Event = ({
 export const SkeletonEvent = () => {
   const { theme } = useTheme();
   return (
-    <View className="mb-6 flex-1 flex-row gap-3 text-wrap rounded-2xl bg-popover p-3">
+    <View className="bg-popover mb-6 flex-1 flex-row gap-3 text-wrap rounded-2xl p-3">
       <Skeleton.Group show={true}>
         <View>
           <View className="mb-3 w-full flex-row items-center justify-between gap-4 pr-6">

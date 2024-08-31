@@ -139,7 +139,7 @@ export default function CreateEventPage() {
                 dateRangePickerRef.current?.present();
               }}
             >
-              <View className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6">
+              <View className="bg-popover flex-row items-center justify-between rounded-2xl p-4 px-6">
                 <Typography fontWeight="semibold">
                   {startAt && endAt
                     ? startAt === endAt
@@ -166,8 +166,15 @@ export default function CreateEventPage() {
             }
           >
             <View
-              className="items-center justify-center rounded-full bg-primary p-4"
-              style={{ opacity: isPublishing ? 0.6 : 1 }}
+              className="bg-primary items-center justify-center rounded-full p-4"
+              style={{
+                opacity:
+                  isPublishing ||
+                  !data?.organizations[0] ||
+                  organizationId === null
+                    ? 0.6
+                    : 1,
+              }}
             >
               {isPublishing ? (
                 <Typography

@@ -67,18 +67,6 @@ export const storeMedias = async (
 
   const formData = new FormData();
   try {
-    // for (let i = 0; i < files.length; i++) {
-    //   const file = {
-    //     uri: files[i].uri,
-    //     name: files[i].fileName || `${files[i].type}_${i}`,
-    //     type: files[i].mimeType,
-    //   };
-
-    // const response = await fetch(fileObject.uri);
-    //   const blob = await response.blob();
-    //   console.log(blob);
-    //   formData.append("medias[]", file, file.name);
-    // }
     files.forEach(async (file, index) => {
       const fileObject = {
         uri: file.uri,
