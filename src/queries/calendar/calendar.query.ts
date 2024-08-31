@@ -43,9 +43,8 @@ export const useCalendar = () => {
 
   const res = useFetchInfinite<EventsData["data"]>(
     (pageIndex, previousPageData) => getKey(pageIndex, previousPageData),
-    (url) => calendarFetcher(url, token || ""),
-    { initialSize: 2 }
+    (url) => calendarFetcher(url, token || "")
   );
-
-  return res;
+  const hasMore = res.data?.[res.data?.length - 1]?.length ?? 0 > 0;
+  return { ...res, hasMore };
 };

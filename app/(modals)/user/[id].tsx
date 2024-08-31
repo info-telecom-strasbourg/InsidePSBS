@@ -17,8 +17,8 @@ const UserPage = () => {
     isLoading: postsAreLoading,
     size,
     setSize,
+    hasMore,
   } = useShowUserPosts(id);
-
   return (
     <PageContainer>
       <Header title="Profil" leftIcon="back" rightIcon="close" />
@@ -26,7 +26,7 @@ const UserPage = () => {
         <PageLoading />
       ) : (
         <Profile
-          avatar={data.avatar_url || undefined}
+          avatar={data.avatar_url}
           handleRefresh={handleRefresh}
           isRefreshing={isRefreshing}
           posts={posts}
@@ -35,6 +35,7 @@ const UserPage = () => {
           size={size}
           subtitle={data.user_name}
           title={`${data.first_name} ${data.last_name}`}
+          hasMore={hasMore}
         />
       )}
     </PageContainer>

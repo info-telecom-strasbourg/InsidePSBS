@@ -1,17 +1,18 @@
 import { PageLoading } from "@/components/page/loading";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
-import { RenderPosts } from "@/features/post/render-posts";
+import { Post } from "@/features/post/post";
 import { ProfileHeader } from "@/features/profile/profile-header";
+import { useModalRouter } from "@/hooks/useModalRouter";
 import { useMe } from "@/queries/profile/me.query";
 import { useShowUserPosts } from "@/queries/user/user-posts.query";
 import type { PostsData } from "@/schemas/post/post.schema";
 import { FlashList } from "@shopify/flash-list";
-import { RefreshControl, View } from "react-native";
+import { RefreshControl, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
   const { data, isLoading, handleRefresh, isRefreshing } = useMe();
-
+  const modalRouter = useModalRouter();
   const {
     data: posts,
     isLoading: postsAreLoading,
@@ -48,7 +49,12 @@ export default function ProfilePage() {
           onEndReached={loadMore}
           onEndReachedThreshold={3}
           renderItem={({ item }) => (
-            <RenderPosts item={item} postsAreLoading={postsAreLoading} />
+            <TouchableOpacity
+              onPress={() => modalRouter.open(`/post/${item?.id}`)}
+              className="mb-4"
+            >
+              <Post item={item} postId={item?.id} />
+            </TouchableOpacity>
           )}
           showsVerticalScrollIndicator={false}
           estimatedItemSize={100}

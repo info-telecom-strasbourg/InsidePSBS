@@ -1,4 +1,6 @@
 import { Typography } from "@/components/primitives/typography";
+
+import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import type { EventsData } from "@/schemas/calendar/event.schema";
 import { colors } from "@/theme/colors";
@@ -10,13 +12,13 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 export const Event = ({
   item,
-  isLoading,
 }: {
   item: EventsData["data"][0] | undefined;
-  isLoading: boolean;
 }) => {
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
+
+  if (!item) return null;
   return (
     <View className="mb-6 flex-1 flex-row gap-3 text-wrap rounded-2xl bg-popover p-3">
       <View
@@ -31,10 +33,13 @@ export const Event = ({
                 modalRouter.open(`/organizations/${item?.author.id}`)
               }
             >
-              {/* <Image
-                source={{ uri: item?.author.logo_url || undefined }}
-                className="size-12"
-              /> */}
+              <ProfilePicture
+                avatar={item.author.logo_url}
+                color={colors[theme].popover}
+                imageSize={30}
+                isOrganization={item.author.is_organization}
+                name={item.author.name}
+              />
             </TouchableOpacity>
 
             <Typography size="h5" fontWeight="semibold">

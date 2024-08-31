@@ -1,20 +1,21 @@
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
-import { SkeletonPost } from "@/features/post/post";
+import { Post, SkeletonPost } from "@/features/post/post";
 import { PostsHeader } from "@/features/post/posts-header";
-import { RenderPosts } from "@/features/post/render-posts";
 import { Search } from "@/features/post/search";
+import { useModalRouter } from "@/hooks/useModalRouter";
 import { useFilters } from "@/queries/post/filters.query";
 import { usePosts } from "@/queries/post/posts.query";
 import type { PostsData } from "@/schemas/post/post.schema";
 import { FlashList } from "@shopify/flash-list";
 import { useMemo, useState } from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
 
 export default function PostsPage() {
   const [selectedId, setSelectedId] = useState<number>(1);
   const [searchPhrase, setSearchPhrase] = useState<string>("");
+  const modalRouter = useModalRouter();
 
   const {
     data,
@@ -58,7 +59,12 @@ export default function PostsPage() {
         onEndReached={loadMore}
         onEndReachedThreshold={1}
         renderItem={({ item }) => (
-          <RenderPosts item={item} postsAreLoading={postsAreLoading} />
+          <TouchableOpacity
+            onPress={() => modalRouter.open(`/post/${item?.id}`)}
+            className="mb-4"
+          >
+            <Post item={item} postId={item?.id} />
+          </TouchableOpacity>
         )}
         showsVerticalScrollIndicator={false}
         estimatedItemSize={150}

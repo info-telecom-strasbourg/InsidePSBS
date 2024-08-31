@@ -19,8 +19,9 @@ export const useShowUserPosts = (id: string | undefined) => {
 
   const res = useFetchInfinite<PostsData["data"]>(
     (pageIndex, previousPageData) => getKey(pageIndex, previousPageData, id),
-    (url) => postsFetcher(url, token || ""),
-    { initialSize: 2 }
+    (url) => postsFetcher(url, token || "")
   );
-  return res;
+
+  const hasMore = res.data?.[res.data?.length - 1]?.length ?? 0 > 0;
+  return { ...res, hasMore };
 };
