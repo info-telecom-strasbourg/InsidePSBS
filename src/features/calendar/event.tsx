@@ -1,6 +1,5 @@
-import { Typography } from "@/components/primitives/typography";
-
 import { ProfilePicture } from "@/components/primitives/profile-picture";
+import { Typography } from "@/components/primitives/typography";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import type { EventsData } from "@/schemas/calendar/event.schema";
 import { colors } from "@/theme/colors";
@@ -23,14 +22,14 @@ export const Event = ({
     <View className="mb-6 flex-1 flex-row gap-3 text-wrap rounded-2xl bg-popover p-3">
       <View
         className="w-1 rounded-full"
-        style={{ backgroundColor: item?.color }}
+        style={{ backgroundColor: item.color }}
       ></View>
       <View>
         <View className="w-full flex-row items-center justify-between gap-4 pr-6">
           <View className="flex-row items-center gap-3">
             <TouchableOpacity
               onPress={() =>
-                modalRouter.open(`/organizations/${item?.author.id}`)
+                modalRouter.open(`/organizations/${item.author.id}`)
               }
             >
               <ProfilePicture
@@ -43,7 +42,7 @@ export const Event = ({
             </TouchableOpacity>
 
             <Typography size="h5" fontWeight="semibold">
-              {item?.author.short_name}
+              {item.author.short_name || item.author.name}
             </Typography>
           </View>
 
@@ -51,22 +50,22 @@ export const Event = ({
             size="p"
             className="rounded-full px-3 py-1 text-white"
             style={{
-              backgroundColor: item?.color,
+              backgroundColor: item.color,
               fontFamily: "SpaceGrotesk-semibold",
             }}
           >
-            {capitalize(item?.date_format.date)}
+            {capitalize(item.date_format.date)}
           </Typography>
         </View>
         <View className="gap-3">
           <Text
             style={{
-              color: item?.color,
+              color: item.color,
               fontFamily: "SpaceGrotesk-semibold",
               fontSize: 22,
             }}
           >
-            {item?.title}
+            {item.title}
           </Text>
 
           <View className="flex-row items-center gap-2">
@@ -77,8 +76,8 @@ export const Event = ({
                 className="text-muted-foreground"
                 fontWeight="semibold"
               >
-                {item?.date_format.start_at_simplified} -{" "}
-                {item?.date_format.end_at_simplified}
+                {item.date_format.start_at_simplified} -{" "}
+                {item.date_format.end_at_simplified}
               </Typography>
             </>
           </View>
@@ -91,14 +90,14 @@ export const Event = ({
                   className="text-muted-foreground"
                   fontWeight="semibold"
                 >
-                  {item?.location}
+                  {item.location}
                 </Typography>
               </>
             </View>
-            {item?.post_id ? (
+            {item.post_id ? (
               <TouchableOpacity
                 className="mr-6"
-                onPress={() => modalRouter.open(`/post/${item?.post_id}`)}
+                onPress={() => modalRouter.open(`/post/${item.post_id}`)}
               >
                 <Forward color={colors[theme].foreground} size={24} />
               </TouchableOpacity>
