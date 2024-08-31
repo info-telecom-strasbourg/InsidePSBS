@@ -2,10 +2,10 @@ import { useAuth } from "@/auth/useAuth";
 import { Button } from "@/components/primitives/button";
 import { FormTextInput } from "@/components/primitives/form-input";
 import { useForm } from "@/hooks/useForm";
+import { checkPhone } from "@/queries/auth/availability.query";
+import { useMe } from "@/queries/profile/me.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { useMe } from "@app/(tabs)/profile/_features/me.query";
-import { checkPhone } from "@app/auth/sign-up/_features/availability.query";
 import { useRouter } from "expo-router";
 import {
   ActivityIndicator,

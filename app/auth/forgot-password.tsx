@@ -3,12 +3,12 @@ import { PageContainer } from "@/components/primitives/container";
 import { FormTextInput } from "@/components/primitives/form-input";
 import { Header } from "@/components/primitives/header";
 import { useForm } from "@/hooks/useForm";
+import { forgotPassword } from "@/queries/auth/forgot.query";
+import { ForgotPasswordSchema } from "@/schemas/auth/forgot.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import Toast from "react-native-root-toast";
-import { forgotPassword } from "./_features/forgot.query";
-import { ForgotPasswordSchema } from "./_features/forgot.schema";
 
 export default function ForgotPasswordPage() {
   const form = useForm({

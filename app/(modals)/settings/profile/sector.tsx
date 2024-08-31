@@ -3,10 +3,10 @@ import { Button } from "@/components/primitives/button";
 import { FormPicker } from "@/components/primitives/form-picker";
 import { Typography } from "@/components/primitives/typography";
 import { useForm } from "@/hooks/useForm";
+import { useSectors } from "@/queries/auth/sectors.query";
+import { useMe } from "@/queries/profile/me.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { useMe } from "@app/(tabs)/profile/_features/me.query";
-import { useSectors } from "@app/auth/sign-up/_features/sectors.query";
 import { useRouter } from "expo-router";
 import {
   ActivityIndicator,

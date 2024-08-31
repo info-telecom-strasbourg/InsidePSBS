@@ -7,6 +7,8 @@ import { Header } from "@/components/primitives/header";
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
 import { useForm } from "@/hooks/useForm";
+import { signIn } from "@/queries/auth/sign-in.query";
+import { SignInSchema } from "@/schemas/auth/sign-in.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import type { Href } from "expo-router";
@@ -19,8 +21,6 @@ import {
   View,
 } from "react-native";
 import Toast from "react-native-root-toast";
-import { signIn } from "./_features/sign-in.query";
-import { SignInSchema } from "./_features/sign-in.schema";
 
 export default function SignInPage() {
   const { setUser } = useAuthStore();

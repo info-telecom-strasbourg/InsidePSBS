@@ -3,9 +3,10 @@ import { RefreshView } from "@/components/page/refresh-view";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
 import { Typography } from "@/components/primitives/typography";
-import { ListItems } from "@app/(modals)/organizations/_features/list-items";
-import { useIndexOrganizations } from "@app/(modals)/organizations/_features/organizations.query";
-import { Search } from "@app/(tabs)/posts/_features/search";
+import { ListItems } from "@/features/organizations/list-items";
+import { useIndexOrganizations } from "@/queries/organizations/organizations.query";
+import { Search } from "lucide-react-native";
+
 import { useState } from "react";
 import { View } from "react-native";
 

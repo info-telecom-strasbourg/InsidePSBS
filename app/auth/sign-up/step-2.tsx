@@ -1,14 +1,14 @@
 import { Button } from "@/components/primitives/button";
 import { FormTextInput } from "@/components/primitives/form-input";
 import { FormPicker } from "@/components/primitives/form-picker";
+import { useSignUp } from "@/hooks/auth/use-sign-up";
 import { useForm } from "@/hooks/useForm";
+import { useSectors } from "@/queries/auth/sectors.query";
+import type { SignUpStep2Data } from "@/schemas/auth/sign-up.schema";
+import { signUpStep2Schema } from "@/schemas/auth/sign-up.schema";
 import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
-import { useSectors } from "./_features/sectors.query";
-import type { SignUpStep2Data } from "./_features/sign-up.schema";
-import { signUpStep2Schema } from "./_features/sign-up.schema";
-import { useSignUp } from "./_features/use-sign-up";
 
 const defaultValues = {
   user_name: "",

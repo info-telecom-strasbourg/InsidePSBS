@@ -5,9 +5,14 @@ import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
+import {
+  SettingButtonPrimitive,
+  SettingsButton,
+} from "@/features/settings/settings-button";
+import { SettingsTitle } from "@/features/settings/settings-title";
+import { useMe } from "@/queries/profile/me.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { useMe } from "@app/(tabs)/profile/_features/me.query";
 import { useRouter } from "expo-router";
 import {
   AtSign,
@@ -21,11 +26,6 @@ import {
   User,
 } from "lucide-react-native";
 import { ActivityIndicator, View } from "react-native";
-import {
-  SettingButtonPrimitive,
-  SettingsButton,
-} from "./_features/settings-button";
-import { SettingsTitle } from "./_features/settings-title";
 
 export default function SettingsPage() {
   const { data, isLoading, handleRefresh, isRefreshing } = useMe();

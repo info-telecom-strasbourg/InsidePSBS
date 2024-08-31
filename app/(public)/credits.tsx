@@ -1,7 +1,7 @@
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
-import { SettingsButton } from "@app/(modals)/settings/_features/settings-button";
-import { SettingsTitle } from "@app/(modals)/settings/_features/settings-title";
+import { SettingsButton } from "@/features/settings/settings-button";
+import { SettingsTitle } from "@/features/settings/settings-title";
 import { Bug, Database, Monitor, Paintbrush } from "lucide-react-native";
 import { useState } from "react";
 import { ScrollView, View } from "react-native";

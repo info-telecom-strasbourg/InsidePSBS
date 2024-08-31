@@ -1,12 +1,12 @@
 import { useAuth } from "@/auth/useAuth";
 import { routes } from "@/constants/routes";
+import { CarouselModal } from "@/features/post/carousel-modal";
+import { MediaCarouselProvider } from "@/features/post/media-carousel.context";
+import { PlusButton } from "@/features/tabs/plus-button";
+import { PublishBottomSheet } from "@/features/tabs/publish-bottom-sheet";
+import { TabIcon } from "@/features/tabs/tab-icon";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { CarouselModal } from "@app/(modals)/post/_features/carousel-modal";
-import { MediaCarouselProvider } from "@app/(modals)/post/_features/media-carousel.context";
-import { PlusButton } from "@app/(tabs)/_features/plus-button";
-import { PublishBottomSheet } from "@app/(tabs)/_features/publish-bottom-sheet";
-import { TabIcon } from "@app/(tabs)/_features/tab-icon";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -50,6 +50,7 @@ export default function TabsLayout() {
       <MediaCarouselProvider>
         <Tabs
           screenOptions={{
+            headerShown: false,
             tabBarShowLabel: false,
             tabBarStyle: {
               backgroundColor: colors[theme].secondary,
@@ -60,7 +61,7 @@ export default function TabsLayout() {
           }}
         >
           <Tabs.Screen
-            name="home/index"
+            name="home"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
@@ -69,7 +70,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="calendar/index"
+            name="calendar"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
@@ -78,7 +79,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="create/index"
+            name="create"
             options={{
               headerShown: false,
               tabBarButton: () => (
@@ -94,7 +95,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="posts/index"
+            name="posts"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
@@ -107,7 +108,7 @@ export default function TabsLayout() {
             }}
           />
           <Tabs.Screen
-            name="profile/index"
+            name="profile"
             options={{
               headerShown: false,
               tabBarIcon: ({ focused }) => (
