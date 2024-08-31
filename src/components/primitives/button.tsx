@@ -17,6 +17,7 @@ export const buttonVariants = cva(
         secondary: "w-full bg-secondary",
         outline: "w-full border border-border bg-background",
         link: "",
+        destructive: "w-full border border-destructive bg-popover",
       },
       size: {
         default: "px-5 py-3",
@@ -37,6 +38,7 @@ export const textButtonVariants = cva("flex flex-row gap-2 text-xl font-bold", {
       secondary: "text-secondary-foreground",
       outline: "text-foreground",
       link: "text-base text-primary",
+      destructive: "text-destructive",
     },
   },
   defaultVariants: {

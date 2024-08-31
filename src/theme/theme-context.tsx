@@ -5,7 +5,9 @@ import { View } from "react-native";
 
 export type ThemeProviderProps = PropsWithChildren<{}>;
 
-const ThemeContext = createContext<{ theme: "light" | "dark" }>({
+const ThemeContext = createContext<{
+  theme: "light" | "dark";
+}>({
   theme: "light",
 });
 

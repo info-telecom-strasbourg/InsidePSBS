@@ -95,7 +95,7 @@ export const Comment = memo(function Comment({
           />
         </View>
         <View className="flex-1">
-          <View className="gap-3 overflow-hidden rounded-2xl bg-popover p-3">
+          <View className="bg-popover gap-3 overflow-hidden rounded-2xl p-3">
             <View className="flex-row flex-wrap items-center justify-between gap-2">
               <Typography fontWeight="medium" size="h5">
                 {comment?.author.name}
@@ -193,7 +193,8 @@ export const SkeletonComment = () => {
       <View className="flex-row gap-3">
         <Skeleton radius="round" colorMode={theme} width={35} height={35} />
         <View className="flex-1">
-          <View className="justify-center gap-2 rounded-2xl bg-popover p-4">
+
+          <View className="bg-popover justify-center gap-2 rounded-2xl p-4">
             <Skeleton colorMode={theme} width={150} />
             <Skeleton colorMode={theme} height={50} width={"100%"} />
           </View>

@@ -1,9 +1,12 @@
 import { Typography } from "@/components/primitives/typography";
+import { routes } from "@/constants/routes";
 import { Members } from "@app/(modals)/organizations/_features/members";
 import type { ShowOrganizationData } from "@app/(modals)/organizations/_features/organization-profile.schema";
 import { Socials } from "@app/(modals)/organizations/_features/socials";
 import type { PostsData } from "@app/(tabs)/posts/_features/post.schema";
-import { View } from "react-native";
+import type { Href } from "expo-router";
+import { useRouter } from "expo-router";
+import { TouchableOpacity, View } from "react-native";
 import { ProfileHero } from "./hero";
 
 type ProfileProps = {
@@ -16,13 +19,16 @@ type ProfileProps = {
 };
 
 export const ProfileHeader = (props: ProfileProps) => {
+  const router = useRouter();
   return (
-    <View className="mb-4 gap-4">
-      <ProfileHero
-        avatar={props.avatar}
-        title={props.title}
-        subtitle={props.subtitle}
-      />
+    <View className="mb-4 gap-10">
+      <TouchableOpacity onPress={() => router.push(routes.settings as Href)}>
+        <ProfileHero
+          avatar={props.avatar}
+          title={props.title}
+          subtitle={props.subtitle}
+        />
+      </TouchableOpacity>
       {props.socials ? <Socials data={props.socials} /> : null}
       {props.members ? (
         <>
