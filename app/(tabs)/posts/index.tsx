@@ -40,7 +40,7 @@ export default function PostsPage() {
     <PageContainer>
       <Header
         title="Publications"
-        rightIcon="notifications"
+        rightIcon="settings"
         leftIcon="inside-psbs"
       />
       <View className="mb-4">
