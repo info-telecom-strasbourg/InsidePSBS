@@ -1,5 +1,11 @@
 import { Images, type ToolbarItem } from "@10play/tentap-editor";
 
+export enum ToolbarContext {
+  Main,
+  Link,
+  Heading,
+}
+
 export const CustomToolbarItems: ToolbarItem[] = [
   {
     onPress:
@@ -27,5 +33,14 @@ export const CustomToolbarItems: ToolbarItem[] = [
     active: ({ editorState }) => editorState.isUnderlineActive,
     disabled: ({ editorState }) => !editorState.canToggleUnderline,
     image: () => Images.underline,
+  },
+  {
+    onPress:
+      ({ setToolbarContext }) =>
+      () =>
+        setToolbarContext(ToolbarContext.Heading),
+    active: () => false,
+    disabled: ({ editorState }) => !editorState.canToggleHeading,
+    image: () => Images.Aa,
   },
 ];
