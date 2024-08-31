@@ -1,7 +1,6 @@
 import { Provider } from "@/components/primitives/providers";
 import { useFonts } from "@/hooks/useFonts";
 import { SplashScreen, Stack } from "expo-router";
-import { View } from "react-native";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -15,7 +14,7 @@ export default function RootLayout() {
     <Provider>
       <Stack screenOptions={{ headerShown: false, animation: "none" }}>
         <Stack.Screen
-          name="(public)/cgu/index"
+          name="(public)"
           options={{ animation: "fade_from_bottom" }}
         />
         <Stack.Screen
@@ -28,7 +27,6 @@ export default function RootLayout() {
         />
         <Stack.Screen name="auth" options={{ animation: "fade_from_bottom" }} />
       </Stack>
-
     </Provider>
   );
 }
