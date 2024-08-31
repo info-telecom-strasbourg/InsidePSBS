@@ -17,7 +17,7 @@ export default function MenuPage() {
   }, [isFetching]);
   return (
     <PageContainer>
-      <Header title="Menu" rightIcon="close" />
+      <Header title="Menu" rightIcon="close" leftIcon="inside-psbs" />
       <RefreshView
         handleRefresh={async () => setIsFetching(true)}
         isRefreshing={isFetching}
