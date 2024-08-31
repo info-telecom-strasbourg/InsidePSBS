@@ -1,4 +1,5 @@
 import { useAuth } from "@/auth/useAuth";
+import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { Button } from "@/components/primitives/button";
 import { PageContainer } from "@/components/primitives/container";
@@ -25,7 +26,7 @@ import {
   Phone,
   User,
 } from "lucide-react-native";
-import { ActivityIndicator, View } from "react-native";
+import { View } from "react-native";
 
 export default function SettingsPage() {
   const { data, isLoading, handleRefresh, isRefreshing } = useMe();
@@ -38,16 +39,16 @@ export default function SettingsPage() {
   return (
     <PageContainer>
       <Header title="Paramètres" rightIcon="close" leftIcon="inside-psbs" />
-      <RefreshView
-        handleRefresh={handleRefresh}
-        isRefreshing={isRefreshing}
-        showsVerticalScrollIndicator={false}
-      >
-        {isPageLoading ? (
-          <View className="flex-1 items-center justify-center">
-            <ActivityIndicator size={32} />
-          </View>
-        ) : (
+      {isPageLoading ? (
+        <View className="flex-1 items-center justify-center">
+          <PageLoading />
+        </View>
+      ) : (
+        <RefreshView
+          handleRefresh={handleRefresh}
+          isRefreshing={isRefreshing}
+          showsVerticalScrollIndicator={false}
+        >
           <View className="gap-8 py-2">
             <View>
               <SettingsTitle label="Profil" className="mb-2" />
@@ -138,8 +139,8 @@ export default function SettingsPage() {
               </Button>
             </View>
           </View>
-        )}
-      </RefreshView>
+        </RefreshView>
+      )}
     </PageContainer>
   );
 }
