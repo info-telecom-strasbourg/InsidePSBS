@@ -2,7 +2,7 @@ name: 'publish'
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+(-[a-zA-Z0-9]+)?'
 jobs:  
   build-app:
     runs-on: ${{ matrix.os }}
@@ -24,17 +24,20 @@ jobs:
         with:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
       
-      - name: Set private eas.json (iOS only)
-        if: matrix.platform == 'ios'
-        run: echo '${{ secrets.EAS_JSON }}' > eas.json
-        
+      - name: Generate google-service.json (Android only)
+        if: ${{ matrix.platform == 'android' }}
+        run: echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}' > /tmp/google-service.json
+
       - name: 🚀 Build app
         run: |
           RELEASE_VERSION=${{ github.ref_name }} eas build --platform ${{ matrix.platform }} --profile production --non-interactive --local
 
-      # - name: Submit to App Store (iOS only)
-      #   if: ${{ github.event.inputs.submit_ios == 'yes' && matrix.platform == 'ios' }}
-      #   run: eas submit --platform ios --path build* 
+      - name: Submit to App Store/Google play
+        run: eas submit --profile production --platform ${{ matrix.platform }} --path build* 
+
+      - name: Clean google-service.json (Android only)
+        if: ${{ matrix.platform == 'android' }}
+        run: rm -f /tmp/google-service.json
 
       - name: Get current date
         id: date

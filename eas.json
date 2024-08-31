@@ -13,13 +13,19 @@
     "production": {
       "env": {
         "EXPO_PUBLIC_API_URL": "https://app-pprd.its-tps.fr"
-      },
-      "android": {
-        "buildType": "apk"
       }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "/tmp/google-service.json"
+      },
+      "ios": {
+        "appleId": "info.telecom.strasbourg@gmail.com",
+        "ascAppId": "6446891622",
+        "appleTeamId": "2KPK2K7PUN"
+      }
+    }
   }
 }
