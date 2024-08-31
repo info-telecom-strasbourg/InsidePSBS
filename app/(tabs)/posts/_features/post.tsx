@@ -115,7 +115,7 @@ export const Post = ({
             >
               <Media
                 media={item.medias[0]}
-                className="h-28 w-full rounded-2xl"
+                className="h-64 w-full rounded-2xl"
               />
             </TouchableOpacity>
           ) : (
@@ -125,13 +125,13 @@ export const Post = ({
             >
               <TouchableOpacity
                 onPress={() => handleMediaPress()}
-                className="h-28 flex-1"
+                className="h-64 flex-1"
               >
-                <Media media={item.medias[0]} className="h-28" />
+                <Media media={item.medias[0]} className="h-full" />
               </TouchableOpacity>
 
               <TouchableOpacity
-                className="h-28 flex-1 items-center justify-center bg-background opacity-50"
+                className="h-64 flex-1 items-center justify-center bg-background opacity-50"
                 onPress={() => handleMediaPress()}
               >
                 <Typography size="h1" className="text-center" fontWeight="bold">

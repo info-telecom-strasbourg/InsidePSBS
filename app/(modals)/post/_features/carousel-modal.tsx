@@ -1,53 +1,84 @@
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { Media } from "@app/(tabs)/posts/_features/media";
-import { FlashList } from "@shopify/flash-list";
-import { X } from "lucide-react-native";
-import { Modal, Pressable, useWindowDimensions, View } from "react-native";
+import { cn } from "@/utils/cn";
+import { ChevronLeft, ChevronRight } from "lucide-react-native";
+import { useState } from "react";
+import { Image, Modal, Pressable, TouchableOpacity, View } from "react-native";
 import { useMediaCarousel } from "./media-carousel.context";
 
 export const CarouselModal = () => {
   const { updateMediaCarousel, isMediaCarouselOpen, medias } =
     useMediaCarousel();
 
-  const { width, height } = useWindowDimensions();
+  const [currentMedia, setCurrentMedia] = useState(0);
+  const incrementMedia = () => {
+    setCurrentMedia((prev) => (prev === medias.length - 1 ? 0 : prev + 1));
+  };
+  const decrementMedia = () => {
+    setCurrentMedia((prev) => (prev === 0 ? medias.length - 1 : prev - 1));
+  };
+  const closeCarousel = () => {
+    setCurrentMedia(0);
+    updateMediaCarousel("isMediaCarouselOpen", false);
+  };
 
-  const { theme } = useTheme();
   return (
     <Modal
       visible={isMediaCarouselOpen}
       transparent
-      animationType="slide"
+      animationType="fade"
       hardwareAccelerated
-      onRequestClose={() => updateMediaCarousel("isMediaCarouselOpen", false)}
+      onRequestClose={closeCarousel}
     >
       <Pressable
-        onPress={() => updateMediaCarousel("isMediaCarouselOpen", false)}
-        className="flex-1 items-center justify-center"
+        className="size-full flex-1 flex-row items-center justify-between bg-[#000000aa]"
+        onPress={closeCarousel}
       >
-        {/* <View className="absolute -z-50 size-full bg-background opacity-80" /> */}
-        <View className="flex-1 p-4">
-          <View className="flex-row justify-end">
-            <X color={colors[theme].foreground} size={40} />
-          </View>
-          <View className="flex-row">
-            <FlashList
-              data={medias}
-              estimatedItemSize={500}
-              className="z-50"
-              renderItem={({ item, index }) => (
-                <Media
-                  media={item}
-                  key={index}
-                  width={width}
-                  height={height}
-                  resizeMode="contain"
-                />
-              )}
-            />
-          </View>
-        </View>
+        <Image
+          source={{ uri: medias[currentMedia]?.url || "" }}
+          width={400}
+          height={400}
+          className="absolute h-full flex-1"
+          resizeMode="contain"
+        />
+        <CarouselArrow
+          onPress={decrementMedia}
+          direction="left"
+          hidden={medias.length <= 1}
+        />
+        <CarouselArrow
+          onPress={incrementMedia}
+          direction="right"
+          hidden={medias.length <= 1}
+        />
       </Pressable>
     </Modal>
+  );
+};
+
+const CarouselArrow = ({
+  onPress,
+  direction,
+  hidden,
+}: {
+  onPress: () => void;
+  direction: "left" | "right";
+  hidden?: boolean;
+}) => {
+  const { theme } = useTheme();
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      className={cn("h-full justify-center", hidden && "hidden")}
+    >
+      <View className="mx-2 rounded-full bg-popover p-2">
+        {direction === "left" ? (
+          <ChevronLeft size={32} color={colors[theme].foreground} />
+        ) : (
+          <ChevronRight size={32} color={colors[theme].foreground} />
+        )}
+      </View>
+    </TouchableOpacity>
   );
 };
