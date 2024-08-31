@@ -7,84 +7,37 @@ import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
+import type { ItsMeUserData } from "@app/(tabs)/profile/_features/me.schema";
 import type { VariantProps } from "class-variance-authority";
-import * as VideoThumbnails from "expo-video-thumbnails";
-import { Ellipsis, Heart, MessageCircle } from "lucide-react-native";
+import { MessageCircle, Trash2 } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import {
-  useCallback,
-  useEffect,
-  useState,
-  type PropsWithChildren,
-} from "react";
+import { useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
-import { Image, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { PostParser } from "./post-parser";
 import type { SinglePostData } from "./post.schema";
 import { Reaction } from "./reaction";
 
-export type SinglePostProps = PropsWithChildren<
+export type PostProps = PropsWithChildren<
   {
     item: SinglePostData["data"] | undefined;
-    isLoading: boolean;
     className?: string;
     postId: number | undefined;
+    userData?: ItsMeUserData | undefined;
     authorNameSize?: VariantProps<typeof typographyVariants>["size"];
     dateSize?: VariantProps<typeof typographyVariants>["size"];
     bodySize?: VariantProps<typeof typographyVariants>["size"];
   } & ViewProps
 >;
 
-const generateThumbnail = async ({ mediaURL }: { mediaURL: string }) => {
-  try {
-    const { uri } = await VideoThumbnails.getThumbnailAsync(mediaURL, {
-      time: 3000,
-      quality: 1,
-    });
-    return uri;
-  } catch (e) {
-    console.warn(e);
-  }
-};
-
-const MediaElement = ({
-  media,
-}: {
-  media: SinglePostData["data"]["medias"][0];
-}) => {
-  const [thumbnailUri, setThumbnailUri] = useState<string | undefined>(
-    undefined
-  );
-
-  useEffect(() => {
-    const fetchThumbnail = async () => {
-      if (media.type === "video") {
-        const uri = await generateThumbnail({ mediaURL: media.url });
-        setThumbnailUri(uri);
-      }
-    };
-
-    fetchThumbnail();
-  }, [media]);
-
-  if (media.type === "image" || thumbnailUri) {
-    const uri = media.type === "image" ? media.url : thumbnailUri;
-    return (
-      <Image source={{ uri }} resizeMode="cover" className="h-28 w-full" />
-    );
-  }
-
-  return null;
-};
-
 export const Post = ({
   item,
-  isLoading,
   className,
   postId,
+  userData = undefined,
   authorNameSize = "h4",
   dateSize = "h5",
-}: SinglePostProps) => {
+}: PostProps) => {
   const { theme } = useTheme();
   const modalRouter = useModalRouter();
 
@@ -100,6 +53,7 @@ export const Post = ({
 
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
 
+  const deleteMyPost = () => {};
 
   if (!item) return null;
   return (
@@ -139,9 +93,14 @@ export const Post = ({
             </Typography>
           </>
         </View>
-        <TouchableOpacity className="mr-2 bg-red">
-          <Ellipsis size={30} color={colors[theme].foreground} />
-        </TouchableOpacity>
+        {userData && userData.data.id === item.author.id && (
+          <TouchableOpacity
+            className="mr-2 bg-red"
+            onPress={() => deleteMyPost()}
+          >
+            <Trash2 size={30} color={colors[theme].foreground} />
+          </TouchableOpacity>
+        )}
       </View>
 
       <PostParser

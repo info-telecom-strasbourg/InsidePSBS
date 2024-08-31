@@ -19,7 +19,7 @@ export const RenderPosts = memo(function RenderPosts({
       onPress={() => modalRouter.open(`/post/${item?.id}`)}
       className="mb-4"
     >
-      <Post item={item} isLoading={postsAreLoading} postId={item?.id} />
+      <Post item={item} postId={item?.id} />
     </TouchableOpacity>
   );
 });

@@ -7,8 +7,8 @@ import { View } from "react-native";
 import { ProfileHero } from "./hero";
 
 type ProfileProps = {
-  avatar: string | undefined;
-  title: string | undefined;
+  avatar: string | null;
+  title: string;
   subtitle: string | undefined;
   socials?: ShowOrganizationData["organization"];
   members?: ShowOrganizationData["members"] | undefined;

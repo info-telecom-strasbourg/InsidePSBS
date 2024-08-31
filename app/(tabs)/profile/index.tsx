@@ -1,15 +1,17 @@
 import { PageLoading } from "@/components/page/loading";
 import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
+import { useModalRouter } from "@/hooks/useModalRouter";
 import { useShowUserPosts } from "@app/(modals)/user/_features/user-posts.query";
 import type { PostsData } from "@app/(tabs)/posts/_features/post.schema";
-import { RenderPosts } from "@app/(tabs)/posts/_features/render-posts";
 import { useMe } from "@app/(tabs)/profile/_features/me.query";
 import { ProfileHeader } from "@app/(tabs)/profile/_features/profile-header";
 import { FlashList } from "@shopify/flash-list";
-import { RefreshControl, View } from "react-native";
+import { RefreshControl, TouchableOpacity, View } from "react-native";
+import { Post } from "../posts/_features/post";
 
 export default function ProfilePage() {
+  const modalRouter = useModalRouter();
   const { data, isLoading, handleRefresh, isRefreshing } = useMe();
 
   const {
@@ -48,7 +50,12 @@ export default function ProfilePage() {
           onEndReached={loadMore}
           onEndReachedThreshold={3}
           renderItem={({ item }) => (
-            <RenderPosts item={item} postsAreLoading={postsAreLoading} />
+            <TouchableOpacity
+              onPress={() => modalRouter.open(`/post/${item?.id}`)}
+              className="mb-4"
+            >
+              <Post item={item} postId={item?.id} />
+            </TouchableOpacity>
           )}
           showsVerticalScrollIndicator={false}
           estimatedItemSize={100}
