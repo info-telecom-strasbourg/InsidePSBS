@@ -22,7 +22,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ITS.InsidePSBS",
-      "versionCode": 56
+      "versionCode": 57
     },
     "web": {
       "bundler": "metro",
