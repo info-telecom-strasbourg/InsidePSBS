@@ -5,6 +5,7 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
+import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 import { useReactionType } from "@app/(modals)/post/_features/one-post.query";
 import type { VariantProps } from "class-variance-authority";
 import * as VideoThumbnails from "expo-video-thumbnails";
@@ -16,7 +17,6 @@ import { Image, TouchableOpacity, View } from "react-native";
 import { PostParser } from "./post-parser";
 import type { SinglePostData } from "./post.schema";
 import { Reaction } from "./reaction";
-import { PostBodySchema } from "@app/(modals)/create/post/step2/_features/store-post.schema";
 
 export type SinglePostProps = PropsWithChildren<
   {
