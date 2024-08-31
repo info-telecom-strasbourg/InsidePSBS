@@ -30,7 +30,7 @@ jobs:
         
       - name: 🚀 Build app
         run: |
-          RELEASE_VERSION=${{ github.ref_name }} eas build --platform ${{ matrix.platform }} --non-interactive --local
+          RELEASE_VERSION=${{ github.ref_name }} eas build --platform ${{ matrix.platform }} --profile production --non-interactive --local
 
       # - name: Submit to App Store (iOS only)
       #   if: ${{ github.event.inputs.submit_ios == 'yes' && matrix.platform == 'ios' }}
@@ -43,7 +43,6 @@ jobs:
       - name: 📌 Nextcloud Artifact
         uses: trympet/nextcloud-artifacts-action@v2
         with:
-          # include the platform and date in the filename
           name: ${{ matrix.platform }}-${{ github.ref_name }}-${{ steps.date.outputs.date }}
           path: build-*                                         
           nextcloud-url: ${{ secrets.NEXTCLOUD_URL }}           
