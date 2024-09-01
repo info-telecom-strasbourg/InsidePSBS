@@ -1,5 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { useFetch } from "@/hooks/useFetch";
+import { DefaultImagesSchema } from "@/schemas/settings/default-images.schema";
 
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
@@ -10,14 +11,14 @@ const fetcher = async (url: string, token: string) => {
     },
   });
   const data = await res.json();
-  // const parsedData = ItsMeUserSchema.safeParse(data);
-  // if (!parsedData.success) {
-  //   parsedData.error.issues.map((issue) => {
-  //     console.error(`${issue.message} -- ON -- ${issue.path}`);
-  //   });
-  // }
+  const parsedData = DefaultImagesSchema.safeParse(data);
+  if (!parsedData.success) {
+    parsedData.error.issues.map((issue) => {
+      console.error(`${issue.message} -- ON -- ${issue.path}`);
+    });
+  }
 
-  return data;
+  return parsedData.data;
 };
 
 export const useDefaultImages = () => {

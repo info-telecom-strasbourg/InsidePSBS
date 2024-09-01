@@ -1,8 +1,10 @@
 import { useAuth } from "@/auth/useAuth";
+import { PageLoading } from "@/components/page/loading";
 import { RefreshView } from "@/components/page/refresh-view";
 import { Button } from "@/components/primitives/button";
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
+import { DefaultImagePickerModal } from "@/features/settings/default-image-picker";
 import { useMe } from "@/queries/profile/me.query";
 import { useDefaultImages } from "@/queries/settings/default-images.query";
 import { storeProfilePicture } from "@/queries/settings/store-profile-picture";
@@ -12,7 +14,7 @@ import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import * as ImagePicker from "expo-image-picker";
 import { Image, LibraryBig } from "lucide-react-native";
 import { useRef, useState } from "react";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 export const pickProfilePicture = async (
   setProfilePicture: React.Dispatch<
@@ -39,22 +41,36 @@ export default function AvatarPage() {
   const { theme } = useTheme();
   const { token } = useAuth();
 
-  const { data, isLoading, handleRefresh, isRefreshing } = useMe();
-  const { data: defaultImages } = useDefaultImages();
+  const {
+    data,
+    isLoading,
+    handleRefresh: handleRefreshUser,
+    isRefreshing: userIsRefreshing,
+  } = useMe();
+  const {
+    data: defaultImages,
+    handleRefresh: handleRefreshImages,
+    isRefreshing: imagesAreRefreshing,
+  } = useDefaultImages();
 
   const defaultImagePickerRef = useRef<BottomSheetModal>(null);
   const [profilePicture, setProfilePicture] =
     useState<ImagePicker.ImagePickerAsset | null>(null);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
+  const handleRefresh = async () => {
+    handleRefreshUser();
+    handleRefreshImages();
+  };
+
   if (!data?.data || isLoading) {
-    return <ActivityIndicator color={colors[theme].foreground} />;
+    return <PageLoading />;
   }
   return (
     <>
       <RefreshView
         showsVerticalScrollIndicator={false}
-        isRefreshing={isRefreshing}
+        isRefreshing={userIsRefreshing || imagesAreRefreshing}
         handleRefresh={handleRefresh}
       >
         <View className="flex-1 items-center justify-center gap-6">
@@ -118,10 +134,10 @@ export default function AvatarPage() {
           </Button>
         </View>
       </RefreshView>
-      {/* <DefaultImagePickerModal
+      <DefaultImagePickerModal
         ref={defaultImagePickerRef}
         data={defaultImages}
-      /> */}
+      />
     </>
   );
 }
