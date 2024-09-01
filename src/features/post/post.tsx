@@ -12,7 +12,7 @@ import { cn } from "@/utils/cn";
 import type { VariantProps } from "class-variance-authority";
 import { MessageCircle, Trash2 } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useState, type PropsWithChildren } from "react";
+import { useEffect, useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { TouchableOpacity, View } from "react-native";
 import { Media } from "./media";
@@ -53,6 +53,11 @@ export const Post = ({
   >(item?.reaction);
 
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    setReactionCount(item?.reaction_count);
+    setReaction(item?.reaction);
+  }, [item]);
 
   const deleteMyPost = async () => {
     const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/delete`;

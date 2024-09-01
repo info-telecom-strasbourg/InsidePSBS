@@ -19,7 +19,11 @@ import {
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const { data: postData, isLoading: postIsLoading } = useOnePost(id);
+  const {
+    data: postData,
+    handleRefresh: handleRefreshPost,
+    isRefreshing: postIsRefreshing,
+  } = useOnePost(id);
 
   const {
     data: commentsData,
@@ -45,6 +49,11 @@ export default function PostIdPage() {
     }
   };
 
+  const handleRefresh = () => {
+    handleRefreshPost();
+    handleCommentsRefresh();
+  };
+
   return (
     <PageContainer>
       <Header title="Post" rightIcon="close" />
@@ -67,8 +76,8 @@ export default function PostIdPage() {
         )}
         refreshControl={
           <RefreshControl
-            refreshing={commentsAreRefreshing}
-            onRefresh={handleCommentsRefresh}
+            refreshing={commentsAreRefreshing || postIsRefreshing}
+            onRefresh={handleRefresh}
           />
         }
         ListHeaderComponent={
