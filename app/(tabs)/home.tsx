@@ -14,12 +14,10 @@ import { useCards } from "@/queries/home/cards.query";
 import { postsFetcher } from "@/queries/post/posts.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { ChevronDown } from "lucide-react-native";
 import { useCallback } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 
 export default function HomePage() {
-  const { theme } = useTheme();
   const { token } = useAuth();
 
   // Fecthing Cards
@@ -72,15 +70,16 @@ export default function HomePage() {
           showsVerticalScrollIndicator={false}
         >
           <GridCards data={cardsData} isLoading={cardsAreLoading} />
-          <TouchableOpacity className="mb-4 flex-row items-center gap-4">
-            <Typography size="h1" fontWeight="bold">
-              Évènements à venir
-            </Typography>
-            <ChevronDown size={24} color={colors[theme].foreground} />
-          </TouchableOpacity>
+          <View className="mb-4 flex-row items-center gap-4">
+          <Typography size="h1" fontWeight="bold">
+            Évènements à venir
+          </Typography>
+        </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {eventsData?.map((item, index) => (
-              <Event item={item} key={index} />
+              <View key={index} className="mr-3 flex-1">
+                <Event item={item} />
+              </View>
             ))}
           </ScrollView>
           <Typography size="h1" fontWeight="bold" className="mb-4">
