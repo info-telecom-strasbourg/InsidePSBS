@@ -15,6 +15,7 @@ import { Skeleton } from "moti/skeleton";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { TouchableOpacity, View } from "react-native";
+import { useDeletePost } from "./delete-post.context";
 import { Media } from "./media";
 import { useMediaCarousel } from "./media-carousel.context";
 import { PostParser } from "./post-parser";
@@ -42,6 +43,8 @@ export const Post = ({
   const modalRouter = useModalRouter();
   const { token } = useAuth();
 
+  const { confirmDelete, updateDeletePost } = useDeletePost();
+
   const { data: reactions } = useReactionType();
 
   const [reactionCount, setReactionCount] = useState<number | null | undefined>(
@@ -55,26 +58,32 @@ export const Post = ({
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
 
   useEffect(() => {
+    const deleteMyPost = async () => {
+      if (confirmDelete) {
+        const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/delete`;
+        try {
+          const response = await fetch(url, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const res = await response.json();
+          return res;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
     setReactionCount(item?.reaction_count);
     setReaction(item?.reaction);
-  }, [item]);
 
-  const deleteMyPost = async () => {
-    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/delete`;
-    try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const res = await response.json();
-      return res;
-    } catch (e) {
-      console.error(e);
+    if (confirmDelete) {
+      deleteMyPost();
+      updateDeletePost("confirmDelete", false);
     }
-  };
+  }, [item, confirmDelete]);
 
   const { updateMediaCarousel } = useMediaCarousel();
 
@@ -123,7 +132,9 @@ export const Post = ({
         {item.author.user_is_author && (
           <TouchableOpacity
             className="p-3"
-            onPress={async () => await deleteMyPost()}
+            onPress={async () => {
+              updateDeletePost("isDeletePostModalOpen", true);
+            }}
           >
             <Trash2 size={30} color={colors[theme].foreground} />
           </TouchableOpacity>
