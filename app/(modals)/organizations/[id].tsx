@@ -12,20 +12,20 @@ export default function AssoIdPage() {
   const {
     data,
     isLoading,
-    isRefreshing,
+    isRefreshing: isUserRefreshing,
     handleRefresh: handleRefreshUser,
   } = useShowOrganization(id);
 
   const {
     data: posts,
-    isLoading: postsAreLoading,
     size,
     setSize,
     hasMore,
     handleRefresh: handleRefreshPosts,
+    isRefreshing: postsAreRefreshing,
   } = useShowOrganizationPosts(id);
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     handleRefreshUser();
     handleRefreshPosts();
   };
@@ -39,9 +39,8 @@ export default function AssoIdPage() {
         <Profile
           avatar={data.organization.logo_url}
           handleRefresh={handleRefresh}
-          isRefreshing={isRefreshing}
+          isRefreshing={isUserRefreshing || postsAreRefreshing}
           posts={posts}
-          postsAreLoading={postsAreLoading}
           setSize={setSize}
           size={size}
           socials={data.organization}

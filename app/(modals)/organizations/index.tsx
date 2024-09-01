@@ -40,8 +40,8 @@ export default function AssociationsPage() {
               >
                 Associations
               </Typography>
-              {data.associations.map((item) => (
-                <ListItems item={item} key={item.id} />
+              {data.associations.map((item, index) => (
+                <ListItems item={item} key={index} />
               ))}
             </View>
             <View className="mb-5 gap-3">
@@ -52,8 +52,8 @@ export default function AssociationsPage() {
               >
                 Clubs
               </Typography>
-              {data.clubs.map((item) => (
-                <ListItems item={item} key={item.id} />
+              {data.clubs.map((item, index) => (
+                <ListItems item={item} key={index} />
               ))}
             </View>
           </>

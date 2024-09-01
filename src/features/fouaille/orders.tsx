@@ -1,4 +1,4 @@
-import type { OrdersData } from "@app/(modals)/fouaille/_features/orders.schema";
+import type { OrdersData } from "@/schemas/fouaille/orders.schema";
 import { FlashList } from "@shopify/flash-list";
 import { RefreshControl } from "react-native";
 import { Order } from "./order";
@@ -8,7 +8,7 @@ type OrdersProps = {
   size: number;
   setSize: (size: number) => void;
   isRefreshing: boolean;
-  handleRefresh: () => void;
+  handleRefresh: () => Promise<void>;
 };
 
 export const Orders = ({
