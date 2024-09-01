@@ -114,7 +114,7 @@ export default function TabsLayout() {
               tabBarIcon: ({ focused }) => (
                 <TabIcon
                   focused={focused}
-                  name="Profile"
+                  name="Profil"
                   icon={CircleUserIcon}
                 />
               ),
