@@ -1,5 +1,6 @@
 import { validate } from "@/utils/validate";
 import type { z } from "zod";
+import { displayError } from "./display-error";
 
 export const postQuery = async <T>(
   url: string,
@@ -7,19 +8,21 @@ export const postQuery = async <T>(
   data: T,
   schema: z.AnyZodObject | z.ZodOptional<z.AnyZodObject>
 ) => {
-  try {
-    const parsedData = await validate<T>(schema, data);
-    const res = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(parsedData),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  const parsedData = await validate<T>(schema, data);
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(parsedData),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-    return await res.json();
-  } catch (error) {
-    throw error;
+  if (!res.ok) {
+    const message = await res.json();
+    displayError(res, { location: url, message });
+    throw new Error("Une erreur est survenue");
   }
+
+  return await res.json();
 };

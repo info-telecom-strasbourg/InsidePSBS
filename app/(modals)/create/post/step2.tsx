@@ -24,7 +24,7 @@ import type * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { Calendar as Cal, Minus, Plus } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Image,
   Platform,
@@ -32,6 +32,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Toast from "react-native-root-toast";
 
 const CreatePostStep2 = () => {
   // Utils
@@ -59,7 +60,7 @@ const CreatePostStep2 = () => {
   >(null);
   const [isPublishing, setIsPublishing] = useState<boolean>(false);
 
-  const handlePublish = useCallback(async () => {
+  const handlePublish = async () => {
     setIsPublishing(true);
     const timeToPublish = `${uploadedAt} ${formattedTime}`;
     try {
@@ -69,38 +70,26 @@ const CreatePostStep2 = () => {
         timeToPublish,
         token
       );
-      // const parsedResPosts = await validate<StorePostResponseData>(
-      //   StorePostResponseSchema,
-      //   postsResponse
-      // );
+
       const postId = postsResponse.data.id;
-      const categoryResponse = await storePostCategories(
-        postId,
-        categories,
-        token
-      );
-      if (medias) {
-        try {
-          const mediasResponse = await storeMedias(postId, medias, token);
-        } catch (error) {
-          throw error;
-        }
-      }
+      if (categories.length > 0)
+        await storePostCategories(postId, categories, token);
+      if (medias) await storeMedias(postId, medias, token);
+
+      Toast.show("Publication réussie", {
+        duration: Toast.durations.LONG,
+        backgroundColor: colors.green,
+      });
+      router.replace({ pathname: "/posts", params: { refresh: "true" } });
     } catch (error) {
-      throw error;
+      Toast.show(error, {
+        duration: Toast.durations.LONG,
+        backgroundColor: colors[theme].destructive,
+      });
+    } finally {
+      setIsPublishing(false);
     }
-    setIsPublishing(false);
-    router.replace({ pathname: "/home", params: { refresh: "true" } });
-  }, [
-    categories,
-    formattedTime,
-    organizationId,
-    postBody,
-    token,
-    uploadedAt,
-    medias,
-    router,
-  ]);
+  };
 
   return (
     <>

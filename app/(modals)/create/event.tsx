@@ -22,10 +22,12 @@ import {
 } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
+import { useRouter } from "expo-router";
 import { Calendar } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { useEffect, useRef, useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-root-toast";
 
 export default function CreateEventPage() {
   const form = useForm({
@@ -53,6 +55,8 @@ export default function CreateEventPage() {
   const [timeStart, setTimeStart] = useState<Date>(today);
   const [timeEnd, setTimeEnd] = useState<Date>(today);
 
+  const router = useRouter();
+
   // AccountPicker
   const [organizationId, setOrganizationId] = useState<number | null>(null);
   const organizationListRef = useRef<BottomSheetModal>(null);
@@ -79,12 +83,22 @@ export default function CreateEventPage() {
         token
       );
       if (!res.ok) {
-        console.log(JSON.stringify(res));
+        // throw new Error(res.message);
       }
+      Toast.show("Événement créé avec succès", {
+        duration: Toast.durations.LONG,
+        backgroundColor: colors.green,
+      });
+      router.replace({ pathname: "/calendar", params: { refresh: "true" } });
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      Toast.show("Une erreur est survenue", {
+        duration: Toast.durations.LONG,
+        backgroundColor: colors[theme].destructive,
+      });
+    } finally {
+      setIsPublishing(false);
     }
-    setIsPublishing(false);
   };
 
   return (

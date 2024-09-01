@@ -10,11 +10,13 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import type { VariantProps } from "class-variance-authority";
+import { useRouter } from "expo-router";
 import { MessageCircle, Trash2 } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { TouchableOpacity, View } from "react-native";
+import Toast from "react-native-root-toast";
 import { Media } from "./media";
 import { useMediaCarousel } from "./media-carousel.context";
 import { PostParser } from "./post-parser";
@@ -43,6 +45,7 @@ export const Post = ({
   const { token } = useAuth();
 
   const { data: reactions } = useReactionType();
+  const router = useRouter();
 
   const [reactionCount, setReactionCount] = useState<number | null | undefined>(
     item?.reaction_count
@@ -70,8 +73,19 @@ export const Post = ({
         },
       });
       const res = await response.json();
-      return res;
+      if (!res.ok) {
+        // throw new Error(res.message);
+      }
+      Toast.show("Post supprimé", {
+        duration: Toast.durations.LONG,
+        backgroundColor: colors.green,
+      });
+      router.setParams({ refresh: "true" });
     } catch (e) {
+      Toast.show("Une erreur est survenue", {
+        duration: Toast.durations.LONG,
+        backgroundColor: colors[theme].destructive,
+      });
       console.error(e);
     }
   };

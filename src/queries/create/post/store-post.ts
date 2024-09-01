@@ -16,22 +16,18 @@ export const storePost = async (
   token: string | null
 ) => {
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/contents`;
-  try {
-    const response = await postQuery<StorePostData>(
-      url,
-      token,
-      {
-        create_post: 1,
-        body: postBody,
-        organization_id: organizationId,
-        uploaded_at: uploadedAt,
-      },
-      StorePostSchema
-    );
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await postQuery<StorePostData>(
+    url,
+    token,
+    {
+      create_post: 1,
+      body: postBody,
+      organization_id: organizationId,
+      uploaded_at: uploadedAt,
+    },
+    StorePostSchema
+  );
+  return response;
 };
 
 export const storePostCategories = async (
@@ -41,21 +37,17 @@ export const storePostCategories = async (
   eventId?: number
 ) => {
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories`;
-  try {
-    const response = await postQuery<StorePostCategoriesData>(
-      url,
-      token,
-      {
-        post_id: postId,
-        event_id: eventId,
-        category_ids: categories,
-      },
-      StorePostCategoriesSchema
-    );
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await postQuery<StorePostCategoriesData>(
+    url,
+    token,
+    {
+      post_id: postId,
+      event_id: eventId,
+      category_ids: categories,
+    },
+    StorePostCategoriesSchema
+  );
+  return response;
 };
 
 export const storeMedias = async (
@@ -85,11 +77,10 @@ export const storeMedias = async (
         // "Content-Type": "multipart/form-data",
       },
     });
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(`HTTP error! status: ${res.status}, message: ${error}`);
+    if (!res?.ok) {
+      throw new Error((await res?.json()) || "Unexpected error");
     }
-    return res.json();
+    return await res.json();
   } catch (error) {
     console.error(error);
   }
