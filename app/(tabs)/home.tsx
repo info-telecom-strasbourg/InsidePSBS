@@ -12,13 +12,9 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { useEvents } from "@/queries/calendar/event.query";
 import { useCards } from "@/queries/home/cards.query";
 import { postsFetcher } from "@/queries/post/posts.query";
-import { colors } from "@/theme/colors";
-import { useTheme } from "@/theme/theme-context";
-import { ChevronDown } from "lucide-react-native";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 
 export default function HomePage() {
-  const { theme } = useTheme();
   const { token } = useAuth();
   const {
     data: cardsData,
@@ -50,15 +46,14 @@ export default function HomePage() {
         ) : (
           <GridCards data={cardsData} isLoading={cardsIsLoading} />
         )}
-        <TouchableOpacity className="mb-4 flex-row items-center gap-4">
+        <View className="mb-4 flex-row items-center gap-4">
           <Typography size="h1" fontWeight="bold">
             Évènements à venir
           </Typography>
-          <ChevronDown size={24} color={colors[theme].foreground} />
-        </TouchableOpacity>
+        </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {eventsData?.map((item, index) => (
-            <Event item={item} key={index} isLoading={eventsAreLoading} />
+            <Event item={item} key={index} />
           ))}
         </ScrollView>
         <Typography size="h1" fontWeight="bold" className="mb-4">
@@ -71,7 +66,7 @@ export default function HomePage() {
               onPress={() => modalRouter.open(`/post/${item?.id}`)}
               className="mb-4"
             >
-              <Post item={item} isLoading={postIsLoading} postId={item.id} />
+              <Post item={item} postId={item.id} />
             </TouchableOpacity>
           ))}
         </View>
