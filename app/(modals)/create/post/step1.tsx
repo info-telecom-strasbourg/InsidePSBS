@@ -34,7 +34,7 @@ const CreatePostPage = () => {
     <View className="flex-1 bg-background">
       <EmptyEditor modalOpen={modalOpen} setModalOpen={setModalOpen} />
       <View className="mb-6 w-full flex-row items-center justify-between gap-6 bg-background">
-        <View className="overflow-hidde flex-1">
+        <View className="flex-1">
           {data?.organizations ? (
             organizationId ? (
               <ChoiceItem
