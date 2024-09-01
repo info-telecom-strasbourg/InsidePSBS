@@ -31,7 +31,7 @@ export const buttonVariants = cva(
   }
 );
 
-export const textButtonVariants = cva("flex flex-row gap-2 text-xl font-bold", {
+export const textButtonVariants = cva("flex flex-row gap-2 text-xl", {
   variants: {
     variant: {
       default: "text-primary-foreground",
@@ -71,7 +71,10 @@ export const Button = ({
       )}
       {...props}
     >
-      <Typography className={cn(textButtonVariants({ variant }))}>
+      <Typography
+        className={cn(textButtonVariants({ variant }))}
+        fontWeight="bold"
+      >
         {loading ? (
           <ActivityIndicator
             animating={loading}

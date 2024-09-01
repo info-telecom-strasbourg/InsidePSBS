@@ -58,7 +58,9 @@ export default function HomePage() {
         </TouchableOpacity>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {eventsData?.map((item, index) => (
-            <Event item={item} key={index} isLoading={eventsAreLoading} />
+            <View key={index} className="mr-3 flex-1">
+              <Event item={item} />
+            </View>
           ))}
         </ScrollView>
         <Typography size="h1" fontWeight="bold" className="mb-4">
@@ -71,7 +73,7 @@ export default function HomePage() {
               onPress={() => modalRouter.open(`/post/${item?.id}`)}
               className="mb-4"
             >
-              <Post item={item} isLoading={postIsLoading} postId={item.id} />
+              <Post item={item} postId={item.id} />
             </TouchableOpacity>
           ))}
         </View>

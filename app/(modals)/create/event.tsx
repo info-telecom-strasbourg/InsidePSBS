@@ -1,5 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { PageContainer } from "@/components/primitives/container";
+import { CustomModal } from "@/components/primitives/custom-modal";
 import { FormTextInput } from "@/components/primitives/form-input";
 import { Header } from "@/components/primitives/header";
 import { Typography } from "@/components/primitives/typography";
@@ -19,11 +20,12 @@ import {
   BottomSheetModalProvider,
   type BottomSheetModal,
 } from "@gorhom/bottom-sheet";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Platform, TouchableOpacity, View } from "react-native";
 
 export default function CreateEventPage() {
   const form = useForm({
@@ -35,49 +37,55 @@ export default function CreateEventPage() {
   });
   const { token } = useAuth();
   const { theme } = useTheme();
-  const today = new Date();
 
+  // Fetching...
   const { data, isLoading: dataIsLoading } = useMe();
-  const [organizationId, setOrganizationId] = useState<number | null>(null);
 
+  // Date Picker
+  const today = new Date();
   const dateRangePickerRef = useRef<BottomSheetModal>(null);
-  const organizationListRef = useRef<BottomSheetModal>(null);
+  const [dateStart, setDateStart] = useState<string>("");
+  const [dateEnd, setDateEnd] = useState<string>("");
 
-  const [isPublishing, setIsPublishing] = useState<boolean>(false);
-  const [startAt, setStartAt] = useState<string>("");
-  const [endAt, setEndAt] = useState<string>("");
+  // Time Picker
+  const [showStartPicker, setShowStartPicker] = useState<boolean>(false);
+  const [showEndPicker, setShowEndPicker] = useState<boolean>(false);
+  const [timeStart, setTimeStart] = useState<Date>(today);
+  const [timeEnd, setTimeEnd] = useState<Date>(today);
+
+  // AccountPicker
+  const [organizationId, setOrganizationId] = useState<number | null>(null);
+  const organizationListRef = useRef<BottomSheetModal>(null);
   const [displayOrganizations, setDisplayOrganizations] =
     useState<boolean>(false);
-
-  const handleSubmit = useCallback(
-    async (values: CreateEventData) => {
-      setIsPublishing(true);
-      try {
-        const res = await storeEvent(
-          values.title,
-          values.place,
-          organizationId,
-          startAt,
-          endAt,
-          token
-        );
-        if (!res.ok) {
-          console.log(JSON.stringify(res));
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      setIsPublishing(false);
-    },
-    [endAt, startAt, token, organizationId]
-  );
-
   useEffect(() => {
     if (data?.organizations[0] && organizationId === null) {
       setOrganizationId(data.organizations[0].id);
       setDisplayOrganizations(true);
     }
   }, [organizationId, data]);
+
+  // Submitting
+  const [isPublishing, setIsPublishing] = useState<boolean>(false);
+  const handleSubmit = async (values: CreateEventData) => {
+    setIsPublishing(true);
+    try {
+      const res = await storeEvent(
+        values.title,
+        values.place,
+        organizationId,
+        `${dateStart} ${format(timeStart, "HH:mm")}`,
+        `${dateEnd} ${format(timeEnd, "HH:mm")}`,
+        token
+      );
+      if (!res.ok) {
+        console.log(JSON.stringify(res));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsPublishing(false);
+  };
 
   return (
     <BottomSheetModalProvider>
@@ -143,11 +151,11 @@ export default function CreateEventPage() {
             >
               <View className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6">
                 <Typography fontWeight="semibold">
-                  {startAt && endAt
-                    ? startAt === endAt
-                      ? format(startAt, "dd/MM/yyyy")
-                      : `${format(startAt, "dd/MM/yyyy")} - ${format(
-                          endAt,
+                  {dateStart && dateEnd
+                    ? dateStart === dateEnd
+                      ? format(dateStart, "dd/MM/yyyy")
+                      : `${format(dateStart, "dd/MM/yyyy")} - ${format(
+                          dateEnd,
                           "dd/MM/yyyy"
                         )}`
                     : format(today, "dd/MM/yyyy")}
@@ -160,6 +168,58 @@ export default function CreateEventPage() {
                 />
               </View>
             </TouchableOpacity>
+            <View className="mt-4 flex-row items-center justify-center gap-3">
+              <View className="flex-1">
+                <Typography
+                  size="h4"
+                  fontWeight="semibold"
+                  className="mb-2 text-center"
+                >
+                  Heure de début :
+                </Typography>
+                <TouchableOpacity
+                  onPress={() => {
+                    setShowStartPicker(true);
+                  }}
+                  className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6"
+                >
+                  <Typography fontWeight="semibold">
+                    {format(timeStart, "HH:mm")}
+                  </Typography>
+
+                  <Calendar
+                    strokeWidth={1.5}
+                    color={colors[theme].mutedForeground}
+                    size={24}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View className="flex-1">
+                <Typography
+                  size="h4"
+                  fontWeight="semibold"
+                  className="mb-2 text-center"
+                >
+                  Heure de fin :
+                </Typography>
+                <TouchableOpacity
+                  onPress={() => {
+                    setShowEndPicker(true);
+                  }}
+                  className="flex-row items-center justify-between rounded-2xl bg-popover p-4 px-6"
+                >
+                  <Typography fontWeight="semibold">
+                    {format(timeEnd, "HH:mm")}
+                  </Typography>
+
+                  <Calendar
+                    strokeWidth={1.5}
+                    color={colors[theme].mutedForeground}
+                    size={24}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
           <TouchableOpacity
             onPress={() => form.submit(handleSubmit)}
@@ -202,8 +262,8 @@ export default function CreateEventPage() {
       <DateRangePicker
         ref={dateRangePickerRef}
         today={today}
-        setStartAt={setStartAt}
-        setEndAt={setEndAt}
+        setStartAt={setDateStart}
+        setEndAt={setDateEnd}
       />
       <OrganizationSelect
         data={data}
@@ -211,6 +271,65 @@ export default function CreateEventPage() {
         setOrganizationId={setOrganizationId}
         ref={organizationListRef}
       />
+      {showStartPicker &&
+        (() => {
+          const dateTimePicker = (
+            <DateTimePicker
+              value={timeStart || new Date()}
+              mode="time"
+              display={Platform.OS === "ios" ? "spinner" : "default"}
+              is24Hour={true}
+              style={{
+                backgroundColor: colors[theme].popover,
+              }}
+              timeZoneName="Europe/Paris"
+              onChange={(event, selectedTime) => {
+                setTimeStart(selectedTime!);
+                if (Platform.OS === "android") {
+                  setShowStartPicker(false);
+                }
+              }}
+            />
+          );
+          return Platform.OS === "android" ? (
+            dateTimePicker
+          ) : (
+            <CustomModal
+              isOpen={showStartPicker}
+              setIsOpen={setShowStartPicker}
+            >
+              {dateTimePicker}
+            </CustomModal>
+          );
+        })()}
+      {showEndPicker &&
+        (() => {
+          const dateTimePicker = (
+            <DateTimePicker
+              value={timeEnd || new Date()}
+              mode="time"
+              display={Platform.OS === "ios" ? "spinner" : "default"}
+              is24Hour={true}
+              style={{
+                backgroundColor: colors[theme].popover,
+              }}
+              timeZoneName="Europe/Paris"
+              onChange={(event, selectedTime) => {
+                setTimeEnd(selectedTime!);
+                if (Platform.OS === "android") {
+                  setShowEndPicker(false);
+                }
+              }}
+            />
+          );
+          return Platform.OS === "android" ? (
+            dateTimePicker
+          ) : (
+            <CustomModal isOpen={showEndPicker} setIsOpen={setShowEndPicker}>
+              {dateTimePicker}
+            </CustomModal>
+          );
+        })()}
     </BottomSheetModalProvider>
   );
 }
