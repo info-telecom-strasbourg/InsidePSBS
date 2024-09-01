@@ -7,11 +7,17 @@ import { CommentsSchema } from "@/schemas/post/comments.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
-import { CircleMinus, CirclePlus, CornerUpRight } from "lucide-react-native";
+import {
+  CircleMinus,
+  CirclePlus,
+  CornerUpRight,
+  Trash2,
+} from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { memo, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { z } from "zod";
+import { Reaction } from "./reaction";
 
 export const Comment = memo(function Comment({
   comment,
@@ -97,12 +103,17 @@ export const Comment = memo(function Comment({
         <View className="flex-1">
           <View className="gap-3 overflow-hidden rounded-2xl bg-popover p-3">
             <View className="flex-row flex-wrap items-center justify-between gap-2">
-              <Typography fontWeight="medium" size="h5">
-                {comment?.author.name}
-              </Typography>
-              <Typography className="text-muted-foreground" size="sm">
-                {comment.created_since}
-              </Typography>
+              <View className="gap-2">
+                <Typography fontWeight="medium" size="h5">
+                  {comment?.author.name}
+                </Typography>
+                <Typography className="text-muted-foreground" size="sm">
+                  {comment.created_since}
+                </Typography>
+              </View>
+              {comment.author.user_is_author ? (
+                <Trash2 size={20} color={colors[theme].foreground} />
+              ) : null}
             </View>
             <Typography size="p">{comment?.body}</Typography>
             <Reaction
