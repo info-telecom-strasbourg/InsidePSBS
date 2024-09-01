@@ -80,7 +80,9 @@ export default function HomePage() {
           </TouchableOpacity>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {eventsData?.map((item, index) => (
-              <Event item={item} key={index} />
+              <View key={index} className="mr-3 flex-1">
+                <Event item={item} />
+              </View>
             ))}
           </ScrollView>
           <Typography size="h1" fontWeight="bold" className="mb-4">
