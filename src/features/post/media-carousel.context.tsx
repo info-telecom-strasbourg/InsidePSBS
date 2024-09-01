@@ -1,4 +1,4 @@
-import type { SinglePostData } from "@app/(tabs)/posts/_features/post.schema";
+import type { SinglePostData } from "@/schemas/post/post.schema";
 import type { PropsWithChildren } from "react";
 import { createContext, useContext, useState } from "react";
 
