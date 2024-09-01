@@ -1,7 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { CustomModal } from "@/components/primitives/custom-modal";
 import { Typography } from "@/components/primitives/typography";
-import { routes } from "@/constants/routes";
 import { useCreatePost } from "@/contexts/create-post.context";
 import {
   CategoryItem,
@@ -22,7 +21,7 @@ import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 import type * as ImagePicker from "expo-image-picker";
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { Calendar as Cal, Minus, Plus } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { useCallback, useRef, useState } from "react";
@@ -91,7 +90,7 @@ const CreatePostStep2 = () => {
       throw error;
     }
     setIsPublishing(false);
-    router.replace(routes.home as Href);
+    router.replace({ pathname: "/home", params: { refresh: "true" } });
   }, [
     categories,
     formattedTime,
@@ -100,6 +99,7 @@ const CreatePostStep2 = () => {
     token,
     uploadedAt,
     medias,
+    router,
   ]);
 
   return (

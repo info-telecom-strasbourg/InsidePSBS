@@ -9,13 +9,13 @@ import { GridCards } from "@/features/home/grid-cards";
 import { Post } from "@/features/post/post";
 import { useFetch } from "@/hooks/useFetch";
 import { useModalRouter } from "@/hooks/useModalRouter";
+import { useRefresh } from "@/hooks/useRefresh";
 import { useEvents } from "@/queries/calendar/event.query";
 import { useCards } from "@/queries/home/cards.query";
 import { postsFetcher } from "@/queries/post/posts.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { ChevronDown } from "lucide-react-native";
-import { useCallback } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 
 export default function HomePage() {
@@ -48,11 +48,13 @@ export default function HomePage() {
     isLoading: postsAreLoading,
   } = useFetch(url, (url: string) => postsFetcher(url, token || ""));
 
-  const handleRefresh = useCallback(async () => {
+  const handleRefresh = async () => {
     handleRefreshCards();
     handleRefreshEvents();
     handleRefreshPosts();
-  }, [handleRefreshCards, handleRefreshEvents, handleRefreshPosts]);
+  };
+
+  useRefresh(handleRefresh);
 
   const isRefreshing =
     cardsAreRefreshing || eventsAreRefreshing || postsAreRefreshing;
