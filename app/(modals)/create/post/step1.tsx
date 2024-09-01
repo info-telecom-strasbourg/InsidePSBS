@@ -10,8 +10,7 @@ import { useMe } from "@/queries/profile/me.query";
 import { PostBodySchema } from "@/schemas/create/event/store-post.schema";
 import { RichText, Toolbar } from "@10play/tentap-editor";
 import type { BottomSheetModal } from "@gorhom/bottom-sheet";
-import type { Href } from "expo-router";
-import { router } from "expo-router";
+import { useRouter, type Href } from "expo-router";
 import { useRef, useState } from "react";
 import {
   Keyboard,
@@ -23,6 +22,7 @@ import {
 
 const CreatePostPage = () => {
   const { data } = useMe();
+  const router = useRouter();
 
   const editor = useEditor();
 
