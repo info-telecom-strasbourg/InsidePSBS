@@ -33,7 +33,7 @@ export const pickProfilePicture = async (
   if (!result.canceled) {
     setProfilePicture(result.assets[0]);
   } else {
-    alert("You did not select any image.");
+    alert("Vous n'avez sélectionné aucune image");
   }
 };
 

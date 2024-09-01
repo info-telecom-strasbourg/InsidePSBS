@@ -58,12 +58,12 @@ export const DefaultImagePickerModal = forwardRef<
         />
       )}
     >
-      <BottomSheetFlashList<DefaultImagesData[0]>
+      <BottomSheetFlashList<DefaultImagesData["data"][0]>
         numColumns={2}
-        data={data}
+        data={data.data}
         renderItem={({ item }) => (
           <Image
-            source={{ uri: item }}
+            source={{ uri: item.path }}
             resizeMode="cover"
             width={200}
             height={200}
