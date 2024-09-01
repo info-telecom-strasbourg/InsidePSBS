@@ -1,16 +1,14 @@
 import { Typography } from "@/components/primitives/typography";
+import type { FouailleBalanceData } from "@/schemas/fouaille/balance.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import type { FouailleBalanceData } from "@app/(modals)/fouaille/_features/balance.schema";
 import { Nfc } from "lucide-react-native";
 import { View } from "react-native";
 
 export const Balance = ({
   data,
-  isLoading,
 }: {
   data: FouailleBalanceData["data"] | undefined;
-  isLoading: boolean;
 }) => {
   const { theme } = useTheme();
   return (

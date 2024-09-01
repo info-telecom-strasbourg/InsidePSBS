@@ -33,5 +33,6 @@ export const useOrders = () => {
     (pageIndex) => getKey(pageIndex),
     (url) => fetcher(url, token || "")
   );
-  return res;
+  const hasMore = res.data?.[res.data?.length - 1]?.length ?? 0 > 0;
+  return { ...res, hasMore };
 };

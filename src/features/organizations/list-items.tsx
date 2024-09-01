@@ -4,8 +4,7 @@ import { routes } from "@/constants/routes";
 import type { OrganizationData } from "@/schemas/organizations/organizations.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import type { Href } from "expo-router";
-import { router } from "expo-router";
+import { useRouter, type Href } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import type { PropsWithChildren } from "react";
 import type { TouchableOpacityProps } from "react-native";
@@ -20,6 +19,7 @@ export type ListItemsProps = PropsWithChildren<{
 
 export const ListItems = ({ item }: ListItemsProps) => {
   const { theme } = useTheme();
+  const router = useRouter();
   return (
     <TouchableOpacity
       onPress={() => router.push(`${routes.organizations}/${item.id}` as Href)}

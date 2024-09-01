@@ -9,7 +9,12 @@ import type { CommentsData } from "@/schemas/post/comments.schema";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
-import { KeyboardAvoidingView, RefreshControl, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  RefreshControl,
+  View,
+} from "react-native";
 
 export default function PostIdPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -96,7 +101,10 @@ export default function PostIdPage() {
           </>
         }
       />
-      <KeyboardAvoidingView>
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={60}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <CommentInput
           postId={id}
           commentToAnswer={commentToAnswer}
