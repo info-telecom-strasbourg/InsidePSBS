@@ -3,11 +3,13 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]'
-jobs:  
+jobs:
   build-app:
     runs-on: ${{ matrix.os }}
     name: Build ${{ matrix.platform }}
     strategy:
+      # if one job fails, don't stop the other one
+      fail-fast: false
       matrix:
         platform: [ios, android]
         include:
@@ -33,12 +35,7 @@ jobs:
           RELEASE_VERSION=${{ github.ref_name }} eas build --platform ${{ matrix.platform }} --profile production --non-interactive --local
 
       - name: Submit to App Store/Google play
-        run: |
-          if [ ${{ matrix.platform }} == 'ios' ]; then
-             EXPO_APPLE_PASSWORD=${{ secrets.EXPO_APPLE_PASSWORD }} eas submit --platform ${{ matrix.platform }} --profile production --local
-          else
-            eas submit --profile production --platform ${{ matrix.platform }} --path build* 
-          fi
+        run: eas submit --profile production --platform ${{ matrix.platform }} --path build* 
           
       - name: Clean google-service.json (Android only)
         if: ${{ matrix.platform == 'android' }}
