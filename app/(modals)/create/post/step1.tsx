@@ -33,41 +33,43 @@ const CreatePostPage = () => {
   return (
     <View className="flex-1 bg-background">
       <EmptyEditor modalOpen={modalOpen} setModalOpen={setModalOpen} />
-      <View className="mb-6 w-full flex-row items-center justify-between bg-background">
-        {data?.organizations ? (
-          organizationId ? (
-            <ChoiceItem
-              isOrganization
-              onPress={() => {
-                Keyboard.dismiss();
-                organizationListRef.current?.present();
-              }}
-              title={
-                data.organizations.filter(
-                  (item) => item.id === organizationId
-                )[0].name
-              }
-              url={
-                data.organizations.filter(
-                  (item) => item.id === organizationId
-                )[0].logo_url
-              }
-            />
+      <View className="mb-6 w-full flex-row items-center justify-between gap-6 bg-background">
+        <View className="overflow-hidde flex-1">
+          {data?.organizations ? (
+            organizationId ? (
+              <ChoiceItem
+                isOrganization
+                onPress={() => {
+                  Keyboard.dismiss();
+                  organizationListRef.current?.present();
+                }}
+                title={
+                  data.organizations.filter(
+                    (item) => item.id === organizationId
+                  )[0].name
+                }
+                url={
+                  data.organizations.filter(
+                    (item) => item.id === organizationId
+                  )[0].logo_url
+                }
+              />
+            ) : (
+              <ChoiceItem
+                onPress={() => organizationListRef.current?.present()}
+                title={`${data?.data.first_name} ${data?.data.last_name}`}
+                url={data?.data.avatar_url}
+                isOrganization={false}
+              />
+            )
           ) : (
-            <ChoiceItem
-              onPress={() => organizationListRef.current?.present()}
-              title={`${data?.data.first_name} ${data?.data.last_name}`}
-              url={data?.data.avatar_url}
-              isOrganization={false}
-            />
-          )
-        ) : (
-          <View className="flex-row">
-            <Typography size="h4" fontWeight="medium">
-              {data?.data.first_name} {data?.data.last_name}
-            </Typography>
-          </View>
-        )}
+            <View className="flex-row">
+              <Typography size="h4" fontWeight="medium">
+                {data?.data.first_name} {data?.data.last_name}
+              </Typography>
+            </View>
+          )}
+        </View>
         <TouchableOpacity
           onPress={async () => {
             Keyboard.dismiss();

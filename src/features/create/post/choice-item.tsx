@@ -26,7 +26,11 @@ export const ChoiceItem = ({
         name={title}
         color={colors[theme].popover}
       />
-      <Typography size="h4" fontWeight="medium">
+      <Typography
+        size="h4"
+        fontWeight="medium"
+        className="line-clamp-1 flex-1 text-clip"
+      >
         {title}
       </Typography>
       <ChevronDown size={20} color={colors[theme].foreground} />
