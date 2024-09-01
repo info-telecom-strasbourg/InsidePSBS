@@ -91,12 +91,17 @@ const CreatePostPage = () => {
           </View>
         </TouchableOpacity>
       </View>
-      <RichText editor={editor} />
       <KeyboardAvoidingView
+        keyboardVerticalOffset={130}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="absolute bottom-0 w-full"
+        className="flex-1"
       >
-        <Toolbar editor={editor} items={CustomToolbarItems} />
+        <View className="flex-1">
+          <RichText editor={editor} />
+        </View>
+        <View className="mb-2 h-16 overflow-hidden rounded-lg">
+          <Toolbar editor={editor} items={CustomToolbarItems} />
+        </View>
       </KeyboardAvoidingView>
       <OrganizationList ref={organizationListRef} data={data} />
     </View>
