@@ -93,6 +93,7 @@ export default function PostIdPage() {
         }
       />
       <KeyboardAvoidingView
+        keyboardVerticalOffset={60}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <CommentInput
