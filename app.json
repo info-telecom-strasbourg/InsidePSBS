@@ -13,8 +13,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.ITS.InsidePSBS"
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ITS.InsidePSBS",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -22,7 +25,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ITS.InsidePSBS",
-      "versionCode": 58
+      "versionCode": 60
     },
     "web": {
       "bundler": "metro",
