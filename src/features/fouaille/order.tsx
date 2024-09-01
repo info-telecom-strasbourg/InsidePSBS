@@ -57,7 +57,7 @@ export const Order = ({
         {order?.product ? (
           <>
             <Icon color={colors.red} size={24} />
-            <View className="">
+            <View>
               <Typography size="h4" fontWeight="semibold">
                 {capitalize(order?.product?.name)}
               </Typography>

@@ -8,9 +8,17 @@ import type { DailyEvents } from "@/utils/daily-events";
 import { generateDailyEvents } from "@/utils/daily-events";
 import { FlashList } from "@shopify/flash-list";
 import { View } from "react-native";
+import { RefreshControl } from "react-native-gesture-handler";
 
 export default function CalendarPage() {
-  const { data, setSize, size, hasMore } = useCalendar();
+  const {
+    data,
+    setSize,
+    size,
+    hasMore,
+    isRefreshing: isCalendarRefreshing,
+    handleRefresh,
+  } = useCalendar();
 
   const items = data ? data.flat() : [];
 
@@ -23,7 +31,7 @@ export default function CalendarPage() {
   };
   return (
     <PageContainer>
-      <Header title="Calendar" rightIcon="settings" leftIcon="inside-psbs" />
+      <Header title="Calendrier" rightIcon="settings" leftIcon="inside-psbs" />
       <FlashList<DailyEvents>
         data={eventList}
         renderItem={({ item }) => (
@@ -45,6 +53,12 @@ export default function CalendarPage() {
         estimatedItemSize={100}
         onEndReached={loadMore}
         onEndReachedThreshold={3}
+        refreshControl={
+          <RefreshControl
+            refreshing={isCalendarRefreshing}
+            onRefresh={handleRefresh}
+          />
+        }
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View className="mb-4">

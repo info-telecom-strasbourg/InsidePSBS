@@ -12,65 +12,92 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { useEvents } from "@/queries/calendar/event.query";
 import { useCards } from "@/queries/home/cards.query";
 import { postsFetcher } from "@/queries/post/posts.query";
+import { colors } from "@/theme/colors";
+import { useTheme } from "@/theme/theme-context";
+import { useCallback } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 
 export default function HomePage() {
   const { token } = useAuth();
+
+  // Fecthing Cards
   const {
     data: cardsData,
-    isLoading: cardsIsLoading,
-    handleRefresh,
-    isRefreshing,
+    isLoading: cardsAreLoading,
+    handleRefresh: handleRefreshCards,
+    isRefreshing: cardsAreRefreshing,
   } = useCards();
 
-  const { data: eventsData, isLoading: eventsAreLoading } = useEvents();
+  // Fetching Events
+  const {
+    data: eventsData,
+    handleRefresh: handleRefreshEvents,
+    isRefreshing: eventsAreRefreshing,
+    isLoading: eventsAreLoading,
+  } = useEvents();
   const modalRouter = useModalRouter();
 
+  // Fetching News
   const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post?per_page=3`;
-  const { data: news, isLoading: postIsLoading } = useFetch(
-    url,
-    (url: string) => postsFetcher(url, token || "")
-  );
+  const {
+    data: newsData,
+    handleRefresh: handleRefreshPosts,
+    isRefreshing: postsAreRefreshing,
+    isLoading: postsAreLoading,
+  } = useFetch(url, (url: string) => postsFetcher(url, token || ""));
+
+  const handleRefresh = useCallback(async () => {
+    handleRefreshCards();
+    handleRefreshEvents();
+    handleRefreshPosts();
+  }, [handleRefreshCards, handleRefreshEvents, handleRefreshPosts]);
+
+  const isRefreshing =
+    cardsAreRefreshing || eventsAreRefreshing || postsAreRefreshing;
+
+  const isLoading = cardsAreLoading || eventsAreLoading || postsAreLoading;
 
   return (
     <PageContainer className="bg-background">
       <Header title="InsidePSBS" leftIcon="inside-psbs" rightIcon="settings" />
-      <RefreshView
-        className="flex-1"
-        handleRefresh={handleRefresh}
-        isRefreshing={isRefreshing}
-        showsVerticalScrollIndicator={false}
-      >
-        {!cardsData || cardsIsLoading ? (
-          <PageLoading />
-        ) : (
-          <GridCards data={cardsData} isLoading={cardsIsLoading} />
-        )}
-        <View className="mb-4 flex-row items-center gap-4">
+      {isLoading || !eventsData || !cardsData || !newsData ? (
+        <PageLoading />
+      ) : (
+        <RefreshView
+          className="flex-1"
+          handleRefresh={handleRefresh}
+          isRefreshing={isRefreshing}
+          showsVerticalScrollIndicator={false}
+        >
+          <GridCards data={cardsData} isLoading={cardsAreLoading} />
+          <View className="mb-4 flex-row items-center gap-4">
           <Typography size="h1" fontWeight="bold">
             Évènements à venir
           </Typography>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {eventsData?.map((item, index) => (
-            <Event item={item} key={index} />
-          ))}
-        </ScrollView>
-        <Typography size="h1" fontWeight="bold" className="mb-4">
-          Actualités
-        </Typography>
-        <View className="mb-4">
-          {news?.map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => modalRouter.open(`/post/${item?.id}`)}
-              className="mb-4"
-            >
-              <Post item={item} postId={item.id} />
-            </TouchableOpacity>
-          ))}
-        </View>
-      </RefreshView>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {eventsData?.map((item, index) => (
+              <View key={index} className="mr-3 flex-1">
+                <Event item={item} />
+              </View>
+            ))}
+          </ScrollView>
+          <Typography size="h1" fontWeight="bold" className="mb-4">
+            Actualités
+          </Typography>
+          <View className="mb-4">
+            {newsData.map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => modalRouter.open(`/post/${item?.id}`)}
+                className="mb-4"
+              >
+                <Post item={item} postId={item.id} />
+              </TouchableOpacity>
+            ))}
+          </View>
+        </RefreshView>
+      )}
     </PageContainer>
   );
 }
