@@ -4,8 +4,7 @@ import { routes } from "@/constants/routes";
 import { useModalRouter } from "@/hooks/useModalRouter";
 import type { FouailleBalanceData } from "@/schemas/fouaille/balance.schema";
 import { colors } from "@/theme/colors";
-import type { Href } from "expo-router";
-import { router } from "expo-router";
+import { useRouter, type Href } from "expo-router";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
@@ -19,6 +18,8 @@ export type GridCardsProps = {
 export const GridCards = ({ data, isLoading }: GridCardsProps) => {
   const modalRouter = useModalRouter();
   const [modalOpen, setModalOpen] = useState(false);
+
+  const router = useRouter();
 
   return (
     <>
