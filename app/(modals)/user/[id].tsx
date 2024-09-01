@@ -9,8 +9,12 @@ import { useLocalSearchParams } from "expo-router";
 const UserPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const { data, isLoading, isRefreshing, handleRefresh } =
-    useShowUserProfile(id);
+  const {
+    data,
+    isLoading,
+    isRefreshing,
+    handleRefresh: handleRefreshUser,
+  } = useShowUserProfile(id);
 
   const {
     data: posts,
@@ -18,7 +22,13 @@ const UserPage = () => {
     size,
     setSize,
     hasMore,
+    handleRefresh: handleRefreshPosts,
   } = useShowUserPosts(id);
+
+  const handleRefresh = () => {
+    handleRefreshUser();
+    handleRefreshPosts();
+  };
   return (
     <PageContainer>
       <Header title="Profil" leftIcon="back" rightIcon="close" />
