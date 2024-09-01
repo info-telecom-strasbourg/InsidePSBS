@@ -38,7 +38,7 @@ export const CarouselModal = () => {
           source={{ uri: medias[currentMedia]?.url || "" }}
           width={400}
           height={400}
-          className="absolute h-full flex-1"
+          className="absolute size-full flex-1"
           resizeMode="contain"
         />
         <CarouselArrow
