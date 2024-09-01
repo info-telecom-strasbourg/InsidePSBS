@@ -22,8 +22,7 @@ import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 import type * as ImagePicker from "expo-image-picker";
-import type { Href } from "expo-router";
-import { router } from "expo-router";
+import { useRouter, type Href } from "expo-router";
 import { Calendar as Cal, Minus, Plus } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { useCallback, useRef, useState } from "react";
@@ -39,6 +38,8 @@ const CreatePostStep2 = () => {
   // Utils
   const { token } = useAuth();
   const { theme } = useTheme();
+
+  const router = useRouter();
 
   // Fetching...
   const { data: filters, isLoading: filtersAreLoading } = useFilters(null);
