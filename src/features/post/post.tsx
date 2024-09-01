@@ -83,10 +83,7 @@ export const Post = ({
   if (!item) return null;
   return (
     <View
-      className={cn(
-        "justify-between rounded-2xl bg-popover p-4 shadow-md",
-        className
-      )}
+      className={cn("justify-between rounded-2xl bg-popover p-4", className)}
     >
       <View className="mb-2 flex-row items-center justify-between gap-2">
         <View className="flex-row items-center gap-3">
@@ -197,7 +194,7 @@ export const Post = ({
 export const SkeletonPost = () => {
   const { theme } = useTheme();
   return (
-    <View className={"justify-between rounded-2xl bg-popover p-4 shadow-md"}>
+    <View className={"justify-between rounded-2xl bg-popover p-4"}>
       <Skeleton.Group show={true}>
         <>
           <View className="mb-4 flex-row items-center justify-start gap-2">
