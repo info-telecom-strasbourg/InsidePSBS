@@ -2,8 +2,10 @@ import { CustomModal } from "@/components/primitives/custom-modal";
 import { Typography } from "@/components/primitives/typography";
 import { routes } from "@/constants/routes";
 import { useModalRouter } from "@/hooks/useModalRouter";
+import type { FouailleBalanceData } from "@/schemas/fouaille/balance.schema";
 import { colors } from "@/theme/colors";
-import type { FouailleBalanceData } from "@app/(modals)/fouaille/_features/balance.schema";
+import type { Href } from "expo-router";
+import { router } from "expo-router";
 import { CameraIcon, CreditCard, Users, Utensils } from "lucide-react-native";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
@@ -38,7 +40,7 @@ export const GridCards = ({ data, isLoading }: GridCardsProps) => {
                 Non
               </Typography>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => modalRouter.open(routes.mps)}>
+            <TouchableOpacity onPress={() => router.push(routes.mps as Href)}>
               <Typography fontWeight="medium" size="h3">
                 Oui
               </Typography>
@@ -54,7 +56,7 @@ export const GridCards = ({ data, isLoading }: GridCardsProps) => {
             backgroundColor={colors.lightPurple}
             color={colors.purple}
             icon={CreditCard}
-            onPress={() => modalRouter.open(routes.fouaille)}
+            onPress={() => router.push(routes.fouaille as Href)}
           />
           <Card
             title="Clubs et Assos"
@@ -77,7 +79,7 @@ export const GridCards = ({ data, isLoading }: GridCardsProps) => {
             backgroundColor={colors.lightRed}
             color={colors.red}
             icon={Utensils}
-            onPress={() => modalRouter.open(routes.menu)}
+            onPress={() => router.push(routes.menu as Href)}
           />
         </View>
       </View>
