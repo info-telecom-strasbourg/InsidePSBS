@@ -39,20 +39,24 @@ export default function AuthPage() {
         >
           J'ai déjà un compte
         </Button>
-        <View className="mt-20 flex flex-col gap-2">
+        <View className="mt-20 flex flex-col">
           {process.env.EXPO_PUBLIC_MODE === "developer" && (
             <Link
               className="text-center"
               onPress={() => modalRouter.open("dev")}
             >
-              Dev screen
+              <Typography className="text-primary" fontWeight="semibold">
+                Dev screen
+              </Typography>
             </Link>
           )}
           <Link
             onPress={() => modalRouter.open("cgu")}
-            className="text-center text-foreground"
+            className="mb-1 p-3 text-center text-foreground"
           >
-            Conditions d'utilisation
+            <Typography fontWeight="semibold">
+              Conditions d'utilisation
+            </Typography>
           </Link>
         </View>
       </View>
