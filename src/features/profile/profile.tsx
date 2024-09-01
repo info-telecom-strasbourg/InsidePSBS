@@ -12,8 +12,7 @@ import { ProfileHero } from "./hero";
 type ProfileProps = {
   posts: (PostsData["data"] | undefined)[] | undefined;
   isRefreshing: boolean;
-  handleRefresh: () => void;
-  postsAreLoading: boolean;
+  handleRefresh: () => Promise<void>;
   postsError?: Error;
   size: number;
   setSize: (size: number) => void;

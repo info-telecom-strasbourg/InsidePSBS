@@ -8,24 +8,37 @@ import { useMe } from "@/queries/profile/me.query";
 import { useShowUserPosts } from "@/queries/user/user-posts.query";
 import type { PostsData } from "@/schemas/post/post.schema";
 import { FlashList } from "@shopify/flash-list";
+import { useCallback } from "react";
 import { RefreshControl, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
   const modalRouter = useModalRouter();
-  const { data, isLoading, handleRefresh, isRefreshing } = useMe();
+  const {
+    data,
+    isLoading,
+    handleRefresh: handleRefreshUser,
+    isRefreshing: isUserRefreshing,
+  } = useMe();
   const {
     data: posts,
-    isLoading: postsAreLoading,
     size,
     setSize,
     handleRefresh: handleRefreshPosts,
     isRefreshing: arePostsRefreshing,
+    hasMore,
   } = useShowUserPosts(data?.data.id.toString());
+
+  const handleRefresh = useCallback(() => {
+    handleRefreshUser();
+    handleRefreshPosts();
+  }, [handleRefreshUser, handleRefreshPosts]);
 
   const items = posts ? posts.flat() : [];
 
   const loadMore = () => {
-    setSize(size + 1);
+    if (hasMore) {
+      setSize(size + 1);
+    }
   };
 
   return (
@@ -60,8 +73,8 @@ export default function ProfilePage() {
           estimatedItemSize={100}
           refreshControl={
             <RefreshControl
-              refreshing={arePostsRefreshing}
-              onRefresh={handleRefreshPosts}
+              refreshing={arePostsRefreshing || isUserRefreshing}
+              onRefresh={handleRefresh}
             />
           }
         />
