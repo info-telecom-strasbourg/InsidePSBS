@@ -3,11 +3,13 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]'
-jobs:  
+jobs:
   build-app:
     runs-on: ${{ matrix.os }}
     name: Build ${{ matrix.platform }}
     strategy:
+      # if one job fails, don't stop the other one
+      fail-fast: false
       matrix:
         platform: [ios, android]
         include:
