@@ -12,8 +12,6 @@ import { useModalRouter } from "@/hooks/useModalRouter";
 import { useEvents } from "@/queries/calendar/event.query";
 import { useCards } from "@/queries/home/cards.query";
 import { postsFetcher } from "@/queries/post/posts.query";
-import { colors } from "@/theme/colors";
-import { useTheme } from "@/theme/theme-context";
 import { useCallback } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 
@@ -71,10 +69,10 @@ export default function HomePage() {
         >
           <GridCards data={cardsData} isLoading={cardsAreLoading} />
           <View className="mb-4 flex-row items-center gap-4">
-          <Typography size="h1" fontWeight="bold">
-            Évènements à venir
-          </Typography>
-        </View>
+            <Typography size="h1" fontWeight="bold">
+              Évènements à venir
+            </Typography>
+          </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {eventsData?.map((item, index) => (
               <View key={index} className="mr-3 flex-1">
