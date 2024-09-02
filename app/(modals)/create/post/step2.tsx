@@ -17,6 +17,7 @@ import {
 import { useFilters } from "@/queries/post/filters.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { toastError, toastSuccess } from "@/utils/toast";
 import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
@@ -32,7 +33,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Toast from "react-native-root-toast";
 
 const CreatePostStep2 = () => {
   // Utils
@@ -76,16 +76,10 @@ const CreatePostStep2 = () => {
         await storePostCategories(postId, categories, token);
       if (medias) await storeMedias(postId, medias, token);
 
-      Toast.show("Publication réussie", {
-        duration: Toast.durations.LONG,
-        backgroundColor: colors.green,
-      });
+      toastSuccess("Publication réussie");
       router.replace({ pathname: "/posts", params: { refresh: "true" } });
     } catch (error) {
-      Toast.show(error, {
-        duration: Toast.durations.LONG,
-        backgroundColor: colors[theme].destructive,
-      });
+      toastError(error);
     } finally {
       setIsPublishing(false);
     }

@@ -16,6 +16,7 @@ import {
 } from "@/schemas/create/event/create-event.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { toastError, toastSuccess } from "@/utils/toast";
 import {
   BottomSheetModalProvider,
   type BottomSheetModal,
@@ -27,7 +28,6 @@ import { Calendar } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { useEffect, useRef, useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
-import Toast from "react-native-root-toast";
 
 export default function CreateEventPage() {
   const form = useForm({
@@ -74,7 +74,7 @@ export default function CreateEventPage() {
   const handleSubmit = async (values: CreateEventData) => {
     setIsPublishing(true);
     try {
-      const res = await storeEvent(
+      await storeEvent(
         values.title,
         values.place,
         organizationId,
@@ -82,20 +82,11 @@ export default function CreateEventPage() {
         `${dateEnd} ${format(timeEnd, "HH:mm")}`,
         token
       );
-      if (!res.ok) {
-        // throw new Error(res.message);
-      }
-      Toast.show("Événement créé avec succès", {
-        duration: Toast.durations.LONG,
-        backgroundColor: colors.green,
-      });
+
+      toastSuccess("Événement créé avec succès");
       router.replace({ pathname: "/calendar", params: { refresh: "true" } });
     } catch (error) {
-      console.error(error);
-      Toast.show("Une erreur est survenue", {
-        duration: Toast.durations.LONG,
-        backgroundColor: colors[theme].destructive,
-      });
+      toastError(error);
     } finally {
       setIsPublishing(false);
     }
