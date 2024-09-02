@@ -29,7 +29,7 @@ export const storePostCategories = async (
   token: string | null,
   eventId?: number
 ) => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/categories`;
+  const url = "api/categories";
   return await zodFetchWithToken(url, token, {
     data: {
       post_id: postId,
@@ -46,7 +46,7 @@ export const storeMedias = async (
   files: ImagePicker.ImagePickerAsset[],
   token: string | null
 ) => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/media`;
+  const url = `api/post/${postId}/media`;
 
   const formData = new FormData();
   files.forEach(async (file, index) => {
@@ -61,6 +61,6 @@ export const storeMedias = async (
 
   return await zodFetchWithToken(url, token, {
     method: "POST",
-    data: formData,
+    body: formData,
   });
 };

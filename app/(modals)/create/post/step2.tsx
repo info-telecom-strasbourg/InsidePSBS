@@ -70,7 +70,7 @@ const CreatePostStep2 = () => {
         organizationId,
         timeToPublish,
         token
-      );
+      ).then((res) => res.json());
 
       const postId = postsResponse.data.id;
       if (categories.length > 0)

@@ -21,16 +21,18 @@ export const zodFetch = async <T>(
   { data, schema, ...init }: RequestInit & { schema?: ZodSchema<T>; data?: T }
 ) => {
   const body = JSON.stringify(
-    schema && data ? await validate(schema, data) : data || init?.body
+    schema && data ? await validate(schema, data) : data || data
   );
+
+  const headers = {
+    ...(data ? { "Content-Type": "application/json" } : {}),
+    ...init?.headers,
+  };
 
   const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/${url}`, {
     body,
     ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...init?.headers,
-    },
+    headers,
   });
 
   if (!res.ok) {
@@ -38,7 +40,7 @@ export const zodFetch = async <T>(
     throw new FetchError(res);
   }
 
-  return await res.json();
+  return res;
 };
 
 export const zodFetchWithToken = async <T>(

@@ -12,8 +12,11 @@ import { storeProfilePicture } from "@/queries/settings/store-profile-picture";
 import type { DefaultImagesData } from "@/schemas/settings/default-images.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { FetchError } from "@/utils/fetch";
+import { toastError, toastSuccess } from "@/utils/toast";
 import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import * as ImagePicker from "expo-image-picker";
+import { useRouter } from "expo-router";
 import { Image, LibraryBig } from "lucide-react-native";
 import { useEffect, useRef, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
@@ -63,6 +66,7 @@ export default function AvatarPage() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [profilePicture, setProfilePicture] =
     useState<ImagePicker.ImagePickerAsset | null>(null);
+  const router = useRouter();
 
   const [selectedDefault, setSelectedDefault] = useState<
     DefaultImagesData["data"][0] | null
@@ -87,6 +91,39 @@ export default function AvatarPage() {
   if (!data?.data || isLoading) {
     return <PageLoading />;
   }
+
+  const handleSubmit = async () => {
+    try {
+      setIsUpdating(true);
+      if (profilePicture)
+        console.log(
+          await storeProfilePicture({ file: profilePicture, token: token })
+        );
+      else if (selectedDefault)
+        await storeDefaultImage({ image: selectedDefault, token: token });
+
+      toastSuccess("Votre avatar a été mis à jour avec succès");
+      router.replace({ pathname: "/settings", params: { refresh: "true" } });
+    } catch (error) {
+      if (error instanceof FetchError) {
+        switch (error.status) {
+          case 422:
+            toastError(
+              "L'image n'a pas un format valide. Les formats acceptés sont .jpeg, .png, .jpg, .heic"
+            );
+            break;
+          default:
+            toastError(`Erreur ${error.status} lors de la mise à jour`);
+            break;
+        }
+      } else {
+        toastError("Une erreur est survenue");
+      }
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   return (
     <>
       <RefreshView
@@ -144,28 +181,7 @@ export default function AvatarPage() {
               </Typography>
             </TouchableOpacity>
           </View>
-          <Button
-            onPress={() => {
-              if (profilePicture) {
-                setIsUpdating(true);
-                try {
-                  storeProfilePicture({ file: profilePicture, token: token });
-                } catch (error) {
-                  console.error(error);
-                }
-                setIsUpdating(false);
-              } else if (selectedDefault) {
-                setIsUpdating(true);
-                try {
-                  storeDefaultImage({ image: selectedDefault, token: token });
-                } catch (error) {
-                  console.error(error);
-                }
-                setIsUpdating(false);
-              }
-            }}
-            loading={isUpdating}
-          >
+          <Button onPress={handleSubmit} loading={isUpdating}>
             Mettre à jour
           </Button>
         </View>
