@@ -73,15 +73,23 @@ const creditData = [
       },
       {
         title: "Nolan Beaujault",
-        subtitle: ["L'homme à tout faire"],
+        subtitle: [
+          "L'homme à tout faire",
+          "Le Ronaldinho des bugs",
+          "Le poilu Portugais",
+        ],
       },
       {
         title: "Gatien Chenu",
-        subtitle: ["Encore ?", "Oui, encore : il est trop fort"],
+        subtitle: ["Encore ?", "Oui, encore : il est trop fort", ""],
       },
       {
         title: "Antoine Chomel",
         subtitle: ["Reviewer de l'extrême"],
+      },
+      {
+        title: "Erwan Coubret",
+        subtitle: ["Quoicoubret"],
       },
     ],
   },
