@@ -9,6 +9,7 @@ export const postQuery = async <T>(
 ) => {
   try {
     const parsedData = await validate<T>(schema, data);
+    console.log(parsedData);
     const res = await fetch(url, {
       method: "POST",
       body: JSON.stringify(parsedData),

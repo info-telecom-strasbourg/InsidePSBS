@@ -70,6 +70,8 @@ export default function AvatarPage() {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
   const handleRefresh = async () => {
+    setProfilePicture(null);
+    setSelectedDefault(null);
     handleRefreshUser();
     handleRefreshImages();
   };
@@ -152,13 +154,14 @@ export default function AvatarPage() {
                   console.error(error);
                 }
                 setIsUpdating(false);
-                handleRefresh();
               } else if (selectedDefault) {
+                setIsUpdating(true);
                 try {
                   storeDefaultImage({ image: selectedDefault, token: token });
                 } catch (error) {
                   console.error(error);
                 }
+                setIsUpdating(false);
               }
             }}
             loading={isUpdating}
