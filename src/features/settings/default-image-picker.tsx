@@ -1,19 +1,35 @@
-import BottomSheetFlashList from "@/components/primitives/bottom-sheet-flashlist";
 import type { DefaultImagesData } from "@/schemas/settings/default-images.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
+import {
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetScrollView,
+} from "@gorhom/bottom-sheet";
+import type * as ImagePicker from "expo-image-picker";
 import { forwardRef, useMemo } from "react";
-import { Image } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
 export const DefaultImagePickerModal = forwardRef<
   BottomSheetModal,
-  { data: DefaultImagesData | undefined }
->(function DefaultImagePickerModal({ data }, ref) {
+  {
+    data: DefaultImagesData["data"] | undefined;
+    setSelectedDefault: React.Dispatch<
+      React.SetStateAction<DefaultImagesData["data"][0] | null>
+    >;
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setProfilePicture: React.Dispatch<
+      React.SetStateAction<ImagePicker.ImagePickerAsset | null>
+    >;
+  }
+>(function DefaultImagePickerModal(
+  { data, setSelectedDefault, setIsModalOpen, setProfilePicture },
+  ref
+) {
   const { theme } = useTheme();
 
-  const snapPoints = useMemo(() => ["60%"], []);
+  const snapPoints = useMemo(() => ["80%"], []);
   const animatedIndex = useSharedValue<number>(0);
   const animatedPosition = useSharedValue<number>(0);
 
@@ -23,22 +39,8 @@ export const DefaultImagePickerModal = forwardRef<
 
   return (
     <BottomSheetModal
-      style={{
-        shadowColor: "#000000",
-        shadowOffset: {
-          width: 0,
-          height: 1,
-        },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
-        margin: 10,
-        padding: 20,
-      }}
-      bottomInset={45}
       ref={ref}
       snapPoints={snapPoints}
-      detached={true}
       enablePanDownToClose
       enableDismissOnClose
       overDragResistanceFactor={1}
@@ -58,20 +60,32 @@ export const DefaultImagePickerModal = forwardRef<
         />
       )}
     >
-      <BottomSheetFlashList<DefaultImagesData["data"][0]>
-        numColumns={2}
-        data={data.data}
-        renderItem={({ item }) => (
-          <Image
-            source={{ uri: item.path }}
-            resizeMode="cover"
-            width={200}
-            height={200}
-            className=""
-          />
-        )}
-      />
-      {null}
+      <BottomSheetScrollView
+        className="flex-1 p-4"
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="mb-6 flex-1 flex-row flex-wrap items-center justify-center">
+          {data.map((image, index) => {
+            return (
+              <TouchableOpacity
+                key={index}
+                className="aspect-square w-1/2 p-1"
+                onPress={() => {
+                  setSelectedDefault(image);
+                  setProfilePicture(null);
+                  setIsModalOpen(false);
+                }}
+              >
+                <Image
+                  source={{ uri: image.path }}
+                  key={index}
+                  className="size-full"
+                />
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </BottomSheetScrollView>
     </BottomSheetModal>
   );
 });

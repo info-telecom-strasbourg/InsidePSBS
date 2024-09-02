@@ -1,8 +1,8 @@
 import { ProfilePicture } from "@/components/primitives/profile-picture";
 import { Typography } from "@/components/primitives/typography";
+import type { ItsMeUserData } from "@/schemas/profile/me.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import type { ItsMeUserData } from "@app/(tabs)/profile/_features/me.schema";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
