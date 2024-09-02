@@ -8,12 +8,9 @@ export const toastSuccess = (message: string) => {
   });
 };
 
-export const toastError = (error: unknown) => {
-  Toast.show(
-    error instanceof Error ? error.message : "Une erreur est survenue",
-    {
-      duration: Toast.durations.LONG,
-      backgroundColor: colors.red,
-    }
-  );
+export const toastError = (message: string) => {
+  Toast.show(message, {
+    duration: Toast.durations.LONG,
+    backgroundColor: colors.red,
+  });
 };

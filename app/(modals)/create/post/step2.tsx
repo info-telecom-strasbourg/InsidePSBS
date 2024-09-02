@@ -17,6 +17,7 @@ import {
 import { useFilters } from "@/queries/post/filters.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { FetchError } from "@/utils/fetch";
 import { toastError, toastSuccess } from "@/utils/toast";
 import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -79,7 +80,11 @@ const CreatePostStep2 = () => {
       toastSuccess("Publication réussie");
       router.replace({ pathname: "/posts", params: { refresh: "true" } });
     } catch (error) {
-      toastError(error);
+      if (error instanceof FetchError) {
+        toastError(`Erreur ${error.status} lors de la publication`);
+      } else {
+        toastError("Une erreur est survenue");
+      }
     } finally {
       setIsPublishing(false);
     }

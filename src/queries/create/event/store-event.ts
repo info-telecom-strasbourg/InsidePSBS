@@ -1,5 +1,5 @@
-import type { StoreEventData } from "@/schemas/create/event/store-event.schema";
 import { StoreEventSchema } from "@/schemas/create/event/store-event.schema";
+import { zodFetchWithToken } from "@/utils/fetch";
 
 export const storeEvent = async (
   eventTitle: string,
@@ -9,11 +9,9 @@ export const storeEvent = async (
   endAt: string,
   token: string | null
 ) => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/contents`;
-  return await postQuery<StoreEventData>(
-    url,
-    token,
-    {
+  const url = "api/contents";
+  return await zodFetchWithToken(url, token, {
+    data: {
       create_event: 1,
       title: eventTitle,
       location: eventLocation,
@@ -21,6 +19,7 @@ export const storeEvent = async (
       start_at: startAt,
       end_at: endAt,
     },
-    StoreEventSchema
-  );
+    method: "POST",
+    schema: StoreEventSchema,
+  });
 };

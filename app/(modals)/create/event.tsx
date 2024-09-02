@@ -16,6 +16,7 @@ import {
 } from "@/schemas/create/event/create-event.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { FetchError } from "@/utils/fetch";
 import { toastError, toastSuccess } from "@/utils/toast";
 import {
   BottomSheetModalProvider,
@@ -86,7 +87,11 @@ export default function CreateEventPage() {
       toastSuccess("Événement créé avec succès");
       router.replace({ pathname: "/calendar", params: { refresh: "true" } });
     } catch (error) {
-      toastError(error);
+      if (error instanceof FetchError) {
+        toastError(`Erreur ${error.status} lors de la publication`);
+      } else {
+        toastError("Une erreur est survenue");
+      }
     } finally {
       setIsPublishing(false);
     }
