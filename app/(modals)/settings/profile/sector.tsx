@@ -1,7 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { Button } from "@/components/primitives/button";
 import { FormPicker } from "@/components/primitives/form-picker";
-import { Typography } from "@/components/primitives/typography";
 import { useForm } from "@/hooks/useForm";
 import { useSectors } from "@/queries/auth/sectors.query";
 import { useMe } from "@/queries/profile/me.query";
@@ -83,9 +82,6 @@ export default function SectorPage() {
               value: sector.name,
             }))}
           />
-          <Typography className="text-destructive">
-            Cette page ne fonctionne pas à cause de Thibaut Deslandes
-          </Typography>
           <Button
             onPress={() => form.submit(handleSubmit)}
             loading={form.isSubmitting}

@@ -44,8 +44,8 @@ export const FormPicker = <Z extends ZodSchema>({
         )}
       >
         <Picker
-          selectedValue={form.values[id] + 1}
-          onValueChange={(value, index) => form.updateValue(id, index)}
+          selectedValue={form.values[id]}
+          onValueChange={(value) => form.updateValue(id, value)}
           style={{
             fontFamily: "SpaceGrotesk-medium",
             flex: 1,
@@ -56,9 +56,9 @@ export const FormPicker = <Z extends ZodSchema>({
           selectionColor={colors.red}
           {...props}
         >
-          {values?.map((item) => (
+          {values?.map((item, index) => (
             <Picker.Item
-              key={item.id}
+              key={index}
               label={item.value}
               value={item.id}
               style={{ backgroundColor: colors[theme].popover }}
