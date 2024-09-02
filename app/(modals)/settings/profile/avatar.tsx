@@ -96,9 +96,7 @@ export default function AvatarPage() {
     try {
       setIsUpdating(true);
       if (profilePicture)
-        console.log(
-          await storeProfilePicture({ file: profilePicture, token: token })
-        );
+        await storeProfilePicture({ file: profilePicture, token: token });
       else if (selectedDefault)
         await storeDefaultImage({ image: selectedDefault, token: token });
 
@@ -108,17 +106,14 @@ export default function AvatarPage() {
       if (error instanceof FetchError) {
         switch (error.status) {
           case 422:
-            toastError(
+            return toastError(
               "L'image n'a pas un format valide. Les formats acceptés sont .jpeg, .png, .jpg, .heic"
             );
-            break;
           default:
-            toastError(`Erreur ${error.status} lors de la mise à jour`);
-            break;
+            return toastError(`Erreur ${error.status} lors de la mise à jour`);
         }
-      } else {
-        toastError("Une erreur est survenue");
       }
+      toastError("Une erreur est survenue");
     } finally {
       setIsUpdating(false);
     }
