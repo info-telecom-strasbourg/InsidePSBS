@@ -70,10 +70,6 @@ const CreatePostStep2 = () => {
         timeToPublish,
         token
       );
-      // const parsedResPosts = await validate<StorePostResponseData>(
-      //   StorePostResponseSchema,
-      //   postsResponse
-      // );
       const postId = postsResponse.data.id;
       const categoryResponse = await storePostCategories(
         postId,
