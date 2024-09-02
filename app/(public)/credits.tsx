@@ -38,7 +38,7 @@ const creditData = [
     icon: Database,
     items: [
       {
-        title: "Thibault Deslandes",
+        title: "Thibaut Deslandes",
         subtitle: [
           "Gros branleur",
           "Le second pire VP Tech de l'histoire",
@@ -70,6 +70,18 @@ const creditData = [
           "Tellement le boss qu'on dirait Bowser",
           "Raciste néanmoins",
         ],
+      },
+      {
+        title: "Nolan Beaujault",
+        subtitle: ["L'homme à tout faire"],
+      },
+      {
+        title: "Gatien Chenu",
+        subtitle: ["Encore ?", "Oui, encore : il est trop fort"],
+      },
+      {
+        title: "Antoine Chomel",
+        subtitle: ["Reviewer de l'extrême"],
       },
     ],
   },
