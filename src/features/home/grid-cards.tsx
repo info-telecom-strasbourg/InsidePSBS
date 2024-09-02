@@ -70,7 +70,7 @@ export const GridCards = ({ data, isLoading }: GridCardsProps) => {
         </View>
         <View className="flex-1 flex-row gap-4">
           <Card
-            title="MPS"
+            title="Photos MPS"
             backgroundColor={colors.lightOrange}
             color={colors.orange}
             icon={CameraIcon}
