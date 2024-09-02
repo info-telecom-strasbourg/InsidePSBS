@@ -10,13 +10,13 @@ import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
 import { cn } from "@/utils/cn";
 import type { VariantProps } from "class-variance-authority";
-import { useRouter } from "expo-router";
 import { MessageCircle, Trash2 } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { TouchableOpacity, View } from "react-native";
-import Toast from "react-native-root-toast";
+
+import { useDeletePost } from "./delete-post.context";
 import { Media } from "./media";
 import { useMediaCarousel } from "./media-carousel.context";
 import { PostParser } from "./post-parser";
@@ -44,8 +44,9 @@ export const Post = ({
   const modalRouter = useModalRouter();
   const { token } = useAuth();
 
+  const { confirmDelete, updateDeletePost } = useDeletePost();
+
   const { data: reactions } = useReactionType();
-  const router = useRouter();
 
   const [reactionCount, setReactionCount] = useState<number | null | undefined>(
     item?.reaction_count
@@ -58,37 +59,32 @@ export const Post = ({
   const [reactionsVisible, setReactionsVisible] = useState<boolean>(false);
 
   useEffect(() => {
+    const deleteMyPost = async () => {
+      if (confirmDelete) {
+        const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/delete`;
+        try {
+          const response = await fetch(url, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const res = await response.json();
+          return res;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
     setReactionCount(item?.reaction_count);
     setReaction(item?.reaction);
-  }, [item]);
 
-  const deleteMyPost = async () => {
-    const url = `${process.env.EXPO_PUBLIC_API_URL}/api/post/${postId}/delete`;
-    try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const res = await response.json();
-      if (!res.ok) {
-        // throw new Error(res.message);
-      }
-      Toast.show("Post supprimé", {
-        duration: Toast.durations.LONG,
-        backgroundColor: colors.green,
-      });
-      router.setParams({ refresh: "true" });
-    } catch (e) {
-      Toast.show("Une erreur est survenue", {
-        duration: Toast.durations.LONG,
-        backgroundColor: colors[theme].destructive,
-      });
-      console.error(e);
+    if (confirmDelete) {
+      deleteMyPost();
+      updateDeletePost("confirmDelete", false);
     }
-  };
+  }, [item, confirmDelete, postId, token, updateDeletePost]);
 
   const { updateMediaCarousel } = useMediaCarousel();
 
@@ -137,7 +133,9 @@ export const Post = ({
         {item.author.user_is_author && (
           <TouchableOpacity
             className="p-3"
-            onPress={async () => await deleteMyPost()}
+            onPress={async () => {
+              updateDeletePost("isDeletePostModalOpen", true);
+            }}
           >
             <Trash2 size={30} color={colors[theme].foreground} />
           </TouchableOpacity>

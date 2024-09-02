@@ -1,8 +1,8 @@
 import { Typography } from "@/components/primitives/typography";
 import type { UpdatePostInfoType } from "@/contexts/create-post.context";
+import type { CategoriesData } from "@/schemas/post/categories.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import type { CategoriesData } from "@app/(tabs)/posts/_features/categories.schema";
 import { Skeleton } from "moti/skeleton";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";

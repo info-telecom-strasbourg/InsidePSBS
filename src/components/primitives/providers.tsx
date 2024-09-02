@@ -1,3 +1,4 @@
+import { DeletePostProvider } from "@/features/post/delete-post.context";
 import { ModalRouterProvider } from "@/hooks/useModalRouter";
 import { ThemeProvider } from "@/theme/theme-context";
 import type { PropsWithChildren } from "react";
@@ -11,7 +12,9 @@ export const Provider = ({ children }: ProviderProps) => {
     <GestureHandlerRootView>
       <ModalRouterProvider>
         <ThemeProvider>
-          <RootSiblingParent>{children}</RootSiblingParent>
+          <DeletePostProvider>
+            <RootSiblingParent>{children}</RootSiblingParent>
+          </DeletePostProvider>
         </ThemeProvider>
       </ModalRouterProvider>
     </GestureHandlerRootView>
