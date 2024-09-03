@@ -1,6 +1,6 @@
 import type { StoreCommentData } from "@/schemas/post/store-comment.schema";
 import { StoreCommentSchema } from "@/schemas/post/store-comment.schema";
-import { postQuery } from "@/utils/post-query";
+import { postQuery } from "@/utils/fetch";
 
 export const storeComment = async (
   commentInput: string,

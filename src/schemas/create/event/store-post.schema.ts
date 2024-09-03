@@ -21,8 +21,8 @@ export const PostBodySchema = z.object({
 export const StorePostSchema = z.object({
   create_post: z.number(),
   body: z.string(),
-  organization_id: z.number().nullable(),
-  uploaded_at: z.string().nullable(),
+  organization_id: z.number().nullable().optional(),
+  uploaded_at: z.string().nullable().optional(),
 });
 
 export const StorePostCategoriesSchema = z.object({

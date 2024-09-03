@@ -7,7 +7,7 @@ import type {
 import { AddReactionOnPostSchema } from "@/schemas/post/add-reaction.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
-import { postQuery } from "@/utils/post-query";
+import { postQuery } from "@/utils/fetch";
 import { Heart } from "lucide-react-native";
 import type React from "react";
 import { Text, TouchableOpacity, View } from "react-native";

@@ -16,6 +16,7 @@ export const ItsMeUserSchema = z.object({
     updated_at: z.string(),
     email_verified_at: z.string(),
     sector: z.string(),
+    sector_id: z.number(),
     birth_date: z.string().nullable(),
   }),
   organizations: z.array(

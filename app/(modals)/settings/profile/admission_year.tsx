@@ -5,6 +5,8 @@ import { useForm } from "@/hooks/useForm";
 import { useMe } from "@/queries/profile/me.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { FetchError, zodFetchWithToken } from "@/utils/fetch";
+import { toastError, toastSuccess } from "@/utils/toast";
 import { useRouter } from "expo-router";
 import {
   ActivityIndicator,
@@ -13,7 +15,6 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import Toast from "react-native-root-toast";
 import { z } from "zod";
 
 const schema = z.object({
@@ -27,31 +28,6 @@ const schema = z.object({
     .transform(String),
 });
 
-const query = async (data: z.infer<typeof schema>, token: string) => {
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/user`, {
-    method: "PUT",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (!res.ok) {
-    return {
-      data: null,
-      status: res.status,
-      error: await res.json(),
-    };
-  }
-
-  return {
-    data: await res.json(),
-    status: res.status,
-    error: null,
-  };
-};
-
 export default function AdmissionYearPage() {
   const { data, isLoading } = useMe();
   const { token } = useAuth();
@@ -63,33 +39,30 @@ export default function AdmissionYearPage() {
   });
 
   const handleSubmit = async () => {
-    const res = await query(form.values, token || "");
+    try {
+      if (!token) throw new Error("Unauthorized");
+      await zodFetchWithToken("api/user", token, {
+        method: "PUT",
+        data: {
+          admission_year: form.values.admission_year,
+        },
+        schema,
+      });
 
-    switch (res.status) {
-      case 200:
-        Toast.show("Votre année d'arrivée a été modifié avec succès", {
-          backgroundColor: colors.green,
-        });
-        router.back();
-        break;
-      case 401:
-        Toast.show("Cette requête nécessite d'être authentifié", {
-          backgroundColor: colors[theme].destructive,
-        });
-        break;
-      case 422:
-        Toast.show("Vous n'avez pas entré une valeur valide", {
-          backgroundColor: colors[theme].destructive,
-        });
-        break;
-      default:
-        Toast.show(
-          "Une erreur est survenue. Veuillez réessayer ultérieurement",
-          {
-            backgroundColor: colors[theme].destructive,
-          }
-        );
-        break;
+      toastSuccess("Votre année d'arrivée a été modifiée avec succès");
+      router.replace({ pathname: "/settings", params: { refresh: "true" } });
+    } catch (error) {
+      if (error instanceof FetchError) {
+        switch (error.status) {
+          case 401:
+            return toastError("Cette requête nécessite d'être authentifié");
+          case 422:
+            return toastError("Vous n'avez pas entré une valeur valide");
+          default:
+            return toastError(`Erreur ${error.status} lors de la mise à jour`);
+        }
+      }
+      return toastError("Une erreur est survenue");
     }
   };
 

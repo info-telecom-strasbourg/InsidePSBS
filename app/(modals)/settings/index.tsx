@@ -11,6 +11,7 @@ import {
   SettingsButton,
 } from "@/features/settings/settings-button";
 import { SettingsTitle } from "@/features/settings/settings-title";
+import { useRefresh } from "@/hooks/useRefresh";
 import { useMe } from "@/queries/profile/me.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
@@ -35,6 +36,8 @@ export default function SettingsPage() {
   const { theme } = useTheme();
 
   const isPageLoading = !data?.data || isLoading || isRefreshing;
+
+  useRefresh(handleRefresh);
 
   return (
     <PageContainer>

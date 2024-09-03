@@ -1,7 +1,6 @@
 import { useAuth } from "@/auth/useAuth";
 import { CustomModal } from "@/components/primitives/custom-modal";
 import { Typography } from "@/components/primitives/typography";
-import { routes } from "@/constants/routes";
 import { useCreatePost } from "@/contexts/create-post.context";
 import {
   CategoryItem,
@@ -18,14 +17,16 @@ import {
 import { useFilters } from "@/queries/post/filters.query";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { FetchError } from "@/utils/fetch";
+import { toastError, toastSuccess } from "@/utils/toast";
 import type { BottomSheetModal } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 import type * as ImagePicker from "expo-image-picker";
-import { useRouter, type Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { Calendar as Cal, Minus, Plus } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Image,
   Platform,
@@ -60,7 +61,7 @@ const CreatePostStep2 = () => {
   >(null);
   const [isPublishing, setIsPublishing] = useState<boolean>(false);
 
-  const handlePublish = useCallback(async () => {
+  const handlePublish = async () => {
     setIsPublishing(true);
     const timeToPublish = `${uploadedAt} ${formattedTime}`;
     try {
@@ -69,34 +70,25 @@ const CreatePostStep2 = () => {
         organizationId,
         timeToPublish,
         token
-      );
+      ).then((res) => res.json());
+
       const postId = postsResponse.data.id;
-      const categoryResponse = await storePostCategories(
-        postId,
-        categories,
-        token
-      );
-      if (medias) {
-        try {
-          const mediasResponse = await storeMedias(postId, medias, token);
-        } catch (error) {
-          throw error;
-        }
-      }
+      if (categories.length > 0)
+        await storePostCategories(postId, categories, token);
+      if (medias) await storeMedias(postId, medias, token);
+
+      toastSuccess("Publication réussie");
+      router.replace({ pathname: "/posts", params: { refresh: "true" } });
     } catch (error) {
-      throw error;
+      if (error instanceof FetchError) {
+        toastError(`Erreur ${error.status} lors de la publication`);
+      } else {
+        toastError("Une erreur est survenue");
+      }
+    } finally {
+      setIsPublishing(false);
     }
-    setIsPublishing(false);
-    router.replace(routes.home as Href);
-  }, [
-    categories,
-    formattedTime,
-    organizationId,
-    postBody,
-    token,
-    uploadedAt,
-    medias,
-  ]);
+  };
 
   return (
     <>

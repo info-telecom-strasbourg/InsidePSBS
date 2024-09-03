@@ -3,6 +3,7 @@ import { Header } from "@/components/primitives/header";
 import { Comment, SkeletonComment } from "@/features/post/comment";
 import { CommentInput } from "@/features/post/comment-input";
 import { Post, SkeletonPost } from "@/features/post/post";
+import { useRefresh } from "@/hooks/useRefresh";
 import { useComments } from "@/queries/post/comments.query";
 import { useOnePost } from "@/queries/post/one-post.query";
 import type { CommentsData } from "@/schemas/post/comments.schema";
@@ -49,10 +50,12 @@ export default function PostIdPage() {
     }
   };
 
-  const handleRefresh = () => {
-    handleRefreshPost();
-    handleCommentsRefresh();
+  const handleRefresh = async () => {
+    await handleRefreshPost();
+    await handleCommentsRefresh();
   };
+
+  useRefresh(handleRefresh);
 
   return (
     <PageContainer>

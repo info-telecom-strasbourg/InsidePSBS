@@ -3,7 +3,7 @@ import {
   StoreDefaultImageSchema,
   type DefaultImagesData,
 } from "@/schemas/settings/default-images.schema";
-import { postQuery } from "@/utils/post-query";
+import { zodFetchWithToken } from "@/utils/fetch";
 
 export const storeDefaultImage = async ({
   image,
@@ -12,17 +12,10 @@ export const storeDefaultImage = async ({
   image: DefaultImagesData["data"][0];
   token: string | null;
 }) => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/user/avatar/default`;
-  try {
-    const res = await postQuery<StoreDefaultImageData>(
-      url,
-      token,
-      { default_link: image.path, default_name: image.name },
-      StoreDefaultImageSchema
-    );
-
-    return res;
-  } catch (error) {
-    console.error(error);
-  }
+  const url = "api/user/avatar/default";
+  return await zodFetchWithToken<StoreDefaultImageData>(url, token, {
+    data: { default_link: image.path, default_name: image.name },
+    schema: StoreDefaultImageSchema,
+    method: "POST",
+  });
 };

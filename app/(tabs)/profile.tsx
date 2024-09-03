@@ -4,6 +4,7 @@ import { Header } from "@/components/primitives/header";
 import { Post } from "@/features/post/post";
 import { ProfileHeader } from "@/features/profile/profile-header";
 import { useModalRouter } from "@/hooks/useModalRouter";
+import { useRefresh } from "@/hooks/useRefresh";
 import { useMe } from "@/queries/profile/me.query";
 import { useShowUserPosts } from "@/queries/user/user-posts.query";
 import type { PostsData } from "@/schemas/post/post.schema";
@@ -28,9 +29,9 @@ export default function ProfilePage() {
     hasMore,
   } = useShowUserPosts(data?.data.id.toString());
 
-  const handleRefresh = useCallback(() => {
-    handleRefreshUser();
-    handleRefreshPosts();
+  const handleRefresh = useCallback(async () => {
+    await handleRefreshUser();
+    await handleRefreshPosts();
   }, [handleRefreshUser, handleRefreshPosts]);
 
   const items = posts ? posts.flat() : [];
@@ -40,6 +41,8 @@ export default function ProfilePage() {
       setSize(size + 1);
     }
   };
+
+  useRefresh(handleRefresh);
 
   return (
     <PageContainer>

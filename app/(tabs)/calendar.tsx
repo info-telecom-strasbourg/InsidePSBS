@@ -2,6 +2,7 @@ import { PageContainer } from "@/components/primitives/container";
 import { Header } from "@/components/primitives/header";
 import { Typography } from "@/components/primitives/typography";
 import { Event, SkeletonEvent } from "@/features/calendar/event";
+import { useRefresh } from "@/hooks/useRefresh";
 import { useCalendar } from "@/queries/calendar/calendar.query";
 import { capitalize } from "@/utils/capitalize";
 import type { DailyEvents } from "@/utils/daily-events";
@@ -29,6 +30,8 @@ export default function CalendarPage() {
       setSize(size + 1);
     }
   };
+
+  useRefresh(handleRefresh);
   return (
     <PageContainer>
       <Header title="Calendrier" rightIcon="settings" leftIcon="inside-psbs" />
