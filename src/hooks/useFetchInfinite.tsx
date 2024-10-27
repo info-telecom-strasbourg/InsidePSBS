@@ -13,7 +13,7 @@ export const useFetchInfinite = <T,>(
   options?: { initialSize?: number }
 ) => {
   const { data, error, isLoading, mutate, isValidating, size, setSize } =
-    useSWRInfinite(getKey, fetcher, options);
+    useSWRInfinite(getKey, fetcher, { revalidateOnFocus: true, ...options });
   const [isRefreshing, setRefreshing] = useState(false);
 
   const handleRefresh = async () => {

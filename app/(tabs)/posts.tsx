@@ -4,6 +4,7 @@ import { Post, SkeletonPost } from "@/features/post/post";
 import { PostsHeader } from "@/features/post/posts-header";
 import { Search } from "@/features/post/search";
 import { useModalRouter } from "@/hooks/useModalRouter";
+import { useRefresh } from "@/hooks/useRefresh";
 import { useFilters } from "@/queries/post/filters.query";
 import { usePosts } from "@/queries/post/posts.query";
 import type { PostsData } from "@/schemas/post/post.schema";
@@ -36,6 +37,8 @@ export default function PostsPage() {
       setSize(size + 1);
     }
   };
+
+  useRefresh(handleRefresh);
 
   return (
     <PageContainer>

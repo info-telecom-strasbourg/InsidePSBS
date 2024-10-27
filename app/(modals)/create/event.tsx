@@ -16,12 +16,15 @@ import {
 } from "@/schemas/create/event/create-event.schema";
 import { colors } from "@/theme/colors";
 import { useTheme } from "@/theme/theme-context";
+import { FetchError } from "@/utils/fetch";
+import { toastError, toastSuccess } from "@/utils/toast";
 import {
   BottomSheetModalProvider,
   type BottomSheetModal,
 } from "@gorhom/bottom-sheet";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
+import { useRouter } from "expo-router";
 import { Calendar } from "lucide-react-native";
 import { Skeleton } from "moti/skeleton";
 import { useEffect, useRef, useState } from "react";
@@ -53,6 +56,8 @@ export default function CreateEventPage() {
   const [timeStart, setTimeStart] = useState<Date>(today);
   const [timeEnd, setTimeEnd] = useState<Date>(today);
 
+  const router = useRouter();
+
   // AccountPicker
   const [organizationId, setOrganizationId] = useState<number | null>(null);
   const organizationListRef = useRef<BottomSheetModal>(null);
@@ -70,7 +75,7 @@ export default function CreateEventPage() {
   const handleSubmit = async (values: CreateEventData) => {
     setIsPublishing(true);
     try {
-      const res = await storeEvent(
+      await storeEvent(
         values.title,
         values.place,
         organizationId,
@@ -78,13 +83,18 @@ export default function CreateEventPage() {
         `${dateEnd} ${format(timeEnd, "HH:mm")}`,
         token
       );
-      if (!res.ok) {
-        console.log(JSON.stringify(res));
-      }
+
+      toastSuccess("Événement créé avec succès");
+      router.replace({ pathname: "/calendar", params: { refresh: "true" } });
     } catch (error) {
-      console.log(error);
+      if (error instanceof FetchError) {
+        toastError(`Erreur ${error.status} lors de la publication`);
+      } else {
+        toastError("Une erreur est survenue");
+      }
+    } finally {
+      setIsPublishing(false);
     }
-    setIsPublishing(false);
   };
 
   return (

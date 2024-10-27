@@ -15,6 +15,7 @@ import { Skeleton } from "moti/skeleton";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import type { ViewProps } from "react-native";
 import { TouchableOpacity, View } from "react-native";
+
 import { useDeletePost } from "./delete-post.context";
 import { Media } from "./media";
 import { useMediaCarousel } from "./media-carousel.context";
@@ -83,7 +84,7 @@ export const Post = ({
       deleteMyPost();
       updateDeletePost("confirmDelete", false);
     }
-  }, [item, confirmDelete]);
+  }, [item, confirmDelete, postId, token, updateDeletePost]);
 
   const { updateMediaCarousel } = useMediaCarousel();
 
