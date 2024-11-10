@@ -1,29 +1,35 @@
 import { useAuth } from "@/auth/useAuth";
-import { useFetch } from "@/hooks/useFetch";
 import { ItsMeUserSchema } from "@/schemas/profile/me.schema";
+import { FetchError, zodFetchWithToken } from "@/utils/fetch";
+import { toastError } from "@/utils/toast";
+import { z } from "zod";
 
-const fetcher = async (url: string, token: string) => {
-  const res = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  const parsedData = ItsMeUserSchema.safeParse(data);
-  if (!parsedData.success) {
-    parsedData.error.issues.map((issue) => {
-      console.error(`${issue.message} -- ON -- ${issue.path}`);
+const fetcher = async (token: string) => {
+  try {
+    if (!token) throw new Error("Unauthorized");
+    const res = await zodFetchWithToken("api/user/me", token, {
+      method: "GET",
     });
-  }
+    const data = await res.json();
 
-  return parsedData.data;
+    const parsedData = await ItsMeUserSchema.parseAsync(data);
+    return parsedData;
+  } catch (error) {
+    if (error instanceof FetchError) {
+      toastError(error.message);
+    } else if (error instanceof z.ZodError) {
+      error.issues.map((e) => ({ path: e.path, message: e.message }));
+      console.error(error);
+    } else {
+      toastError("Une erreur est survenue");
+    }
+    throw error;
+  }
 };
 
 export const useMe = () => {
-  const url = `${process.env.EXPO_PUBLIC_API_URL}/api/user/me`;
   const { token } = useAuth();
 
-  const res = useFetch(url, (url: string) => fetcher(url, token || ""));
-  return res;
+  //TODO: useQuery here to handle states of the request
+  // return res;
 };
