@@ -3,7 +3,7 @@ export const displayError = async (
   { location }: { location?: string }
 ) => {
   console.error(
-    `Error ${res.status} ${location && `from ${location}`}: ${
+    `Error ${res.status} ${location && `from ${location} `}: ${
       res.statusText || "Unexpected error."
     }`
   );
