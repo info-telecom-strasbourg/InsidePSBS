@@ -2,9 +2,10 @@ import { useAuth } from "@/auth/useAuth";
 import { ItsMeUserSchema } from "@/schemas/profile/me.schema";
 import { FetchError, zodFetchWithToken } from "@/utils/fetch";
 import { toastError } from "@/utils/toast";
+import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
-const fetcher = async (token: string) => {
+const fetcher = async (token: string | null) => {
   try {
     if (!token) throw new Error("Unauthorized");
     const res = await zodFetchWithToken("api/user/me", token, {
@@ -30,6 +31,9 @@ const fetcher = async (token: string) => {
 export const useMe = () => {
   const { token } = useAuth();
 
-  //TODO: useQuery here to handle states of the request
-  // return res;
+  const res = useQuery({
+    queryKey: ["user", "me"],
+    queryFn: () => fetcher(token),
+  });
+  return res;
 };
