@@ -5,7 +5,7 @@ import type { QueryOptions } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
-const fetcher = async (
+const getFetcher = async (
   apiEndpoint: string,
   schema: z.ZodSchema,
   token: string | null,
@@ -25,8 +25,14 @@ const fetcher = async (
     if (error instanceof FetchError) {
       toastError(error.message);
     } else if (error instanceof z.ZodError) {
-      error.issues.map((e) => ({ path: e.path, message: e.message }));
-      console.error(error);
+      const formattedErrors = error.issues.map((e) => ({
+        path: e.path,
+        message: e.message,
+      }));
+      formattedErrors.forEach(({ path, message }) => {
+        // eslint-disable-next-line no-console
+        console.error(`Path : ${path}\nMessage : ${message}\n`);
+      });
     } else {
       toastError("Une erreur est survenue");
     }
@@ -51,7 +57,7 @@ export const useFetch = ({
 
   const res = useQuery({
     queryKey: queryKey,
-    queryFn: () => fetcher(apiEndpoint, schema, token, fetchOptions),
+    queryFn: () => getFetcher(apiEndpoint, schema, token, fetchOptions),
     ...queryOptions,
   });
   return res;

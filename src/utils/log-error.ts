@@ -1,4 +1,4 @@
-export const displayError = async (
+export const logError = async (
   res: Response,
   { location }: { location?: string }
 ) => {

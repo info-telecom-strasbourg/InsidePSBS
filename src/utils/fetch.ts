@@ -1,6 +1,6 @@
 import { validate } from "@/utils/validate";
 import type { ZodSchema } from "zod";
-import { displayError } from "./display-error";
+import { logError } from "./log-error";
 
 export class FetchError extends Error {
   status: number;
@@ -29,14 +29,14 @@ export const zodFetch = async <T>(
     ...init?.headers,
   };
 
-  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/${url}`, {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}${url}`, {
     body,
     ...init,
     headers,
   });
 
   if (!res.ok) {
-    displayError(res, { location: url });
+    logError(res, { location: url });
     throw new FetchError(res);
   }
 
