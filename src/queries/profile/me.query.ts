@@ -3,7 +3,7 @@ import { ItsMeUserSchema } from "@/schemas/profile/me.schema";
 
 export const useMe = () => {
   const res = useFetch({
-    apiEndpoint: "api/user/me",
+    apiEndpoint: "/user/me",
     schema: ItsMeUserSchema,
     queryKey: ["user", "me"],
   });

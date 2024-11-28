@@ -14,6 +14,9 @@ import { RefreshControl, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
   const modalRouter = useModalRouter();
+
+  // Data Fetching
+
   const {
     data,
     isLoading,
