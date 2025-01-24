@@ -5,12 +5,12 @@ import type { QueryOptions } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
-const getFetcher = async (
+const getFetcher = async <T,>(
   apiEndpoint: string,
   schema: z.ZodSchema,
   token: string | null,
   fetchOptions?: RequestInit
-) => {
+): Promise<T> => {
   try {
     if (!token) throw new Error("Unauthorized");
     const res = await zodFetchWithToken(apiEndpoint, token, {
@@ -41,7 +41,7 @@ const getFetcher = async (
   }
 };
 
-export const useFetch = ({
+export const useFetch = <T,>({
   apiEndpoint,
   schema,
   fetchOptions,
@@ -52,13 +52,13 @@ export const useFetch = ({
   schema: z.ZodSchema;
   fetchOptions?: RequestInit;
   queryKey: string[];
-  queryOptions?: QueryOptions;
+  queryOptions?: QueryOptions<T>;
 }) => {
   const { token } = useAuth();
 
-  const res = useQuery({
+  const res = useQuery<T, FetchError | z.ZodError | Error>({
     queryKey: queryKey,
-    queryFn: () => getFetcher(apiEndpoint, schema, token, fetchOptions),
+    queryFn: () => getFetcher<T>(apiEndpoint, schema, token, fetchOptions),
     ...queryOptions,
   });
   return res;
