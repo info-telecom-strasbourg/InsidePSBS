@@ -33,6 +33,7 @@ const getFetcher = async (
         // eslint-disable-next-line no-console
         console.error(`Path : ${path}\nMessage : ${message}\n`);
       });
+      toastError("Erreur d'interprétation de la réponse du serveur - schéma");
     } else {
       toastError("Une erreur est survenue");
     }
