@@ -5,12 +5,12 @@ import type { QueryOptions } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
-const fetcher = async (
+const getFetcher = async <T,>(
   apiEndpoint: string,
   schema: z.ZodSchema,
   token: string | null,
   fetchOptions?: RequestInit
-) => {
+): Promise<T> => {
   try {
     if (!token) throw new Error("Unauthorized");
     const res = await zodFetchWithToken(apiEndpoint, token, {
@@ -25,8 +25,15 @@ const fetcher = async (
     if (error instanceof FetchError) {
       toastError(error.message);
     } else if (error instanceof z.ZodError) {
-      error.issues.map((e) => ({ path: e.path, message: e.message }));
-      console.error(error);
+      const formattedErrors = error.issues.map((e) => ({
+        path: e.path,
+        message: e.message,
+      }));
+      formattedErrors.forEach(({ path, message }) => {
+        // eslint-disable-next-line no-console
+        console.error(`Path : ${path}\nMessage : ${message}\n`);
+      });
+      toastError("Erreur d'interprétation de la réponse du serveur - schéma");
     } else {
       toastError("Une erreur est survenue");
     }
@@ -34,7 +41,7 @@ const fetcher = async (
   }
 };
 
-export const useFetch = ({
+export const useFetch = <T,>({
   apiEndpoint,
   schema,
   fetchOptions,
@@ -45,13 +52,13 @@ export const useFetch = ({
   schema: z.ZodSchema;
   fetchOptions?: RequestInit;
   queryKey: string[];
-  queryOptions?: QueryOptions;
+  queryOptions?: QueryOptions<T>;
 }) => {
   const { token } = useAuth();
 
-  const res = useQuery({
+  const res = useQuery<T, FetchError | z.ZodError | Error>({
     queryKey: queryKey,
-    queryFn: () => fetcher(apiEndpoint, schema, token, fetchOptions),
+    queryFn: () => getFetcher<T>(apiEndpoint, schema, token, fetchOptions),
     ...queryOptions,
   });
   return res;

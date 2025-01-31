@@ -4,22 +4,19 @@ import { Header } from "@/components/primitives/header";
 import { Post } from "@/features/post/post";
 import { ProfileHeader } from "@/features/profile/profile-header";
 import { useModalRouter } from "@/hooks/useModalRouter";
-import { useRefresh } from "@/hooks/useRefresh";
 import { useMe } from "@/queries/profile/me.query";
 import { useShowUserPosts } from "@/queries/user/user-posts.query";
 import type { PostsData } from "@/schemas/post/post.schema";
 import { FlashList } from "@shopify/flash-list";
-import { useCallback } from "react";
 import { RefreshControl, TouchableOpacity, View } from "react-native";
 
 export default function ProfilePage() {
   const modalRouter = useModalRouter();
-  const {
-    data,
-    isLoading,
-    handleRefresh: handleRefreshUser,
-    isRefreshing: isUserRefreshing,
-  } = useMe();
+
+  // Data Fetching
+
+  const { data, isPending, isError, isFetching } = useMe();
+
   const {
     data: posts,
     size,
@@ -29,10 +26,12 @@ export default function ProfilePage() {
     hasMore,
   } = useShowUserPosts(data?.data.id.toString());
 
-  const handleRefresh = useCallback(async () => {
-    await handleRefreshUser();
-    await handleRefreshPosts();
-  }, [handleRefreshUser, handleRefreshPosts]);
+  const handleRefresh = async () => {};
+
+  // const handleRefresh = useCallback(async () => {
+  //   await handleRefreshUser();
+  //   await handleRefreshPosts();
+  // }, [handleRefreshUser, handleRefreshPosts]);
 
   const items = posts ? posts.flat() : [];
 
@@ -42,12 +41,14 @@ export default function ProfilePage() {
     }
   };
 
-  useRefresh(handleRefresh);
+  if (isError) {
+    return null;
+  }
 
   return (
     <PageContainer>
       <Header title="Profil" leftIcon="inside-psbs" rightIcon="settings" />
-      {!data || isLoading ? (
+      {isPending ? (
         <PageLoading />
       ) : (
         <FlashList<PostsData["data"][0] | undefined>
@@ -76,7 +77,7 @@ export default function ProfilePage() {
           estimatedItemSize={100}
           refreshControl={
             <RefreshControl
-              refreshing={arePostsRefreshing || isUserRefreshing}
+              refreshing={arePostsRefreshing || isFetching}
               onRefresh={handleRefresh}
             />
           }
