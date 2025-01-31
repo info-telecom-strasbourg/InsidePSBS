@@ -1,7 +1,5 @@
-import { useAuth } from "@/auth/useAuth";
-import { useFetchInfinite } from "@/hooks/useFetchInfinite";
-import type { PostsData } from "@/schemas/post/post.schema";
-import { postsFetcher } from "../post/posts.query";
+import { useFetch } from "@/hooks/useFetch";
+import { PostsSchema, type PostsData } from "@/schemas/post/post.schema";
 
 const getKey = (
   pageIndex: number,
@@ -14,14 +12,24 @@ const getKey = (
   }`;
 };
 
-export const useShowUserPosts = (id: string | undefined) => {
-  const { token } = useAuth();
+// export const useShowUserPosts = (id: string | undefined) => {
+//   const { token } = useAuth();
 
-  const res = useFetchInfinite<PostsData["data"]>(
-    (pageIndex, previousPageData) => getKey(pageIndex, previousPageData, id),
-    (url) => postsFetcher(url, token || "")
-  );
+//   const res = useFetchInfinite<PostsData["data"]>(
+//     (pageIndex, previousPageData) => getKey(pageIndex, previousPageData, id),
+//     (url) => postsFetcher(url, token || "")
+//   );
 
-  const hasMore = res.data?.[res.data?.length - 1]?.length ?? 0 > 0;
-  return { ...res, hasMore };
+//   const hasMore = res.data?.[res.data?.length - 1]?.length ?? 0 > 0;
+//   return { ...res, hasMore };
+// };
+
+export const useShowUserPosts = (id: string) => {
+  const res = useFetch<PostsData>({
+    apiEndpoint: `/post?user_id=${id}&page=${pageIndex + 1}`,
+    schema: PostsSchema,
+    queryKey: ["user", id, "posts"],
+  });
+
+  return res;
 };
