@@ -16,7 +16,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@10play/tentap-editor": "^0.7.2",
+    "@10play/tentap-editor": "^0.5.33",
     "@expo/vector-icons": "^14.1.0",
     "@gorhom/bottom-sheet": "^4.6.4",
     "@marceloterreiro/flash-calendar": "^1.3.0",
