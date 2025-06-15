@@ -4,13 +4,12 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
+    "dev": "APP_VARIANT=development bun start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web",
-    "test": "jest --watchAll",
-    "lint": "bun eslint .",
-    "build": "expo build"
+    "lint": "expo lint .",
+    "lint:fix": "bun lint --fix",
+    "test": "jest --watchAll"
   },
   "jest": {
     "preset": "jest-expo"
@@ -72,6 +71,7 @@
   "devDependencies": {
     "@babel/core": "^7.27.4",
     "@expo/cli": "^0.18.31",
+    "@expo/ngrok": "^4.1.0",
     "@tanstack/eslint-plugin-query": "^5.78.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.15.31",
