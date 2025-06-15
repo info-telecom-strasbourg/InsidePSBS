@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 11.0.0"
+    "version": ">= 16.10.1"
   },
   "build": {
     "development": {
@@ -11,9 +11,7 @@
       "distribution": "internal"
     },
     "production": {
-      "env": {
-        "EXPO_PUBLIC_API_URL": "https://app-pprd.its-tps.fr"
-      }
+      "autoIncrement": true
     }
   },
   "submit": {

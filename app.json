@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "fr.its.insidepsbs",
+      "bundleIdentifier": "fr.its-tps.insidepsbs",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       },
@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "fr.its.insidepsbs",
+      "package": "fr.its_tps.insidepsbs",
       "versionCode": 61
     },
     "web": {
