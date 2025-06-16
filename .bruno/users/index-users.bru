@@ -1,0 +1,16 @@
+meta {
+  name: Index Users
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{host}}/users
+  body: none
+  auth: inherit
+}
+
+params:query {
+  ~per_page: 10
+  ~search: 
+}

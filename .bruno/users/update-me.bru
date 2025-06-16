@@ -1,0 +1,30 @@
+meta {
+  name: Update Me
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{host}}/user
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "user_name": "",
+    "phone": "",
+    "sector": 4,
+    "promotion_year": ""
+  }
+}
+
+docs {
+  | nom | type | contraintes | obligatoire | description |
+  | --- | --- | --- | --- | --- |
+  | user_name | string | min:3, max:255 | non | Nom d'utilisateur de l'utilisateur |
+  | phone | string | max:255, regex:/^[0-9]{10,}$/ | non | Numéro de téléphone de l'utilisateur |
+  | sector | integer | | non | Identifiant du secteur de l'utilisateur |
+  | promotion_year | string | | non | Année de promotion de l'utilisateur |
+  
+}

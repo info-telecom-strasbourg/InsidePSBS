@@ -1,0 +1,15 @@
+meta {
+  name: Update Avatar
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{host}}/user/avatar
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  ~avatar: @file()
+}
