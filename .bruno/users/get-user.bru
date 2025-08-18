@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: {{host}}/user/1
+  url: {{API_URL}}/user/:id
   body: none
   auth: inherit
+}
+
+params:path {
+  id: 1
 }

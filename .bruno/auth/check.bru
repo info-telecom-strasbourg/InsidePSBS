@@ -1,11 +1,11 @@
 meta {
-  name: MPS
+  name: Check
   type: http
-  seq: 3
+  seq: 5
 }
 
-get {
-  url: {{API_URL}}/mps
+post {
+  url: {{API_URL}}/check
   body: none
   auth: bearer
 }

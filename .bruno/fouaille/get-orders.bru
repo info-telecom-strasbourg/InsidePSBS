@@ -5,12 +5,12 @@ meta {
 }
 
 get {
-  url: {{host}}/fouaille
+  url: {{API_URL}}/fouaille?per_page=5&page=1
   body: none
   auth: inherit
 }
 
 params:query {
-  ~per_page: 10
-  ~page: 1
+  per_page: 5
+  page: 1
 }

@@ -1,0 +1,17 @@
+meta {
+  name: Availability
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{API_URL}}/register/availability?email={{USER_EMAIL}}&user_name={{USERNAME}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  email: {{USER_EMAIL}}
+  user_name: {{USERNAME}}
+  ~phone: 
+}

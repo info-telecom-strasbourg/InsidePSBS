@@ -5,19 +5,19 @@ meta {
 }
 
 post {
-  url: {{host}}/register
+  url: {{API_URL}}/register
   body: json
-  auth: none
+  auth: inherit
 }
 
 body:json {
   {
-    "user_name": "developer",
-    "last_name": "Doe",
-    "first_name": "John",
+    "user_name": "{{USERNAME}}",
+    "last_name": "Turing",
+    "first_name": "Alan",
     "sector": 4,
-    "email": "dev@1234.com",
-    "password": "dev1234",
-    "password_confirmation": "dev1234"
+    "email": "{{USER_EMAIL}}",
+    "password": "{{USER_PASSWORD}}",
+    "password_confirmation": "{{USER_PASSWORD}}"
   }
 }
