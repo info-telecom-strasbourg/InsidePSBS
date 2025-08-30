@@ -22,7 +22,7 @@
         "backgroundColor": "#081425"
       },
       "package": "com.ITS.InsidePSBS",
-      "versionCode": 55,
+      "versionCode": 62,
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
