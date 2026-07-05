@@ -6,11 +6,8 @@
       "@/*": [
         "./src/*"
       ],
-      "assets/*": [
+      "@/assets/*": [
         "./assets/*"
-      ],
-      "@app/*": [
-        "./app/*"
       ]
     }
   },
@@ -18,8 +15,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts",
-    "tailwind.config.js",
-    "nativewind-env.d.ts"
+    "expo-env.d.ts"
   ]
 }
