@@ -1,0 +1,5 @@
+[tools]
+android-sdk = "latest"
+bun = "latest"
+java = "temurin-17"
+node = "lts"
