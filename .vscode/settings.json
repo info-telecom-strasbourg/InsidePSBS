@@ -3,5 +3,17 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
+  },
+
+  "material-icon-theme.folders.associations": {
+    "(auth)": "secure",
+    "(tabs)": "routes",
+    "queries": "public",
+    "create": "docs",
+    "feed": "messages"
+  },
+  "material-icon-theme.files.associations": {
+    "*.query.ts": "search",
+    "*.schema.ts": "container"
   }
 }
