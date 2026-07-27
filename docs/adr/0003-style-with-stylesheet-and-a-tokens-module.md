@@ -10,3 +10,9 @@
 ## Consequences
 
 Porting a Legacy App screen means rewriting its class strings rather than copying them, so each screen costs more than a faithful port would. The tokens module is a foundation, not a screen's incidental output: it lands on the rewrite's base branch before any screen issue starts. Dark mode is expressed once in the tokens rather than as per-screen conditionals.
+
+## Amendment — universal `@expo/ui` only (ADR-0004)
+
+ADR-0004 made web a target, which narrows this decision: shared code may use only the **universal** `@expo/ui` namespace, imported from the package root. Those components delegate to SwiftUI on iOS and Jetpack Compose on Android, and fall back to `react-dom` or `react-native-web` implementations on web. The platform-specific `@expo/ui/swift-ui` and `@expo/ui/jetpack-compose` namespaces do not run on web at all, so reaching for either commits you to writing the `.web.tsx` counterpart as well.
+
+The universal set is not a complete substitute — `Icon` in particular has no web implementation, which is why ADR-0005 does not use it. Treat "is this component universal?" as the first question when building a screen, not something discovered when the web build breaks.
